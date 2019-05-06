@@ -1,4 +1,4 @@
-package ru.iokhin.tm;
+package ru.iokhin.tm.task;
 
 import java.util.ArrayList;
 

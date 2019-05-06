@@ -1,5 +1,8 @@
 package ru.iokhin.tm;
 
+import ru.iokhin.tm.project.Project;
+import ru.iokhin.tm.project.ProjectsCollectionTools;
+
 import java.util.*;
 
 public class Runner {

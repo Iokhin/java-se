@@ -1,4 +1,6 @@
-package ru.iokhin.tm;
+package ru.iokhin.tm.project;
+
+import ru.iokhin.tm.task.TasksCollectionTools;
 
 public class Project {
 
