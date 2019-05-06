@@ -1,11 +1,47 @@
 package ru.iokhin.tm;
 
-import ru.iokhin.tm.project.Project;
-import ru.iokhin.tm.project.ProjectsCollectionTools;
+import ru.iokhin.tm.entity.Project;
+import ru.iokhin.tm.tools.ProjectsCollectionTools;
 
 import java.util.*;
 
 public class Runner {
+
+    private final static String PROJECT_CREATE = "project-create";
+    private final static String PROJECT_LIST = "project-list";
+    private final static String PROJECT_EDIT = "project-edit";
+    private final static String PROJECT_REMOVE = "project-remove";
+    private final static String PROJECT_CLEAR = "project-clear";
+
+    private final static String TASK_MANAGER = "task-manager";
+    private final static String TASK_CREATE = "task-create";
+    private final static String TASK_LIST = "task-list";
+    private final static String TASK_EDIT = "task-edit";
+    private final static String TASK_REMOVE = "task-remove";
+    private final static String TASK_CLEAR = "task-clear";
+
+    private final static String HELP = "help";
+    private final static String EXIT = "exit";
+    private final static String END = "end";
+
+    private static void help() {
+        System.out.println("help: Show all commands.");
+        System.out.println("project-create: Create new project.");
+        System.out.println("project-list: Show all projects.");
+        System.out.println("project-edit: Edit selected project.");
+        System.out.println("project-remove: Remove selected project");
+        System.out.println("project-clear: Remove all projects");
+
+        System.out.println("task-manager: Chose project to manage tasks");
+        System.out.println("task-create: Create new task.");
+        System.out.println("task-list: Show all tasks for chosen project.");
+        System.out.println("task-edit: Edit selected task.");
+        System.out.println("task-remove: Remove selected task");
+        System.out.println("task-clear: Remove all tasks for chosen project");
+        System.out.println("exit: Exit task manager for current project");
+
+        System.out.println("end: End the program");
+    }
 
     public static void main(String[] args) {
         System.out.println("***WELCOME TO TASK MANAGER***");
@@ -13,74 +49,28 @@ public class Runner {
         Scanner scannerInt = new Scanner(System.in);
         String input = "";
         ProjectsCollectionTools projectsCollectionTools = new ProjectsCollectionTools();
-        while (!input.equals("end")) {
+        while (!input.equals(END)) {
             input = scanner.nextLine();
             switch (input) {
-                case "project-create":
-                    System.out.println("[PROJECT CREATE]");
-                    System.out.println("ENTER NAME:");
-                    projectsCollectionTools.addProject(scanner.nextLine());
+                case PROJECT_CREATE:
+                    projectsCollectionTools.addProject();
                     break;
-                case "project-list":
+                case PROJECT_LIST:
                     projectsCollectionTools.listProjects();
                     break;
-                case "project-clear":
+                case PROJECT_CLEAR:
                     projectsCollectionTools.clearProjects();
                     break;
-                case "project-remove":
-                    System.out.println("REMOVE BY INDEX OR BY NAME? ENTER 'INDEX' FOR INDEX AND 'NAME' FOR NAME");
-                    input = scanner.nextLine();
-                    if (input.toLowerCase().equals("name")) {
-                        System.out.println("ENTER THE NAME OF PROJECT");
-                        projectsCollectionTools.removeProject(scanner.nextLine());
-                    } else if (input.toLowerCase().equals("index")) {
-                        System.out.println("ENTER THE INDEX OF PROJECT");
-                        projectsCollectionTools.removeProject(scanner.nextInt());
-                    } else {
-                        System.out.println("WRONG COMMAND");
-                    }
+                case PROJECT_REMOVE:
+                    projectsCollectionTools.removeProject();
                     break;
-                case "project-edit":
-                    System.out.println("EDIT BY INDEX OR BY NAME? ENTER 'INDEX' FOR INDEX AND 'NAME' FOR NAME");
-                    input = scanner.nextLine();
-                    if (input.toLowerCase().equals("name")) {
-                        System.out.println("ENTER THE NAME OF PROJECT");
-                        String in1 = scanner.nextLine();
-                        System.out.println("ENTER A NEW NAME OF THE PROJECT");
-                        String in2 = scanner.nextLine();
-                        projectsCollectionTools.editProject(in1, in2);
-                    } else if (input.toLowerCase().equals("index")) {
-                        System.out.println("ENTER THE INDEX OF PROJECT");
-                        projectsCollectionTools.listProjects();
-                        int in3 = scannerInt.nextInt();
-                        System.out.println("ENTER A NEW NAME OF THE PROJECT");
-                        String in4 = scanner.nextLine();
-                        projectsCollectionTools.editProject(in3, in4);
-                    } else {
-                        System.out.println("WRONG COMMAND");
-                    }
+                case PROJECT_EDIT:
+                    projectsCollectionTools.editProject();
                     break;
-                case "help":
-
-                    System.out.println("help: Show all commands.");
-                    System.out.println("project-create: Create new project.");
-                    System.out.println("project-list: Show all projects.");
-                    System.out.println("project-edit: Edit selected project.");
-                    System.out.println("project-remove: Remove selected project");
-                    System.out.println("project-clear: Remove all projects");
-
-                    System.out.println("task-manager: Chose project to manage tasks");
-                    System.out.println("task-create: Create new task.");
-                    System.out.println("task-list: Show all tasks for chosen project.");
-                    System.out.println("task-edit: Edit selected task.");
-                    System.out.println("task-remove: Remove selected task");
-                    System.out.println("task-clear: Remove all tasks for chosen project");
-                    System.out.println("exit: Exit task manager for current project");
-
-                    System.out.println("end: End the program");
+                case HELP:
+                    Runner.help();
                     break;
-
-                case "task-manager":
+                case TASK_MANAGER:
                     String taskInput = "";
                     Project project = null;
                     System.out.println("CHOSE PROJECT TO MANAGE");
@@ -93,51 +83,22 @@ public class Runner {
                         System.out.println("NO PROJECT WITH SUCH INDEX");
                         break;
                     }
-                    while (!taskInput.equals("exit")) {
+                    while (!taskInput.equals(EXIT)) {
                         taskInput = scanner.nextLine();
                         switch (taskInput) {
-                            case "task-create":
-                                System.out.println("ENTER A NAME OF TASK TO ADD");
-                                String name = scanner.nextLine();
-                                project.tasksCollectionTools.addTask(name);
+                            case TASK_CREATE:
+                                project.tasksCollectionTools.addTask();
                                 break;
-                            case "task-list":
+                            case TASK_LIST:
                                 project.tasksCollectionTools.listTask();
                                 break;
-                            case "task-remove":
-                                System.out.println("REMOVE BY INDEX OR BY NAME? ENTER 'INDEX' FOR INDEX AND 'NAME' FOR NAME");
-                                taskInput = scanner.nextLine();
-                                if (taskInput.toLowerCase().equals("name")) {
-                                    System.out.println("ENTER THE NAME OF TASK");
-                                    project.tasksCollectionTools.removeTask(scanner.nextLine());
-                                } else if (taskInput.toLowerCase().equals("index")) {
-                                    System.out.println("ENTER THE INDEX OF TASK");
-                                    project.tasksCollectionTools.removeTask(scanner.nextInt());
-                                } else {
-                                    System.out.println("WRONG COMMAND");
-                                }
+                            case TASK_REMOVE:
+                                project.tasksCollectionTools.removeTask();
                                 break;
-                            case "task-edit":
-                                System.out.println("EDIT BY INDEX OR BY NAME? ENTER 'INDEX' FOR INDEX AND 'NAME' FOR NAME");
-                                taskInput = scanner.nextLine();
-                                if (taskInput.toLowerCase().equals("name")) {
-                                    System.out.println("ENTER THE NAME OF TASK");
-                                    String in1 = scanner.nextLine();
-                                    System.out.println("ENTER A NEW NAME OF THE TASK");
-                                    String in2 = scanner.nextLine();
-                                    project.tasksCollectionTools.editTask(in1, in2);
-                                } else if (taskInput.toLowerCase().equals("index")) {
-                                    System.out.println("ENTER THE INDEX OF TASK");
-                                    project.tasksCollectionTools.listTask();
-                                    int in3 = scannerInt.nextInt();
-                                    System.out.println("ENTER A NEW NAME OF THE TASK");
-                                    String in4 = scanner.nextLine();
-                                    project.tasksCollectionTools.editTask(in3, in4);
-                                } else {
-                                    System.out.println("WRONG COMMAND");
-                                }
+                            case TASK_EDIT:
+                                project.tasksCollectionTools.editTask();
                                 break;
-                            case "task-clear":
+                            case TASK_CLEAR:
                                 project.tasksCollectionTools.clearTasks();
                                 break;
                         }
