@@ -1,11 +1,14 @@
 package ru.iokhin.tm;
 
+import ru.iokhin.tm.Command.*;
 import ru.iokhin.tm.entity.Project;
 import ru.iokhin.tm.repository.ProjectRepository;
 import ru.iokhin.tm.repository.TaskRepository;
 import ru.iokhin.tm.service.ProjectService;
 import ru.iokhin.tm.service.TaskService;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Bootstrap {
@@ -43,98 +46,58 @@ public class Bootstrap {
         System.out.println("exit: Exit task manager");
     }
 
-    public void init() {
+    private Map<String, AbstractCommand> commandMap = new LinkedHashMap<>(0);
+
+    public ProjectRepository projectRepository = new ProjectRepository();
+    public TaskRepository taskRepository = new TaskRepository();
+    public ProjectService ps = new ProjectService(projectRepository);
+    public TaskService ts = new TaskService(taskRepository);
+
+    void init() {
+
+        Bootstrap bootstrap = new Bootstrap();
+
+        AbstractCommand projectCreateCommand = new ProjectCreateCommand(bootstrap);
+        AbstractCommand projectListCommand = new ProjectListCommand(bootstrap);
+        AbstractCommand projectRemoveCommand = new ProjectRemoveCommand(bootstrap);
+        AbstractCommand projectRemoveAllCommand = new ProjectRemoveAllCommand(bootstrap);
+        AbstractCommand projectEditCommand = new ProjectEditCommand(bootstrap);
+
+        AbstractCommand taskCreateCommand = new TaskCreateCommand(bootstrap);
+        AbstractCommand taskListCommand = new TaskListCommand(bootstrap);
+        AbstractCommand taskRemoveCommand = new TaskRemoveCommand(bootstrap);
+        AbstractCommand taskRemoveAllCommand = new TaskRemoveAllCommand(bootstrap);
+        AbstractCommand taskEditCommand = new TaskEditCommand(bootstrap);
+
+        AbstractCommand help = new HelpCommand(bootstrap);
+        AbstractCommand exit = new ExitCommand(bootstrap);
+
+        bootstrap.commandMap.put(projectCreateCommand.getName(), projectCreateCommand);
+        bootstrap.commandMap.put(projectListCommand.getName(), projectListCommand);
+        bootstrap.commandMap.put(projectRemoveCommand.getName(), projectRemoveCommand);
+        bootstrap.commandMap.put(projectRemoveAllCommand.getName(), projectRemoveAllCommand);
+        bootstrap.commandMap.put(projectEditCommand.getName(), projectEditCommand);
+
+        bootstrap.commandMap.put(taskCreateCommand.getName(), taskCreateCommand);
+        bootstrap.commandMap.put(taskListCommand.getName(), taskListCommand);
+        bootstrap.commandMap.put(taskRemoveCommand.getName(), taskRemoveCommand);
+        bootstrap.commandMap.put(taskRemoveAllCommand.getName(), taskRemoveAllCommand);
+        bootstrap.commandMap.put(taskEditCommand.getName(), taskEditCommand);
+
+        bootstrap.commandMap.put(help.getName(), help);
+        bootstrap.commandMap.put(exit.getName(), exit);
+
         System.out.println("***WELCOME TO TASK MANAGER***");
         Scanner scanner = new Scanner(System.in);
         String input = "";
-        ProjectRepository projectRepository = new ProjectRepository();
-        TaskRepository taskRepository = new TaskRepository();
-        ProjectService ps = new ProjectService(projectRepository);
-        TaskService ts = new TaskService(taskRepository);
-        while (!input.equals(EXIT)) {
+        while (!input.equals(bootstrap.commandMap.get("exit").getName())) {
             input = scanner.nextLine();
-            label:
-            switch (input) {
-                case PROJECT_CREATE:
-                    System.out.println("ENTER NAME OF PROJECT TO CREATE");
-                    String name = scanner.nextLine();
-                    ps.addProject(name);
-                    System.out.println("OK");
-                    break;
-                case PROJECT_LIST:
-                    System.out.println("PROJECTS LIST:");
-                    ps.listProject();
-                    break;
-                case PROJECT_CLEAR:
-                    ps.clearProject();
-                    System.out.println("OK");
-                    break;
-                case PROJECT_REMOVE:
-                    System.out.println("ENTER ID OF PROJECT TO REMOVE");
-                    String idRemove = scanner.nextLine();
-                    ps.removeProject(idRemove);
-                    System.out.println("OK");
-                    break;
-                case PROJECT_EDIT:
-                    System.out.println("ENTER ID OF PROJECT TO EDIT");
-                    String idEdit = scanner.nextLine();
-                    System.out.println("ENTER NEW NAME OF PROJECT TO EDIT");
-                    String newName = scanner.nextLine();
-                    ps.editProject(idEdit, newName);
-                    System.out.println("OK");
-                    break;
-                case TASK_CREATE:
-                    System.out.println("ENTER ID OF PROJECT TO CREATE TASK");
-                    System.out.println("PROJECTS LIST:");
-                    ps.listProject();
-                    String projectId = scanner.nextLine();
-                    for (Project project : projectRepository.projectLinkedHashMap.values()) {
-                        if (project.getId().equals(projectId)) {
-                            System.out.println("ENTER NAME OF TASK TO CREATE");
-                            String taskName = scanner.nextLine();
-                            ts.addTask(projectId, taskName);
-                            System.out.println("OK");
-                            break label;
-                        }
-                    }
-                    System.out.println("NO SUCH PROJECT ID");
-                    break;
-                case TASK_LIST:
-                    System.out.println("ENTER ID OF PROJECT TO LIST TASKS");
-                    String projectIdTaskList = scanner.nextLine();
-                    System.out.println("TASKS LIST:");
-                    ts.listTask(projectIdTaskList);
-                    break;
-                case TASK_REMOVE:
-                    System.out.println("ENTER ID OF PROJECT TO REMOVE TASK");
-                    String projectIdTaskRemove = scanner.nextLine();
-                    ts.listTask(projectIdTaskRemove);
-                    System.out.println("ENTER ID OF TASk TO REMOVE");
-                    String taskIdRemove = scanner.nextLine();
-                    ts.removeTask(taskIdRemove);
-                    System.out.println("OK");
-                    break;
-                case TASK_EDIT:
-                    System.out.println("ENTER ID OF PROJECT TO EDIT TASK");
-                    String projectIdTaskEdit = scanner.nextLine();
-                    ts.listTask(projectIdTaskEdit);
-                    System.out.println("ENTER ID OF TASK TO EDIT");
-                    String taskIdEdit = scanner.nextLine();
-                    System.out.println("ENTER NEW NAME OF TASK TO EDIT");
-                    String newTaskName = scanner.nextLine();
-                    ts.editTask(taskIdEdit, newTaskName);
-                    System.out.println("OK");
-                    break;
-                case TASK_CLEAR:
-                    System.out.println("ENTER ID OF PROJECT TO CLEAR TASKS");
-                    String projectIdTaskClear = scanner.nextLine();
-                    ts.clearTask(projectIdTaskClear);
-                    System.out.println("OK");
-                    break;
-                case HELP:
-                    Bootstrap.help();
-                    break;
+            for (Map.Entry<String, AbstractCommand> entry : bootstrap.commandMap.entrySet()) {
+                if (input.equals(entry.getKey())) {
+                    entry.getValue().execute();
+                }
             }
+
         }
     }
 }

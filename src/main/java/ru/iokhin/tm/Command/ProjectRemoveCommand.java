@@ -1,0 +1,41 @@
+package ru.iokhin.tm.Command;
+
+import ru.iokhin.tm.Bootstrap;
+
+import java.util.Scanner;
+
+public class ProjectRemoveCommand extends AbstractCommand {
+
+    private static final String name = "project-remove";
+    private static final String description = "project-remove: Remove selected project";
+
+    Bootstrap bootstrap;
+    private Scanner scanner = new Scanner(System.in);
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
+    public void execute() {
+        System.out.println("ENTER ID OF PROJECT TO REMOVE");
+        String idRemove = scanner.nextLine();
+        projectRemoveCommand(idRemove);
+        System.out.println("OK");
+    }
+
+    private void projectRemoveCommand(String id) {
+        bootstrap.ps.removeProject(id);
+    }
+
+    public ProjectRemoveCommand(Bootstrap bootstrap) {
+        super(bootstrap);
+    }
+
+}

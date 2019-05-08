@@ -1,0 +1,30 @@
+package ru.iokhin.tm.Command;
+
+import ru.iokhin.tm.Bootstrap;
+
+public class ExitCommand extends AbstractCommand {
+
+    private static final String name = "exit";
+    private static final String description = "exit: Exit task manager.";
+
+    Bootstrap bootstrap;
+
+    public ExitCommand(Bootstrap bootstrap) {
+        super(bootstrap);
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
+    public void execute() {
+        System.exit(0);
+    }
+}
