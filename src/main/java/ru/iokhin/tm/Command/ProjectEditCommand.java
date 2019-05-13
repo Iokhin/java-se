@@ -9,7 +9,6 @@ public class ProjectEditCommand extends AbstractCommand {
     private static final String name = "project-edit";
     private static final String description = "project-edit: Edit selected project.";
 
-    Bootstrap bootstrap;
     private Scanner scanner = new Scanner(System.in);
 
     @Override

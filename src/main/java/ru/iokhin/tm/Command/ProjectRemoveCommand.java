@@ -9,7 +9,6 @@ public class ProjectRemoveCommand extends AbstractCommand {
     private static final String name = "project-remove";
     private static final String description = "project-remove: Remove selected project";
 
-    Bootstrap bootstrap;
     private Scanner scanner = new Scanner(System.in);
 
     @Override

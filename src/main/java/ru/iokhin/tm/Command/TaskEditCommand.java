@@ -9,7 +9,6 @@ public class TaskEditCommand extends AbstractCommand {
     private static final String name = "task-edit";
     private static final String description = "task-edit: Edit selected task.";
 
-    Bootstrap bootstrap;
     private Scanner scanner = new Scanner(System.in);
 
     @Override

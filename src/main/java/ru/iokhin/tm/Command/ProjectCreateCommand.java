@@ -9,7 +9,6 @@ public class ProjectCreateCommand extends AbstractCommand {
     private static final String name = "project-create";
     private static final String description = "project-create: Create new project.";
 
-    Bootstrap bootstrap;
     private Scanner scanner = new Scanner(System.in);
 
     @Override
@@ -33,6 +32,7 @@ public class ProjectCreateCommand extends AbstractCommand {
     private void projectCreateCommand(String name) {
         bootstrap.ps.addProject(name);
     }
+
 
     public ProjectCreateCommand(Bootstrap bootstrap) {
         super(bootstrap);

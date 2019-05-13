@@ -5,7 +5,7 @@ import ru.iokhin.tm.repository.TaskRepository;
 
 public class TaskService {
 
-    TaskRepository tr;
+    private TaskRepository tr;
 
     public void addTask(String projectId, String name) {
         if (projectId != null && !projectId.trim().isEmpty() &&  name != null && !name.trim().isEmpty()) {
@@ -48,7 +48,7 @@ public class TaskService {
         if (id != null && !id.trim().isEmpty() && newName != null && !newName.trim().isEmpty()) {
             for (Task task : tr.taskLinkedHashMap.values()) {
                 if (task.getId().equals(id)) {
-                    Task newTask = new Task(task.getId(), newName);
+                    Task newTask = new Task(task.getProjectId(), newName, task.getId());
                     tr.mergeTaskRepositoryItem(newTask);
                     return;
                 }

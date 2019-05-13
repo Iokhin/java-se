@@ -7,8 +7,6 @@ public class HelpCommand extends AbstractCommand {
     private static final String name = "help";
     private static final String description = "help: Show all commands.";
 
-    Bootstrap bootstrap;
-
     public HelpCommand(Bootstrap bootstrap) {
         super(bootstrap);
     }

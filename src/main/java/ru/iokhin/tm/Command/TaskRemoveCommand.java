@@ -9,7 +9,6 @@ public class TaskRemoveCommand extends AbstractCommand {
     private static final String name = "task-remove";
     private static final String description = "task-remove: Remove selected task";
 
-    Bootstrap bootstrap;
     private Scanner scanner = new Scanner(System.in);
 
     public TaskRemoveCommand(Bootstrap bootstrap) {

@@ -9,7 +9,6 @@ public class TaskRemoveAllCommand extends AbstractCommand {
     private static final String name = "task-clear";
     private static final String description = "task-clear: Remove all tasks for chosen project";
 
-    Bootstrap bootstrap;
     private Scanner scanner = new Scanner(System.in);
 
     public TaskRemoveAllCommand(Bootstrap bootstrap) {

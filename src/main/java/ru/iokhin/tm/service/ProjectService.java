@@ -5,7 +5,7 @@ import ru.iokhin.tm.repository.ProjectRepository;
 
 public class ProjectService {
 
-    ProjectRepository pr;
+    private ProjectRepository pr;
 
     public void addProject(String name) {
         if (name != null && !name.trim().isEmpty()) {
@@ -43,11 +43,12 @@ public class ProjectService {
         if (id != null && !id.trim().isEmpty() && newName != null && !newName.trim().isEmpty()) {
             for (Project project : pr.projectLinkedHashMap.values()) {
                 if (project.getId().equals(id)) {
-                    Project newProject = new Project(project.getId(), newName);
+                    Project newProject = new Project(newName, project.getId());
                     pr.mergeProjectRepositoryItem(newProject);
                     return;
                 }
             }
+            System.out.println("NO PROJECT WITH SUCH ID");
         }
         else {
             System.out.println("Illegal name");

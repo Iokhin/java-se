@@ -7,8 +7,6 @@ public class ProjectRemoveAllCommand extends AbstractCommand{
     private static final String name = "project-clear";
     private static final String description = "project-clear: Remove all projects";
 
-    Bootstrap bootstrap;
-
     @Override
     public String getName() {
         return name;

@@ -7,8 +7,6 @@ public class ProjectListCommand extends AbstractCommand {
     private static final String name = "project-list";
     private static final String description = "project-list: Show all projects.";
 
-    Bootstrap bootstrap;
-
     @Override
     public String getName() {
         return name;

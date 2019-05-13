@@ -7,8 +7,6 @@ public class ExitCommand extends AbstractCommand {
     private static final String name = "exit";
     private static final String description = "exit: Exit task manager.";
 
-    Bootstrap bootstrap;
-
     public ExitCommand(Bootstrap bootstrap) {
         super(bootstrap);
     }

@@ -1,7 +1,6 @@
 package ru.iokhin.tm;
 
 import ru.iokhin.tm.Command.*;
-import ru.iokhin.tm.entity.Project;
 import ru.iokhin.tm.repository.ProjectRepository;
 import ru.iokhin.tm.repository.TaskRepository;
 import ru.iokhin.tm.service.ProjectService;
@@ -13,39 +12,6 @@ import java.util.Scanner;
 
 public class Bootstrap {
 
-    private final static String PROJECT_CREATE = "project-create";
-    private final static String PROJECT_LIST = "project-list";
-    private final static String PROJECT_EDIT = "project-edit";
-    private final static String PROJECT_REMOVE = "project-remove";
-    private final static String PROJECT_CLEAR = "project-clear";
-
-    private final static String TASK_CREATE = "task-create";
-    private final static String TASK_LIST = "task-list";
-    private final static String TASK_EDIT = "task-edit";
-    private final static String TASK_REMOVE = "task-remove";
-    private final static String TASK_CLEAR = "task-clear";
-
-    private final static String HELP = "help";
-    private final static String EXIT = "exit";
-
-    private static void help() {
-        System.out.println("help: Show all commands.");
-
-        System.out.println("project-create: Create new project.");
-        System.out.println("project-list: Show all projects.");
-        System.out.println("project-edit: Edit selected project.");
-        System.out.println("project-remove: Remove selected project");
-        System.out.println("project-clear: Remove all projects");
-
-        System.out.println("task-create: Create new task.");
-        System.out.println("task-list: Show all tasks for chosen project.");
-        System.out.println("task-edit: Edit selected task.");
-        System.out.println("task-remove: Remove selected task");
-        System.out.println("task-clear: Remove all tasks for chosen project");
-
-        System.out.println("exit: Exit task manager");
-    }
-
     private Map<String, AbstractCommand> commandMap = new LinkedHashMap<>(0);
 
     public ProjectRepository projectRepository = new ProjectRepository();
@@ -53,7 +19,7 @@ public class Bootstrap {
     public ProjectService ps = new ProjectService(projectRepository);
     public TaskService ts = new TaskService(taskRepository);
 
-    void init() {
+    static void init() {
 
         Bootstrap bootstrap = new Bootstrap();
 

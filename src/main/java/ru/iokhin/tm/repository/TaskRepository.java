@@ -17,7 +17,7 @@ public class TaskRepository {
     }
 
     public void mergeTaskRepositoryItem(Task task) {
-        taskLinkedHashMap.merge(task.getId(), task, (oldVal, newVal) -> newVal);
+        taskLinkedHashMap.merge(task.getId(), task, (oldVal, newVal) -> new Task(oldVal.getProjectId(), newVal.getName(), oldVal.getId()));
     }
 
     public void removeTaskRepositoryItem(String id) {
