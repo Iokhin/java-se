@@ -11,19 +11,26 @@ public class Project {
     private String description;
     private Date startDate;
     private Date endDate;
+    private String userId;
 
 
-    public Project(String name) {
+    public Project(String name, String userId) {
         if (name != null && !name.trim().isEmpty()) {
             this.name = name;
             this.id = UUID.randomUUID().toString();
+            this.userId = userId;
         }
         else System.out.println("Illegal argument");
     }
 
-    public  Project(String name, String id) {
+    public Project(String name, String id, String userId) {
         this.name = name;
         this.id = id;
+        this.userId = userId;
+    }
+
+    public String getUserId() {
+        return userId;
     }
 
     public String getName() {

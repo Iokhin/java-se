@@ -41,6 +41,13 @@ public class HelpCommand extends AbstractCommand {
         System.out.println("task-remove: Remove selected task");
         System.out.println("task-clear: Remove all tasks for chosen project");
 
+        System.out.println("user-login: Authorize user");
+        System.out.println("user-logout: Log out current user");
+        System.out.println("user-registration: Register a new user");
+        System.out.println("user-list: List all users");
+        System.out.println("user-edit: Edit the current user's profile");
+        System.out.println("user-pass-change: Change the current user's password");
+
         System.out.println("exit: Exit task manager");
     }
 }

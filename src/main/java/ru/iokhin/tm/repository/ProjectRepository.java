@@ -1,6 +1,7 @@
 package ru.iokhin.tm.repository;
 
 import ru.iokhin.tm.entity.Project;
+import ru.iokhin.tm.entity.User;
 
 import java.util.*;
 
@@ -37,10 +38,10 @@ public class ProjectRepository {
        }
     }
 
-    public void findAllProjectRepositoryItem(String name) {
+    public void findAllProjectRepositoryItem(String name, String userId) {
        int i = 0;
        for (Project project : projectLinkedHashMap.values()) {
-           if (project.getName().contains(name)) {
+           if (project.getName().contains(name) && project.getUserId().equals(userId)) {
                System.out.println(++i + ". " + project.toString());
            }
        }

@@ -1,15 +1,16 @@
 package ru.iokhin.tm.service;
 
 import ru.iokhin.tm.entity.Project;
+import ru.iokhin.tm.entity.User;
 import ru.iokhin.tm.repository.ProjectRepository;
 
 public class ProjectService {
 
     private ProjectRepository pr;
 
-    public void addProject(String name) {
+    public void addProject(String name, User user) {
         if (name != null && !name.trim().isEmpty()) {
-            pr.persistProjectRepositoryItem(new Project(name));
+            pr.persistProjectRepositoryItem(new Project(name, user.getUserId()));
         }
         else {
             System.out.println("Illegal name");
@@ -17,8 +18,8 @@ public class ProjectService {
 
     }
 
-    public void listProject() {
-        pr.findAllProjectRepositoryItem("");
+    public void listProject(String userId) {
+        pr.findAllProjectRepositoryItem("", userId);
     }
 
     public void removeProject(String id) {

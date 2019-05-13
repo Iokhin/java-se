@@ -1,6 +1,7 @@
 package ru.iokhin.tm.Command;
 
 import ru.iokhin.tm.Bootstrap;
+import ru.iokhin.tm.entity.User;
 
 import java.util.Scanner;
 
@@ -30,7 +31,7 @@ public class ProjectCreateCommand extends AbstractCommand {
     }
 
     private void projectCreateCommand(String name) {
-        bootstrap.ps.addProject(name);
+        bootstrap.ps.addProject(name, bootstrap.getCurrentUser());
     }
 
 
