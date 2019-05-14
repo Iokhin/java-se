@@ -13,7 +13,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-public class Bootstrap {
+public class Bootstrap implements ServiceLocator {
 
     private Map<String, AbstractCommand> commandMap = new LinkedHashMap<>(0);
 
@@ -101,5 +101,20 @@ public class Bootstrap {
             }
 
         }
+    }
+
+    @Override
+    public UserService getUserService() {
+        return us;
+    }
+
+    @Override
+    public ProjectService getProjectService() {
+        return ps;
+    }
+
+    @Override
+    public TaskService getTaskService() {
+        return ts;
     }
 }

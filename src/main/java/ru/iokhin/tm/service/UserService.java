@@ -13,22 +13,22 @@ public class UserService {
     }
 
     public void createUser(RoleType roleType, String login, String password) {
-        ur.persistUserRepositoryItem(new User(roleType, login, password));
+        ur.add(new User(roleType, login, password));
     }
 
     public void listUser() {
-        ur.findAllUserRepositoryItem("");
+        ur.list();
     }
 
     public void clearUser() {
-        ur.userMap.clear();
+        ur.clear();
     }
 
     public void editUser(RoleType roleType ,String userId, String newLogin, String newPasswordHash) {
         for (User user : ur.userMap.values()) {
             if (user.getUserId().equals(userId)) {
                 User newUser = new User(roleType, newLogin, newPasswordHash);
-                ur.mergeUserRepositoryItem(newUser);
+                ur.merge(newUser);
                 return;
             }
         }
@@ -37,7 +37,7 @@ public class UserService {
     public void  removeUser(String userId) {
         for (User user : ur.userMap.values()) {
             if (user.getUserId().equals(userId)) {
-                ur.removeUserRepositoryItem(userId);
+                ur.delete(userId);
                 return;
             }
         }

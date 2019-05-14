@@ -29,10 +29,10 @@ public class TaskRemoveCommand extends AbstractCommand {
     public void execute() {
         System.out.println("ENTER ID OF PROJECT TO REMOVE TASK");
         String projectIdTaskRemove = scanner.nextLine();
-        bootstrap.ts.listTask(projectIdTaskRemove);
+        bootstrap.getTaskService().listTask(projectIdTaskRemove);
         System.out.println("ENTER ID OF TASk TO REMOVE");
         String taskIdRemove = scanner.nextLine();
-        bootstrap.ts.removeTask(taskIdRemove);
+        bootstrap.getTaskService().removeTask(taskIdRemove);
         System.out.println("OK");
     }
 }

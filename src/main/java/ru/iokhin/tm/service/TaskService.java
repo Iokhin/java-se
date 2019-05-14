@@ -9,14 +9,14 @@ public class TaskService {
 
     public void addTask(String projectId, String name) {
         if (projectId != null && !projectId.trim().isEmpty() &&  name != null && !name.trim().isEmpty()) {
-            tr.persistTaskRepositoryItem(new Task(projectId, name));
+            tr.add(new Task(projectId, name));
         }
         else System.out.println("Illegal argument");
     }
 
     public void listTask(String projectId ) {
         if (projectId != null && !projectId.trim().isEmpty()) {
-            tr.findAllTaskRepositoryItem(projectId);
+            tr.list(projectId);
         }
         else System.out.println("Illegal argument");
     }
@@ -25,7 +25,7 @@ public class TaskService {
         if (id != null && !id.trim().isEmpty()) {
             for (Task task : tr.taskLinkedHashMap.values()) {
                 if (task.getId().equals(id)) {
-                    tr.removeTaskRepositoryItem(task.getId());
+                    tr.delete(task.getId());
                     return;
                 }
             }
@@ -37,7 +37,7 @@ public class TaskService {
         if (projectId != null && !projectId.trim().isEmpty()) {
             for (Task task : tr.taskLinkedHashMap.values()) {
                 if (task.getProjectId().equals(projectId)) {
-                    tr.removeTaskRepositoryItem(task.getId());
+                    tr.delete(task.getId());
                 }
             }
         }
@@ -49,7 +49,7 @@ public class TaskService {
             for (Task task : tr.taskLinkedHashMap.values()) {
                 if (task.getId().equals(id)) {
                     Task newTask = new Task(task.getProjectId(), newName, task.getId());
-                    tr.mergeTaskRepositoryItem(newTask);
+                    tr.merge(newTask);
                     return;
                 }
             }

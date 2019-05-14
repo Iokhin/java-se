@@ -30,7 +30,7 @@ public class ProjectRemoveCommand extends AbstractCommand {
     }
 
     private void projectRemoveCommand(String id) {
-        bootstrap.ps.removeProject(id);
+        bootstrap.getProjectService().removeProject(id);
     }
 
     public ProjectRemoveCommand(Bootstrap bootstrap) {

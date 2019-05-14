@@ -40,7 +40,7 @@ public class UserRegistrationCommand extends AbstractCommand {
         }
         System.out.println("ENTER NEW USER'S PASSWORD");
         String password = scanner.nextLine();
-        bootstrap.us.createUser(RoleType.USER, login, password);
+        bootstrap.getUserService().createUser(RoleType.USER, login, password);
         System.out.println("SUCCESS");
     }
 }

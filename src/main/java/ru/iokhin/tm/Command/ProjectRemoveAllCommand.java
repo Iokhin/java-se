@@ -24,7 +24,7 @@ public class ProjectRemoveAllCommand extends AbstractCommand{
     }
 
     private void projectRemoveAllCommand() {
-        bootstrap.ps.clearProject();
+        bootstrap.getProjectService().clearProject();
     }
 
     public ProjectRemoveAllCommand(Bootstrap bootstrap) {

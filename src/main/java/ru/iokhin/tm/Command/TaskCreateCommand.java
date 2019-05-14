@@ -30,13 +30,13 @@ public class TaskCreateCommand extends AbstractCommand {
     public void execute() {
         System.out.println("ENTER ID OF PROJECT TO CREATE TASK");
         System.out.println("PROJECTS LIST:");
-        bootstrap.ps.listProject(bootstrap.getCurrentUser().getUserId());
+        bootstrap.getProjectService().listProject(bootstrap.getCurrentUser().getUserId());
         String projectId = scanner.nextLine();
         for (Project project : bootstrap.projectRepository.projectLinkedHashMap.values()) {
             if (project.getId().equals(projectId)) {
                 System.out.println("ENTER NAME OF TASK TO CREATE");
                 String taskName = scanner.nextLine();
-                bootstrap.ts.addTask(projectId, taskName);
+                bootstrap.getTaskService().addTask(projectId, taskName);
                 System.out.println("OK");
                 return;
             }

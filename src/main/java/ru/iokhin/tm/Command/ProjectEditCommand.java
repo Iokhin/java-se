@@ -32,7 +32,7 @@ public class ProjectEditCommand extends AbstractCommand {
     }
 
     private void projectEditCommand(String id, String newName) {
-        bootstrap.ps.editProject(id, newName);
+        bootstrap.getProjectService().editProject(id, newName);
     }
 
     public ProjectEditCommand(Bootstrap bootstrap) {

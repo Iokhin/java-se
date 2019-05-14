@@ -30,6 +30,6 @@ public class TaskListCommand extends AbstractCommand {
         System.out.println("ENTER ID OF PROJECT TO LIST TASKS");
         String projectIdTaskList = scanner.nextLine();
         System.out.println("TASKS LIST:");
-        bootstrap.ts.listTask(projectIdTaskList);
+        bootstrap.getTaskService().listTask(projectIdTaskList);
     }
 }

@@ -24,7 +24,7 @@ public class ProjectListCommand extends AbstractCommand {
     }
 
     private void projectListCommand() {
-        bootstrap.ps.listProject(bootstrap.getCurrentUser().getUserId());
+        bootstrap.getProjectService().listProject(bootstrap.getCurrentUser().getUserId());
     }
 
     public ProjectListCommand(Bootstrap bootstrap) {

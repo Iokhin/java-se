@@ -25,12 +25,12 @@ public class TaskEditCommand extends AbstractCommand {
     public void execute() {
         System.out.println("ENTER ID OF PROJECT TO EDIT TASK");
         String projectIdTaskEdit = scanner.nextLine();
-        bootstrap.ts.listTask(projectIdTaskEdit);
+        bootstrap.getTaskService().listTask(projectIdTaskEdit);
         System.out.println("ENTER ID OF TASK TO EDIT");
         String taskIdEdit = scanner.nextLine();
         System.out.println("ENTER NEW NAME OF TASK TO EDIT");
         String newTaskName = scanner.nextLine();
-        bootstrap.ts.editTask(taskIdEdit, newTaskName);
+        bootstrap.getTaskService().editTask(taskIdEdit, newTaskName);
         System.out.println("OK");
     }
 

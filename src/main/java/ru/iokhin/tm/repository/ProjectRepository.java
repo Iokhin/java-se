@@ -1,49 +1,40 @@
 package ru.iokhin.tm.repository;
 
 import ru.iokhin.tm.entity.Project;
-import ru.iokhin.tm.entity.User;
 
 import java.util.*;
 
-public class ProjectRepository {
+public class ProjectRepository implements ProjectRepositoryInterface {
 
     public Map<String ,Project> projectLinkedHashMap = new LinkedHashMap<>(0);
 
-    public Project getProjectRepositoryItem(String id) {
-        return projectLinkedHashMap.get(id);
-    }
-
-    public void  persistProjectRepositoryItem(Project project) {
+    @Override
+    public void add(Project project) {
         projectLinkedHashMap.put(project.getId(), project);
     }
 
-    public void mergeProjectRepositoryItem(Project project) {
+    @Override
+    public void list(String userId) {
+        int i = 0;
+        for (Project project : projectLinkedHashMap.values()) {
+            if (project.getUserId().equals(userId)) {
+                System.out.println(++i + ". " + project.toString());
+            }
+        }
+    }
+
+    @Override
+    public void merge(Project project) {
         projectLinkedHashMap.merge(project.getId(), project, (oldVal, newVal) ->  new Project(newVal.getName(), oldVal.getId()));
     }
 
-    public void removeProjectRepositoryItem(String id) {
+    @Override
+    public void delete(String id) {
         projectLinkedHashMap.remove(id);
     }
 
-    public void removeAllProjectRepositoryItem() {
+    @Override
+    public void clear() {
         projectLinkedHashMap.clear();
-    }
-
-    public void findOneProjectRepositoryItem(String name) {
-       for (Project project : projectLinkedHashMap.values()) {
-           if (project.getName().contains(name)) {
-               System.out.println(project.toString());
-               return;
-           }
-       }
-    }
-
-    public void findAllProjectRepositoryItem(String name, String userId) {
-       int i = 0;
-       for (Project project : projectLinkedHashMap.values()) {
-           if (project.getName().contains(name) && project.getUserId().equals(userId)) {
-               System.out.println(++i + ". " + project.toString());
-           }
-       }
     }
 }

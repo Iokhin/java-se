@@ -31,7 +31,7 @@ public class ProjectCreateCommand extends AbstractCommand {
     }
 
     private void projectCreateCommand(String name) {
-        bootstrap.ps.addProject(name, bootstrap.getCurrentUser());
+        bootstrap.getProjectService().addProject(name, bootstrap.getCurrentUser());
     }
 
 

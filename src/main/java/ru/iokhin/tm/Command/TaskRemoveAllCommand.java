@@ -29,7 +29,7 @@ public class TaskRemoveAllCommand extends AbstractCommand {
     public void execute() {
         System.out.println("ENTER ID OF PROJECT TO CLEAR TASKS");
         String projectIdTaskClear = scanner.nextLine();
-        bootstrap.ts.clearTask(projectIdTaskClear);
+        bootstrap.getTaskService().clearTask(projectIdTaskClear);
         System.out.println("OK");
     }
 }

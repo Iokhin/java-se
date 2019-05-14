@@ -4,29 +4,35 @@ import ru.iokhin.tm.entity.Project;
 import ru.iokhin.tm.entity.User;
 import ru.iokhin.tm.repository.ProjectRepository;
 
-public class ProjectService {
+public class ProjectService implements ProjectServiceInterface {
 
     private ProjectRepository pr;
 
+    public ProjectService(ProjectRepository pr) {
+        this.pr = pr;
+    }
+
+    @Override
     public void addProject(String name, User user) {
         if (name != null && !name.trim().isEmpty()) {
-            pr.persistProjectRepositoryItem(new Project(name, user.getUserId()));
+            pr.add(new Project(name, user.getUserId()));
         }
         else {
             System.out.println("Illegal name");
         }
-
     }
 
+    @Override
     public void listProject(String userId) {
-        pr.findAllProjectRepositoryItem("", userId);
+        pr.list(userId);
     }
 
+    @Override
     public void removeProject(String id) {
         if (id != null && !id.trim().isEmpty()) {
             for (Project project : pr.projectLinkedHashMap.values()) {
                 if (project.getId().equals(id)) {
-                    pr.removeProjectRepositoryItem(id);
+                    pr.delete(id);
                     return;
                 }
             }
@@ -36,16 +42,18 @@ public class ProjectService {
         }
     }
 
+    @Override
     public void clearProject() {
-        pr.removeAllProjectRepositoryItem();
+        pr.clear();
     }
 
+    @Override
     public void editProject(String id, String newName) {
         if (id != null && !id.trim().isEmpty() && newName != null && !newName.trim().isEmpty()) {
             for (Project project : pr.projectLinkedHashMap.values()) {
                 if (project.getId().equals(id)) {
                     Project newProject = new Project(newName, project.getId());
-                    pr.mergeProjectRepositoryItem(newProject);
+                    pr.merge(newProject);
                     return;
                 }
             }
@@ -55,9 +63,4 @@ public class ProjectService {
             System.out.println("Illegal name");
         }
     }
-
-    public ProjectService(ProjectRepository pr) {
-        this.pr = pr;
-    }
-
 }
