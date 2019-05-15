@@ -3,24 +3,29 @@ package ru.iokhin.tm.service;
 import ru.iokhin.tm.entity.Task;
 import ru.iokhin.tm.repository.TaskRepository;
 
-public class TaskService {
+public class TaskService implements TaskServiceInterface {
 
-    private TaskRepository tr;
+    public TaskService(TaskRepository tr) {
+        this.tr = tr;
+    }
 
-    public void addTask(String projectId, String name) {
+    @Override
+    public void addTask(String name, String projectId) {
         if (projectId != null && !projectId.trim().isEmpty() &&  name != null && !name.trim().isEmpty()) {
             tr.add(new Task(projectId, name));
         }
         else System.out.println("Illegal argument");
     }
 
-    public void listTask(String projectId ) {
+    @Override
+    public void listTask(String projectId) {
         if (projectId != null && !projectId.trim().isEmpty()) {
             tr.list(projectId);
         }
         else System.out.println("Illegal argument");
     }
 
+    @Override
     public void removeTask(String id) {
         if (id != null && !id.trim().isEmpty()) {
             for (Task task : tr.taskLinkedHashMap.values()) {
@@ -33,6 +38,7 @@ public class TaskService {
         else System.out.println("Illegal argument");
     }
 
+    @Override
     public void clearTask(String projectId) {
         if (projectId != null && !projectId.trim().isEmpty()) {
             for (Task task : tr.taskLinkedHashMap.values()) {
@@ -44,6 +50,7 @@ public class TaskService {
         else System.out.println("Illegal argument");
     }
 
+    @Override
     public void editTask(String id, String newName) {
         if (id != null && !id.trim().isEmpty() && newName != null && !newName.trim().isEmpty()) {
             for (Task task : tr.taskLinkedHashMap.values()) {
@@ -57,8 +64,5 @@ public class TaskService {
         else System.out.println("Illegal argument");
     }
 
-    public TaskService(TaskRepository tr) {
-        this.tr = tr;
-    }
-
+    private TaskRepository tr;
 }

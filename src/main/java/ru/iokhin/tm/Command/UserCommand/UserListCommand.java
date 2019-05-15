@@ -1,6 +1,7 @@
-package ru.iokhin.tm.Command;
+package ru.iokhin.tm.Command.UserCommand;
 
 import ru.iokhin.tm.Bootstrap;
+import ru.iokhin.tm.Command.AbstractCommand;
 
 public class UserListCommand extends AbstractCommand {
 

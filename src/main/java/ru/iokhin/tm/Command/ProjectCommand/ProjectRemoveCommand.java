@@ -1,6 +1,7 @@
-package ru.iokhin.tm.Command;
+package ru.iokhin.tm.Command.ProjectCommand;
 
 import ru.iokhin.tm.Bootstrap;
+import ru.iokhin.tm.Command.AbstractCommand;
 
 import java.util.Scanner;
 

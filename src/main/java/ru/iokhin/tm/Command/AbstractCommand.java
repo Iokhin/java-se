@@ -4,7 +4,7 @@ import ru.iokhin.tm.Bootstrap;
 
 abstract public class AbstractCommand {
 
-    Bootstrap bootstrap;
+    public Bootstrap bootstrap;
 
     abstract public String getName();
     abstract public String getDescription();

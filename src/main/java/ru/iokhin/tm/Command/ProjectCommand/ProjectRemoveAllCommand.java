@@ -1,8 +1,9 @@
-package ru.iokhin.tm.Command;
+package ru.iokhin.tm.Command.ProjectCommand;
 
 import ru.iokhin.tm.Bootstrap;
+import ru.iokhin.tm.Command.AbstractCommand;
 
-public class ProjectRemoveAllCommand extends AbstractCommand{
+public class ProjectRemoveAllCommand extends AbstractCommand {
 
     private static final String name = "project-clear";
     private static final String description = "project-clear: Remove all projects";

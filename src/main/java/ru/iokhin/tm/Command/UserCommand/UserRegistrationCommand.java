@@ -1,6 +1,7 @@
-package ru.iokhin.tm.Command;
+package ru.iokhin.tm.Command.UserCommand;
 
 import ru.iokhin.tm.Bootstrap;
+import ru.iokhin.tm.Command.AbstractCommand;
 import ru.iokhin.tm.RoleType;
 import ru.iokhin.tm.entity.User;
 
@@ -40,7 +41,7 @@ public class UserRegistrationCommand extends AbstractCommand {
         }
         System.out.println("ENTER NEW USER'S PASSWORD");
         String password = scanner.nextLine();
-        bootstrap.getUserService().createUser(RoleType.USER, login, password);
+        bootstrap.getUserService().addUser(RoleType.USER, login, password);
         System.out.println("SUCCESS");
     }
 }

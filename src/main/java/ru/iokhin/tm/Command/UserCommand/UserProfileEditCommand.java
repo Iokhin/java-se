@@ -1,6 +1,8 @@
-package ru.iokhin.tm.Command;
+package ru.iokhin.tm.Command.UserCommand;
 
 import ru.iokhin.tm.Bootstrap;
+import ru.iokhin.tm.Command.AbstractCommand;
+
 import java.util.Scanner;
 
 public class UserProfileEditCommand extends AbstractCommand {
