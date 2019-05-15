@@ -1,7 +1,7 @@
-package ru.iokhin.tm.Command.UserCommand;
+package ru.iokhin.tm.command.userCommand;
 
 import ru.iokhin.tm.Bootstrap;
-import ru.iokhin.tm.Command.AbstractCommand;
+import ru.iokhin.tm.command.AbstractCommand;
 import ru.iokhin.tm.RoleType;
 import ru.iokhin.tm.entity.User;
 

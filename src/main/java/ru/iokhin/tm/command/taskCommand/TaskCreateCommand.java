@@ -1,7 +1,7 @@
-package ru.iokhin.tm.Command.TaskCommand;
+package ru.iokhin.tm.command.taskCommand;
 
 import ru.iokhin.tm.Bootstrap;
-import ru.iokhin.tm.Command.AbstractCommand;
+import ru.iokhin.tm.command.AbstractCommand;
 import ru.iokhin.tm.entity.Project;
 
 import java.util.Scanner;

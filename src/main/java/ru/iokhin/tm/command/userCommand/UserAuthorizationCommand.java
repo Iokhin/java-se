@@ -1,8 +1,8 @@
-package ru.iokhin.tm.Command.UserCommand;
+package ru.iokhin.tm.command.userCommand;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import ru.iokhin.tm.Bootstrap;
-import ru.iokhin.tm.Command.AbstractCommand;
+import ru.iokhin.tm.command.AbstractCommand;
 import ru.iokhin.tm.entity.User;
 
 import java.util.Scanner;

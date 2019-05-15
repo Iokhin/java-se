@@ -1,4 +1,4 @@
-package ru.iokhin.tm.Command;
+package ru.iokhin.tm.command;
 
 import ru.iokhin.tm.Bootstrap;
 

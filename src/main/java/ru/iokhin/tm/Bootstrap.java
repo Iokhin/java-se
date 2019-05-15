@@ -1,9 +1,9 @@
 package ru.iokhin.tm;
 
-import ru.iokhin.tm.Command.*;
-import ru.iokhin.tm.Command.ProjectCommand.*;
-import ru.iokhin.tm.Command.TaskCommand.*;
-import ru.iokhin.tm.Command.UserCommand.*;
+import ru.iokhin.tm.command.*;
+import ru.iokhin.tm.command.projectCommand.*;
+import ru.iokhin.tm.command.taskCommand.*;
+import ru.iokhin.tm.command.userCommand.*;
 import ru.iokhin.tm.entity.User;
 import ru.iokhin.tm.repository.ProjectRepository;
 import ru.iokhin.tm.repository.TaskRepository;
