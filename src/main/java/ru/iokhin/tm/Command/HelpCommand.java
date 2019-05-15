@@ -2,6 +2,9 @@ package ru.iokhin.tm.Command;
 
 import ru.iokhin.tm.Bootstrap;
 
+import java.io.FileReader;
+import java.io.IOException;
+
 public class HelpCommand extends AbstractCommand {
 
     private static final String name = "help";

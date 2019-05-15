@@ -52,10 +52,16 @@
             <artifactId>commons-codec</artifactId>
             <version>1.12</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.jcabi/jcabi-manifests -->
         <dependency>
             <groupId>com.jcabi</groupId>
             <artifactId>jcabi-manifests</artifactId>
             <version>1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-jdk14</artifactId>
+            <version>1.5.6</version>
         </dependency>
     </dependencies>
 
@@ -95,6 +101,22 @@
                 <plugin>
                     <artifactId>maven-jar-plugin</artifactId>
                     <version>3.0.2</version>
+                    <configuration>
+                        <archive>
+                            <manifestFile>
+                                MANIFEST.MF
+                            </manifestFile>
+                            <manifest>
+                                <mainClass>
+                                    ru.iokhin.tm.Application
+                                </mainClass>
+                            </manifest>
+                            <manifestEntries>
+                                <Maven-Version>Maven ${maven.version}</Maven-Version>
+                                <Build-Number>${buildNumber}</Build-Number>
+                            </manifestEntries>
+                        </archive>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <artifactId>maven-install-plugin</artifactId>
@@ -112,6 +134,19 @@
                 <plugin>
                     <artifactId>maven-project-info-reports-plugin</artifactId>
                     <version>3.0.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>build-helper-maven-plugin</artifactId>
+                    <version>1.5</version>
+                    <executions>
+                        <execution>
+                            <phase>validate</phase>
+                            <goals>
+                                <goal>maven-version</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>

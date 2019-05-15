@@ -67,6 +67,7 @@ public class Bootstrap implements ServiceLocator {
 
         AbstractCommand help = new HelpCommand(bootstrap);
         AbstractCommand exit = new ExitCommand(bootstrap);
+        AbstractCommand about = new AboutCommand(bootstrap);
 
         bootstrap.commandMap.put(projectCreateCommand.getName(), projectCreateCommand);
         bootstrap.commandMap.put(projectListCommand.getName(), projectListCommand);
@@ -89,6 +90,7 @@ public class Bootstrap implements ServiceLocator {
 
         bootstrap.commandMap.put(help.getName(), help);
         bootstrap.commandMap.put(exit.getName(), exit);
+        bootstrap.commandMap.put(about.getName(), about);
 
         System.out.println("***WELCOME TO TASK MANAGER***");
         userRegistration.execute();
