@@ -5,17 +5,8 @@ import ru.iokhin.tm.command.AbstractCommand;
 
 public class ProjectListCommand extends AbstractCommand {
 
-    private static final String name = "project-list";
-    private static final String description = "project-list: Show all projects.";
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public String getDescription() {
-        return description;
+    public ProjectListCommand(Bootstrap bootstrap, String name, String description) {
+        super(bootstrap, name, description);
     }
 
     @Override
@@ -27,9 +18,4 @@ public class ProjectListCommand extends AbstractCommand {
     private void projectListCommand() {
         bootstrap.getProjectService().listProject(bootstrap.getCurrentUser().getUserId());
     }
-
-    public ProjectListCommand(Bootstrap bootstrap) {
-        super(bootstrap);
-    }
-
 }

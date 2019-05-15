@@ -7,19 +7,10 @@ import java.util.Scanner;
 
 public class ProjectRemoveCommand extends AbstractCommand {
 
-    private static final String name = "project-remove";
-    private static final String description = "project-remove: Remove selected project";
-
     private Scanner scanner = new Scanner(System.in);
 
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public String getDescription() {
-        return description;
+    public ProjectRemoveCommand(Bootstrap bootstrap, String name, String description) {
+        super(bootstrap, name, description);
     }
 
     @Override
@@ -33,9 +24,4 @@ public class ProjectRemoveCommand extends AbstractCommand {
     private void projectRemoveCommand(String id) {
         bootstrap.getProjectService().removeProject(id);
     }
-
-    public ProjectRemoveCommand(Bootstrap bootstrap) {
-        super(bootstrap);
-    }
-
 }

@@ -7,23 +7,10 @@ import java.util.Scanner;
 
 public class TaskListCommand extends AbstractCommand {
 
-    private static final String name = "task-list";
-    private static final String description = "task-list: Show all tasks for chosen project.";
-
     private Scanner scanner = new Scanner(System.in);
 
-    public TaskListCommand(Bootstrap bootstrap) {
-        super(bootstrap);
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public String getDescription() {
-        return description;
+    public TaskListCommand(Bootstrap bootstrap, String name, String description) {
+        super(bootstrap, name, description);
     }
 
     @Override

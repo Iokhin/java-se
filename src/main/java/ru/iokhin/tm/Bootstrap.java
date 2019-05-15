@@ -46,28 +46,28 @@ public class Bootstrap implements ServiceLocator {
         bootstrap.userRepository.userMap.put(userAdmin.getUserId(), userAdmin);
         bootstrap.userRepository.userMap.put(userUser.getUserId(), userUser);
 
-        AbstractCommand projectCreateCommand = new ProjectCreateCommand(bootstrap);
-        AbstractCommand projectListCommand = new ProjectListCommand(bootstrap);
-        AbstractCommand projectRemoveCommand = new ProjectRemoveCommand(bootstrap);
-        AbstractCommand projectRemoveAllCommand = new ProjectRemoveAllCommand(bootstrap);
-        AbstractCommand projectEditCommand = new ProjectEditCommand(bootstrap);
+        AbstractCommand projectCreateCommand = new ProjectCreateCommand(bootstrap, "project-create", "project-create: Create new project.");
+        AbstractCommand projectListCommand = new ProjectListCommand(bootstrap, "project-list", "project-list: Show all projects.");
+        AbstractCommand projectRemoveCommand = new ProjectRemoveCommand(bootstrap, "project-remove", "project-remove: Remove selected project");
+        AbstractCommand projectRemoveAllCommand = new ProjectRemoveAllCommand(bootstrap, "project-clear", "project-clear: Remove all projects");
+        AbstractCommand projectEditCommand = new ProjectEditCommand(bootstrap, "project-edit", "project-edit: Edit selected project.");
 
-        AbstractCommand taskCreateCommand = new TaskCreateCommand(bootstrap);
-        AbstractCommand taskListCommand = new TaskListCommand(bootstrap);
-        AbstractCommand taskRemoveCommand = new TaskRemoveCommand(bootstrap);
-        AbstractCommand taskRemoveAllCommand = new TaskRemoveAllCommand(bootstrap);
-        AbstractCommand taskEditCommand = new TaskEditCommand(bootstrap);
+        AbstractCommand taskCreateCommand = new TaskCreateCommand(bootstrap, "task-create", "task-create: Create new task.");
+        AbstractCommand taskListCommand = new TaskListCommand(bootstrap, "task-list", "task-list: Show all tasks for chosen project.");
+        AbstractCommand taskRemoveCommand = new TaskRemoveCommand(bootstrap, "task-remove", "task-remove: Remove selected task");
+        AbstractCommand taskRemoveAllCommand = new TaskRemoveAllCommand(bootstrap, "task-clear", "task-clear: Remove all tasks for chosen project");
+        AbstractCommand taskEditCommand = new TaskEditCommand(bootstrap, "task-edit", "task-edit: Edit selected task.");
 
-        AbstractCommand userAuthorization = new UserAuthorizationCommand(bootstrap);
-        AbstractCommand userEndSession = new UserEndSessionCommand(bootstrap);
-        AbstractCommand userPasswordChange = new UserPasswordChangeCommand(bootstrap);
-        AbstractCommand userRegistration = new UserRegistrationCommand(bootstrap);
-        AbstractCommand userProfileEdit = new UserProfileEditCommand(bootstrap);
-        AbstractCommand userList = new UserListCommand(bootstrap);
+        AbstractCommand userAuthorization = new UserAuthorizationCommand(bootstrap, "user-login", "user-login: Authorize user");
+        AbstractCommand userEndSession = new UserEndSessionCommand(bootstrap, "user-logout", "user-logout: Log out current user");
+        AbstractCommand userPasswordChange = new UserPasswordChangeCommand(bootstrap, "user-pass-change", "user-pass-change: Change the current user's password");
+        AbstractCommand userRegistration = new UserRegistrationCommand(bootstrap, "user-registration", "user-registration: Register a new user");
+        AbstractCommand userProfileEdit = new UserProfileEditCommand(bootstrap, "user-edit", "user-edit: Edit the current user's profile");
+        AbstractCommand userList = new UserListCommand(bootstrap, "user-list", "user-list: List all users");
 
-        AbstractCommand help = new HelpCommand(bootstrap);
-        AbstractCommand exit = new ExitCommand(bootstrap);
-        AbstractCommand about = new AboutCommand(bootstrap);
+        AbstractCommand help = new HelpCommand(bootstrap, "help", "help: Show all commands.");
+        AbstractCommand exit = new ExitCommand(bootstrap, "exit", "exit: Exit task manager.");
+        AbstractCommand about = new AboutCommand(bootstrap, "about", "about: Show build info");
 
         bootstrap.commandMap.put(projectCreateCommand.getName(), projectCreateCommand);
         bootstrap.commandMap.put(projectListCommand.getName(), projectListCommand);

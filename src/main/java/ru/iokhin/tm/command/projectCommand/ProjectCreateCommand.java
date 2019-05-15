@@ -7,19 +7,10 @@ import java.util.Scanner;
 
 public class ProjectCreateCommand extends AbstractCommand {
 
-    private static final String name = "project-create";
-    private static final String description = "project-create: Create new project.";
-
     private Scanner scanner = new Scanner(System.in);
 
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public String getDescription() {
-        return description;
+    public ProjectCreateCommand(Bootstrap bootstrap, String name, String description) {
+        super(bootstrap, name, description);
     }
 
     @Override
@@ -33,10 +24,4 @@ public class ProjectCreateCommand extends AbstractCommand {
     private void projectCreateCommand(String name) {
         bootstrap.getProjectService().addProject(name, bootstrap.getCurrentUser());
     }
-
-
-    public ProjectCreateCommand(Bootstrap bootstrap) {
-        super(bootstrap);
-    }
-
 }

@@ -7,23 +7,10 @@ import java.util.Scanner;
 
 public class UserProfileEditCommand extends AbstractCommand {
 
-    private static final String name = "user-edit";
-    private static final String description = "user-edit: Edit the current user's profile";
-
     private Scanner scanner = new Scanner(System.in);
 
-    public UserProfileEditCommand(Bootstrap bootstrap) {
-        super(bootstrap);
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public String getDescription() {
-        return description;
+    public UserProfileEditCommand(Bootstrap bootstrap, String name, String description) {
+        super(bootstrap, name, description);
     }
 
     @Override

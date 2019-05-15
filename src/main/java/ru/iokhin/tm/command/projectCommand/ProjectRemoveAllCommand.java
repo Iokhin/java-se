@@ -5,17 +5,8 @@ import ru.iokhin.tm.command.AbstractCommand;
 
 public class ProjectRemoveAllCommand extends AbstractCommand {
 
-    private static final String name = "project-clear";
-    private static final String description = "project-clear: Remove all projects";
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public String getDescription() {
-        return description;
+    public ProjectRemoveAllCommand(Bootstrap bootstrap, String name, String description) {
+        super(bootstrap, name, description);
     }
 
     @Override
@@ -26,10 +17,6 @@ public class ProjectRemoveAllCommand extends AbstractCommand {
 
     private void projectRemoveAllCommand() {
         bootstrap.getProjectService().clearProject();
-    }
 
-    public ProjectRemoveAllCommand(Bootstrap bootstrap) {
-        super(bootstrap);
     }
-
 }

@@ -5,21 +5,8 @@ import ru.iokhin.tm.command.AbstractCommand;
 
 public class UserListCommand extends AbstractCommand {
 
-    private static final String name = "user-list";
-    private static final String description = "user-list: List all users";
-
-    public UserListCommand(Bootstrap bootstrap) {
-        super(bootstrap);
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public String getDescription() {
-        return description;
+    public UserListCommand(Bootstrap bootstrap, String name, String description) {
+        super(bootstrap, name, description);
     }
 
     @Override

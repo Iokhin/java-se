@@ -1,30 +1,54 @@
 package ru.iokhin.tm.command;
 
 import ru.iokhin.tm.Bootstrap;
-import com.jcabi.manifests.Manifests;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.Enumeration;
+import java.util.jar.Attributes;
+import java.util.jar.JarFile;
+import java.util.jar.Manifest;
 
 public class AboutCommand extends AbstractCommand {
 
-    private static final String name = "about";
-    private static final String description = "about: Show build info";
-
-    public AboutCommand(Bootstrap bootstrap) {
-        super(bootstrap);
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public String getDescription() {
-        return description;
+    public AboutCommand(Bootstrap bootstrap, String name, String description) {
+        super(bootstrap, name, description);
     }
 
     @Override
     public void execute() {
-        System.out.println("Built-By: " + Manifests.read("Built-By"));
-        System.out.println("Build-Jdk: " + Manifests.read("Build-Jdk"));
+
     }
+
+    // TODO: 15.05.2019 Как читать манифест сгенеренный maven???
+//    public static String getManifestInfo() {
+//        Enumeration resEnum;
+//        try {
+//            resEnum = Thread.currentThread().getContextClassLoader().getResources(JarFile.MANIFEST_NAME);
+//            while (resEnum.hasMoreElements()) {
+//                try {
+//                    URL url = (URL) resEnum.nextElement();
+//                    InputStream is = url.openStream();
+//                    if (is != null) {
+//                        Manifest manifest = new Manifest(is);
+//                        Attributes mainAttribs = manifest.getMainAttributes();
+//                        String version = mainAttribs.getValue("Built-By");
+//                        if (version != null) {
+//                            return version;
+//                        }
+//                    }
+//                } catch (Exception e) {
+//                    // Silently ignore wrong manifests on classpath?
+//                }
+//            }
+//        } catch (IOException e1) {
+//            // Silently ignore wrong manifests on classpath?
+//        }
+//        return null;
+//    }
+//
+//    public static void main(String[] args) {
+//        System.out.println(getManifestInfo());
+//    }
 }

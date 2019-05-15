@@ -7,23 +7,10 @@ import java.util.Scanner;
 
 public class TaskRemoveAllCommand extends AbstractCommand {
 
-    private static final String name = "task-clear";
-    private static final String description = "task-clear: Remove all tasks for chosen project";
-
     private Scanner scanner = new Scanner(System.in);
 
-    public TaskRemoveAllCommand(Bootstrap bootstrap) {
-        super(bootstrap);
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public String getDescription() {
-        return description;
+    public TaskRemoveAllCommand(Bootstrap bootstrap, String name, String description) {
+        super(bootstrap, name, description);
     }
 
     @Override

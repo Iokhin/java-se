@@ -5,28 +5,15 @@ import ru.iokhin.tm.command.AbstractCommand;
 
 public class UserEndSessionCommand extends AbstractCommand {
 
-    private static final String name = "user-logout";
-    private static final String description = "user-logout: Log out current user";
-
-    public UserEndSessionCommand(Bootstrap bootstrap) {
-        super(bootstrap);
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public String getDescription() {
-        return description;
+    public UserEndSessionCommand(Bootstrap bootstrap, String name, String description) {
+        super(bootstrap, name, description);
     }
 
     @Override
     public void execute() {
         System.out.println(bootstrap.getCurrentUser().getLogin() + " was logged out");
         bootstrap.setCurrentUser(null);
-        AbstractCommand userAuthorization = new UserAuthorizationCommand(bootstrap);
+        AbstractCommand userAuthorization = new UserAuthorizationCommand(bootstrap, "user-login", "user-login: Authorize user");
         userAuthorization.execute();
     }
 }

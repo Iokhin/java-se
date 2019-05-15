@@ -7,19 +7,10 @@ import java.util.Scanner;
 
 public class ProjectEditCommand extends AbstractCommand {
 
-    private static final String name = "project-edit";
-    private static final String description = "project-edit: Edit selected project.";
-
     private Scanner scanner = new Scanner(System.in);
 
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public String getDescription() {
-        return description;
+    public ProjectEditCommand(Bootstrap bootstrap, String name, String description) {
+        super(bootstrap, name, description);
     }
 
     @Override
@@ -35,9 +26,4 @@ public class ProjectEditCommand extends AbstractCommand {
     private void projectEditCommand(String id, String newName) {
         bootstrap.getProjectService().editProject(id, newName);
     }
-
-    public ProjectEditCommand(Bootstrap bootstrap) {
-        super(bootstrap);
-    }
-
 }

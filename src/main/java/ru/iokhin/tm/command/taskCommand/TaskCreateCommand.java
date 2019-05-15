@@ -8,23 +8,10 @@ import java.util.Scanner;
 
 public class TaskCreateCommand extends AbstractCommand {
 
-    private static final String name = "task-create";
-    private static final String description = "task-create: Create new task.";
-
     private Scanner scanner = new Scanner(System.in);
 
-    public TaskCreateCommand(Bootstrap bootstrap) {
-        super(bootstrap);
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public String getDescription() {
-        return description;
+    public TaskCreateCommand(Bootstrap bootstrap, String name, String description) {
+        super(bootstrap, name, description);
     }
 
     @Override

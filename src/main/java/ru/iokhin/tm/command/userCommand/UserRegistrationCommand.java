@@ -9,23 +9,10 @@ import java.util.Scanner;
 
 public class UserRegistrationCommand extends AbstractCommand {
 
-    private static final String name = "user-registration";
-    private static final String description = "user-registration: Register a new user";
-
     private Scanner scanner = new Scanner(System.in);
 
-    public UserRegistrationCommand(Bootstrap bootstrap) {
-        super(bootstrap);
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public String getDescription() {
-        return description;
+    public UserRegistrationCommand(Bootstrap bootstrap, String name, String description) {
+        super(bootstrap, name, description);
     }
 
     @Override

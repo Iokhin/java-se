@@ -9,21 +9,8 @@ import java.util.Scanner;
 
 public class UserAuthorizationCommand extends AbstractCommand {
 
-    private static final String name = "user-login";
-    private static final String description = "user-login: Authorize user";
-
-    public UserAuthorizationCommand(Bootstrap bootstrap) {
-        super(bootstrap);
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public String getDescription() {
-        return description;
+    public UserAuthorizationCommand(Bootstrap bootstrap, String name, String description) {
+        super(bootstrap, name, description);
     }
 
     @Override

@@ -7,19 +7,10 @@ import java.util.Scanner;
 
 public class TaskEditCommand extends AbstractCommand {
 
-    private static final String name = "task-edit";
-    private static final String description = "task-edit: Edit selected task.";
-
     private Scanner scanner = new Scanner(System.in);
 
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public String getDescription() {
-        return description;
+    public TaskEditCommand(Bootstrap bootstrap, String name, String description) {
+        super(bootstrap, name, description);
     }
 
     @Override
@@ -34,10 +25,4 @@ public class TaskEditCommand extends AbstractCommand {
         bootstrap.getTaskService().editTask(taskIdEdit, newTaskName);
         System.out.println("OK");
     }
-
-    public TaskEditCommand(Bootstrap bootstrap) {
-        super(bootstrap);
-    }
-
-
 }
