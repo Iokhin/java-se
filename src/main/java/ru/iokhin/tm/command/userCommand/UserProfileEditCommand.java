@@ -15,6 +15,10 @@ public class UserProfileEditCommand extends AbstractCommand {
 
     @Override
     public void execute() {
+        if (bootstrap.getCurrentUser() == null) {
+            bootstrap.getCommandMap().get("user-login").execute();
+            if (bootstrap.getCurrentUser() == null) return;
+        }
         System.out.println("USER PROFILE:");
         System.out.println(bootstrap.getCurrentUser().getUserId());
         System.out.println(bootstrap.getCurrentUser().getLogin());

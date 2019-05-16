@@ -18,37 +18,35 @@ public class AboutCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-
+        System.out.println("task-manager");
+        System.out.println(getManifestInfo());
     }
 
     // TODO: 15.05.2019 Как читать манифест сгенеренный maven???
-//    public static String getManifestInfo() {
-//        Enumeration resEnum;
-//        try {
-//            resEnum = Thread.currentThread().getContextClassLoader().getResources(JarFile.MANIFEST_NAME);
-//            while (resEnum.hasMoreElements()) {
-//                try {
-//                    URL url = (URL) resEnum.nextElement();
-//                    InputStream is = url.openStream();
-//                    if (is != null) {
-//                        Manifest manifest = new Manifest(is);
-//                        Attributes mainAttribs = manifest.getMainAttributes();
-//                        String version = mainAttribs.getValue("Built-By");
-//                        if (version != null) {
-//                            return version;
-//                        }
-//                    }
-//                } catch (Exception e) {
-//                    // Silently ignore wrong manifests on classpath?
-//                }
-//            }
-//        } catch (IOException e1) {
-//            // Silently ignore wrong manifests on classpath?
-//        }
-//        return null;
-//    }
-//
-//    public static void main(String[] args) {
-//        System.out.println(getManifestInfo());
-//    }
+    private static String getManifestInfo() {
+        Enumeration resEnum;
+        try {
+            resEnum = Thread.currentThread().getContextClassLoader().getResources(JarFile.MANIFEST_NAME);
+            while (resEnum.hasMoreElements()) {
+                try {
+                    URL url = (URL)resEnum.nextElement();
+                    InputStream is = url.openStream();
+                    if (is != null) {
+                        Manifest manifest = new Manifest(is);
+                        Attributes mainAttribs = manifest.getMainAttributes();
+                        String version = mainAttribs.getValue("Implementation-Build");
+                        if(version != null) {
+                            return version;
+                        }
+                    }
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+        return null;
+    }
 }

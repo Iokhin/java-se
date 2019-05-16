@@ -15,11 +15,16 @@ public class ProjectCreateCommand extends AbstractCommand {
 
     @Override
     public void execute() {
+        if (bootstrap.getCurrentUser() == null) {
+            bootstrap.getCommandMap().get("user-login").execute();
+            if (bootstrap.getCurrentUser() == null) return;
+        }
         System.out.println("ENTER NAME OF PROJECT TO CREATE");
         String name = scanner.nextLine();
         projectCreateCommand(name);
         System.out.println("OK");
     }
+
 
     private void projectCreateCommand(String name) {
         bootstrap.getProjectService().addProject(name, bootstrap.getCurrentUser());

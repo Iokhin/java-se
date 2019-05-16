@@ -15,6 +15,10 @@ public class TaskRemoveAllCommand extends AbstractCommand {
 
     @Override
     public void execute() {
+        if (bootstrap.getCurrentUser() == null) {
+            bootstrap.getCommandMap().get("user-login").execute();
+            if (bootstrap.getCurrentUser() == null) return;
+        }
         System.out.println("ENTER ID OF PROJECT TO CLEAR TASKS");
         String projectIdTaskClear = scanner.nextLine();
         bootstrap.getTaskService().clearTask(projectIdTaskClear);

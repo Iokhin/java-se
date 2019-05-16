@@ -15,6 +15,10 @@ public class TaskRemoveCommand extends AbstractCommand {
 
     @Override
     public void execute() {
+        if (bootstrap.getCurrentUser() == null) {
+            bootstrap.getCommandMap().get("user-login").execute();
+            if (bootstrap.getCurrentUser() == null) return;
+        }
         System.out.println("ENTER ID OF PROJECT TO REMOVE TASK");
         String projectIdTaskRemove = scanner.nextLine();
         bootstrap.getTaskService().listTask(projectIdTaskRemove);
@@ -24,3 +28,4 @@ public class TaskRemoveCommand extends AbstractCommand {
         System.out.println("OK");
     }
 }
+

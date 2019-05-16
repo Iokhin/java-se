@@ -1,6 +1,6 @@
 package ru.iokhin.tm.entity;
 
-import org.apache.commons.codec.digest.DigestUtils;
+import ru.iokhin.tm.MD5Util;
 import ru.iokhin.tm.RoleType;
 
 import java.util.Objects;
@@ -15,14 +15,14 @@ public class User {
     public User(RoleType roleType, String login, String password) {
         this.roleType = roleType;
         this.login = login;
-        this.passwordHash = DigestUtils.md5Hex(password);
+        this.passwordHash = MD5Util.passwordToHash(password);
         this.userId = UUID.randomUUID().toString();
     }
 
     public User(RoleType roleType, String login, String password, String userId) {
         this.roleType = roleType;
         this.login = login;
-        this.passwordHash = DigestUtils.md5Hex(password);
+        this.passwordHash = MD5Util.passwordToHash(password);
         this.userId = userId;
     }
 
@@ -47,7 +47,7 @@ public class User {
     }
 
     public void setPasswordHash(String password) {
-        this.passwordHash = DigestUtils.md5Hex(password);
+        this.passwordHash = MD5Util.passwordToHash(password);
     }
 
     @Override

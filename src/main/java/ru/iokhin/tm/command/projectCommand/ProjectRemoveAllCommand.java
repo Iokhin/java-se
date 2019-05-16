@@ -11,9 +11,14 @@ public class ProjectRemoveAllCommand extends AbstractCommand {
 
     @Override
     public void execute() {
+        if (bootstrap.getCurrentUser() == null) {
+            bootstrap.getCommandMap().get("user-login").execute();
+            if (bootstrap.getCurrentUser() == null) return;
+        }
         projectRemoveAllCommand();
         System.out.println("OK");
     }
+
 
     private void projectRemoveAllCommand() {
         bootstrap.getProjectService().clearProject();

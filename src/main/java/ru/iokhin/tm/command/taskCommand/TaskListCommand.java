@@ -15,6 +15,10 @@ public class TaskListCommand extends AbstractCommand {
 
     @Override
     public void execute() {
+        if (bootstrap.getCurrentUser() == null) {
+            bootstrap.getCommandMap().get("user-login").execute();
+            if (bootstrap.getCurrentUser() == null) return;
+        }
         System.out.println("ENTER ID OF PROJECT TO LIST TASKS");
         String projectIdTaskList = scanner.nextLine();
         System.out.println("TASKS LIST:");

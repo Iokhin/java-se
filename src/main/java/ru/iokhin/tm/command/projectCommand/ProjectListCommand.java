@@ -11,9 +11,14 @@ public class ProjectListCommand extends AbstractCommand {
 
     @Override
     public void execute() {
+        if (bootstrap.getCurrentUser() == null) {
+            bootstrap.getCommandMap().get("user-login").execute();
+            if (bootstrap.getCurrentUser() == null) return;
+        }
         System.out.println("PROJECTS LIST:");
         projectListCommand();
     }
+
 
     private void projectListCommand() {
         bootstrap.getProjectService().listProject(bootstrap.getCurrentUser().getUserId());

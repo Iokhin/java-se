@@ -93,8 +93,8 @@ public class Bootstrap implements ServiceLocator {
         bootstrap.commandMap.put(about.getName(), about);
 
         System.out.println("***WELCOME TO TASK MANAGER***");
-        userRegistration.execute();
-        userAuthorization.execute();
+//        userRegistration.execute();
+//        userAuthorization.execute();
         Scanner scanner = new Scanner(System.in);
         String input = "";
         while (!input.equals(bootstrap.commandMap.get("exit").getName())) {
@@ -121,5 +121,9 @@ public class Bootstrap implements ServiceLocator {
     @Override
     public TaskService getTaskService() {
         return ts;
+    }
+
+    public Map<String, AbstractCommand> getCommandMap() {
+        return commandMap;
     }
 }

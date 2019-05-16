@@ -1,7 +1,9 @@
 package ru.iokhin.tm.command.userCommand;
 
-import org.apache.commons.codec.digest.DigestUtils;
+//import org.apache.commons.codec.digest.DigestUtils;
+
 import ru.iokhin.tm.Bootstrap;
+import ru.iokhin.tm.MD5Util;
 import ru.iokhin.tm.command.AbstractCommand;
 
 import java.util.Scanner;
@@ -16,9 +18,13 @@ public class UserPasswordChangeCommand extends AbstractCommand {
 
     @Override
     public void execute() {
+        if (bootstrap.getCurrentUser() == null) {
+            bootstrap.getCommandMap().get("user-login").execute();
+            if (bootstrap.getCurrentUser() == null) return;
+        }
         System.out.println("ENTER THE CURRENT PASSWORD");
         String input = scanner.nextLine();
-        if (bootstrap.getCurrentUser().getPasswordHash().equals(DigestUtils.md5Hex(input))) {
+        if (bootstrap.getCurrentUser().getPasswordHash().equals(MD5Util.passwordToHash(input))) {
             System.out.println("ENTER NEW PASSWORD");
             input = scanner.nextLine();
             bootstrap.getCurrentUser().setPasswordHash(input);
@@ -27,4 +33,5 @@ public class UserPasswordChangeCommand extends AbstractCommand {
         }
         System.out.println("WRONG PASSWORD, TRY AGAIN");
     }
+
 }

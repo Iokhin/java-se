@@ -11,6 +11,10 @@ public class UserEndSessionCommand extends AbstractCommand {
 
     @Override
     public void execute() {
+        if (bootstrap.getCurrentUser() == null) {
+            bootstrap.getCommandMap().get("user-login").execute();
+            if (bootstrap.getCurrentUser() == null) return;
+        }
         System.out.println(bootstrap.getCurrentUser().getLogin() + " was logged out");
         bootstrap.setCurrentUser(null);
         AbstractCommand userAuthorization = new UserAuthorizationCommand(bootstrap, "user-login", "user-login: Authorize user");

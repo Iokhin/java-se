@@ -1,7 +1,7 @@
 package ru.iokhin.tm.command.userCommand;
 
-import org.apache.commons.codec.digest.DigestUtils;
 import ru.iokhin.tm.Bootstrap;
+import ru.iokhin.tm.MD5Util;
 import ru.iokhin.tm.command.AbstractCommand;
 import ru.iokhin.tm.entity.User;
 
@@ -22,7 +22,7 @@ public class UserAuthorizationCommand extends AbstractCommand {
             if (input.equals(user.getLogin())) {
                 System.out.println("PLEASE ENTER YOUR PASSWORD");
                 input = scanner.nextLine();
-                if (DigestUtils.md5Hex(input).equals(user.getPasswordHash())) {
+                if (MD5Util.passwordToHash(input).equals(user.getPasswordHash())) {
                     bootstrap.setCurrentUser(user);
                     System.out.println("WELCOME, " + user.getLogin());
                     return;
@@ -30,6 +30,6 @@ public class UserAuthorizationCommand extends AbstractCommand {
             }
         }
         System.out.println("INCORRECT LOGIN OR PASSWORD, TRY AGAIN");
-        execute();
+//        execute();
     }
 }

@@ -9,7 +9,7 @@ abstract public class AbstractCommand {
     private String description;
 
     public String getName() {
-        return  this.name;
+        return this.name;
     }
 
     public String getDescription() {

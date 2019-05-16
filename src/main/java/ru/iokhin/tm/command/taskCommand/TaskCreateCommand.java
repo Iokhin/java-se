@@ -16,6 +16,10 @@ public class TaskCreateCommand extends AbstractCommand {
 
     @Override
     public void execute() {
+        if (bootstrap.getCurrentUser() == null) {
+            bootstrap.getCommandMap().get("user-login").execute();
+            if (bootstrap.getCurrentUser() == null) return;
+        }
         System.out.println("ENTER ID OF PROJECT TO CREATE TASK");
         System.out.println("PROJECTS LIST:");
         bootstrap.getProjectService().listProject(bootstrap.getCurrentUser().getUserId());
@@ -32,3 +36,4 @@ public class TaskCreateCommand extends AbstractCommand {
         System.out.println("NO SUCH PROJECT ID");
     }
 }
+

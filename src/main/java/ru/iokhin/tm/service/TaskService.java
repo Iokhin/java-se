@@ -10,7 +10,7 @@ public class TaskService implements TaskServiceInterface {
     }
 
     @Override
-    public void addTask(String name, String projectId) {
+    public void addTask(String projectId, String name) {
         if (projectId != null && !projectId.trim().isEmpty() &&  name != null && !name.trim().isEmpty()) {
             tr.add(new Task(projectId, name));
         }

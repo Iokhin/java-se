@@ -11,6 +11,10 @@ public class UserListCommand extends AbstractCommand {
 
     @Override
     public void execute() {
+        if (bootstrap.getCurrentUser() == null) {
+            bootstrap.getCommandMap().get("user-login").execute();
+            if (bootstrap.getCurrentUser() == null) return;
+        }
         System.out.println("USERS LIST:");
         bootstrap.getUserService().listUser();
     }
