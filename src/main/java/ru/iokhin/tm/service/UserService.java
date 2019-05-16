@@ -1,10 +1,11 @@
 package ru.iokhin.tm.service;
 
-import ru.iokhin.tm.RoleType;
+import ru.iokhin.tm.api.IUserService;
+import ru.iokhin.tm.enumerated.RoleType;
 import ru.iokhin.tm.entity.User;
 import ru.iokhin.tm.repository.UserRepository;
 
-public class UserService implements UserServiceInterface {
+public class UserService implements IUserService {
 
     UserRepository ur;
 

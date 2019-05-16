@@ -1,7 +1,6 @@
 package ru.iokhin.tm.entity;
 
 import java.util.Date;
-import java.util.Objects;
 import java.util.UUID;
 
 public class Project {
@@ -29,6 +28,10 @@ public class Project {
         this.userId = userId;
     }
 
+    public Project() {
+
+    }
+
     public String getUserId() {
         return userId;
     }
@@ -51,23 +54,6 @@ public class Project {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Project project = (Project) o;
-        return id.equals(project.id) &&
-                name.equals(project.name) &&
-                Objects.equals(description, project.description) &&
-                Objects.equals(startDate, project.startDate) &&
-                Objects.equals(endDate, project.endDate);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, description, startDate, endDate);
     }
 
     @Override

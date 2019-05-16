@@ -1,68 +1,76 @@
 package ru.iokhin.tm.service;
 
+import ru.iokhin.tm.api.ITaskService;
 import ru.iokhin.tm.entity.Task;
 import ru.iokhin.tm.repository.TaskRepository;
 
-public class TaskService implements TaskServiceInterface {
+public class TaskService implements ITaskService {
 
-    public TaskService(TaskRepository tr) {
-        this.tr = tr;
+    public TaskService(TaskRepository taskRepository) {
+        this.taskRepository = taskRepository;
     }
 
     @Override
-    public void addTask(String projectId, String name) {
-        if (projectId != null && !projectId.trim().isEmpty() &&  name != null && !name.trim().isEmpty()) {
-            tr.add(new Task(projectId, name));
+    public void addTask(String userId, String projectId, String name) {
+        if (projectId == null && projectId.trim().isEmpty() && name == null && name.trim().isEmpty()) {
+            System.out.println("Illegal argument");
+            return;
         }
-        else System.out.println("Illegal argument");
+        taskRepository.add(new Task(userId, projectId, name));
     }
 
     @Override
-    public void listTask(String projectId) {
-        if (projectId != null && !projectId.trim().isEmpty()) {
-            tr.list(projectId);
+    public void listTask(String projectId, String userId) {
+        if (projectId == null && projectId.trim().isEmpty()) {
+            System.out.println("Illegal argument");
+            return;
         }
-        else System.out.println("Illegal argument");
+        taskRepository.list(projectId, userId);
     }
 
     @Override
     public void removeTask(String id) {
-        if (id != null && !id.trim().isEmpty()) {
-            for (Task task : tr.taskLinkedHashMap.values()) {
-                if (task.getId().equals(id)) {
-                    tr.delete(task.getId());
-                    return;
-                }
-            }
+        if (id == null && id.trim().isEmpty()) {
+            System.out.println("Illegal ID");
+            return;
         }
-        else System.out.println("Illegal argument");
+        Task task;
+        if ((task = taskRepository.findById(id)) == null) {
+            System.out.println("NO TASK WITH SUCH ID");
+            return;
+        }
+        taskRepository.delete(task.getId());
     }
 
     @Override
-    public void clearTask(String projectId) {
-        if (projectId != null && !projectId.trim().isEmpty()) {
-            for (Task task : tr.taskLinkedHashMap.values()) {
-                if (task.getProjectId().equals(projectId)) {
-                    tr.delete(task.getId());
-                }
-            }
+    public void clearTask(String projectId, String userId) {
+        if (projectId == null && projectId.trim().isEmpty()) {
+            System.out.println("Illegal argument");
+            return;
         }
-        else System.out.println("Illegal argument");
+        for (Task task : taskRepository.taskLinkedHashMap.values()) {
+            if (task.getUserId().equals(userId) && task.getProjectId().equals(projectId))
+                removeTask(task.getId());
+        }
     }
+
 
     @Override
     public void editTask(String id, String newName) {
-        if (id != null && !id.trim().isEmpty() && newName != null && !newName.trim().isEmpty()) {
-            for (Task task : tr.taskLinkedHashMap.values()) {
-                if (task.getId().equals(id)) {
-                    Task newTask = new Task(task.getProjectId(), newName, task.getId());
-                    tr.merge(newTask);
-                    return;
-                }
-            }
+        if (id == null && id.trim().isEmpty()) {
+            System.out.println("Illegal ID");
+            return;
         }
-        else System.out.println("Illegal argument");
+        if (newName == null && newName.trim().isEmpty()) {
+            System.out.println("Illegal name");
+            return;
+        }
+        Task task;
+        if ((task = taskRepository.findById(id)) == null) {
+            System.out.println("NO PROJECT WITH SUCH ID");
+        }
+        taskRepository.merge(new Task(newName, task.getId(), task.getUserId()));
     }
 
-    private TaskRepository tr;
+    private TaskRepository taskRepository;
 }

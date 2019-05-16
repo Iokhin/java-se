@@ -1,9 +1,8 @@
 package ru.iokhin.tm.entity;
 
-import ru.iokhin.tm.MD5Util;
-import ru.iokhin.tm.RoleType;
+import ru.iokhin.tm.util.MD5Util;
+import ru.iokhin.tm.enumerated.RoleType;
 
-import java.util.Objects;
 import java.util.UUID;
 
 public class User {
@@ -24,6 +23,10 @@ public class User {
         this.login = login;
         this.passwordHash = MD5Util.passwordToHash(password);
         this.userId = userId;
+    }
+
+    public User() {
+
     }
 
     public String getUserId() {
@@ -48,21 +51,5 @@ public class User {
 
     public void setPasswordHash(String password) {
         this.passwordHash = MD5Util.passwordToHash(password);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return userId.equals(user.userId) &&
-                login.equals(user.login) &&
-                passwordHash.equals(user.passwordHash) &&
-                roleType == user.roleType;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(userId, login, passwordHash, roleType);
     }
 }

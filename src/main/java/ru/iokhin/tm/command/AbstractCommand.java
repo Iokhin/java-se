@@ -5,23 +5,17 @@ import ru.iokhin.tm.Bootstrap;
 abstract public class AbstractCommand {
 
     public Bootstrap bootstrap;
-    private String name;
-    private String description;
 
-    public String getName() {
-        return this.name;
-    }
+    abstract public boolean security();
 
-    public String getDescription() {
-        return this.description;
-    }
+    abstract public String name();
+
+    abstract public String description();
 
     abstract public void execute();
 
-    public AbstractCommand (Bootstrap bootstrap, String name, String description) {
+    public AbstractCommand (Bootstrap bootstrap) {
         this.bootstrap = bootstrap;
-        this.name = name;
-        this.description = description;
     }
 
 }

@@ -1,11 +1,12 @@
 package ru.iokhin.tm.repository;
 
+import ru.iokhin.tm.api.IUserRepository;
 import ru.iokhin.tm.entity.User;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class UserRepository implements UserRepositoryInterface {
+public class UserRepository implements IUserRepository {
 
     public Map<String, User> userMap = new HashMap<>(0);
 
@@ -28,8 +29,8 @@ public class UserRepository implements UserRepositoryInterface {
 
     @Override
     public void merge(User user) {
-        userMap.merge(user.getUserId(), user, (oldVal, newVal) -> new User(newVal.getRoleType(), newVal.getLogin(),
-                newVal.getPasswordHash(), oldVal.getUserId()));
+        if (user == null) return;
+        userMap.put(user.getUserId(), user);
     }
 
     @Override

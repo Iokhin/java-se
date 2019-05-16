@@ -1,12 +1,13 @@
 package ru.iokhin.tm.repository;
 
+import ru.iokhin.tm.api.IProjectRepository;
 import ru.iokhin.tm.entity.Project;
 
 import java.util.*;
 
-public class ProjectRepository implements ProjectRepositoryInterface {
+public class ProjectRepository implements IProjectRepository {
 
-    public Map<String ,Project> projectLinkedHashMap = new LinkedHashMap<>(0);
+    public Map<String, Project> projectLinkedHashMap = new LinkedHashMap<>(0);
 
     @Override
     public void add(Project project) {
@@ -25,7 +26,8 @@ public class ProjectRepository implements ProjectRepositoryInterface {
 
     @Override
     public void merge(Project project) {
-        projectLinkedHashMap.merge(project.getId(), project, (oldVal, newVal) ->  new Project(newVal.getName(), oldVal.getId()));
+        if (project == null) return;
+        projectLinkedHashMap.put(project.getId(), project);
     }
 
     @Override
@@ -36,5 +38,10 @@ public class ProjectRepository implements ProjectRepositoryInterface {
     @Override
     public void clear() {
         projectLinkedHashMap.clear();
+    }
+
+    @Override
+    public Project findById(String id) {
+        return projectLinkedHashMap.get(id);
     }
 }
