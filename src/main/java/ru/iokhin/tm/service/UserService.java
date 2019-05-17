@@ -7,28 +7,28 @@ import ru.iokhin.tm.repository.UserRepository;
 
 public class UserService implements IUserService {
 
-    UserRepository ur;
+    UserRepository userRepository;
 
-    public UserService(UserRepository ur) {
-        this.ur = ur;
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
 
     @Override
     public void addUser(RoleType roleType, String login, String password) {
-        ur.add(new User(roleType, login, password));
+        userRepository.add(new User(roleType, login, password));
     }
 
     @Override
     public void listUser() {
-        ur.list();
+        userRepository.list();
     }
 
     @Override
     public void removeUser(String userId) {
-        for (User user : ur.userMap.values()) {
+        for (User user : userRepository.userMap.values()) {
             if (user.getUserId().equals(userId)) {
-                ur.delete(userId);
+                userRepository.delete(userId);
                 return;
             }
         }
@@ -36,15 +36,15 @@ public class UserService implements IUserService {
 
     @Override
     public void clearUser() {
-        ur.clear();
+        userRepository.clear();
     }
 
     @Override
     public void editUser(RoleType roleType, String userId, String newLogin, String newPasswordHash) {
-        for (User user : ur.userMap.values()) {
+        for (User user : userRepository.userMap.values()) {
             if (user.getUserId().equals(userId)) {
                 User newUser = new User(roleType, newLogin, newPasswordHash);
-                ur.merge(newUser);
+                userRepository.merge(newUser);
                 return;
             }
         }

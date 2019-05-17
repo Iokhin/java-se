@@ -36,8 +36,7 @@ public class ProjectService implements IProjectService {
         Project project;
         if ((project = projectRepository.findById(id)) == null) {
             System.out.println("NO PROJECT WITH SUCH ID");
-        }
-        else projectRepository.delete(project.getId());
+        } else projectRepository.delete(project.getId());
     }
 
     @Override

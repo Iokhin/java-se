@@ -7,7 +7,7 @@ import java.util.*;
 
 public class TaskRepository implements ITaskRepository {
 
-    public Map<String ,Task> taskLinkedHashMap = new LinkedHashMap<>(0);
+    public Map<String, Task> taskLinkedHashMap = new LinkedHashMap<>(0);
 
     @Override
     public void add(Task task) {

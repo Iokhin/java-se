@@ -10,10 +10,6 @@ public class UserRepository implements IUserRepository {
 
     public Map<String, User> userMap = new HashMap<>(0);
 
-    public User getUserRepositoryItem(String id) {
-        return userMap.get(id);
-    }
-
     @Override
     public void add(User user) {
         userMap.put(user.getUserId(), user);

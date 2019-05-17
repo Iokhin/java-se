@@ -1,7 +1,6 @@
 package ru.iokhin.tm.entity;
 
 import java.util.Date;
-import java.util.Objects;
 import java.util.UUID;
 
 public class Task {
@@ -14,17 +13,16 @@ public class Task {
     private Date startDate;
     private Date endDate;
 
-    public Task(String userId ,String projectId, String name) {
+    public Task(String userId, String projectId, String name) {
         if (name != null && !name.trim().isEmpty()) {
             this.userId = userId;
             this.projectId = projectId;
             this.name = name;
             this.id = UUID.randomUUID().toString();
-        }
-        else System.out.println("Illegal argument");
+        } else System.out.println("Illegal argument");
     }
 
-    public  Task(String userId ,String projectId ,String name, String id) {
+    public Task(String userId, String projectId, String name, String id) {
         this.projectId = projectId;
         this.name = name;
         this.id = id;

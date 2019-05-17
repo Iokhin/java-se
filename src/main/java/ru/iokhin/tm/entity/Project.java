@@ -18,8 +18,7 @@ public class Project {
             this.name = name;
             this.id = UUID.randomUUID().toString();
             this.userId = userId;
-        }
-        else System.out.println("Illegal argument");
+        } else System.out.println("Illegal argument");
     }
 
     public Project(String name, String id, String userId) {
