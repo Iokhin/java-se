@@ -5,6 +5,8 @@ import ru.iokhin.tm.enumerated.RoleType;
 import ru.iokhin.tm.entity.User;
 import ru.iokhin.tm.repository.UserRepository;
 
+import java.util.Map;
+
 public class UserService implements IUserService {
 
     UserRepository userRepository;
@@ -48,5 +50,9 @@ public class UserService implements IUserService {
                 return;
             }
         }
+    }
+
+    public Map<String, User> getAllUsers() {
+        return userRepository.getUserMap();
     }
 }

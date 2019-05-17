@@ -38,4 +38,8 @@ public class UserRepository implements IUserRepository {
     public void clear() {
         userMap.clear();
     }
+
+    public Map<String, User> getUserMap() {
+        return userMap;
+    }
 }

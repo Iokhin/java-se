@@ -41,73 +41,87 @@ public class Bootstrap implements IServiceLocator {
         this.currentUser = currentUser;
     }
 
-    static void init() {
+    public boolean isAuth() {
+        return getCurrentUser() != null;
+    }
 
-        Bootstrap bootstrap = new Bootstrap();
+    void init() {
 
         User userAdmin = new User(RoleType.ADMIN, "admin", "admin");
         User userUser = new User(RoleType.USER, "user", "user");
 
-        bootstrap.userRepository.userMap.put(userAdmin.getUserId(), userAdmin);
-        bootstrap.userRepository.userMap.put(userUser.getUserId(), userUser);
+        this.userRepository.userMap.put(userAdmin.getUserId(), userAdmin);
+        this.userRepository.userMap.put(userUser.getUserId(), userUser);
 
-        AbstractCommand projectCreateCommand = new ProjectCreateCommand(bootstrap);
-        AbstractCommand projectListCommand = new ProjectListCommand(bootstrap);
-        AbstractCommand projectRemoveCommand = new ProjectRemoveCommand(bootstrap);
-        AbstractCommand projectRemoveAllCommand = new ProjectRemoveAllCommand(bootstrap);
-        AbstractCommand projectEditCommand = new ProjectEditCommand(bootstrap);
+        AbstractCommand projectCreateCommand = new ProjectCreateCommand(this);
+        AbstractCommand projectListCommand = new ProjectListCommand(this);
+        AbstractCommand projectRemoveCommand = new ProjectRemoveCommand(this);
+        AbstractCommand projectRemoveAllCommand = new ProjectRemoveAllCommand(this);
+        AbstractCommand projectEditCommand = new ProjectEditCommand(this);
 
-        AbstractCommand taskCreateCommand = new TaskCreateCommand(bootstrap);
-        AbstractCommand taskListCommand = new TaskListCommand(bootstrap);
-        AbstractCommand taskRemoveCommand = new TaskRemoveCommand(bootstrap);
-        AbstractCommand taskRemoveAllCommand = new TaskRemoveAllCommand(bootstrap);
-        AbstractCommand taskEditCommand = new TaskEditCommand(bootstrap);
+        AbstractCommand taskCreateCommand = new TaskCreateCommand(this);
+        AbstractCommand taskListCommand = new TaskListCommand(this);
+        AbstractCommand taskRemoveCommand = new TaskRemoveCommand(this);
+        AbstractCommand taskRemoveAllCommand = new TaskRemoveAllCommand(this);
+        AbstractCommand taskEditCommand = new TaskEditCommand(this);
 
-        AbstractCommand userAuthorization = new UserAuthorizationCommand(bootstrap);
-        AbstractCommand userEndSession = new UserEndSessionCommand(bootstrap);
-        AbstractCommand userPasswordChange = new UserPasswordChangeCommand(bootstrap);
-        AbstractCommand userRegistration = new UserRegistrationCommand(bootstrap);
-        AbstractCommand userProfileEdit = new UserProfileEditCommand(bootstrap);
-        AbstractCommand userList = new UserListCommand(bootstrap);
+        AbstractCommand userAuthorization = new UserAuthorizationCommand(this);
+        AbstractCommand userEndSession = new UserEndSessionCommand(this);
+        AbstractCommand userPasswordChange = new UserPasswordChangeCommand(this);
+        AbstractCommand userRegistration = new UserRegistrationCommand(this);
+        AbstractCommand userProfileEdit = new UserProfileEditCommand(this);
+        AbstractCommand userList = new UserListCommand(this);
 
-        AbstractCommand help = new HelpCommand(bootstrap);
-        AbstractCommand exit = new ExitCommand(bootstrap);
-        AbstractCommand about = new AboutCommand(bootstrap);
+        AbstractCommand help = new HelpCommand(this);
+        AbstractCommand exit = new ExitCommand(this);
+        AbstractCommand about = new AboutCommand(this);
 
-        bootstrap.commandMap.put(projectCreateCommand.name(), projectCreateCommand);
-        bootstrap.commandMap.put(projectListCommand.name(), projectListCommand);
-        bootstrap.commandMap.put(projectRemoveCommand.name(), projectRemoveCommand);
-        bootstrap.commandMap.put(projectRemoveAllCommand.name(), projectRemoveAllCommand);
-        bootstrap.commandMap.put(projectEditCommand.name(), projectEditCommand);
+        this.commandMap.put(projectCreateCommand.name(), projectCreateCommand);
+        this.commandMap.put(projectListCommand.name(), projectListCommand);
+        this.commandMap.put(projectRemoveCommand.name(), projectRemoveCommand);
+        this.commandMap.put(projectRemoveAllCommand.name(), projectRemoveAllCommand);
+        this.commandMap.put(projectEditCommand.name(), projectEditCommand);
 
-        bootstrap.commandMap.put(taskCreateCommand.name(), taskCreateCommand);
-        bootstrap.commandMap.put(taskListCommand.name(), taskListCommand);
-        bootstrap.commandMap.put(taskRemoveCommand.name(), taskRemoveCommand);
-        bootstrap.commandMap.put(taskRemoveAllCommand.name(), taskRemoveAllCommand);
-        bootstrap.commandMap.put(taskEditCommand.name(), taskEditCommand);
+        this.commandMap.put(taskCreateCommand.name(), taskCreateCommand);
+        this.commandMap.put(taskListCommand.name(), taskListCommand);
+        this.commandMap.put(taskRemoveCommand.name(), taskRemoveCommand);
+        this.commandMap.put(taskRemoveAllCommand.name(), taskRemoveAllCommand);
+        this.commandMap.put(taskEditCommand.name(), taskEditCommand);
 
-        bootstrap.commandMap.put(userAuthorization.name(), userAuthorization);
-        bootstrap.commandMap.put(userEndSession.name(), userEndSession);
-        bootstrap.commandMap.put(userPasswordChange.name(), userPasswordChange);
-        bootstrap.commandMap.put(userRegistration.name(), userRegistration);
-        bootstrap.commandMap.put(userProfileEdit.name(), userProfileEdit);
-        bootstrap.commandMap.put(userList.name(), userList);
+        this.commandMap.put(userAuthorization.name(), userAuthorization);
+        this.commandMap.put(userEndSession.name(), userEndSession);
+        this.commandMap.put(userPasswordChange.name(), userPasswordChange);
+        this.commandMap.put(userRegistration.name(), userRegistration);
+        this.commandMap.put(userProfileEdit.name(), userProfileEdit);
+        this.commandMap.put(userList.name(), userList);
 
-        bootstrap.commandMap.put(help.name(), help);
-        bootstrap.commandMap.put(exit.name(), exit);
-        bootstrap.commandMap.put(about.name(), about);
+        this.commandMap.put(help.name(), help);
+        this.commandMap.put(exit.name(), exit);
+        this.commandMap.put(about.name(), about);
 
         System.out.println("***WELCOME TO TASK MANAGER***");
         Scanner scanner = new Scanner(System.in);
         String input = "";
-        while (!input.equals(bootstrap.commandMap.get("exit").name())) {
+        while (!input.equals("exit")) {
             input = scanner.nextLine();
-            for (Map.Entry<String, AbstractCommand> entry : bootstrap.commandMap.entrySet()) {
-                if (input.equals(entry.getKey())) {
-                    entry.getValue().execute();
-                }
-            }
+            AbstractCommand command = this.commandMap.get(input);
+            execute(command);
+        }
+    }
 
+    void execute(AbstractCommand command) {
+        if (command == null)
+            return;
+        if (!command.security()) {
+            command.execute();
+        } else {
+            if (this.isAuth())
+                command.execute();
+            else {
+                this.commandMap.get("user-login").execute();
+                if (this.isAuth())
+                    command.execute();
+            }
         }
     }
 

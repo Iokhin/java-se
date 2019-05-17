@@ -33,10 +33,6 @@ public class UserPasswordChangeCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        if (bootstrap.getCurrentUser() == null) {
-            bootstrap.getCommandMap().get("user-login").execute();
-            if (bootstrap.getCurrentUser() == null) return;
-        }
         System.out.println("ENTER THE CURRENT PASSWORD");
         String input = scanner.nextLine();
         if (bootstrap.getCurrentUser().getPasswordHash().equals(MD5Util.passwordToHash(input))) {

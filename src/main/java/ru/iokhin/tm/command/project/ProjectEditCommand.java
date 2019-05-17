@@ -30,10 +30,6 @@ public class ProjectEditCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        if (bootstrap.getCurrentUser() == null) {
-            bootstrap.getCommandMap().get("user-login").execute();
-            if (bootstrap.getCurrentUser() == null) return;
-        }
         System.out.println("ENTER ID OF PROJECT TO EDIT");
         String idEdit = scanner.nextLine();
         System.out.println("ENTER NEW NAME OF PROJECT TO EDIT");
