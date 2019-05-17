@@ -9,6 +9,9 @@ public class UserEndSessionCommand extends AbstractCommand {
         super(bootstrap);
     }
 
+    public UserEndSessionCommand() {
+    }
+
     @Override
     public boolean security() {
         return true;

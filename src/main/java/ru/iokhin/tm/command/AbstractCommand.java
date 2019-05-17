@@ -18,4 +18,8 @@ abstract public class AbstractCommand {
         this.bootstrap = bootstrap;
     }
 
+    public AbstractCommand() {
+
+    }
+
 }

@@ -9,6 +9,9 @@ public class UserListCommand extends AbstractCommand {
         super(bootstrap);
     }
 
+    public UserListCommand() {
+    }
+
     @Override
     public boolean security() {
         return true;

@@ -1,12 +1,16 @@
 package ru.iokhin.tm.entity;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Date;
 import java.util.UUID;
 
-public class Task {
+@Getter
+@Setter
+public final class Task {
 
     @NotNull
     private String userId;
@@ -17,7 +21,7 @@ public class Task {
     @NotNull
     private String id;
 
-    @NotNull
+    @Nullable
     private String name;
 
     @Nullable
@@ -29,8 +33,8 @@ public class Task {
     @Nullable
     private Date endDate;
 
-    public Task(String userId, String projectId, String name) {
-        if (name != null && !name.trim().isEmpty()) {
+    public Task(@NotNull String userId, @NotNull String projectId, @NotNull String name) {
+        if (!name.trim().isEmpty()) {
             this.userId = userId;
             this.projectId = projectId;
             this.name = name;
@@ -38,35 +42,10 @@ public class Task {
         } else System.out.println("Illegal argument");
     }
 
-    public Task(String userId, String projectId, String name, String id) {
-        this.projectId = projectId;
-        this.name = name;
-        this.id = id;
-    }
-
     public Task() {
 
     }
 
-    public String getUserId() {
-        return userId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getProjectId() {
-        return projectId;
-    }
 
     @Override
     public String toString() {

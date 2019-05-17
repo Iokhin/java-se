@@ -3,10 +3,14 @@ package ru.iokhin.tm.command.system;
 import ru.iokhin.tm.Bootstrap;
 import ru.iokhin.tm.command.AbstractCommand;
 
-public class HelpCommand extends AbstractCommand {
+public final class HelpCommand extends AbstractCommand {
 
     public HelpCommand(Bootstrap bootstrap) {
         super(bootstrap);
+    }
+
+    public HelpCommand() {
+
     }
 
     @Override

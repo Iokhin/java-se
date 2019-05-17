@@ -1,22 +1,23 @@
 package ru.iokhin.tm.command.task;
 
+import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.Bootstrap;
 import ru.iokhin.tm.command.AbstractCommand;
-import ru.iokhin.tm.service.ProjectService;
-import ru.iokhin.tm.service.TaskService;
 
 import java.util.Scanner;
 
-public class TaskRemoveCommand extends AbstractCommand {
-
-    private Scanner scanner = new Scanner(System.in);
+public final class TaskRemoveCommand extends AbstractCommand {
 
     public TaskRemoveCommand(Bootstrap bootstrap) {
         super(bootstrap);
     }
 
-    private ProjectService projectService = bootstrap.getProjectService();
-    private TaskService taskService = bootstrap.getTaskService();
+    public TaskRemoveCommand() {
+
+    }
+
+    @NotNull
+    private final Scanner scanner = new Scanner(System.in);
 
     @Override
     public boolean security() {
@@ -36,15 +37,21 @@ public class TaskRemoveCommand extends AbstractCommand {
     @Override
     public void execute() {
         System.out.println("ENTER ID OF PROJECT TO REMOVE TASK");
+
+        @NotNull
         String projectId = scanner.nextLine();
-        if (!bootstrap.getCurrentUser().getUserId().equals(projectService.getProjectById(projectId).getUserId())) {
+
+        if (!bootstrap.getCurrentUser().getUserId().equals(bootstrap.getProjectService().getProjectById(projectId).getUserId())) {
             System.out.println("NO ACCESS FOR THIS OPERATION");
             return;
         }
-        taskService.listTask(projectId, bootstrap.getCurrentUser().getUserId());
+        bootstrap.getTaskService().listTask(projectId, bootstrap.getCurrentUser().getUserId());
         System.out.println("ENTER ID OF TASk TO REMOVE");
+
+        @NotNull
         String taskIdRemove = scanner.nextLine();
-        taskService.removeTask(taskIdRemove);
+
+        bootstrap.getTaskService().removeTask(taskIdRemove);
         System.out.println("OK");
     }
 }

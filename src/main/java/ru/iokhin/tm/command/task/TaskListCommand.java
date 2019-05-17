@@ -1,22 +1,22 @@
 package ru.iokhin.tm.command.task;
 
+import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.Bootstrap;
 import ru.iokhin.tm.command.AbstractCommand;
-import ru.iokhin.tm.service.ProjectService;
-import ru.iokhin.tm.service.TaskService;
 
 import java.util.Scanner;
 
-public class TaskListCommand extends AbstractCommand {
-
-    private Scanner scanner = new Scanner(System.in);
+public final class TaskListCommand extends AbstractCommand {
 
     public TaskListCommand(Bootstrap bootstrap) {
         super(bootstrap);
     }
 
-    private ProjectService projectService = bootstrap.getProjectService();
-    private TaskService taskService = bootstrap.getTaskService();
+    public TaskListCommand() {
+
+    }
+
+    private final Scanner scanner = new Scanner(System.in);
 
     @Override
     public boolean security() {
@@ -36,12 +36,15 @@ public class TaskListCommand extends AbstractCommand {
     @Override
     public void execute() {
         System.out.println("ENTER ID OF PROJECT TO LIST TASKS");
+
+        @NotNull
         String projectId = scanner.nextLine();
-        if (!bootstrap.getCurrentUser().getUserId().equals(projectService.getProjectById(projectId).getUserId())) {
+
+        if (!bootstrap.getCurrentUser().getUserId().equals(bootstrap.getProjectService().getProjectById(projectId).getUserId())) {
             System.out.println("NO ACCESS FOR THIS OPERATION");
             return;
         }
         System.out.println("TASKS LIST:");
-        taskService.listTask(projectId, bootstrap.getCurrentUser().getUserId());
+        bootstrap.getTaskService().listTask(projectId, bootstrap.getCurrentUser().getUserId());
     }
 }

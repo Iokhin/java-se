@@ -1,5 +1,6 @@
 package ru.iokhin.tm.service;
 
+import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.api.IUserService;
 import ru.iokhin.tm.enumerated.RoleType;
 import ru.iokhin.tm.entity.User;
@@ -7,9 +8,10 @@ import ru.iokhin.tm.repository.UserRepository;
 
 import java.util.Map;
 
-public class UserService implements IUserService {
+public final class UserService implements IUserService {
 
-    UserRepository userRepository;
+    @NotNull
+    private UserRepository userRepository;
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -28,7 +30,7 @@ public class UserService implements IUserService {
 
     @Override
     public void removeUser(String userId) {
-        for (User user : userRepository.userMap.values()) {
+        for (@NotNull User user : userRepository.userMap.values()) {
             if (user.getUserId().equals(userId)) {
                 userRepository.delete(userId);
                 return;
@@ -42,10 +44,13 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void editUser(RoleType roleType, String userId, String newLogin, String newPasswordHash) {
+    public void editUser(@NotNull RoleType roleType, @NotNull String userId, @NotNull String newLogin, @NotNull String newPasswordHash) {
         for (User user : userRepository.userMap.values()) {
             if (user.getUserId().equals(userId)) {
+
+                @NotNull
                 User newUser = new User(roleType, newLogin, newPasswordHash);
+
                 userRepository.merge(newUser);
                 return;
             }

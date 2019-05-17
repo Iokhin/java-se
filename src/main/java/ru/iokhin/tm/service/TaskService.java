@@ -1,18 +1,22 @@
 package ru.iokhin.tm.service;
 
+import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.api.ITaskService;
 import ru.iokhin.tm.entity.Task;
 import ru.iokhin.tm.repository.TaskRepository;
 
-public class TaskService implements ITaskService {
+public final class TaskService implements ITaskService {
 
     public TaskService(TaskRepository taskRepository) {
         this.taskRepository = taskRepository;
     }
 
+    @NotNull
+    private final TaskRepository taskRepository;
+
     @Override
-    public void addTask(String userId, String projectId, String name) {
-        if (projectId == null && projectId.trim().isEmpty() && name == null && name.trim().isEmpty()) {
+    public void addTask(@NotNull String userId, @NotNull String projectId, @NotNull String name) {
+        if (projectId.trim().isEmpty() && name.trim().isEmpty()) {
             System.out.println("Illegal argument");
             return;
         }
@@ -20,8 +24,8 @@ public class TaskService implements ITaskService {
     }
 
     @Override
-    public void listTask(String projectId, String userId) {
-        if (projectId == null && projectId.trim().isEmpty()) {
+    public void listTask(@NotNull String projectId, @NotNull String userId) {
+        if (projectId.trim().isEmpty()) {
             System.out.println("Illegal argument");
             return;
         }
@@ -29,13 +33,16 @@ public class TaskService implements ITaskService {
     }
 
     @Override
-    public void removeTask(String id) {
-        if (id == null && id.trim().isEmpty()) {
+    public void removeTask(@NotNull String id) {
+        if (id.trim().isEmpty()) {
             System.out.println("Illegal ID");
             return;
         }
-        Task task;
-        if ((task = taskRepository.findById(id)) == null) {
+
+        @NotNull
+        Task task = taskRepository.findById(id);
+
+        if (task == null) {
             System.out.println("NO TASK WITH SUCH ID");
             return;
         }
@@ -43,12 +50,12 @@ public class TaskService implements ITaskService {
     }
 
     @Override
-    public void clearTask(String projectId, String userId) {
-        if (projectId == null && projectId.trim().isEmpty()) {
+    public void clearTask(@NotNull String projectId, @NotNull String userId) {
+        if (projectId.trim().isEmpty()) {
             System.out.println("Illegal argument");
             return;
         }
-        for (Task task : taskRepository.taskLinkedHashMap.values()) {
+        for (@NotNull Task task : taskRepository.taskLinkedHashMap.values()) {
             if (task.getUserId().equals(userId) && task.getProjectId().equals(projectId))
                 removeTask(task.getId());
         }
@@ -71,8 +78,6 @@ public class TaskService implements ITaskService {
         }
         taskRepository.merge(new Task(newName, task.getId(), task.getUserId()));
     }
-
-    private TaskRepository taskRepository;
 
     public Task getTaskById(String id) {
         return taskRepository.findById(id);

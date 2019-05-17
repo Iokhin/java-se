@@ -3,29 +3,33 @@ package ru.iokhin.tm.command.system;
 import ru.iokhin.tm.Bootstrap;
 import ru.iokhin.tm.command.AbstractCommand;
 
-public class ExitCommand extends AbstractCommand {
+public final class ExitCommand extends AbstractCommand {
 
     public ExitCommand(Bootstrap bootstrap) {
         super(bootstrap);
     }
 
+    public ExitCommand() {
+
+    }
+
     @Override
-    public boolean security() {
+    public final boolean security() {
         return false;
     }
 
     @Override
-    public String name() {
+    public final String name() {
         return "exit";
     }
 
     @Override
-    public String description() {
+    public final String description() {
         return "Exit the application";
     }
 
     @Override
-    public void execute() {
+    public final void execute() {
         System.exit(0);
     }
 }

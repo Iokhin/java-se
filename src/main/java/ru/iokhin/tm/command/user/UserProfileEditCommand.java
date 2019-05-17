@@ -13,6 +13,10 @@ public class UserProfileEditCommand extends AbstractCommand {
         super(bootstrap);
     }
 
+    public UserProfileEditCommand() {
+
+    }
+
     @Override
     public boolean security() {
         return true;
@@ -31,9 +35,9 @@ public class UserProfileEditCommand extends AbstractCommand {
     @Override
     public void execute() {
         System.out.println("USER PROFILE:");
-        System.out.println(bootstrap.getCurrentUser().getUserId());
-        System.out.println(bootstrap.getCurrentUser().getLogin());
-        System.out.println(bootstrap.getCurrentUser().getRoleType().displayName());
+        System.out.println("USER ID: " + bootstrap.getCurrentUser().getUserId());
+        System.out.println("USER LOGIN: " + bootstrap.getCurrentUser().getLogin());
+        System.out.println("USER RIGHTS: " + bootstrap.getCurrentUser().getRoleType().displayName());
         System.out.println("ENTER NEW LOGIN TO EDIT");
         String input = scanner.nextLine();
         bootstrap.getCurrentUser().setLogin(input);

@@ -1,20 +1,23 @@
 package ru.iokhin.tm.command.project;
 
+import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.Bootstrap;
 import ru.iokhin.tm.command.AbstractCommand;
-import ru.iokhin.tm.service.ProjectService;
 
 import java.util.Scanner;
 
-public class ProjectRemoveCommand extends AbstractCommand {
-
-    private Scanner scanner = new Scanner(System.in);
-
-    private ProjectService projectService = bootstrap.getProjectService();
+public final class ProjectRemoveCommand extends AbstractCommand {
 
     public ProjectRemoveCommand(Bootstrap bootstrap) {
         super(bootstrap);
     }
+
+    public ProjectRemoveCommand() {
+
+    }
+
+    @NotNull
+    private final Scanner scanner = new Scanner(System.in);
 
     @Override
     public boolean security() {
@@ -35,8 +38,11 @@ public class ProjectRemoveCommand extends AbstractCommand {
     public void execute() {
         bootstrap.getProjectService().listProject(bootstrap.getCurrentUser().getUserId());
         System.out.println("ENTER ID OF PROJECT TO REMOVE");
+
+        @NotNull
         String idRemove = scanner.nextLine();
-        if (!bootstrap.getCurrentUser().getUserId().equals(projectService.getProjectById(idRemove).getUserId())) {
+
+        if (!bootstrap.getCurrentUser().getUserId().equals(bootstrap.getProjectService().getProjectById(idRemove).getUserId())) {
             System.out.println("NO ACCESS FOR THIS OPERATION");
             return;
         }
@@ -44,8 +50,7 @@ public class ProjectRemoveCommand extends AbstractCommand {
         System.out.println("OK");
     }
 
-
-    private void projectRemoveCommand(String id) {
-        projectService.removeProject(id);
+    private void projectRemoveCommand(@NotNull String id) {
+        bootstrap.getProjectService().removeProject(id);
     }
 }

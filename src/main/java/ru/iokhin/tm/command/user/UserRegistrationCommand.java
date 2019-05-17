@@ -1,19 +1,25 @@
 package ru.iokhin.tm.command.user;
 
+import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.Bootstrap;
 import ru.iokhin.tm.command.AbstractCommand;
 import ru.iokhin.tm.enumerated.RoleType;
 import ru.iokhin.tm.entity.User;
+import ru.iokhin.tm.service.UserService;
 
 import java.util.Scanner;
 
 public class UserRegistrationCommand extends AbstractCommand {
 
-    private Scanner scanner = new Scanner(System.in);
-
     public UserRegistrationCommand(Bootstrap bootstrap) {
         super(bootstrap);
     }
+
+    public UserRegistrationCommand() {
+
+    }
+
+    private Scanner scanner = new Scanner(System.in);
 
     @Override
     public boolean security() {
@@ -34,7 +40,7 @@ public class UserRegistrationCommand extends AbstractCommand {
     public void execute() {
         System.out.println("ENTER NEW USER'S LOGIN");
         String login = scanner.nextLine();
-        for (User user : bootstrap.userRepository.userMap.values()) {
+        for (User user : bootstrap.getUserService().getAllUsers().values()) {
             if (user.getLogin().equals(login)) {
                 System.out.println("SUCH LOGIN ALREADY EXIST");
                 execute();

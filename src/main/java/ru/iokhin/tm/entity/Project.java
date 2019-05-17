@@ -11,9 +11,9 @@ import java.util.UUID;
 
 @Getter
 @Setter
-public class Project {
+public final class Project {
 
-    @Nullable
+    @NotNull
     private String id;
 
     @Nullable
@@ -28,7 +28,7 @@ public class Project {
     @Nullable
     private Date endDate;
 
-    @Nullable
+    @NotNull
     private String userId;
 
     public Project(@NotNull String name, @NotNull String userId) {
@@ -40,9 +40,11 @@ public class Project {
     }
 
     public Project(@NotNull String name, @NotNull String id, @NotNull String userId) {
-        this.name = name;
-        this.id = id;
-        this.userId = userId;
+        if (!name.trim().isEmpty()) {
+            this.name = name;
+            this.id = id;
+            this.userId = userId;
+        } else System.out.println("Illegal argument");
     }
 
     public Project() {

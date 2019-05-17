@@ -1,21 +1,25 @@
 package ru.iokhin.tm.service;
 
+import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.api.IProjectService;
 import ru.iokhin.tm.entity.Project;
 import ru.iokhin.tm.entity.User;
 import ru.iokhin.tm.repository.ProjectRepository;
 
-public class ProjectService implements IProjectService {
+import java.util.Map;
 
-    private ProjectRepository projectRepository;
+public final class ProjectService implements IProjectService {
 
-    public ProjectService(ProjectRepository projectRepository) {
+    @NotNull
+    private final ProjectRepository projectRepository;
+
+    public ProjectService(@NotNull ProjectRepository projectRepository) {
         this.projectRepository = projectRepository;
     }
 
     @Override
-    public void addProject(String name, User user) {
-        if (name == null && name.trim().isEmpty()) {
+    public void addProject(@NotNull String name, @NotNull User user) {
+        if (name.trim().isEmpty()) {
             System.out.println("Illegal name");
             return;
         }
@@ -23,18 +27,21 @@ public class ProjectService implements IProjectService {
     }
 
     @Override
-    public void listProject(String userId) {
+    public void listProject(@NotNull String userId) {
         projectRepository.list(userId);
     }
 
     @Override
-    public void removeProject(String id) {
-        if (id == null && id.trim().isEmpty()) {
+    public void removeProject(@NotNull String id) {
+        if (id.trim().isEmpty()) {
             System.out.println("Illegal ID");
             return;
         }
-        Project project;
-        if ((project = projectRepository.findById(id)) == null) {
+
+        @NotNull
+        Project project = projectRepository.findById(id);
+
+        if (project == null) {
             System.out.println("NO PROJECT WITH SUCH ID");
         } else projectRepository.delete(project.getId());
     }
@@ -63,5 +70,9 @@ public class ProjectService implements IProjectService {
 
     public Project getProjectById(String id) {
         return projectRepository.findById(id);
+    }
+
+    public Map<String, Project> getAllProjects() {
+        return projectRepository.getProjectLinkedHashMap();
     }
 }

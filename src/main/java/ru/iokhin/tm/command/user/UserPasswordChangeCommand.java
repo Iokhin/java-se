@@ -10,11 +10,15 @@ import java.util.Scanner;
 
 public class UserPasswordChangeCommand extends AbstractCommand {
 
-    private Scanner scanner = new Scanner(System.in);
-
     public UserPasswordChangeCommand(Bootstrap bootstrap) {
         super(bootstrap);
     }
+
+    public UserPasswordChangeCommand() {
+
+    }
+
+    private Scanner scanner = new Scanner(System.in);
 
     @Override
     public boolean security() {

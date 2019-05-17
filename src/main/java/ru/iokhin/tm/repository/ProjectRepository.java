@@ -1,23 +1,25 @@
 package ru.iokhin.tm.repository;
 
+import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.api.IProjectRepository;
 import ru.iokhin.tm.entity.Project;
 
 import java.util.*;
 
-public class ProjectRepository implements IProjectRepository {
+public final class ProjectRepository implements IProjectRepository {
 
+    @NotNull
     public Map<String, Project> projectLinkedHashMap = new LinkedHashMap<>(0);
 
     @Override
-    public void add(Project project) {
+    public void add(@NotNull Project project) {
         projectLinkedHashMap.put(project.getId(), project);
     }
 
     @Override
-    public void list(String userId) {
+    public void list(@NotNull String userId) {
         int i = 0;
-        for (Project project : projectLinkedHashMap.values()) {
+        for (@NotNull Project project : projectLinkedHashMap.values()) {
             if (project.getUserId().equals(userId)) {
                 System.out.println(++i + ". " + project.toString());
             }
@@ -25,13 +27,12 @@ public class ProjectRepository implements IProjectRepository {
     }
 
     @Override
-    public void merge(Project project) {
-        if (project == null) return;
+    public void merge(@NotNull Project project) {
         projectLinkedHashMap.put(project.getId(), project);
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(@NotNull String id) {
         projectLinkedHashMap.remove(id);
     }
 
@@ -41,7 +42,11 @@ public class ProjectRepository implements IProjectRepository {
     }
 
     @Override
-    public Project findById(String id) {
+    public Project findById(@NotNull String id) {
         return projectLinkedHashMap.get(id);
+    }
+
+    public Map<String, Project> getProjectLinkedHashMap() {
+        return projectLinkedHashMap;
     }
 }

@@ -1,12 +1,15 @@
 package ru.iokhin.tm.enumerated;
 
+import org.jetbrains.annotations.NotNull;
+
 public enum RoleType {
     ADMIN("Администратор"),
     USER("Обычный пользователь");
 
-    private String title;
+    @NotNull
+    private final String title;
 
-    RoleType(String title) {
+    RoleType(@NotNull String title) {
         this.title = title;
     }
 

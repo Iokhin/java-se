@@ -1,16 +1,19 @@
 package ru.iokhin.tm.command.project;
 
+import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.Bootstrap;
 import ru.iokhin.tm.command.AbstractCommand;
 import ru.iokhin.tm.service.ProjectService;
 
-public class ProjectRemoveAllCommand extends AbstractCommand {
+public final class ProjectRemoveAllCommand extends AbstractCommand {
 
     public ProjectRemoveAllCommand(Bootstrap bootstrap) {
         super(bootstrap);
     }
 
-    private ProjectService projectService = bootstrap.getProjectService();
+    public ProjectRemoveAllCommand() {
+
+    }
 
     @Override
     public boolean security() {
@@ -35,6 +38,6 @@ public class ProjectRemoveAllCommand extends AbstractCommand {
 
 
     private void projectRemoveAllCommand() {
-        projectService.clearProject();
+        bootstrap.getProjectService().clearProject();
     }
 }
