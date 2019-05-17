@@ -2,6 +2,7 @@ package ru.iokhin.tm.command.project;
 
 import ru.iokhin.tm.Bootstrap;
 import ru.iokhin.tm.command.AbstractCommand;
+import ru.iokhin.tm.service.ProjectService;
 
 import java.util.Scanner;
 
@@ -12,6 +13,8 @@ public class ProjectEditCommand extends AbstractCommand {
     public ProjectEditCommand(Bootstrap bootstrap) {
         super(bootstrap);
     }
+
+    private ProjectService projectService = bootstrap.getProjectService();
 
     @Override
     public boolean security() {
@@ -32,6 +35,10 @@ public class ProjectEditCommand extends AbstractCommand {
     public void execute() {
         System.out.println("ENTER ID OF PROJECT TO EDIT");
         String idEdit = scanner.nextLine();
+        if (!bootstrap.getCurrentUser().getUserId().equals(projectService.getProjectById(idEdit).getUserId())) {
+            System.out.println("NO ACCESS FOR THIS OPERATION");
+            return;
+        }
         System.out.println("ENTER NEW NAME OF PROJECT TO EDIT");
         String newName = scanner.nextLine();
         projectEditCommand(idEdit, newName);
@@ -40,6 +47,6 @@ public class ProjectEditCommand extends AbstractCommand {
 
 
     private void projectEditCommand(String id, String newName) {
-        bootstrap.getProjectService().editProject(id, newName);
+        projectService.editProject(id, newName);
     }
 }

@@ -2,12 +2,15 @@ package ru.iokhin.tm.command.project;
 
 import ru.iokhin.tm.Bootstrap;
 import ru.iokhin.tm.command.AbstractCommand;
+import ru.iokhin.tm.service.ProjectService;
 
 import java.util.Scanner;
 
 public class ProjectRemoveCommand extends AbstractCommand {
 
     private Scanner scanner = new Scanner(System.in);
+
+    private ProjectService projectService = bootstrap.getProjectService();
 
     public ProjectRemoveCommand(Bootstrap bootstrap) {
         super(bootstrap);
@@ -33,12 +36,16 @@ public class ProjectRemoveCommand extends AbstractCommand {
         bootstrap.getProjectService().listProject(bootstrap.getCurrentUser().getUserId());
         System.out.println("ENTER ID OF PROJECT TO REMOVE");
         String idRemove = scanner.nextLine();
+        if (!bootstrap.getCurrentUser().getUserId().equals(projectService.getProjectById(idRemove).getUserId())) {
+            System.out.println("NO ACCESS FOR THIS OPERATION");
+            return;
+        }
         projectRemoveCommand(idRemove);
         System.out.println("OK");
     }
 
 
     private void projectRemoveCommand(String id) {
-        bootstrap.getProjectService().removeProject(id);
+        projectService.removeProject(id);
     }
 }

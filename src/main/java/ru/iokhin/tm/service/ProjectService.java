@@ -60,4 +60,8 @@ public class ProjectService implements IProjectService {
         }
         projectRepository.merge(new Project(newName, project.getId(), project.getUserId()));
     }
+
+    public Project getProjectById(String id) {
+        return projectRepository.findById(id);
+    }
 }

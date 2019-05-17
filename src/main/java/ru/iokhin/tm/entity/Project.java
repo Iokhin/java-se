@@ -1,27 +1,45 @@
 package ru.iokhin.tm.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+
 import java.util.Date;
 import java.util.UUID;
 
+@Getter
+@Setter
 public class Project {
 
+    @Nullable
     private String id;
+
+    @Nullable
     private String name;
+
+    @Nullable
     private String description;
+
+    @Nullable
     private Date startDate;
+
+    @Nullable
     private Date endDate;
+
+    @Nullable
     private String userId;
 
-
-    public Project(String name, String userId) {
-        if (name != null && !name.trim().isEmpty()) {
+    public Project(@NotNull String name, @NotNull String userId) {
+        if (!name.trim().isEmpty()) {
             this.name = name;
             this.id = UUID.randomUUID().toString();
             this.userId = userId;
         } else System.out.println("Illegal argument");
     }
 
-    public Project(String name, String id, String userId) {
+    public Project(@NotNull String name, @NotNull String id, @NotNull String userId) {
         this.name = name;
         this.id = id;
         this.userId = userId;
@@ -29,30 +47,6 @@ public class Project {
 
     public Project() {
 
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     @Override

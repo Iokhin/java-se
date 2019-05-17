@@ -2,12 +2,15 @@ package ru.iokhin.tm.command.project;
 
 import ru.iokhin.tm.Bootstrap;
 import ru.iokhin.tm.command.AbstractCommand;
+import ru.iokhin.tm.service.ProjectService;
 
 public class ProjectRemoveAllCommand extends AbstractCommand {
 
     public ProjectRemoveAllCommand(Bootstrap bootstrap) {
         super(bootstrap);
     }
+
+    private ProjectService projectService = bootstrap.getProjectService();
 
     @Override
     public boolean security() {
@@ -32,7 +35,6 @@ public class ProjectRemoveAllCommand extends AbstractCommand {
 
 
     private void projectRemoveAllCommand() {
-        bootstrap.getProjectService().clearProject();
-
+        projectService.clearProject();
     }
 }

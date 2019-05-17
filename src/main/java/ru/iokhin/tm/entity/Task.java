@@ -1,16 +1,32 @@
 package ru.iokhin.tm.entity;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.Date;
 import java.util.UUID;
 
 public class Task {
 
+    @NotNull
     private String userId;
+
+    @NotNull
     private String projectId;
+
+    @NotNull
     private String id;
+
+    @NotNull
     private String name;
+
+    @Nullable
     private String description;
+
+    @Nullable
     private Date startDate;
+
+    @Nullable
     private Date endDate;
 
     public Task(String userId, String projectId, String name) {

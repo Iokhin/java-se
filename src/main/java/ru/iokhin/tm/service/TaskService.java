@@ -73,4 +73,8 @@ public class TaskService implements ITaskService {
     }
 
     private TaskRepository taskRepository;
+
+    public Task getTaskById(String id) {
+        return taskRepository.findById(id);
+    }
 }

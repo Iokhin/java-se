@@ -3,6 +3,7 @@ package ru.iokhin.tm.command.task;
 import ru.iokhin.tm.Bootstrap;
 import ru.iokhin.tm.command.AbstractCommand;
 import ru.iokhin.tm.entity.Project;
+import ru.iokhin.tm.service.ProjectService;
 
 import java.util.Scanner;
 
@@ -13,6 +14,8 @@ public class TaskCreateCommand extends AbstractCommand {
     public TaskCreateCommand(Bootstrap bootstrap) {
         super(bootstrap);
     }
+
+    private ProjectService projectService = bootstrap.getProjectService();
 
     @Override
     public boolean security() {
@@ -35,6 +38,10 @@ public class TaskCreateCommand extends AbstractCommand {
         System.out.println("PROJECTS LIST:");
         bootstrap.getProjectService().listProject(bootstrap.getCurrentUser().getUserId());
         String projectId = scanner.nextLine();
+        if (!bootstrap.getCurrentUser().getUserId().equals(projectService.getProjectById(projectId).getUserId())) {
+            System.out.println("NO ACCESS FOR THIS OPERATION");
+            return;
+        }
         for (Project project : bootstrap.projectRepository.projectLinkedHashMap.values()) {
             if (project.getId().equals(projectId)) {
                 System.out.println("ENTER NAME OF TASK TO CREATE");

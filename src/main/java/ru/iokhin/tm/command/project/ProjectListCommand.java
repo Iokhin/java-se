@@ -2,12 +2,15 @@ package ru.iokhin.tm.command.project;
 
 import ru.iokhin.tm.Bootstrap;
 import ru.iokhin.tm.command.AbstractCommand;
+import ru.iokhin.tm.service.ProjectService;
 
 public class ProjectListCommand extends AbstractCommand {
 
     public ProjectListCommand(Bootstrap bootstrap) {
         super(bootstrap);
     }
+
+    private ProjectService projectService = bootstrap.getProjectService();
 
     @Override
     public boolean security() {
@@ -32,6 +35,6 @@ public class ProjectListCommand extends AbstractCommand {
 
 
     private void projectListCommand() {
-        bootstrap.getProjectService().listProject(bootstrap.getCurrentUser().getUserId());
+        projectService.listProject(bootstrap.getCurrentUser().getUserId());
     }
 }
