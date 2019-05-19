@@ -1,6 +1,8 @@
 package ru.iokhin.tm.entity;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -11,6 +13,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public final class Project {
 
     @NotNull
@@ -45,10 +48,6 @@ public final class Project {
             this.id = id;
             this.userId = userId;
         } else System.out.println("Illegal argument");
-    }
-
-    public Project() {
-
     }
 
     @Override

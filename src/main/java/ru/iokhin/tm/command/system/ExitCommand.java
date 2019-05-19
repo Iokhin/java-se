@@ -1,17 +1,10 @@
 package ru.iokhin.tm.command.system;
 
-import ru.iokhin.tm.Bootstrap;
+import lombok.NoArgsConstructor;
 import ru.iokhin.tm.command.AbstractCommand;
 
+@NoArgsConstructor
 public final class ExitCommand extends AbstractCommand {
-
-    public ExitCommand(Bootstrap bootstrap) {
-        super(bootstrap);
-    }
-
-    public ExitCommand() {
-
-    }
 
     @Override
     public final boolean security() {

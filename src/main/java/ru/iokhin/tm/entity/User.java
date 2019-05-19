@@ -1,6 +1,7 @@
 package ru.iokhin.tm.entity;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -11,6 +12,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public final class User {
 
     @NotNull
@@ -19,7 +21,7 @@ public final class User {
     @Nullable
     private String login;
 
-    @Nullable
+    @NotNull
     private String passwordHash;
 
     @Nullable
@@ -30,10 +32,6 @@ public final class User {
         this.login = login;
         this.passwordHash = MD5Util.passwordToHash(password);
         this.userId = UUID.randomUUID().toString();
-    }
-
-    public User() {
-
     }
 
     public void setPasswordHash(String password) {

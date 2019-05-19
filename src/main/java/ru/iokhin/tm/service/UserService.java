@@ -1,5 +1,6 @@
 package ru.iokhin.tm.service;
 
+import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.api.IUserService;
 import ru.iokhin.tm.enumerated.RoleType;
@@ -8,14 +9,11 @@ import ru.iokhin.tm.repository.UserRepository;
 
 import java.util.Map;
 
+@RequiredArgsConstructor
 public final class UserService implements IUserService {
 
     @NotNull
-    private UserRepository userRepository;
-
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private final UserRepository userRepository;
 
 
     @Override
@@ -59,5 +57,9 @@ public final class UserService implements IUserService {
 
     public Map<String, User> getAllUsers() {
         return userRepository.getUserMap();
+    }
+
+    public User getUserByLogin(String login) {
+        return userRepository.findUserByLogin(login);
     }
 }

@@ -1,20 +1,14 @@
 package ru.iokhin.tm.command.task;
 
+import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.Bootstrap;
 import ru.iokhin.tm.command.AbstractCommand;
 
 import java.util.Scanner;
 
+@NoArgsConstructor
 public final class TaskEditCommand extends AbstractCommand {
-
-    public TaskEditCommand(Bootstrap bootstrap) {
-        super(bootstrap);
-    }
-
-    public TaskEditCommand() {
-
-    }
 
     @NotNull
     private final Scanner scanner = new Scanner(System.in);
@@ -23,6 +17,15 @@ public final class TaskEditCommand extends AbstractCommand {
     public boolean security() {
         return true;
     }
+
+    private boolean isHaveAccess(Bootstrap bootstrap, String taskId) {
+
+        @NotNull final String currentUserId = bootstrap.getCurrentUser().getUserId();
+        @NotNull final String allowedUserId = bootstrap.getTaskService().getTaskById(taskId).getUserId();
+
+        return currentUserId.equals(allowedUserId);
+    }
+
 
     @Override
     public String name() {
@@ -39,24 +42,34 @@ public final class TaskEditCommand extends AbstractCommand {
         System.out.println("ENTER ID OF PROJECT TO EDIT TASK");
 
         @NotNull
-        String projectIdTaskEdit = scanner.nextLine();
+        String projectId = scanner.nextLine();
+        if (bootstrap.getProjectService().getProjectById(projectId) == null) {
+            System.out.println("NO SUCH PROJECT ID");
+            return;
+        }
 
-        bootstrap.getTaskService().listTask(projectIdTaskEdit, bootstrap.getCurrentUser().getUserId());
+        bootstrap.getTaskService().listTask(projectId, bootstrap.getCurrentUser().getUserId());
         System.out.println("ENTER ID OF TASK TO EDIT");
 
         @NotNull
-        String taskIdEdit = scanner.nextLine();
+        String taskId = scanner.nextLine();
 
-        if (!bootstrap.getCurrentUser().getUserId().equals(bootstrap.getTaskService().getTaskById(taskIdEdit).getUserId())) {
+        if (bootstrap.getTaskService().getTaskById(taskId) == null) {
+            System.out.println("NO SUCH TASK ID");
+            return;
+        }
+
+        if (!isHaveAccess(bootstrap, taskId)) {
             System.out.println("NO ACCESS FOR THIS OPERATION");
             return;
         }
+
         System.out.println("ENTER NEW NAME OF TASK TO EDIT");
 
         @NotNull
         String newTaskName = scanner.nextLine();
 
-        bootstrap.getTaskService().editTask(taskIdEdit, newTaskName);
+        bootstrap.getTaskService().editTask(taskId, newTaskName);
         System.out.println("OK");
     }
 }

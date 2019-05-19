@@ -1,15 +1,13 @@
 package ru.iokhin.tm.service;
 
+import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.api.ITaskService;
 import ru.iokhin.tm.entity.Task;
 import ru.iokhin.tm.repository.TaskRepository;
 
+@RequiredArgsConstructor
 public final class TaskService implements ITaskService {
-
-    public TaskService(TaskRepository taskRepository) {
-        this.taskRepository = taskRepository;
-    }
 
     @NotNull
     private final TaskRepository taskRepository;

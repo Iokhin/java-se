@@ -1,17 +1,10 @@
 package ru.iokhin.tm.command.project;
 
-import ru.iokhin.tm.Bootstrap;
+import lombok.NoArgsConstructor;
 import ru.iokhin.tm.command.AbstractCommand;
 
+@NoArgsConstructor
 public final class ProjectListCommand extends AbstractCommand {
-
-    public ProjectListCommand(Bootstrap bootstrap) {
-        super(bootstrap);
-    }
-
-    public ProjectListCommand() {
-
-    }
 
     @Override
     public boolean security() {
@@ -36,6 +29,7 @@ public final class ProjectListCommand extends AbstractCommand {
 
 
     private void projectListCommand() {
+        assert bootstrap.getCurrentUser() != null;
         bootstrap.getProjectService().listProject(bootstrap.getCurrentUser().getUserId());
     }
 }

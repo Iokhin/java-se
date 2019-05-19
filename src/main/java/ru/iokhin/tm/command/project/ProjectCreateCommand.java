@@ -1,20 +1,13 @@
 package ru.iokhin.tm.command.project;
 
+import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
-import ru.iokhin.tm.Bootstrap;
 import ru.iokhin.tm.command.AbstractCommand;
 
 import java.util.Scanner;
 
+@NoArgsConstructor
 public final class ProjectCreateCommand extends AbstractCommand {
-
-    public ProjectCreateCommand(Bootstrap bootstrap) {
-        super(bootstrap);
-    }
-
-    public ProjectCreateCommand() {
-
-    }
 
     @NotNull
     private final Scanner scanner = new Scanner(System.in);
@@ -31,7 +24,7 @@ public final class ProjectCreateCommand extends AbstractCommand {
 
     @Override
     public String description() {
-        return "Creates project";
+        return "Create project";
     }
 
     @Override
@@ -47,6 +40,7 @@ public final class ProjectCreateCommand extends AbstractCommand {
 
 
     private void projectCreateCommand(@NotNull String name) {
+        assert bootstrap.getCurrentUser() != null;
         bootstrap.getProjectService().addProject(name, bootstrap.getCurrentUser());
     }
 }
