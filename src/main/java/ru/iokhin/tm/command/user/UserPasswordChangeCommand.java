@@ -1,22 +1,13 @@
 package ru.iokhin.tm.command.user;
 
-//import org.apache.commons.codec.digest.DigestUtils;
-
-import ru.iokhin.tm.Bootstrap;
+import lombok.NoArgsConstructor;
 import ru.iokhin.tm.util.MD5Util;
 import ru.iokhin.tm.command.AbstractCommand;
 
 import java.util.Scanner;
 
+@NoArgsConstructor
 public class UserPasswordChangeCommand extends AbstractCommand {
-
-    public UserPasswordChangeCommand(Bootstrap bootstrap) {
-        super(bootstrap);
-    }
-
-    public UserPasswordChangeCommand() {
-
-    }
 
     private Scanner scanner = new Scanner(System.in);
 

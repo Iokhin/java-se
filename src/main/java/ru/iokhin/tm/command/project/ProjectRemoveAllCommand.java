@@ -1,19 +1,10 @@
 package ru.iokhin.tm.command.project;
 
-import org.jetbrains.annotations.NotNull;
-import ru.iokhin.tm.Bootstrap;
+import lombok.NoArgsConstructor;
 import ru.iokhin.tm.command.AbstractCommand;
-import ru.iokhin.tm.service.ProjectService;
 
+@NoArgsConstructor
 public final class ProjectRemoveAllCommand extends AbstractCommand {
-
-    public ProjectRemoveAllCommand(Bootstrap bootstrap) {
-        super(bootstrap);
-    }
-
-    public ProjectRemoveAllCommand() {
-
-    }
 
     @Override
     public boolean security() {

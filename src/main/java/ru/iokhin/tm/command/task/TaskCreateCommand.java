@@ -1,21 +1,14 @@
 package ru.iokhin.tm.command.task;
 
+import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.Bootstrap;
 import ru.iokhin.tm.command.AbstractCommand;
-import ru.iokhin.tm.entity.Project;
 
 import java.util.Scanner;
 
+@NoArgsConstructor
 public final class TaskCreateCommand extends AbstractCommand {
-
-    public TaskCreateCommand(Bootstrap bootstrap) {
-        super(bootstrap);
-    }
-
-    public TaskCreateCommand() {
-
-    }
 
     @NotNull
     private final Scanner scanner = new Scanner(System.in);
@@ -23,6 +16,16 @@ public final class TaskCreateCommand extends AbstractCommand {
     @Override
     public boolean security() {
         return true;
+    }
+
+    private boolean isHaveAccess(Bootstrap bootstrap, String projectId) {
+
+        @NotNull
+        final String currentUserId = bootstrap.getCurrentUser().getUserId();
+        @NotNull
+        final String allowedUserId = bootstrap.getProjectService().getProjectById(projectId).getUserId();
+
+        return currentUserId.equals(allowedUserId);
     }
 
     @Override
@@ -41,20 +44,18 @@ public final class TaskCreateCommand extends AbstractCommand {
         System.out.println("PROJECTS LIST:");
         bootstrap.getProjectService().listProject(bootstrap.getCurrentUser().getUserId());
         String projectId = scanner.nextLine();
-        if (!bootstrap.getCurrentUser().getUserId().equals(bootstrap.getProjectService().getProjectById(projectId).getUserId())) {
+        if (bootstrap.getProjectService().getProjectById(projectId) == null) {
+            System.out.println("NO SUCH PROJECT ID");
+            return;
+        }
+        if (!isHaveAccess(bootstrap, projectId)) {
             System.out.println("NO ACCESS FOR THIS OPERATION");
             return;
         }
-        for (Project project : bootstrap.getProjectService().getAllProjects().values()) {
-            if (project.getId().equals(projectId)) {
-                System.out.println("ENTER NAME OF TASK TO CREATE");
-                String taskName = scanner.nextLine();
-                bootstrap.getTaskService().addTask(bootstrap.getCurrentUser().getUserId(), projectId, taskName);
-                System.out.println("OK");
-                return;
-            }
-        }
-        System.out.println("NO SUCH PROJECT ID");
+        System.out.println("ENTER NAME OF TASK TO CREATE");
+        String taskName = scanner.nextLine();
+        bootstrap.getTaskService().addTask(bootstrap.getCurrentUser().getUserId(), projectId, taskName);
+        System.out.println("OK");
     }
 }
 

@@ -1,17 +1,10 @@
 package ru.iokhin.tm.command.system;
 
-import ru.iokhin.tm.Bootstrap;
+import lombok.NoArgsConstructor;
 import ru.iokhin.tm.command.AbstractCommand;
 
+@NoArgsConstructor
 public final class HelpCommand extends AbstractCommand {
-
-    public HelpCommand(Bootstrap bootstrap) {
-        super(bootstrap);
-    }
-
-    public HelpCommand() {
-
-    }
 
     @Override
     public boolean security() {

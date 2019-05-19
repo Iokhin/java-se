@@ -1,20 +1,14 @@
 package ru.iokhin.tm.command.project;
 
+import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.Bootstrap;
 import ru.iokhin.tm.command.AbstractCommand;
 
 import java.util.Scanner;
 
+@NoArgsConstructor
 public final class ProjectEditCommand extends AbstractCommand {
-
-    public ProjectEditCommand(Bootstrap bootstrap) {
-        super(bootstrap);
-    }
-
-    public ProjectEditCommand() {
-
-    }
 
     private final Scanner scanner = new Scanner(System.in);
 
@@ -22,6 +16,17 @@ public final class ProjectEditCommand extends AbstractCommand {
     public boolean security() {
         return true;
     }
+
+    private boolean isHaveAccess(Bootstrap bootstrap, String projectId) {
+
+        @NotNull
+        final String currentUserId = bootstrap.getCurrentUser().getUserId();
+        @NotNull
+        final String allowedUserId = bootstrap.getProjectService().getProjectById(projectId).getUserId();
+
+        return currentUserId.equals(allowedUserId);
+    }
+
 
     @Override
     public String name() {
@@ -38,9 +43,13 @@ public final class ProjectEditCommand extends AbstractCommand {
         System.out.println("ENTER ID OF PROJECT TO EDIT");
 
         @NotNull
-        String idEdit = scanner.nextLine();
+        String projectId = scanner.nextLine();
+        if (bootstrap.getProjectService().getProjectById(projectId) == null) {
+            System.out.println("NO SUCH PROJECT ID");
+            return;
+        }
 
-        if (!bootstrap.getCurrentUser().getUserId().equals(bootstrap.getProjectService().getProjectById(idEdit).getUserId())) {
+        if (!isHaveAccess(bootstrap, projectId)) {
             System.out.println("NO ACCESS FOR THIS OPERATION");
             return;
         }
@@ -49,7 +58,7 @@ public final class ProjectEditCommand extends AbstractCommand {
         @NotNull
         String newName = scanner.nextLine();
 
-        projectEditCommand(idEdit, newName);
+        projectEditCommand(projectId, newName);
         System.out.println("OK");
     }
 

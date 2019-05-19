@@ -6,7 +6,9 @@ import ru.iokhin.tm.service.UserService;
 
 public interface IServiceLocator {
     UserService getUserService();
+
     ProjectService getProjectService();
+
     TaskService getTaskService();
 }
 

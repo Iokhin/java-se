@@ -1,6 +1,7 @@
 package ru.iokhin.tm.entity;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -10,6 +11,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public final class Task {
 
     @NotNull
@@ -40,10 +42,6 @@ public final class Task {
             this.name = name;
             this.id = UUID.randomUUID().toString();
         } else System.out.println("Illegal argument");
-    }
-
-    public Task() {
-
     }
 
 

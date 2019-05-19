@@ -1,5 +1,6 @@
 package ru.iokhin.tm.repository;
 
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.api.IUserRepository;
 import ru.iokhin.tm.entity.User;
@@ -7,6 +8,7 @@ import ru.iokhin.tm.entity.User;
 import java.util.HashMap;
 import java.util.Map;
 
+@Getter
 public final class UserRepository implements IUserRepository {
 
     @NotNull
@@ -43,8 +45,10 @@ public final class UserRepository implements IUserRepository {
         userMap.clear();
     }
 
-    @NotNull
-    public Map<String, User> getUserMap() {
-        return userMap;
+    public User findUserByLogin(String login) {
+        for (User user : userMap.values()) {
+            if (user.getLogin().equals(login)) return user;
+        }
+        return null;
     }
 }

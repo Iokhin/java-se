@@ -1,21 +1,14 @@
 package ru.iokhin.tm.command.user;
 
-import ru.iokhin.tm.Bootstrap;
+import lombok.NoArgsConstructor;
 import ru.iokhin.tm.command.AbstractCommand;
 
 import java.util.Scanner;
 
+@NoArgsConstructor
 public class UserProfileEditCommand extends AbstractCommand {
 
     private Scanner scanner = new Scanner(System.in);
-
-    public UserProfileEditCommand(Bootstrap bootstrap) {
-        super(bootstrap);
-    }
-
-    public UserProfileEditCommand() {
-
-    }
 
     @Override
     public boolean security() {

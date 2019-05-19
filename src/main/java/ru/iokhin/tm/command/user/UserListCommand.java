@@ -1,16 +1,10 @@
 package ru.iokhin.tm.command.user;
 
-import ru.iokhin.tm.Bootstrap;
+import lombok.NoArgsConstructor;
 import ru.iokhin.tm.command.AbstractCommand;
 
+@NoArgsConstructor
 public class UserListCommand extends AbstractCommand {
-
-    public UserListCommand(Bootstrap bootstrap) {
-        super(bootstrap);
-    }
-
-    public UserListCommand() {
-    }
 
     @Override
     public boolean security() {

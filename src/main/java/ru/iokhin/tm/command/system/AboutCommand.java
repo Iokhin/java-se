@@ -1,7 +1,6 @@
 package ru.iokhin.tm.command.system;
 
-import org.jetbrains.annotations.NotNull;
-import ru.iokhin.tm.Bootstrap;
+import lombok.NoArgsConstructor;
 import ru.iokhin.tm.command.AbstractCommand;
 
 import java.io.IOException;
@@ -12,15 +11,8 @@ import java.util.jar.Attributes;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
 
+@NoArgsConstructor
 public final class AboutCommand extends AbstractCommand {
-
-    public AboutCommand(Bootstrap bootstrap) {
-        super(bootstrap);
-    }
-
-    public AboutCommand() {
-
-    }
 
     @Override
     public final boolean security() {

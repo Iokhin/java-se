@@ -1,15 +1,17 @@
 package ru.iokhin.tm.repository;
 
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.api.IProjectRepository;
 import ru.iokhin.tm.entity.Project;
 
 import java.util.*;
 
+@Getter
 public final class ProjectRepository implements IProjectRepository {
 
     @NotNull
-    public Map<String, Project> projectLinkedHashMap = new LinkedHashMap<>(0);
+    private Map<String, Project> projectLinkedHashMap = new LinkedHashMap<>(0);
 
     @Override
     public void add(@NotNull Project project) {
@@ -46,7 +48,4 @@ public final class ProjectRepository implements IProjectRepository {
         return projectLinkedHashMap.get(id);
     }
 
-    public Map<String, Project> getProjectLinkedHashMap() {
-        return projectLinkedHashMap;
-    }
 }

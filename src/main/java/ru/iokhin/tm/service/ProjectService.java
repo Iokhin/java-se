@@ -1,5 +1,6 @@
 package ru.iokhin.tm.service;
 
+import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.api.IProjectService;
 import ru.iokhin.tm.entity.Project;
@@ -8,14 +9,11 @@ import ru.iokhin.tm.repository.ProjectRepository;
 
 import java.util.Map;
 
+@RequiredArgsConstructor
 public final class ProjectService implements IProjectService {
 
     @NotNull
     private final ProjectRepository projectRepository;
-
-    public ProjectService(@NotNull ProjectRepository projectRepository) {
-        this.projectRepository = projectRepository;
-    }
 
     @Override
     public void addProject(@NotNull String name, @NotNull User user) {

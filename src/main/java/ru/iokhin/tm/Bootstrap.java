@@ -6,12 +6,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.iokhin.tm.api.IServiceLocator;
 import ru.iokhin.tm.command.*;
-import ru.iokhin.tm.command.project.*;
-import ru.iokhin.tm.command.system.AboutCommand;
-import ru.iokhin.tm.command.system.ExitCommand;
-import ru.iokhin.tm.command.system.HelpCommand;
-import ru.iokhin.tm.command.task.*;
-import ru.iokhin.tm.command.user.*;
 import ru.iokhin.tm.entity.User;
 import ru.iokhin.tm.enumerated.RoleType;
 import ru.iokhin.tm.repository.ProjectRepository;
@@ -53,14 +47,14 @@ public final class Bootstrap implements IServiceLocator {
     @Nullable
     private User currentUser;
 
-    @Nullable
-    public User getCurrentUser() {
-        return currentUser;
-    }
-
-    public void setCurrentUser(@Nullable User currentUser) {
-        this.currentUser = currentUser;
-    }
+//    @Nullable
+//    public User getCurrentUser() {
+//        return currentUser;
+//    }
+//
+//    public void setCurrentUser(@Nullable User currentUser) {
+//        this.currentUser = currentUser;
+//    }
 
     private boolean isAuth() {
         return getCurrentUser() != null;
@@ -81,9 +75,7 @@ public final class Bootstrap implements IServiceLocator {
             AbstractCommand commandInstance = null;
             try {
                 commandInstance = (AbstractCommand) commandClass.newInstance();
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
+            } catch (InstantiationException | IllegalAccessException e) {
                 e.printStackTrace();
             }
             if (isAbstractCommand(commandInstance)) {
@@ -91,76 +83,9 @@ public final class Bootstrap implements IServiceLocator {
             }
         }
 
-//        @NotNull
-//        AbstractCommand projectCreateCommand = new ProjectCreateCommand(this);
-//        @NotNull
-//        AbstractCommand projectListCommand = new ProjectListCommand(this);
-//        @NotNull
-//        AbstractCommand projectRemoveCommand = new ProjectRemoveCommand(this);
-//        @NotNull
-//        AbstractCommand projectRemoveAllCommand = new ProjectRemoveAllCommand(this);
-//        @NotNull
-//        AbstractCommand projectEditCommand = new ProjectEditCommand(this);
-//
-//
-//        @NotNull
-//        AbstractCommand taskCreateCommand = new TaskCreateCommand(this);
-//        @NotNull
-//        AbstractCommand taskListCommand = new TaskListCommand(this);
-//        @NotNull
-//        AbstractCommand taskRemoveCommand = new TaskRemoveCommand(this);
-//        @NotNull
-//        AbstractCommand taskRemoveAllCommand = new TaskRemoveAllCommand(this);
-//        @NotNull
-//        AbstractCommand taskEditCommand = new TaskEditCommand(this);
-//
-//        @NotNull
-//        AbstractCommand userAuthorization = new UserAuthorizationCommand(this);
-//        @NotNull
-//        AbstractCommand userEndSession = new UserEndSessionCommand(this);
-//        @NotNull
-//        AbstractCommand userPasswordChange = new UserPasswordChangeCommand(this);
-//        @NotNull
-//        AbstractCommand userRegistration = new UserRegistrationCommand(this);
-//        @NotNull
-//        AbstractCommand userProfileEdit = new UserProfileEditCommand(this);
-//        @NotNull
-//        AbstractCommand userList = new UserListCommand(this);
-//
-//        @NotNull
-//        AbstractCommand help = new HelpCommand(this);
-//        @NotNull
-//        AbstractCommand exit = new ExitCommand(this);
-//        @NotNull
-//        AbstractCommand about = new AboutCommand(this);
-//
-//        this.commandMap.put(projectCreateCommand.name(), projectCreateCommand);
-//        this.commandMap.put(projectListCommand.name(), projectListCommand);
-//        this.commandMap.put(projectRemoveCommand.name(), projectRemoveCommand);
-//        this.commandMap.put(projectRemoveAllCommand.name(), projectRemoveAllCommand);
-//        this.commandMap.put(projectEditCommand.name(), projectEditCommand);
-//
-//        this.commandMap.put(taskCreateCommand.name(), taskCreateCommand);
-//        this.commandMap.put(taskListCommand.name(), taskListCommand);
-//        this.commandMap.put(taskRemoveCommand.name(), taskRemoveCommand);
-//        this.commandMap.put(taskRemoveAllCommand.name(), taskRemoveAllCommand);
-//        this.commandMap.put(taskEditCommand.name(), taskEditCommand);
-//
-//        this.commandMap.put(userAuthorization.name(), userAuthorization);
-//        this.commandMap.put(userEndSession.name(), userEndSession);
-//        this.commandMap.put(userPasswordChange.name(), userPasswordChange);
-//        this.commandMap.put(userRegistration.name(), userRegistration);
-//        this.commandMap.put(userProfileEdit.name(), userProfileEdit);
-//        this.commandMap.put(userList.name(), userList);
-//
-//        this.commandMap.put(help.name(), help);
-//        this.commandMap.put(exit.name(), exit);
-//        this.commandMap.put(about.name(), about);
-
         System.out.println("***WELCOME TO TASK MANAGER***");
 
-        @NotNull
-        final Scanner scanner = new Scanner(System.in);
+        @NotNull final Scanner scanner = new Scanner(System.in);
 
         @NotNull
         String input = "";
@@ -168,6 +93,7 @@ public final class Bootstrap implements IServiceLocator {
         while (!input.equals("exit")) {
             input = scanner.nextLine();
             AbstractCommand command = this.commandMap.get(input);
+            if (command == null) continue;
             execute(command);
         }
     }
@@ -191,7 +117,7 @@ public final class Bootstrap implements IServiceLocator {
         this.commandMap.put(abstractCommand.name(), abstractCommand);
     }
 
-    private boolean isAbstractCommand(Object o){
+    private boolean isAbstractCommand(Object o) {
         return o instanceof AbstractCommand;
     }
 }
