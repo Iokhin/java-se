@@ -13,10 +13,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
-public final class User {
-
-    @NotNull
-    private String userId;
+public final class User extends AbstractEntity {
 
     @Nullable
     private String login;
@@ -31,7 +28,6 @@ public final class User {
         this.roleType = roleType;
         this.login = login;
         this.passwordHash = MD5Util.passwordToHash(password);
-        this.userId = UUID.randomUUID().toString();
     }
 
     public void setPasswordHash(String password) {

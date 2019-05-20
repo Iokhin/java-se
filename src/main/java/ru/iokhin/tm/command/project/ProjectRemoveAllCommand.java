@@ -23,12 +23,7 @@ public final class ProjectRemoveAllCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        projectRemoveAllCommand();
+        bootstrap.getProjectService().removeAllByUserId(bootstrap.getCurrentUser().getId());
         System.out.println("OK");
-    }
-
-
-    private void projectRemoveAllCommand() {
-        bootstrap.getProjectService().clearProject();
     }
 }

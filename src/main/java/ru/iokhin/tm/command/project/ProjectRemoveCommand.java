@@ -20,8 +20,8 @@ public final class ProjectRemoveCommand extends AbstractCommand {
 
     private boolean isHaveAccess(Bootstrap bootstrap, String projectId) {
 
-        @NotNull final String currentUserId = bootstrap.getCurrentUser().getUserId();
-        @NotNull final String allowedUserId = bootstrap.getProjectService().getProjectById(projectId).getUserId();
+        @NotNull final String currentUserId = bootstrap.getCurrentUser().getId();
+        @NotNull final String allowedUserId = bootstrap.getProjectService().findOne(projectId).getUserId();
 
         return currentUserId.equals(allowedUserId);
     }
@@ -39,13 +39,12 @@ public final class ProjectRemoveCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        assert bootstrap.getCurrentUser() != null;
-        bootstrap.getProjectService().listProject(bootstrap.getCurrentUser().getUserId());
+        bootstrap.getCommandMap().get("project-list").execute();
         System.out.println("ENTER ID OF PROJECT TO REMOVE");
 
         @NotNull
         String projectId = scanner.nextLine();
-        if (bootstrap.getProjectService().getProjectById(projectId) == null) {
+        if (bootstrap.getProjectService().findOne(projectId) == null) {
             System.out.println("NO SUCH PROJECT ID");
             return;
         }
@@ -59,6 +58,6 @@ public final class ProjectRemoveCommand extends AbstractCommand {
     }
 
     private void projectRemoveCommand(@NotNull String id) {
-        bootstrap.getProjectService().removeProject(id);
+        bootstrap.getProjectService().remove(id);
     }
 }

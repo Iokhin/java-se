@@ -1,4 +1,4 @@
-package ru.iokhin.tm.api;
+package ru.iokhin.tm.api.service;
 
 import ru.iokhin.tm.enumerated.RoleType;
 

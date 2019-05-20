@@ -28,7 +28,7 @@ public class UserProfileEditCommand extends AbstractCommand {
     @Override
     public void execute() {
         System.out.println("USER PROFILE:");
-        System.out.println("USER ID: " + bootstrap.getCurrentUser().getUserId());
+        System.out.println("USER ID: " + bootstrap.getCurrentUser().getId());
         System.out.println("USER LOGIN: " + bootstrap.getCurrentUser().getLogin());
         System.out.println("USER RIGHTS: " + bootstrap.getCurrentUser().getRoleType().displayName());
         System.out.println("ENTER NEW LOGIN TO EDIT");

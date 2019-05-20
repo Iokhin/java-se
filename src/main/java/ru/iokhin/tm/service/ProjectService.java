@@ -1,76 +1,59 @@
 package ru.iokhin.tm.service;
 
-import lombok.RequiredArgsConstructor;
-import org.jetbrains.annotations.NotNull;
-import ru.iokhin.tm.api.IProjectService;
+import ru.iokhin.tm.api.repository.IAbstractRepository;
+import ru.iokhin.tm.api.repository.IProjectRepository;
+import ru.iokhin.tm.api.service.IProjectService;
 import ru.iokhin.tm.entity.Project;
 import ru.iokhin.tm.entity.User;
-import ru.iokhin.tm.repository.ProjectRepository;
+import ru.iokhin.tm.util.StringValidator;
 
-import java.util.Map;
+import java.util.Collection;
 
-@RequiredArgsConstructor
-public final class ProjectService implements IProjectService {
+public final class ProjectService extends AbstractService<Project> implements IProjectService {
 
-    @NotNull
-    private final ProjectRepository projectRepository;
+    public ProjectService(IAbstractRepository<Project> repository) {
+        super(repository);
+    }
 
     @Override
-    public void addProject(@NotNull String name, @NotNull User user) {
-        if (name.trim().isEmpty()) {
+    public Project add(String name, User user) {
+        if (!StringValidator.isValid(name)) {
             System.out.println("Illegal name");
-            return;
+            return null;
         }
-        projectRepository.add(new Project(name, user.getUserId()));
+        return repository.persist(new Project(name, user.getId()));
     }
 
     @Override
-    public void listProject(@NotNull String userId) {
-        projectRepository.list(userId);
-    }
-
-    @Override
-    public void removeProject(@NotNull String id) {
-        if (id.trim().isEmpty()) {
-            System.out.println("Illegal ID");
-            return;
+    public Project edit(String id, String name) {
+        if (!StringValidator.isValid(id, name)) {
+            System.out.println("Illegal argument");
+            return null;
         }
-
-        @NotNull
-        Project project = projectRepository.findById(id);
-
+        Project project = repository.findOne(id);
         if (project == null) {
             System.out.println("NO PROJECT WITH SUCH ID");
-        } else projectRepository.delete(project.getId());
+        }
+        project.setName(name);
+        return project;
     }
 
     @Override
-    public void clearProject() {
-        projectRepository.clear();
+    public Collection<Project> findAllByUserId(String id) {
+        if (!StringValidator.isValid(id)) {
+            System.out.println("Illegal argument");
+            return null;
+        }
+        return ((IProjectRepository)repository).findAllByUserId(id);
     }
 
     @Override
-    public void editProject(String id, String newName) {
-        if (id == null && id.trim().isEmpty()) {
-            System.out.println("Illegal ID");
+    public void removeAllByUserId(String id) {
+        if (!StringValidator.isValid(id)) {
+            System.out.println("Illegal argument");
             return;
         }
-        if (newName == null && newName.trim().isEmpty()) {
-            System.out.println("Illegal name");
-            return;
-        }
-        Project project;
-        if ((project = projectRepository.findById(id)) == null) {
-            System.out.println("NO PROJECT WITH SUCH ID");
-        }
-        projectRepository.merge(new Project(newName, project.getId(), project.getUserId()));
+        ((IProjectRepository)repository).removeAllByUserId(id);
     }
 
-    public Project getProjectById(String id) {
-        return projectRepository.findById(id);
-    }
-
-    public Map<String, Project> getAllProjects() {
-        return projectRepository.getProjectLinkedHashMap();
-    }
 }

@@ -41,6 +41,6 @@ public final class ProjectCreateCommand extends AbstractCommand {
 
     private void projectCreateCommand(@NotNull String name) {
         assert bootstrap.getCurrentUser() != null;
-        bootstrap.getProjectService().addProject(name, bootstrap.getCurrentUser());
+        bootstrap.getProjectService().add(name, bootstrap.getCurrentUser());
     }
 }

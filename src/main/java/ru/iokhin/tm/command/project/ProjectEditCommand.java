@@ -20,10 +20,9 @@ public final class ProjectEditCommand extends AbstractCommand {
     private boolean isHaveAccess(Bootstrap bootstrap, String projectId) {
 
         @NotNull
-        final String currentUserId = bootstrap.getCurrentUser().getUserId();
+        final String currentUserId = bootstrap.getCurrentUser().getId();
         @NotNull
-        final String allowedUserId = bootstrap.getProjectService().getProjectById(projectId).getUserId();
-
+        final String allowedUserId = bootstrap.getProjectService().findOne(projectId).getUserId();
         return currentUserId.equals(allowedUserId);
     }
 
@@ -40,11 +39,13 @@ public final class ProjectEditCommand extends AbstractCommand {
 
     @Override
     public void execute() {
+        bootstrap.getCommandMap().get("project-list").execute();
+
         System.out.println("ENTER ID OF PROJECT TO EDIT");
 
         @NotNull
         String projectId = scanner.nextLine();
-        if (bootstrap.getProjectService().getProjectById(projectId) == null) {
+        if (bootstrap.getProjectService().findOne(projectId) == null) {
             System.out.println("NO SUCH PROJECT ID");
             return;
         }
@@ -58,12 +59,7 @@ public final class ProjectEditCommand extends AbstractCommand {
         @NotNull
         String newName = scanner.nextLine();
 
-        projectEditCommand(projectId, newName);
+        bootstrap.getProjectService().edit(projectId, newName);
         System.out.println("OK");
-    }
-
-
-    private void projectEditCommand(@NotNull String id, @NotNull String newName) {
-        bootstrap.getProjectService().editProject(id, newName);
     }
 }

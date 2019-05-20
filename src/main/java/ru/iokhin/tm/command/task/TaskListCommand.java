@@ -4,7 +4,9 @@ import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.Bootstrap;
 import ru.iokhin.tm.command.AbstractCommand;
+import ru.iokhin.tm.entity.Task;
 
+import java.util.Collection;
 import java.util.Scanner;
 
 @NoArgsConstructor
@@ -20,9 +22,9 @@ public final class TaskListCommand extends AbstractCommand {
     private boolean isHaveAccess(Bootstrap bootstrap, String projectId) {
 
         @NotNull
-        final String currentUserId = bootstrap.getCurrentUser().getUserId();
+        final String currentUserId = bootstrap.getCurrentUser().getId();
         @NotNull
-        final String allowedUserId = bootstrap.getProjectService().getProjectById(projectId).getUserId();
+        final String allowedUserId = bootstrap.getProjectService().findOne(projectId).getUserId();
 
         return currentUserId.equals(allowedUserId);
     }
@@ -44,7 +46,7 @@ public final class TaskListCommand extends AbstractCommand {
 
         @NotNull
         String projectId = scanner.nextLine();
-        if (bootstrap.getProjectService().getProjectById(projectId) == null) {
+        if (bootstrap.getProjectService().findOne(projectId) == null) {
             System.out.println("NO SUCH PROJECT ID");
             return;
         }
@@ -55,6 +57,13 @@ public final class TaskListCommand extends AbstractCommand {
             return;
         }
         System.out.println("TASKS LIST:");
-        bootstrap.getTaskService().listTask(projectId, bootstrap.getCurrentUser().getUserId());
+        int i = 0;
+        for (Task task : getTaskList(projectId)) {
+            System.out.println(++i + ". " + task);
+        }
+    }
+
+    private Collection<Task> getTaskList(String projectId) {
+        return bootstrap.getTaskService().findAllByProjectId(projectId);
     }
 }

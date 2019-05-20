@@ -21,9 +21,9 @@ public final class TaskCreateCommand extends AbstractCommand {
     private boolean isHaveAccess(Bootstrap bootstrap, String projectId) {
 
         @NotNull
-        final String currentUserId = bootstrap.getCurrentUser().getUserId();
+        final String currentUserId = bootstrap.getCurrentUser().getId();
         @NotNull
-        final String allowedUserId = bootstrap.getProjectService().getProjectById(projectId).getUserId();
+        final String allowedUserId = bootstrap.getProjectService().findOne(projectId).getUserId();
 
         return currentUserId.equals(allowedUserId);
     }
@@ -41,10 +41,9 @@ public final class TaskCreateCommand extends AbstractCommand {
     @Override
     public void execute() {
         System.out.println("ENTER ID OF PROJECT TO CREATE TASK");
-        System.out.println("PROJECTS LIST:");
-        bootstrap.getProjectService().listProject(bootstrap.getCurrentUser().getUserId());
+        bootstrap.getCommandMap().get("project-list").execute();
         String projectId = scanner.nextLine();
-        if (bootstrap.getProjectService().getProjectById(projectId) == null) {
+        if (bootstrap.getProjectService().findOne(projectId) == null) {
             System.out.println("NO SUCH PROJECT ID");
             return;
         }
@@ -54,7 +53,7 @@ public final class TaskCreateCommand extends AbstractCommand {
         }
         System.out.println("ENTER NAME OF TASK TO CREATE");
         String taskName = scanner.nextLine();
-        bootstrap.getTaskService().addTask(bootstrap.getCurrentUser().getUserId(), projectId, taskName);
+        bootstrap.getTaskService().add(bootstrap.getCurrentUser().getId(), projectId, taskName);
         System.out.println("OK");
     }
 }

@@ -1,4 +1,4 @@
-package ru.iokhin.tm.api;
+package ru.iokhin.tm.api.repository;
 
 import ru.iokhin.tm.entity.User;
 

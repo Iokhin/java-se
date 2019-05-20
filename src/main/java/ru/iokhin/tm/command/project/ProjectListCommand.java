@@ -2,6 +2,9 @@ package ru.iokhin.tm.command.project;
 
 import lombok.NoArgsConstructor;
 import ru.iokhin.tm.command.AbstractCommand;
+import ru.iokhin.tm.entity.Project;
+
+import java.util.Collection;
 
 @NoArgsConstructor
 public final class ProjectListCommand extends AbstractCommand {
@@ -24,12 +27,15 @@ public final class ProjectListCommand extends AbstractCommand {
     @Override
     public void execute() {
         System.out.println("PROJECTS LIST:");
-        projectListCommand();
+        int i = 0;
+        for (Project project : projectList()) {
+            System.out.println(++i + ". " + project);
+        }
     }
 
 
-    private void projectListCommand() {
+    private Collection<Project> projectList() {
         assert bootstrap.getCurrentUser() != null;
-        bootstrap.getProjectService().listProject(bootstrap.getCurrentUser().getUserId());
+        return bootstrap.getProjectService().findAllByUserId(bootstrap.getCurrentUser().getId());
     }
 }

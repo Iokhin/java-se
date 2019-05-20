@@ -14,16 +14,10 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
-public final class Project {
+public final class Project extends AbstractEntity {
 
     @NotNull
-    private String id;
-
-    @Nullable
-    private String name;
-
-    @Nullable
-    private String description;
+    private String userId;
 
     @Nullable
     private Date startDate;
@@ -31,23 +25,11 @@ public final class Project {
     @Nullable
     private Date endDate;
 
-    @NotNull
-    private String userId;
 
     public Project(@NotNull String name, @NotNull String userId) {
-        if (!name.trim().isEmpty()) {
-            this.name = name;
-            this.id = UUID.randomUUID().toString();
-            this.userId = userId;
-        } else System.out.println("Illegal argument");
-    }
-
-    public Project(@NotNull String name, @NotNull String id, @NotNull String userId) {
-        if (!name.trim().isEmpty()) {
-            this.name = name;
-            this.id = id;
-            this.userId = userId;
-        } else System.out.println("Illegal argument");
+        this.name = name;
+        this.userId = userId;
+        this.startDate = new Date();
     }
 
     @Override

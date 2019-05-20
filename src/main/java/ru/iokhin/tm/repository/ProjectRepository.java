@@ -1,51 +1,33 @@
 package ru.iokhin.tm.repository;
 
 import lombok.Getter;
-import org.jetbrains.annotations.NotNull;
-import ru.iokhin.tm.api.IProjectRepository;
+import ru.iokhin.tm.api.repository.IProjectRepository;
 import ru.iokhin.tm.entity.Project;
 
 import java.util.*;
 
 @Getter
-public final class ProjectRepository implements IProjectRepository {
-
-    @NotNull
-    private Map<String, Project> projectLinkedHashMap = new LinkedHashMap<>(0);
+public final class ProjectRepository extends AbstractRepository<Project> implements IProjectRepository {
 
     @Override
-    public void add(@NotNull Project project) {
-        projectLinkedHashMap.put(project.getId(), project);
+    public Collection<Project> findAllByUserId(String userId) {
+        Collection<Project> projectCollection = new ArrayList<>(0);
+        for (Project project : findAll()) {
+            if (project.getUserId().equals(userId))
+                projectCollection.add(project);
+        }
+        return projectCollection;
     }
 
     @Override
-    public void list(@NotNull String userId) {
-        int i = 0;
-        for (@NotNull Project project : projectLinkedHashMap.values()) {
-            if (project.getUserId().equals(userId)) {
-                System.out.println(++i + ". " + project.toString());
-            }
+    public void removeAllByUserId(String userId) {
+        for (Project project : findAllByUserId(userId)) {
+            remove(project.getId());
         }
     }
 
-    @Override
-    public void merge(@NotNull Project project) {
-        projectLinkedHashMap.put(project.getId(), project);
-    }
-
-    @Override
-    public void delete(@NotNull String id) {
-        projectLinkedHashMap.remove(id);
-    }
-
-    @Override
-    public void clear() {
-        projectLinkedHashMap.clear();
-    }
-
-    @Override
-    public Project findById(@NotNull String id) {
-        return projectLinkedHashMap.get(id);
+    public Map<String, Project> getRepositoryMap() {
+        return this.repositoryMap;
     }
 
 }

@@ -2,7 +2,7 @@ package ru.iokhin.tm.service;
 
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
-import ru.iokhin.tm.api.IUserService;
+import ru.iokhin.tm.api.service.IUserService;
 import ru.iokhin.tm.enumerated.RoleType;
 import ru.iokhin.tm.entity.User;
 import ru.iokhin.tm.repository.UserRepository;
@@ -29,7 +29,7 @@ public final class UserService implements IUserService {
     @Override
     public void removeUser(String userId) {
         for (@NotNull User user : userRepository.userMap.values()) {
-            if (user.getUserId().equals(userId)) {
+            if (user.getId().equals(userId)) {
                 userRepository.delete(userId);
                 return;
             }
@@ -44,7 +44,7 @@ public final class UserService implements IUserService {
     @Override
     public void editUser(@NotNull RoleType roleType, @NotNull String userId, @NotNull String newLogin, @NotNull String newPasswordHash) {
         for (User user : userRepository.userMap.values()) {
-            if (user.getUserId().equals(userId)) {
+            if (user.getId().equals(userId)) {
 
                 @NotNull
                 User newUser = new User(roleType, newLogin, newPasswordHash);

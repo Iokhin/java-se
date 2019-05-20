@@ -2,8 +2,9 @@ package ru.iokhin.tm.repository;
 
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
-import ru.iokhin.tm.api.IUserRepository;
+import ru.iokhin.tm.api.repository.IUserRepository;
 import ru.iokhin.tm.entity.User;
+import ru.iokhin.tm.enumerated.RoleType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,9 +15,21 @@ public final class UserRepository implements IUserRepository {
     @NotNull
     public Map<String, User> userMap = new HashMap<>(0);
 
+//    @NotNull
+//    User userAdmin = new User(RoleType.ADMIN, "admin", "admin");
+//
+//    @NotNull
+//    User userUser = new User(RoleType.USER, "user", "user");
+//
+//
+//    {
+//        userMap.put(userAdmin.getId(), userAdmin);
+//        userMap.put(userUser.getId(), userUser);
+//    }
+
     @Override
     public void add(@NotNull User user) {
-        userMap.put(user.getUserId(), user);
+        userMap.put(user.getId(), user);
     }
 
     @Override
@@ -26,13 +39,13 @@ public final class UserRepository implements IUserRepository {
         int i = 0;
 
         for (@NotNull User user : userMap.values()) {
-            System.out.println(++i + ". " + user.getLogin() + ", " + user.getUserId());
+            System.out.println(++i + ". " + user.getLogin() + ", " + user.getId());
         }
     }
 
     @Override
     public void merge(@NotNull User user) {
-        userMap.put(user.getUserId(), user);
+        userMap.put(user.getId(), user);
     }
 
     @Override

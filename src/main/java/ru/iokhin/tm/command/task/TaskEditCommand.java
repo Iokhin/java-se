@@ -20,8 +20,10 @@ public final class TaskEditCommand extends AbstractCommand {
 
     private boolean isHaveAccess(Bootstrap bootstrap, String taskId) {
 
-        @NotNull final String currentUserId = bootstrap.getCurrentUser().getUserId();
-        @NotNull final String allowedUserId = bootstrap.getTaskService().getTaskById(taskId).getUserId();
+        @NotNull final String currentUserId = bootstrap.getCurrentUser().getId();
+        @NotNull final String allowedUserId = bootstrap.getTaskService().findOne(taskId).getUserId();
+
+        System.out.println(currentUserId + "     " + allowedUserId);
 
         return currentUserId.equals(allowedUserId);
     }
@@ -39,22 +41,21 @@ public final class TaskEditCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        System.out.println("ENTER ID OF PROJECT TO EDIT TASK");
+//        System.out.println("ENTER ID OF PROJECT TO EDIT TASK");
+//
+//        @NotNull
+//        String projectId = scanner.nextLine();
+//        if (bootstrap.getProjectService().findOne(projectId) == null) {
+//            System.out.println("NO SUCH PROJECT ID");
+//            return;
+//        }
 
-        @NotNull
-        String projectId = scanner.nextLine();
-        if (bootstrap.getProjectService().getProjectById(projectId) == null) {
-            System.out.println("NO SUCH PROJECT ID");
-            return;
-        }
-
-        bootstrap.getTaskService().listTask(projectId, bootstrap.getCurrentUser().getUserId());
         System.out.println("ENTER ID OF TASK TO EDIT");
 
         @NotNull
         String taskId = scanner.nextLine();
 
-        if (bootstrap.getTaskService().getTaskById(taskId) == null) {
+        if (bootstrap.getTaskService().findOne(taskId) == null) {
             System.out.println("NO SUCH TASK ID");
             return;
         }
@@ -69,7 +70,7 @@ public final class TaskEditCommand extends AbstractCommand {
         @NotNull
         String newTaskName = scanner.nextLine();
 
-        bootstrap.getTaskService().editTask(taskId, newTaskName);
+        bootstrap.getTaskService().edit(taskId, newTaskName);
         System.out.println("OK");
     }
 }

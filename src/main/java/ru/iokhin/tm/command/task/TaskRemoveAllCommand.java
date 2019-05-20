@@ -21,9 +21,9 @@ public final class TaskRemoveAllCommand extends AbstractCommand {
     private boolean isHaveAccess(Bootstrap bootstrap, String projectId) {
 
         @NotNull
-        final String currentUserId = bootstrap.getCurrentUser().getUserId();
+        final String currentUserId = bootstrap.getCurrentUser().getId();
         @NotNull
-        final String allowedUserId = bootstrap.getProjectService().getProjectById(projectId).getUserId();
+        final String allowedUserId = bootstrap.getProjectService().findOne(projectId).getUserId();
 
         return currentUserId.equals(allowedUserId);
     }
@@ -44,7 +44,7 @@ public final class TaskRemoveAllCommand extends AbstractCommand {
 
         @NotNull
         String projectId = scanner.nextLine();
-        if (bootstrap.getProjectService().getProjectById(projectId) == null) {
+        if (bootstrap.getProjectService().findOne(projectId) == null) {
             System.out.println("NO SUCH PROJECT ID");
             return;
         }
@@ -53,7 +53,7 @@ public final class TaskRemoveAllCommand extends AbstractCommand {
             System.out.println("NO ACCESS FOR THIS OPERATION");
             return;
         }
-        bootstrap.getTaskService().clearTask(projectId, bootstrap.getCurrentUser().getUserId());
+        bootstrap.getTaskService().removeAllByProjectId(projectId);
         System.out.println("OK");
     }
 }

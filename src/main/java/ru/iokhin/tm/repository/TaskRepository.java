@@ -1,46 +1,47 @@
 package ru.iokhin.tm.repository;
 
-import org.jetbrains.annotations.NotNull;
-import ru.iokhin.tm.api.ITaskRepository;
+import ru.iokhin.tm.api.repository.ITaskRepository;
 import ru.iokhin.tm.entity.Task;
 
 import java.util.*;
 
-public final class TaskRepository implements ITaskRepository {
-
-    @NotNull
-    public Map<String, Task> taskLinkedHashMap = new LinkedHashMap<>(0);
+public final class TaskRepository extends AbstractRepository<Task> implements ITaskRepository {
 
     @Override
-    public void add(@NotNull Task task) {
-        taskLinkedHashMap.put(task.getId(), task);
+    public Collection<Task> findAllByUserId(String id) {
+        Collection<Task> taskCollection = new ArrayList<>(0);
+        for (Task task : findAll()) {
+            if (task.getUserId().equals(id))
+                taskCollection.add(task);
+        }
+        return taskCollection;
     }
 
     @Override
-    public void list(@NotNull String projectId, @NotNull String userId) {
-
-        @NotNull
-        int i = 0;
-
-        for (@NotNull Task task : taskLinkedHashMap.values()) {
-            if (task.getProjectId().equals(projectId) && task.getUserId().equals(userId)) {
-                System.out.println(++i + ". " + task.toString());
-            }
+    public void removeAllByUserId(String id) {
+        for (Task task : findAllByUserId(id)) {
+            remove(task.getId());
         }
     }
 
     @Override
-    public void merge(@NotNull Task task) {
-        taskLinkedHashMap.put(task.getId(), task);
+    public Collection<Task> findAllByProjectId(String id) {
+        Collection<Task> taskCollection = new ArrayList<>(0);
+        for (Task task : findAll()) {
+            if (task.getProjectId().equals(id))
+                taskCollection.add(task);
+        }
+        return taskCollection;
     }
 
     @Override
-    public void delete(@NotNull String id) {
-        taskLinkedHashMap.remove(id);
+    public void removeAllByProjectId(String id) {
+        for (Task task : findAllByProjectId(id)) {
+            remove(task.getId());
+        }
     }
 
-    @Override
-    public Task findById(@NotNull String id) {
-        return taskLinkedHashMap.get(id);
+    public Map<String, Task> getRepositoryMap() {
+        return this.repositoryMap;
     }
 }
