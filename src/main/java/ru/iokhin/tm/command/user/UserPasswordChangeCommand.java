@@ -4,12 +4,8 @@ import lombok.NoArgsConstructor;
 import ru.iokhin.tm.util.MD5Util;
 import ru.iokhin.tm.command.AbstractCommand;
 
-import java.util.Scanner;
-
 @NoArgsConstructor
 public class UserPasswordChangeCommand extends AbstractCommand {
-
-    private Scanner scanner = new Scanner(System.in);
 
     @Override
     public boolean security() {
@@ -29,10 +25,10 @@ public class UserPasswordChangeCommand extends AbstractCommand {
     @Override
     public void execute() {
         System.out.println("ENTER THE CURRENT PASSWORD");
-        String input = scanner.nextLine();
+        String input = bootstrap.getTerminalService().nextLine();
         if (bootstrap.getCurrentUser().getPasswordHash().equals(MD5Util.passwordToHash(input))) {
             System.out.println("ENTER NEW PASSWORD");
-            input = scanner.nextLine();
+            input = bootstrap.getTerminalService().nextLine();
             bootstrap.getCurrentUser().setPasswordHash(input);
             System.out.println("OK");
             return;

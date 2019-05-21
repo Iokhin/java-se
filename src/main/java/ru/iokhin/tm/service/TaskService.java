@@ -44,7 +44,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
             System.out.println("INVALID ARGUMENT");
             return null;
         }
-        return ((ITaskRepository)repository).findAllByUserId(id);
+        return ((ITaskRepository) repository).findAllByUserId(id);
     }
 
     @Override
@@ -53,7 +53,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
             System.out.println("INVALID ARGUMENT");
             return;
         }
-        ((ITaskRepository)repository).removeAllByUserId(id);
+        ((ITaskRepository) repository).removeAllByUserId(id);
     }
 
     @Override
@@ -62,7 +62,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
             System.out.println("INVALID ARGUMENT");
             return null;
         }
-        return ((ITaskRepository)repository).findAllByProjectId(id);
+        return ((ITaskRepository) repository).findAllByProjectId(id);
     }
 
     @Override
@@ -71,7 +71,7 @@ public final class TaskService extends AbstractService<Task> implements ITaskSer
             System.out.println("INVALID ARGUMENT");
             return;
         }
-        ((ITaskRepository)repository).removeAllByProjectId(id);
+        ((ITaskRepository) repository).removeAllByProjectId(id);
     }
 
 

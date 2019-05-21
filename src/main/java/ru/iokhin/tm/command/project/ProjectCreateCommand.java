@@ -4,16 +4,11 @@ import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.command.AbstractCommand;
 
-import java.util.Scanner;
-
 @NoArgsConstructor
 public final class ProjectCreateCommand extends AbstractCommand {
 
-    @NotNull
-    private final Scanner scanner = new Scanner(System.in);
-
     @Override
-    public final boolean security() {
+    public boolean security() {
         return true;
     }
 
@@ -32,7 +27,7 @@ public final class ProjectCreateCommand extends AbstractCommand {
         System.out.println("ENTER NAME OF PROJECT TO CREATE");
 
         @NotNull
-        String name = scanner.nextLine();
+        String name = bootstrap.getTerminalService().nextLine();
 
         projectCreateCommand(name);
         System.out.println("OK");
@@ -40,7 +35,6 @@ public final class ProjectCreateCommand extends AbstractCommand {
 
 
     private void projectCreateCommand(@NotNull String name) {
-        assert bootstrap.getCurrentUser() != null;
         bootstrap.getProjectService().add(name, bootstrap.getCurrentUser());
     }
 }

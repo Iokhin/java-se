@@ -8,5 +8,7 @@ public interface IServiceLocator {
 
     ITaskService getTaskService();
 
+    ITerminalService getTerminalService();
+
 }
 

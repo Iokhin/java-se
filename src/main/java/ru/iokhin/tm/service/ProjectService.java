@@ -44,7 +44,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
             System.out.println("Illegal argument");
             return null;
         }
-        return ((IProjectRepository)repository).findAllByUserId(id);
+        return ((IProjectRepository) repository).findAllByUserId(id);
     }
 
     @Override
@@ -53,7 +53,7 @@ public final class ProjectService extends AbstractService<Project> implements IP
             System.out.println("Illegal argument");
             return;
         }
-        ((IProjectRepository)repository).removeAllByUserId(id);
+        ((IProjectRepository) repository).removeAllByUserId(id);
     }
 
 }

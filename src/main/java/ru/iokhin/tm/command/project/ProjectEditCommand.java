@@ -5,12 +5,8 @@ import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.Bootstrap;
 import ru.iokhin.tm.command.AbstractCommand;
 
-import java.util.Scanner;
-
 @NoArgsConstructor
 public final class ProjectEditCommand extends AbstractCommand {
-
-    private final Scanner scanner = new Scanner(System.in);
 
     @Override
     public boolean security() {
@@ -19,10 +15,8 @@ public final class ProjectEditCommand extends AbstractCommand {
 
     private boolean isHaveAccess(Bootstrap bootstrap, String projectId) {
 
-        @NotNull
-        final String currentUserId = bootstrap.getCurrentUser().getId();
-        @NotNull
-        final String allowedUserId = bootstrap.getProjectService().findOne(projectId).getUserId();
+        @NotNull final String currentUserId = bootstrap.getCurrentUser().getId();
+        @NotNull final String allowedUserId = bootstrap.getProjectService().findOne(projectId).getUserId();
         return currentUserId.equals(allowedUserId);
     }
 
@@ -44,7 +38,7 @@ public final class ProjectEditCommand extends AbstractCommand {
         System.out.println("ENTER ID OF PROJECT TO EDIT");
 
         @NotNull
-        String projectId = scanner.nextLine();
+        String projectId = bootstrap.getTerminalService().nextLine();
         if (bootstrap.getProjectService().findOne(projectId) == null) {
             System.out.println("NO SUCH PROJECT ID");
             return;
@@ -57,7 +51,7 @@ public final class ProjectEditCommand extends AbstractCommand {
         System.out.println("ENTER NEW NAME OF PROJECT TO EDIT");
 
         @NotNull
-        String newName = scanner.nextLine();
+        String newName = bootstrap.getTerminalService().nextLine();
 
         bootstrap.getProjectService().edit(projectId, newName);
         System.out.println("OK");

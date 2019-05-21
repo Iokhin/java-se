@@ -14,8 +14,8 @@ import ru.iokhin.tm.repository.ProjectRepository;
 import ru.iokhin.tm.repository.TaskRepository;
 import ru.iokhin.tm.repository.UserRepository;
 import ru.iokhin.tm.service.ProjectService;
-import ru.iokhin.tm.service.ServiceLocator;
 import ru.iokhin.tm.service.TaskService;
+import ru.iokhin.tm.service.TerminalService;
 import ru.iokhin.tm.service.UserService;
 
 import java.util.LinkedHashMap;
@@ -24,12 +24,10 @@ import java.util.Scanner;
 
 @Getter
 @Setter
-public final class Bootstrap {
+public final class Bootstrap implements IServiceLocator {
 
     @NotNull
     private Map<String, AbstractCommand> commandMap = new LinkedHashMap<>(0);
-
-//    public final IServiceLocator serviceLocator = new ServiceLocator();
 
     @NotNull
     private final ProjectRepository projectRepository = new ProjectRepository();
@@ -48,6 +46,9 @@ public final class Bootstrap {
 
     @NotNull
     private final UserService userService = new UserService(userRepository);
+
+    @NotNull
+    private final TerminalService terminalService = new TerminalService();
 
     @Nullable
     private User currentUser;
@@ -74,13 +75,11 @@ public final class Bootstrap {
 
         System.out.println("***WELCOME TO TASK MANAGER***");
 
-        @NotNull final Scanner scanner = new Scanner(System.in);
-
         @NotNull
         String input = "";
 
         while (!input.equals("exit")) {
-            input = scanner.nextLine();
+            input = terminalService.nextLine();
             AbstractCommand command = this.commandMap.get(input);
             if (command == null) continue;
             execute(command);
@@ -110,7 +109,7 @@ public final class Bootstrap {
         return o instanceof AbstractCommand;
     }
 
-    void generateTestData(){
+    void generateTestData() {
         //Test data
         //---------
 

@@ -10,7 +10,7 @@ import java.util.Date;
 
 @Getter
 @Setter
-//@NoArgsConstructor
+@NoArgsConstructor
 public final class Task extends AbstractEntity {
 
     @NotNull

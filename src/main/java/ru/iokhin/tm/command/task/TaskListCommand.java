@@ -7,12 +7,9 @@ import ru.iokhin.tm.command.AbstractCommand;
 import ru.iokhin.tm.entity.Task;
 
 import java.util.Collection;
-import java.util.Scanner;
 
 @NoArgsConstructor
 public final class TaskListCommand extends AbstractCommand {
-
-    private final Scanner scanner = new Scanner(System.in);
 
     @Override
     public boolean security() {
@@ -21,10 +18,8 @@ public final class TaskListCommand extends AbstractCommand {
 
     private boolean isHaveAccess(Bootstrap bootstrap, String projectId) {
 
-        @NotNull
-        final String currentUserId = bootstrap.getCurrentUser().getId();
-        @NotNull
-        final String allowedUserId = bootstrap.getProjectService().findOne(projectId).getUserId();
+        @NotNull final String currentUserId = bootstrap.getCurrentUser().getId();
+        @NotNull final String allowedUserId = bootstrap.getProjectService().findOne(projectId).getUserId();
 
         return currentUserId.equals(allowedUserId);
     }
@@ -45,7 +40,7 @@ public final class TaskListCommand extends AbstractCommand {
         System.out.println("ENTER ID OF PROJECT TO LIST TASKS");
 
         @NotNull
-        String projectId = scanner.nextLine();
+        String projectId = bootstrap.getTerminalService().nextLine();
         if (bootstrap.getProjectService().findOne(projectId) == null) {
             System.out.println("NO SUCH PROJECT ID");
             return;

@@ -1,6 +1,6 @@
 package ru.iokhin.tm.util;
 
-public class StringValidator {
+public final class StringValidator {
     public static boolean isValid(String ...strings){
         for (String string : strings) {
             if (string == null || string.trim().isEmpty())

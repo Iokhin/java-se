@@ -5,13 +5,8 @@ import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.Bootstrap;
 import ru.iokhin.tm.command.AbstractCommand;
 
-import java.util.Scanner;
-
 @NoArgsConstructor
 public final class TaskEditCommand extends AbstractCommand {
-
-    @NotNull
-    private final Scanner scanner = new Scanner(System.in);
 
     @Override
     public boolean security() {
@@ -22,8 +17,6 @@ public final class TaskEditCommand extends AbstractCommand {
 
         @NotNull final String currentUserId = bootstrap.getCurrentUser().getId();
         @NotNull final String allowedUserId = bootstrap.getTaskService().findOne(taskId).getUserId();
-
-        System.out.println(currentUserId + "     " + allowedUserId);
 
         return currentUserId.equals(allowedUserId);
     }
@@ -41,19 +34,10 @@ public final class TaskEditCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-//        System.out.println("ENTER ID OF PROJECT TO EDIT TASK");
-//
-//        @NotNull
-//        String projectId = scanner.nextLine();
-//        if (bootstrap.getProjectService().findOne(projectId) == null) {
-//            System.out.println("NO SUCH PROJECT ID");
-//            return;
-//        }
-
         System.out.println("ENTER ID OF TASK TO EDIT");
 
         @NotNull
-        String taskId = scanner.nextLine();
+        String taskId = bootstrap.getTerminalService().nextLine();
 
         if (bootstrap.getTaskService().findOne(taskId) == null) {
             System.out.println("NO SUCH TASK ID");
@@ -68,7 +52,7 @@ public final class TaskEditCommand extends AbstractCommand {
         System.out.println("ENTER NEW NAME OF TASK TO EDIT");
 
         @NotNull
-        String newTaskName = scanner.nextLine();
+        String newTaskName = bootstrap.getTerminalService().nextLine();
 
         bootstrap.getTaskService().edit(taskId, newTaskName);
         System.out.println("OK");

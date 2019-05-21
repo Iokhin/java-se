@@ -5,13 +5,8 @@ import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.Bootstrap;
 import ru.iokhin.tm.command.AbstractCommand;
 
-import java.util.Scanner;
-
 @NoArgsConstructor
 public final class ProjectRemoveCommand extends AbstractCommand {
-
-    @NotNull
-    private final Scanner scanner = new Scanner(System.in);
 
     @Override
     public boolean security() {
@@ -43,7 +38,7 @@ public final class ProjectRemoveCommand extends AbstractCommand {
         System.out.println("ENTER ID OF PROJECT TO REMOVE");
 
         @NotNull
-        String projectId = scanner.nextLine();
+        String projectId = bootstrap.getTerminalService().nextLine();
         if (bootstrap.getProjectService().findOne(projectId) == null) {
             System.out.println("NO SUCH PROJECT ID");
             return;

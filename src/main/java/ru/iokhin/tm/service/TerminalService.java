@@ -4,9 +4,9 @@ import ru.iokhin.tm.api.service.ITerminalService;
 
 import java.util.Scanner;
 
-public class TerminalService implements ITerminalService {
+public final class TerminalService implements ITerminalService {
 
-    Scanner scanner = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);
 
     @Override
     public String nextLine() {

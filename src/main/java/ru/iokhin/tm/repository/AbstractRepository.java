@@ -1,6 +1,5 @@
 package ru.iokhin.tm.repository;
 
-import lombok.RequiredArgsConstructor;
 import ru.iokhin.tm.api.repository.IAbstractRepository;
 import ru.iokhin.tm.entity.AbstractEntity;
 
@@ -8,7 +7,7 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class AbstractRepository<T extends AbstractEntity> implements IAbstractRepository<T> {
+public abstract class AbstractRepository<T extends AbstractEntity> implements IAbstractRepository<T> {
 
     final Map<String, T> repositoryMap = new LinkedHashMap<>(0);
 

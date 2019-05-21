@@ -15,18 +15,6 @@ public final class UserRepository implements IUserRepository {
     @NotNull
     public Map<String, User> userMap = new HashMap<>(0);
 
-//    @NotNull
-//    User userAdmin = new User(RoleType.ADMIN, "admin", "admin");
-//
-//    @NotNull
-//    User userUser = new User(RoleType.USER, "user", "user");
-//
-//
-//    {
-//        userMap.put(userAdmin.getId(), userAdmin);
-//        userMap.put(userUser.getId(), userUser);
-//    }
-
     @Override
     public void add(@NotNull User user) {
         userMap.put(user.getId(), user);

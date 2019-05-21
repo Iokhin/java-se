@@ -5,13 +5,8 @@ import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.Bootstrap;
 import ru.iokhin.tm.command.AbstractCommand;
 
-import java.util.Scanner;
-
 @NoArgsConstructor
 public final class TaskCreateCommand extends AbstractCommand {
-
-    @NotNull
-    private final Scanner scanner = new Scanner(System.in);
 
     @Override
     public boolean security() {
@@ -20,10 +15,8 @@ public final class TaskCreateCommand extends AbstractCommand {
 
     private boolean isHaveAccess(Bootstrap bootstrap, String projectId) {
 
-        @NotNull
-        final String currentUserId = bootstrap.getCurrentUser().getId();
-        @NotNull
-        final String allowedUserId = bootstrap.getProjectService().findOne(projectId).getUserId();
+        @NotNull final String currentUserId = bootstrap.getCurrentUser().getId();
+        @NotNull final String allowedUserId = bootstrap.getProjectService().findOne(projectId).getUserId();
 
         return currentUserId.equals(allowedUserId);
     }
@@ -42,7 +35,7 @@ public final class TaskCreateCommand extends AbstractCommand {
     public void execute() {
         System.out.println("ENTER ID OF PROJECT TO CREATE TASK");
         bootstrap.getCommandMap().get("project-list").execute();
-        String projectId = scanner.nextLine();
+        String projectId = bootstrap.getTerminalService().nextLine();
         if (bootstrap.getProjectService().findOne(projectId) == null) {
             System.out.println("NO SUCH PROJECT ID");
             return;
@@ -52,7 +45,7 @@ public final class TaskCreateCommand extends AbstractCommand {
             return;
         }
         System.out.println("ENTER NAME OF TASK TO CREATE");
-        String taskName = scanner.nextLine();
+        String taskName = bootstrap.getTerminalService().nextLine();
         bootstrap.getTaskService().add(bootstrap.getCurrentUser().getId(), projectId, taskName);
         System.out.println("OK");
     }

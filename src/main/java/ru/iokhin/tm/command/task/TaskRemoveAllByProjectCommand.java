@@ -5,13 +5,8 @@ import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.Bootstrap;
 import ru.iokhin.tm.command.AbstractCommand;
 
-import java.util.Scanner;
-
 @NoArgsConstructor
-public final class TaskRemoveAllCommand extends AbstractCommand {
-
-    @NotNull
-    private final Scanner scanner = new Scanner(System.in);
+public final class TaskRemoveAllByProjectCommand extends AbstractCommand {
 
     @Override
     public boolean security() {
@@ -20,10 +15,8 @@ public final class TaskRemoveAllCommand extends AbstractCommand {
 
     private boolean isHaveAccess(Bootstrap bootstrap, String projectId) {
 
-        @NotNull
-        final String currentUserId = bootstrap.getCurrentUser().getId();
-        @NotNull
-        final String allowedUserId = bootstrap.getProjectService().findOne(projectId).getUserId();
+        @NotNull final String currentUserId = bootstrap.getCurrentUser().getId();
+        @NotNull final String allowedUserId = bootstrap.getProjectService().findOne(projectId).getUserId();
 
         return currentUserId.equals(allowedUserId);
     }
@@ -43,7 +36,7 @@ public final class TaskRemoveAllCommand extends AbstractCommand {
         System.out.println("ENTER ID OF PROJECT TO CLEAR TASKS");
 
         @NotNull
-        String projectId = scanner.nextLine();
+        String projectId = bootstrap.getTerminalService().nextLine();
         if (bootstrap.getProjectService().findOne(projectId) == null) {
             System.out.println("NO SUCH PROJECT ID");
             return;

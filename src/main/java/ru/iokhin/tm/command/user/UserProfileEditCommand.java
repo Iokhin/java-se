@@ -3,12 +3,8 @@ package ru.iokhin.tm.command.user;
 import lombok.NoArgsConstructor;
 import ru.iokhin.tm.command.AbstractCommand;
 
-import java.util.Scanner;
-
 @NoArgsConstructor
 public class UserProfileEditCommand extends AbstractCommand {
-
-    private Scanner scanner = new Scanner(System.in);
 
     @Override
     public boolean security() {
@@ -32,7 +28,7 @@ public class UserProfileEditCommand extends AbstractCommand {
         System.out.println("USER LOGIN: " + bootstrap.getCurrentUser().getLogin());
         System.out.println("USER RIGHTS: " + bootstrap.getCurrentUser().getRoleType().displayName());
         System.out.println("ENTER NEW LOGIN TO EDIT");
-        String input = scanner.nextLine();
+        String input = bootstrap.getTerminalService().nextLine();
         bootstrap.getCurrentUser().setLogin(input);
         System.out.println("SUCCESS");
     }

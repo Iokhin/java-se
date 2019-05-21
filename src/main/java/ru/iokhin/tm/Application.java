@@ -16,10 +16,11 @@ public final class Application {
             ProjectListCommand.class, ProjectRemoveAllCommand.class,
             ProjectRemoveCommand.class, TaskCreateCommand.class,
             TaskEditCommand.class, TaskListCommand.class,
-            TaskRemoveAllCommand.class, TaskRemoveCommand.class,
+            TaskRemoveAllByProjectCommand.class, TaskRemoveCommand.class,
             UserAuthorizationCommand.class, UserEndSessionCommand.class,
             UserListCommand.class, UserPasswordChangeCommand.class,
-            UserProfileEditCommand.class, UserRegistrationCommand.class
+            UserProfileEditCommand.class, UserRegistrationCommand.class,
+            TaskRemoveAllByUserCommand.class
     };
 
     public static void main(@NotNull String[] args) {

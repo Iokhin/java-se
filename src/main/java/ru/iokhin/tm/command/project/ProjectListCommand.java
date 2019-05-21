@@ -35,7 +35,6 @@ public final class ProjectListCommand extends AbstractCommand {
 
 
     private Collection<Project> projectList() {
-        assert bootstrap.getCurrentUser() != null;
         return bootstrap.getProjectService().findAllByUserId(bootstrap.getCurrentUser().getId());
     }
 }
