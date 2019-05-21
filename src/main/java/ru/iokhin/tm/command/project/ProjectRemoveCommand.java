@@ -13,13 +13,13 @@ public final class ProjectRemoveCommand extends AbstractCommand {
         return true;
     }
 
-    private boolean isHaveAccess(Bootstrap bootstrap, String projectId) {
-
-        @NotNull final String currentUserId = bootstrap.getCurrentUser().getId();
-        @NotNull final String allowedUserId = bootstrap.getProjectService().findOne(projectId).getUserId();
-
-        return currentUserId.equals(allowedUserId);
-    }
+//    private boolean isHaveAccess(Bootstrap bootstrap, String projectId) {
+//
+//        @NotNull final String currentUserId = bootstrap.getCurrentUser().getId();
+//        @NotNull final String allowedUserId = bootstrap.getProjectService().findOne(projectId).getUserId();
+//
+//        return currentUserId.equals(allowedUserId);
+//    }
 
 
     @Override
@@ -37,22 +37,21 @@ public final class ProjectRemoveCommand extends AbstractCommand {
         bootstrap.getCommandMap().get("project-list").execute();
         System.out.println("ENTER ID OF PROJECT TO REMOVE");
 
-        @NotNull
-        String projectId = bootstrap.getTerminalService().nextLine();
-        if (bootstrap.getProjectService().findOne(projectId) == null) {
-            System.out.println("NO SUCH PROJECT ID");
-            return;
-        }
+        @NotNull String projectId = bootstrap.getTerminalService().nextLine();
+//        if (bootstrap.getProjectService().findOne(bootstrap.getCurrentUser().getId(), projectId) == null) {
+//            System.out.println("NO SUCH PROJECT ID");
+//            return;
+//        }
 
-        if (!isHaveAccess(bootstrap, projectId)) {
-            System.out.println("NO ACCESS FOR THIS OPERATION");
-            return;
-        }
+//        if (!isHaveAccess(bootstrap, projectId)) {
+//            System.out.println("NO ACCESS FOR THIS OPERATION");
+//            return;
+//        }
         projectRemoveCommand(projectId);
         System.out.println("OK");
     }
 
     private void projectRemoveCommand(@NotNull String id) {
-        bootstrap.getProjectService().remove(id);
+        bootstrap.getProjectService().remove(bootstrap.getCurrentUser(), id);
     }
 }

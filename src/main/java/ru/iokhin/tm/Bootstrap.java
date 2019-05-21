@@ -12,15 +12,14 @@ import ru.iokhin.tm.entity.User;
 import ru.iokhin.tm.enumerated.RoleType;
 import ru.iokhin.tm.repository.ProjectRepository;
 import ru.iokhin.tm.repository.TaskRepository;
-import ru.iokhin.tm.repository.UserRepository;
+import ru.iokhin.tm.repository.old.UserRepositoryOLD;
 import ru.iokhin.tm.service.ProjectService;
 import ru.iokhin.tm.service.TaskService;
 import ru.iokhin.tm.service.TerminalService;
-import ru.iokhin.tm.service.UserService;
+import ru.iokhin.tm.service.old.UserService;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 @Getter
 @Setter
@@ -36,7 +35,7 @@ public final class Bootstrap implements IServiceLocator {
     private final TaskRepository taskRepository = new TaskRepository();
 
     @NotNull
-    private final UserRepository userRepository = new UserRepository();
+    private final UserRepositoryOLD userRepository = new UserRepositoryOLD();
 
     @NotNull
     private final ProjectService projectService = new ProjectService(projectRepository);

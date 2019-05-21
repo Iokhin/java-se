@@ -13,13 +13,13 @@ public final class TaskCreateCommand extends AbstractCommand {
         return true;
     }
 
-    private boolean isHaveAccess(Bootstrap bootstrap, String projectId) {
-
-        @NotNull final String currentUserId = bootstrap.getCurrentUser().getId();
-        @NotNull final String allowedUserId = bootstrap.getProjectService().findOne(projectId).getUserId();
-
-        return currentUserId.equals(allowedUserId);
-    }
+//    private boolean isHaveAccess(Bootstrap bootstrap, String projectId) {
+//
+//        @NotNull final String currentUserId = bootstrap.getCurrentUser().getId();
+//        @NotNull final String allowedUserId = bootstrap.getProjectService().findOne(projectId).getUserId();
+//
+//        return currentUserId.equals(allowedUserId);
+//    }
 
     @Override
     public String name() {
@@ -36,17 +36,17 @@ public final class TaskCreateCommand extends AbstractCommand {
         System.out.println("ENTER ID OF PROJECT TO CREATE TASK");
         bootstrap.getCommandMap().get("project-list").execute();
         String projectId = bootstrap.getTerminalService().nextLine();
-        if (bootstrap.getProjectService().findOne(projectId) == null) {
-            System.out.println("NO SUCH PROJECT ID");
-            return;
-        }
-        if (!isHaveAccess(bootstrap, projectId)) {
-            System.out.println("NO ACCESS FOR THIS OPERATION");
-            return;
-        }
+//        if (bootstrap.getProjectService().findOne(projectId) == null) {
+//            System.out.println("NO SUCH PROJECT ID");
+//            return;
+//        }
+//        if (!isHaveAccess(bootstrap, projectId)) {
+//            System.out.println("NO ACCESS FOR THIS OPERATION");
+//            return;
+//        }
         System.out.println("ENTER NAME OF TASK TO CREATE");
         String taskName = bootstrap.getTerminalService().nextLine();
-        bootstrap.getTaskService().add(bootstrap.getCurrentUser().getId(), projectId, taskName);
+        bootstrap.getTaskService().add(bootstrap.getCurrentUser(), projectId, taskName);
         System.out.println("OK");
     }
 }

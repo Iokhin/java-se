@@ -1,17 +1,18 @@
 package ru.iokhin.tm.api.repository;
 
+import ru.iokhin.tm.api.IRepository;
 import ru.iokhin.tm.entity.Task;
 
 import java.util.Collection;
 
-public interface ITaskRepository {
+public interface ITaskRepository extends IRepository<Task> {
 
-    Collection<Task> findAllByUserId(final String id);
+    Collection<Task> findAllByUserId(final String userId);
 
-    void removeAllByUserId(final String id);
+    void removeAllByUserId(final String userId);
 
-    Collection<Task> findAllByProjectId(final String id);
+    Task findOne(String parentId, String id);
 
-    void removeAllByProjectId(final String id);
+    Task remove(String parentId, String id);
 
 }

@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.iokhin.tm.enumerated.ReadinessStatus;
 
 import java.util.Date;
 
@@ -14,7 +15,7 @@ import java.util.Date;
 public final class Task extends AbstractEntity {
 
     @NotNull
-    private String userId;
+    private String parentId;
 
     @NotNull
     private String projectId;
@@ -25,10 +26,14 @@ public final class Task extends AbstractEntity {
     @Nullable
     private Date endDate;
 
+    @NotNull
+    private final ReadinessStatus status = ReadinessStatus.PLANNIG;
+
     public Task(@NotNull String userId, @NotNull String projectId, @NotNull String name) {
-        this.userId = userId;
+        this.parentId = userId;
         this.projectId = projectId;
         this.name = name;
+        this.startDate = new Date();
     }
 
     @Override

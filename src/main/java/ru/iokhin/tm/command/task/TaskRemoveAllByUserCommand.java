@@ -20,7 +20,7 @@ public class TaskRemoveAllByUserCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        bootstrap.getTaskService().removeAllByUserId(bootstrap.getCurrentUser().getId());
+        bootstrap.getTaskService().removeAllByUser(bootstrap.getCurrentUser());
         System.out.println("ALL TASKS FOR " + bootstrap.getCurrentUser().getLogin() + " WAS REMOVED");
     }
 }

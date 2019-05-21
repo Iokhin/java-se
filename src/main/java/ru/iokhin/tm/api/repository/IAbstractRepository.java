@@ -1,17 +1,13 @@
 package ru.iokhin.tm.api.repository;
 
+import ru.iokhin.tm.entity.AbstractEntity;
+
 import java.util.Collection;
 
-public interface IAbstractRepository<T> {
-    T persist(final T entity);
+public interface IAbstractRepository<E extends AbstractEntity> {
+    E persist(final E entity);
 
-    T merge(final T entity);
+    E merge(final E entity);
 
-    T remove(final String id);
-
-    void removeAll();
-
-    T findOne(String id);
-
-    Collection<T> findAll();
+    Collection<E> findAll();
 }

@@ -1,145 +1,69 @@
 package ru.iokhin.tm.service;
 
-import ru.iokhin.tm.api.repository.IAbstractRepository;
 import ru.iokhin.tm.api.repository.ITaskRepository;
 import ru.iokhin.tm.api.service.ITaskService;
 import ru.iokhin.tm.entity.Task;
+import ru.iokhin.tm.entity.User;
 import ru.iokhin.tm.util.StringValidator;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
-public final class TaskService extends AbstractService<Task> implements ITaskService {
+public class TaskService extends AbstractService<Task, ITaskRepository> implements ITaskService {
 
-    public TaskService(IAbstractRepository<Task> repository) {
+    public TaskService(ITaskRepository repository) {
         super(repository);
     }
 
     @Override
-    public Task add(String userId, String name, String projectId) {
-        if (!StringValidator.isValid(userId, name, projectId)) {
-            System.out.println("INVALID ARGUMENT");
-            return null;
-        }
-
-        return repository.persist(new Task(userId, name, projectId));
+    public Task add(User user, String projectId, String name) {
+        StringValidator.validate(projectId, name);
+        return repository.persist(new Task(user.getId(), projectId, name));
     }
 
     @Override
-    public Task edit(String id, String newName) {
-        if (!StringValidator.isValid(id, newName)) {
-            System.out.println("INVALID ARGUMENT");
-            return null;
-        }
-        Task task = findOne(id);
-        if (task == null) {
-            System.out.println("NO SUCH TASK ID");
-        }
-        task.setName(newName);
+    public Task edit(User user, String id, String name) {
+        StringValidator.validate(name, id);
+        Task task = repository.findOne(user.getId(), id);
+        if (task == null) return null;
+        task.setName(name);
         return task;
     }
 
     @Override
-    public Collection<Task> findAllByUserId(String id) {
-        if (!StringValidator.isValid(id)) {
-            System.out.println("INVALID ARGUMENT");
-            return null;
-        }
-        return ((ITaskRepository) repository).findAllByUserId(id);
+    public Task remove(User user, String id) {
+        StringValidator.validate(id);
+        Task task = repository.findOne(user.getId(), id);
+        if (task == null) return null;
+        return repository.remove(user.getId(), id);
     }
 
     @Override
-    public void removeAllByUserId(String id) {
-        if (!StringValidator.isValid(id)) {
-            System.out.println("INVALID ARGUMENT");
-            return;
-        }
-        ((ITaskRepository) repository).removeAllByUserId(id);
+    public void removeAllByUser(User user) {
+        repository.removeAllByUserId(user.getId());
     }
 
     @Override
-    public Collection<Task> findAllByProjectId(String id) {
-        if (!StringValidator.isValid(id)) {
-            System.out.println("INVALID ARGUMENT");
-            return null;
-        }
-        return ((ITaskRepository) repository).findAllByProjectId(id);
+    public Collection<Task> findAllByUser(User user) {
+        return repository.findAllByUserId(user.getId());
     }
 
     @Override
-    public void removeAllByProjectId(String id) {
-        if (!StringValidator.isValid(id)) {
-            System.out.println("INVALID ARGUMENT");
-            return;
+    public Collection<Task> findAllByProjectId(User user, String projectId) {
+        Collection<Task> tasks = new ArrayList<>(0);
+        for (Task task : findAllByUser(user)) {
+            if (task.getProjectId().equals(projectId))
+                tasks.add(task);
         }
-        ((ITaskRepository) repository).removeAllByProjectId(id);
+        return tasks;
+    }
+
+    @Override
+    public void removeAllByProjectId(User user, String projectId) {
+        for (Task task : findAllByProjectId(user, projectId)) {
+            repository.remove(user.getId(), task.getId());
+        }
     }
 
 
-//    @NotNull
-//    private final TaskRepository taskRepository;
-//
-//    @Override
-//    public void addTask(@NotNull String userId, @NotNull String projectId, @NotNull String name) {
-//        if (!StringValidator.isValid(projectId, name)) {
-//            System.out.println("Illegal argument");
-//            return;
-//        }
-//        taskRepository.add(new Task(userId, projectId, name));
-//    }
-//
-//    @Override
-//    public void listTask(@NotNull String projectId, @NotNull String userId) {
-//        if (!StringValidator.isValid(projectId)) {
-//            System.out.println("Illegal argument");
-//            return;
-//        }
-//        taskRepository.list(projectId, userId);
-//    }
-//
-//    @Override
-//    public void removeTask(@NotNull String id) {
-//        if (!StringValidator.isValid(id)) {
-//            System.out.println("Illegal argument");
-//            return;
-//        }
-//
-//        @NotNull
-//        Task task = taskRepository.findById(id);
-//
-//        if (task == null) {
-//            System.out.println("NO TASK WITH SUCH ID");
-//            return;
-//        }
-//        taskRepository.delete(task.getId());
-//    }
-//
-//    @Override
-//    public void clearTask(@NotNull String projectId, @NotNull String userId) {
-//        if (!StringValidator.isValid(projectId)) {
-//            System.out.println("Illegal argument");
-//            return;
-//        }
-//        for (@NotNull Task task : taskRepository.taskLinkedHashMap.values()) {
-//            if (task.getUserId().equals(userId) && task.getProjectId().equals(projectId))
-//                removeTask(task.getId());
-//        }
-//    }
-//
-//
-//    @Override
-//    public void editTask(String id, String newName) {
-//        if (!StringValidator.isValid(id, newName)) {
-//            System.out.println("Illegal argument");
-//            return;
-//        }
-//        Task task = taskRepository.findById(id);
-//        if (task == null) {
-//            System.out.println("NO PROJECT WITH SUCH ID");
-//        }
-//        task.setName(newName);
-//    }
-//
-//    public Task getTaskById(String id) {
-//        return taskRepository.findById(id);
-//    }
 }

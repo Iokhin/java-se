@@ -8,8 +8,6 @@ import org.jetbrains.annotations.Nullable;
 import ru.iokhin.tm.util.MD5Util;
 import ru.iokhin.tm.enumerated.RoleType;
 
-import java.util.UUID;
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -28,6 +26,11 @@ public final class User extends AbstractEntity {
         this.roleType = roleType;
         this.login = login;
         this.passwordHash = MD5Util.passwordToHash(password);
+    }
+
+    @Override
+    public String getName() {
+        return login;
     }
 
     public void setPasswordHash(String password) {

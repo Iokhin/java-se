@@ -1,19 +1,18 @@
 package ru.iokhin.tm.repository;
 
-import lombok.Getter;
 import ru.iokhin.tm.api.repository.IProjectRepository;
 import ru.iokhin.tm.entity.Project;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
-@Getter
-public final class ProjectRepository extends AbstractRepository<Project> implements IProjectRepository {
+public class ProjectRepository extends AbstractRepository<Project> implements IProjectRepository {
 
     @Override
     public Collection<Project> findAllByUserId(String userId) {
         Collection<Project> projectCollection = new ArrayList<>(0);
         for (Project project : findAll()) {
-            if (project.getUserId().equals(userId))
+            if (project.getParentId().equals(userId))
                 projectCollection.add(project);
         }
         return projectCollection;
@@ -22,12 +21,20 @@ public final class ProjectRepository extends AbstractRepository<Project> impleme
     @Override
     public void removeAllByUserId(String userId) {
         for (Project project : findAllByUserId(userId)) {
-            remove(project.getId());
+            remove(project.getId(), userId);
         }
     }
 
-    public Map<String, Project> getRepositoryMap() {
-        return this.repositoryMap;
+    @Override
+    public Project findOne(String parentId, String id) {
+        Project project = repository.get(id);
+        return project.getParentId().equals(parentId) ? project : null;
+    }
+
+    @Override
+    public Project remove(String parentId, String id) {
+        Project project = repository.get(id);
+        return project.getParentId().equals(parentId) ? repository.remove(project.getId()) : null;
     }
 
 }

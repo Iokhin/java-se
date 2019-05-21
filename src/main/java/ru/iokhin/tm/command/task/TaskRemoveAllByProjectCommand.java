@@ -13,13 +13,13 @@ public final class TaskRemoveAllByProjectCommand extends AbstractCommand {
         return true;
     }
 
-    private boolean isHaveAccess(Bootstrap bootstrap, String projectId) {
-
-        @NotNull final String currentUserId = bootstrap.getCurrentUser().getId();
-        @NotNull final String allowedUserId = bootstrap.getProjectService().findOne(projectId).getUserId();
-
-        return currentUserId.equals(allowedUserId);
-    }
+//    private boolean isHaveAccess(Bootstrap bootstrap, String projectId) {
+//
+//        @NotNull final String currentUserId = bootstrap.getCurrentUser().getId();
+//        @NotNull final String allowedUserId = bootstrap.getProjectService().findOne(projectId).getUserId();
+//
+//        return currentUserId.equals(allowedUserId);
+//    }
 
     @Override
     public String name() {
@@ -34,19 +34,17 @@ public final class TaskRemoveAllByProjectCommand extends AbstractCommand {
     @Override
     public void execute() {
         System.out.println("ENTER ID OF PROJECT TO CLEAR TASKS");
-
-        @NotNull
-        String projectId = bootstrap.getTerminalService().nextLine();
-        if (bootstrap.getProjectService().findOne(projectId) == null) {
-            System.out.println("NO SUCH PROJECT ID");
-            return;
-        }
-
-        if (!isHaveAccess(bootstrap, projectId)) {
-            System.out.println("NO ACCESS FOR THIS OPERATION");
-            return;
-        }
-        bootstrap.getTaskService().removeAllByProjectId(projectId);
+        @NotNull String projectId = bootstrap.getTerminalService().nextLine();
+//        if (bootstrap.getProjectService().findOne(projectId) == null) {
+//            System.out.println("NO SUCH PROJECT ID");
+//            return;
+//        }
+//
+//        if (!isHaveAccess(bootstrap, projectId)) {
+//            System.out.println("NO ACCESS FOR THIS OPERATION");
+//            return;
+//        }
+        bootstrap.getTaskService().removeAllByProjectId(bootstrap.getCurrentUser(), projectId);
         System.out.println("OK");
     }
 }

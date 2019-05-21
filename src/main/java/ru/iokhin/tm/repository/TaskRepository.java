@@ -3,45 +3,38 @@ package ru.iokhin.tm.repository;
 import ru.iokhin.tm.api.repository.ITaskRepository;
 import ru.iokhin.tm.entity.Task;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
-public final class TaskRepository extends AbstractRepository<Task> implements ITaskRepository {
+public class TaskRepository extends AbstractRepository<Task> implements ITaskRepository {
 
     @Override
-    public Collection<Task> findAllByUserId(String id) {
+    public Collection<Task> findAllByUserId(String userId) {
         Collection<Task> taskCollection = new ArrayList<>(0);
         for (Task task : findAll()) {
-            if (task.getUserId().equals(id))
+            if (task.getParentId().equals(userId))
                 taskCollection.add(task);
         }
         return taskCollection;
     }
 
     @Override
-    public void removeAllByUserId(String id) {
-        for (Task task : findAllByUserId(id)) {
+    public void removeAllByUserId(String userId) {
+        for (Task task : findAllByUserId(userId)) {
             remove(task.getId());
         }
     }
 
     @Override
-    public Collection<Task> findAllByProjectId(String id) {
-        Collection<Task> taskCollection = new ArrayList<>(0);
-        for (Task task : findAll()) {
-            if (task.getProjectId().equals(id))
-                taskCollection.add(task);
-        }
-        return taskCollection;
+    public Task findOne(String parentId, String id) {
+        Task project = repository.get(id);
+        return project.getParentId().equals(parentId) ? project : null;
     }
 
     @Override
-    public void removeAllByProjectId(String id) {
-        for (Task task : findAllByProjectId(id)) {
-            remove(task.getId());
-        }
+    public Task remove(String parentId, String id) {
+        Task task = repository.get(id);
+        return task.getParentId().equals(parentId) ? repository.remove(task.getId()) : null;
     }
 
-    public Map<String, Task> getRepositoryMap() {
-        return this.repositoryMap;
-    }
 }

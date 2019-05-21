@@ -1,44 +1,43 @@
 package ru.iokhin.tm.repository;
 
-import ru.iokhin.tm.api.repository.IAbstractRepository;
+import ru.iokhin.tm.api.IRepository;
 import ru.iokhin.tm.entity.AbstractEntity;
 
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public abstract class AbstractRepository<T extends AbstractEntity> implements IAbstractRepository<T> {
+public class AbstractRepository<E extends AbstractEntity> implements IRepository<E> {
 
-    final Map<String, T> repositoryMap = new LinkedHashMap<>(0);
+    protected Map<String, E> repository = new LinkedHashMap<>();
 
     @Override
-    public T persist(T entity) {
-        repositoryMap.put(entity.getId(), entity);
-        return entity;
+    public E persist(E entity) {
+        return repository.put(entity.getId(), entity);
     }
 
     @Override
-    public T merge(T entity) {
+    public E merge(E entity) {
         return persist(entity);
     }
 
     @Override
-    public T remove(String id) {
-        return repositoryMap.remove(id);
+    public E findOne(String id) {
+        return repository.get(id);
+    }
+
+    @Override
+    public Collection<E> findAll() {
+        return repository.values();
+    }
+
+    @Override
+    public E remove(String id) {
+        return repository.remove(id);
     }
 
     @Override
     public void removeAll() {
-        repositoryMap.clear();
-    }
-
-    @Override
-    public T findOne(String id) {
-        return repositoryMap.get(id);
-    }
-
-    @Override
-    public Collection<T> findAll() {
-        return repositoryMap.values();
+        repository.clear();
     }
 }

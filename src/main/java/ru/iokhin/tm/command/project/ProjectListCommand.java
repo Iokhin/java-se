@@ -33,8 +33,7 @@ public final class ProjectListCommand extends AbstractCommand {
         }
     }
 
-
     private Collection<Project> projectList() {
-        return bootstrap.getProjectService().findAllByUserId(bootstrap.getCurrentUser().getId());
+        return bootstrap.getProjectService().findAllByUser(bootstrap.getCurrentUser());
     }
 }

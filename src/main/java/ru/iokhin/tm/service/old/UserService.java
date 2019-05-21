@@ -1,11 +1,11 @@
-package ru.iokhin.tm.service;
+package ru.iokhin.tm.service.old;
 
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.api.service.IUserService;
 import ru.iokhin.tm.enumerated.RoleType;
 import ru.iokhin.tm.entity.User;
-import ru.iokhin.tm.repository.UserRepository;
+import ru.iokhin.tm.repository.old.UserRepositoryOLD;
 
 import java.util.Map;
 
@@ -13,7 +13,7 @@ import java.util.Map;
 public final class UserService implements IUserService {
 
     @NotNull
-    private final UserRepository userRepository;
+    private final UserRepositoryOLD userRepository;
 
 
     @Override

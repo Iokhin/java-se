@@ -1,11 +1,14 @@
 package ru.iokhin.tm.util;
 
 public final class StringValidator {
-    public static boolean isValid(String ...strings){
+    public static void validate(String ...strings) {
         for (String string : strings) {
             if (string == null || string.trim().isEmpty())
-                return false;
+                throw new IllegalArgumentException("INVALID PARAMETERS");
         }
-        return true;
+    }
+
+    public static void main(String[] args) {
+        validate("");
     }
 }
