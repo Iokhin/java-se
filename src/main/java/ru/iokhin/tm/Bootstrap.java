@@ -10,6 +10,7 @@ import ru.iokhin.tm.entity.Project;
 import ru.iokhin.tm.entity.Task;
 import ru.iokhin.tm.entity.User;
 import ru.iokhin.tm.enumerated.RoleType;
+import ru.iokhin.tm.enumerated.Status;
 import ru.iokhin.tm.repository.ProjectRepository;
 import ru.iokhin.tm.repository.TaskRepository;
 import ru.iokhin.tm.repository.UserRepository;
@@ -121,7 +122,7 @@ public final class Bootstrap implements IServiceLocator {
         userRepository.getRepository().put(userUser.getId(), userUser);
 
         Project project1 = new Project(userUser.getId(), "Project 1");
-        Project project2 = new Project(userUser.getId(), "Project 2");
+        Project project2 = new Project(userUser.getId(), "Project 2", Status.PROCCESSING);
         Project project3 = new Project(userAdmin.getId(), "Project 3");
 
         projectRepository.getRepository().put(project1.getId(), project1);
@@ -129,7 +130,7 @@ public final class Bootstrap implements IServiceLocator {
         projectRepository.getRepository().put(project3.getId(), project3);
 
         Task task1 = new Task(project1.getParentId(), project1.getId(), "TASK 1 FOR PROJECT 1");
-        Task task2 = new Task(project1.getParentId(), project1.getId(), "TASK 2 FOR PROJECT 1");
+        Task task2 = new Task(project1.getParentId(), project1.getId(), "TASK 2 FOR PROJECT 1", Status.PROCCESSING);
         Task task3 = new Task(project2.getParentId(), project2.getId(), "TASK 3 FOR PROJECT 2");
         Task task4 = new Task(project2.getParentId(), project2.getId(), "TASK 4 FOR PROJECT 2");
         Task task5 = new Task(project3.getParentId(), project3.getId(), "TASK 5 FOR PROJECT 3");

@@ -6,9 +6,11 @@ import ru.iokhin.tm.api.repository.IProjectRepository;
 import ru.iokhin.tm.api.service.IProjectService;
 import ru.iokhin.tm.entity.Project;
 import ru.iokhin.tm.entity.User;
+import ru.iokhin.tm.util.ComparatorUtil;
 import ru.iokhin.tm.util.StringValidator;
 
 import java.util.Collection;
+import java.util.Collections;
 
 public class ProjectService extends AbstractService<Project, IProjectRepository> implements IProjectService {
 
@@ -53,4 +55,18 @@ public class ProjectService extends AbstractService<Project, IProjectRepository>
     public Project findOne(@NotNull final User user, @NotNull final String id) {
         return repository.findOne(user.getId(), id);
     }
+
+    @Override
+    public Collection<Project> sortByUserId(User user, String comparator) {
+        StringValidator.validate(user.getId(), comparator);
+        if (comparator.equals("order")) return findAllByUser(user);
+        if (ComparatorUtil.getProjectComparator(comparator) == null) return null;
+        return repository.sortByUserId(user.getId(), ComparatorUtil.getProjectComparator(comparator));
+    }
+
+    @Override
+    public Collection<Project> findByPartOfNameOrDescription(@NotNull String userId, @NotNull String part) {
+        return repository.findByPartOfNameOrDescription(userId, part);
+    }
+
 }

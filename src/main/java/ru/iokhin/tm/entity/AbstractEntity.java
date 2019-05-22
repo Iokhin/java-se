@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.iokhin.tm.api.IEntity;
 
+import java.util.Date;
 import java.util.UUID;
 
 @Getter
@@ -18,5 +19,7 @@ public class AbstractEntity implements IEntity {
     @NotNull protected String id = UUID.randomUUID().toString();
     @Nullable protected String name = "";
     @Nullable protected String description = "";
+    @Nullable protected Date startDate;
+    @Nullable protected Date endDate;
 
 }

@@ -23,4 +23,6 @@ public interface ITaskService extends IService<Task> {
 
     boolean removeAllByProjectId(@NotNull final User user, @NotNull final String projectId);
 
+    Collection<Task> sortByUserId(@NotNull final String userId, @NotNull final String comparator);
+
 }

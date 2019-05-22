@@ -5,6 +5,8 @@ import ru.iokhin.tm.api.IRepository;
 import ru.iokhin.tm.entity.Project;
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 
 public interface IProjectRepository extends IRepository<Project> {
 
@@ -15,5 +17,9 @@ public interface IProjectRepository extends IRepository<Project> {
     Project findOne(@NotNull final String parentId, @NotNull final String id);
 
     Project remove(@NotNull final String parentId, @NotNull final String id);
+
+    Collection<Project> sortByUserId(String userId, Comparator<Project> comparator);
+
+    Collection<Project> findByPartOfNameOrDescription(@NotNull final String userId, @NotNull final String part);
 
 }

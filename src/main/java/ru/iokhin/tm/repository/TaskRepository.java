@@ -7,6 +7,8 @@ import ru.iokhin.tm.entity.Task;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
+import java.util.List;
 
 public class TaskRepository extends AbstractRepository<Task> implements ITaskRepository {
 
@@ -39,6 +41,13 @@ public class TaskRepository extends AbstractRepository<Task> implements ITaskRep
         @Nullable final Task task = repository.get(id);
         if (task == null) return null;
         return task.getParentId().equals(parentId) ? repository.remove(task.getId()) : null;
+    }
+
+    @Override
+    public Collection<Task> sortByUserId(@NotNull String userId, Comparator<Task> comparator) {
+        List<Task> taskList = new ArrayList<>(findAllByUserId(userId));
+        taskList.sort(comparator);
+        return taskList;
     }
 
 }

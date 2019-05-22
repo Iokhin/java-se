@@ -6,6 +6,7 @@ import ru.iokhin.tm.api.repository.ITaskRepository;
 import ru.iokhin.tm.api.service.ITaskService;
 import ru.iokhin.tm.entity.Task;
 import ru.iokhin.tm.entity.User;
+import ru.iokhin.tm.util.ComparatorUtil;
 import ru.iokhin.tm.util.StringValidator;
 
 import java.util.ArrayList;
@@ -68,6 +69,14 @@ public class TaskService extends AbstractService<Task, ITaskRepository> implemen
             flag = true;
         }
         return flag;
+    }
+
+    @Override
+    public Collection<Task> sortByUserId(@NotNull String userId, @NotNull String comparator) {
+        StringValidator.validate(userId, comparator);
+        if (ComparatorUtil.getTaskComparator(comparator) == null) return null;
+        if (comparator.equals("order")) return repository.findAllByUserId(userId);
+        return repository.sortByUserId(userId, ComparatorUtil.getTaskComparator(comparator));
     }
 
 

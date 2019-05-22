@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 
 @RequiredArgsConstructor
-public enum ReadinessStatus {
+public enum Status {
     PLANNING("Запланировано"),
     PROCCESSING("В процессе"),
     READY("Готово");

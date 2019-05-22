@@ -1,6 +1,7 @@
 package ru.iokhin.tm.service;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.api.IRepository;
 import ru.iokhin.tm.api.IService;
@@ -9,6 +10,7 @@ import ru.iokhin.tm.entity.AbstractEntity;
 import java.util.Collection;
 
 @AllArgsConstructor
+@Getter
 public abstract class AbstractService<E extends AbstractEntity, R extends IRepository<E>> implements IService<E> {
 
     protected R repository;

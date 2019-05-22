@@ -6,6 +6,7 @@ import ru.iokhin.tm.entity.Project;
 import ru.iokhin.tm.entity.User;
 
 import java.util.Collection;
+import java.util.Comparator;
 
 public interface IProjectService extends IService<Project> {
 
@@ -20,4 +21,8 @@ public interface IProjectService extends IService<Project> {
     Collection<Project> findAllByUser(@NotNull final User user);
 
     Project findOne(@NotNull final User user, @NotNull final String id);
+
+    Collection<Project> sortByUserId(User user, String comparator);
+
+    Collection<Project> findByPartOfNameOrDescription(@NotNull final String userId, @NotNull final String part);
 }

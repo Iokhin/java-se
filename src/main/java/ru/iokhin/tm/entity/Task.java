@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.iokhin.tm.enumerated.ReadinessStatus;
+import ru.iokhin.tm.enumerated.Status;
 
 import java.util.Date;
 
@@ -27,7 +27,7 @@ public final class Task extends AbstractEntity {
     private Date endDate;
 
     @NotNull
-    private final ReadinessStatus status = ReadinessStatus.PLANNING;
+    private Status status = Status.PLANNING;
 
     public Task(@NotNull String userId, @NotNull String projectId, @NotNull String name) {
         this.parentId = userId;
@@ -35,6 +35,16 @@ public final class Task extends AbstractEntity {
         this.name = name;
         this.startDate = new Date();
     }
+
+    //----------Constructor for test sorting by status
+    public Task(@NotNull String userId, @NotNull String projectId, @NotNull String name, Status status) {
+        this.parentId = userId;
+        this.projectId = projectId;
+        this.name = name;
+        this.startDate = new Date();
+        this.status = status;
+    }
+    //------------------------------------------------
 
     @Override
     public String toString() {
