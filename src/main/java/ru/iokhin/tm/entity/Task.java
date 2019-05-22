@@ -14,10 +14,10 @@ import java.util.Date;
 @NoArgsConstructor
 public final class Task extends AbstractEntity {
 
-    @NotNull
+    @Nullable
     private String parentId;
 
-    @NotNull
+    @Nullable
     private String projectId;
 
     @Nullable
@@ -27,7 +27,7 @@ public final class Task extends AbstractEntity {
     private Date endDate;
 
     @NotNull
-    private final ReadinessStatus status = ReadinessStatus.PLANNIG;
+    private final ReadinessStatus status = ReadinessStatus.PLANNING;
 
     public Task(@NotNull String userId, @NotNull String projectId, @NotNull String name) {
         this.parentId = userId;

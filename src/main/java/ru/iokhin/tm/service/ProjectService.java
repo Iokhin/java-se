@@ -1,5 +1,7 @@
 package ru.iokhin.tm.service;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.iokhin.tm.api.repository.IProjectRepository;
 import ru.iokhin.tm.api.service.IProjectService;
 import ru.iokhin.tm.entity.Project;
@@ -15,35 +17,40 @@ public class ProjectService extends AbstractService<Project, IProjectRepository>
     }
 
     @Override
-    public Project add(User user, String name) {
+    public Project add(@NotNull final User user, @NotNull final String name) {
         StringValidator.validate(name);
         return repository.persist(new Project(user.getId(), name));
     }
 
     @Override
-    public Project edit(User user, String id, String name) {
+    public Project edit(@NotNull final User user, @NotNull final String id, @NotNull final String name) {
         StringValidator.validate(name, id);
-        Project project = repository.findOne(user.getId(), id);
+        @Nullable final Project project = repository.findOne(user.getId(), id);
         if (project == null) return null;
         project.setName(name);
         return project;
     }
 
     @Override
-    public Project remove(User user, String id) {
+    public Project remove(@NotNull final User user, @NotNull final String id) {
         StringValidator.validate(id);
-        Project project = repository.findOne(user.getId(), id);
+        @Nullable final Project project = repository.findOne(user.getId(), id);
         if (project == null) return null;
         return repository.remove(user.getId(), id);
     }
 
     @Override
-    public void removeAllByUser(User user) {
+    public void removeAllByUser(@NotNull final User user) {
         repository.removeAllByUserId(user.getId());
     }
 
     @Override
-    public Collection<Project> findAllByUser(User user) {
+    public Collection<Project> findAllByUser(@NotNull final User user) {
         return repository.findAllByUserId(user.getId());
+    }
+
+    @Override
+    public Project findOne(@NotNull final User user, @NotNull final String id) {
+        return repository.findOne(user.getId(), id);
     }
 }

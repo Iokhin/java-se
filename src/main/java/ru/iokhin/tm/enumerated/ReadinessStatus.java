@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 
 @RequiredArgsConstructor
 public enum ReadinessStatus {
-    PLANNIG("Запланировано"),
+    PLANNING("Запланировано"),
     PROCCESSING("В процессе"),
     READY("Готово");
 

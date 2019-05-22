@@ -3,6 +3,8 @@ package ru.iokhin.tm.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.iokhin.tm.api.IEntity;
 
 import java.util.UUID;
@@ -12,9 +14,9 @@ import java.util.UUID;
 @NoArgsConstructor
 public class AbstractEntity implements IEntity {
 
-    protected String parentId = "";
-    protected String id = UUID.randomUUID().toString();
-    protected String name = "";
-    protected String description = "";
+    @Nullable protected String parentId = "";
+    @NotNull protected String id = UUID.randomUUID().toString();
+    @Nullable protected String name = "";
+    @Nullable protected String description = "";
 
 }

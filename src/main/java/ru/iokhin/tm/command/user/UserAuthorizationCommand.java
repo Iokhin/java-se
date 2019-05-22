@@ -1,6 +1,8 @@
 package ru.iokhin.tm.command.user;
 
 import lombok.NoArgsConstructor;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.iokhin.tm.util.MD5Util;
 import ru.iokhin.tm.command.AbstractCommand;
 import ru.iokhin.tm.entity.User;
@@ -26,19 +28,15 @@ public class UserAuthorizationCommand extends AbstractCommand {
     @Override
     public void execute() {
         System.out.println("PLEASE ENTER YOUR LOGIN");
-        String login = bootstrap.getTerminalService().nextLine();
-
-        User user = bootstrap.getUserService().getUserByLogin(login);
+        @NotNull final String login = bootstrap.getTerminalService().nextLine();
+        @Nullable final User user = bootstrap.getUserService().findByLogin(login);
         if (user == null) {
             System.out.println("INCORRECT LOGIN");
             return;
         }
-
         System.out.println("PLEASE ENTER YOUR PASSWORD");
-        String password = bootstrap.getTerminalService().nextLine();
-
-        String passwordHash = MD5Util.passwordToHash(password);
-
+        @NotNull final String password = bootstrap.getTerminalService().nextLine();
+        @NotNull final String passwordHash = MD5Util.passwordToHash(password);
         if (user.getPasswordHash().equals(passwordHash)) {
             bootstrap.setCurrentUser(user);
             System.out.println("WELCOME, " + user.getLogin());

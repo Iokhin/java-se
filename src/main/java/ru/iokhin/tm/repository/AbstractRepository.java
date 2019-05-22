@@ -1,5 +1,7 @@
 package ru.iokhin.tm.repository;
 
+import lombok.Getter;
+import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.api.IRepository;
 import ru.iokhin.tm.entity.AbstractEntity;
 
@@ -7,22 +9,23 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class AbstractRepository<E extends AbstractEntity> implements IRepository<E> {
+@Getter
+public abstract class AbstractRepository<E extends AbstractEntity> implements IRepository<E> {
 
     protected Map<String, E> repository = new LinkedHashMap<>();
 
     @Override
-    public E persist(E entity) {
+    public E persist(@NotNull final E entity) {
         return repository.put(entity.getId(), entity);
     }
 
     @Override
-    public E merge(E entity) {
+    public E merge(@NotNull final E entity) {
         return persist(entity);
     }
 
     @Override
-    public E findOne(String id) {
+    public E findOne(@NotNull final String id) {
         return repository.get(id);
     }
 
@@ -32,7 +35,7 @@ public class AbstractRepository<E extends AbstractEntity> implements IRepository
     }
 
     @Override
-    public E remove(String id) {
+    public E remove(@NotNull final String id) {
         return repository.remove(id);
     }
 

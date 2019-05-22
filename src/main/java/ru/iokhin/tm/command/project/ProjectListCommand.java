@@ -1,6 +1,7 @@
 package ru.iokhin.tm.command.project;
 
 import lombok.NoArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.command.AbstractCommand;
 import ru.iokhin.tm.entity.Project;
 
@@ -27,8 +28,8 @@ public final class ProjectListCommand extends AbstractCommand {
     @Override
     public void execute() {
         System.out.println("PROJECTS LIST:");
-        int i = 0;
-        for (Project project : projectList()) {
+        @NotNull int i = 0;
+        for (@NotNull Project project : projectList()) {
             System.out.println(++i + ". " + project);
         }
     }

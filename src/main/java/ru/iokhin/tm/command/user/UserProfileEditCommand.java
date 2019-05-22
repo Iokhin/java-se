@@ -1,6 +1,7 @@
 package ru.iokhin.tm.command.user;
 
 import lombok.NoArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.command.AbstractCommand;
 
 @NoArgsConstructor
@@ -28,7 +29,7 @@ public class UserProfileEditCommand extends AbstractCommand {
         System.out.println("USER LOGIN: " + bootstrap.getCurrentUser().getLogin());
         System.out.println("USER RIGHTS: " + bootstrap.getCurrentUser().getRoleType().displayName());
         System.out.println("ENTER NEW LOGIN TO EDIT");
-        String input = bootstrap.getTerminalService().nextLine();
+        @NotNull final String input = bootstrap.getTerminalService().nextLine();
         bootstrap.getCurrentUser().setLogin(input);
         System.out.println("SUCCESS");
     }

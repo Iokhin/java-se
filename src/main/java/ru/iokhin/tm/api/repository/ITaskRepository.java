@@ -1,5 +1,6 @@
 package ru.iokhin.tm.api.repository;
 
+import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.api.IRepository;
 import ru.iokhin.tm.entity.Task;
 
@@ -7,12 +8,12 @@ import java.util.Collection;
 
 public interface ITaskRepository extends IRepository<Task> {
 
-    Collection<Task> findAllByUserId(final String userId);
+    Collection<Task> findAllByUserId(@NotNull final String userId);
 
-    void removeAllByUserId(final String userId);
+    void removeAllByUserId(@NotNull final String userId);
 
-    Task findOne(String parentId, String id);
+    Task findOne(@NotNull final String parentId, @NotNull final String id);
 
-    Task remove(String parentId, String id);
+    Task remove(@NotNull final String parentId, @NotNull final String id);
 
 }

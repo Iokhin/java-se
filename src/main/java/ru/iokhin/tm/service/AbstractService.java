@@ -1,6 +1,7 @@
 package ru.iokhin.tm.service;
 
 import lombok.AllArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.api.IRepository;
 import ru.iokhin.tm.api.IService;
 import ru.iokhin.tm.entity.AbstractEntity;
@@ -8,22 +9,22 @@ import ru.iokhin.tm.entity.AbstractEntity;
 import java.util.Collection;
 
 @AllArgsConstructor
-public class AbstractService<E extends AbstractEntity, R extends IRepository<E>> implements IService<E> {
+public abstract class AbstractService<E extends AbstractEntity, R extends IRepository<E>> implements IService<E> {
 
     protected R repository;
 
     @Override
-    public E persist(E entity) {
+    public E persist(@NotNull final E entity) {
         return repository.persist(entity);
     }
 
     @Override
-    public E merge(E entity) {
+    public E merge(@NotNull final E entity) {
         return repository.merge(entity);
     }
 
     @Override
-    public E findOne(String id) {
+    public E findOne(@NotNull final String id) {
         return repository.findOne(id);
     }
 
@@ -33,7 +34,7 @@ public class AbstractService<E extends AbstractEntity, R extends IRepository<E>>
     }
 
     @Override
-    public E remove(String id) {
+    public E remove(@NotNull final String id) {
         return repository.remove(id);
     }
 

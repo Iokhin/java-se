@@ -1,18 +1,16 @@
 package ru.iokhin.tm.api.service;
 
+import org.jetbrains.annotations.NotNull;
+import ru.iokhin.tm.api.IService;
+import ru.iokhin.tm.entity.User;
 import ru.iokhin.tm.enumerated.RoleType;
 
-public interface IUserService {
+public interface IUserService extends IService<User> {
 
-    void addUser(RoleType roleType, String login, String password);
+    User add(@NotNull final RoleType roleType, @NotNull final String login, @NotNull final String password);
 
-    void listUser();
+    User edit(@NotNull final String userId, @NotNull final String newLogin, @NotNull final String newPasswordHash);
 
-    void removeUser(String id);
-
-    void clearUser();
-
-    void editUser(RoleType roleType, String userId, String newLogin,
-                  String newPasswordHash);
+    User findByLogin(@NotNull final String login);
 
 }

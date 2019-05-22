@@ -25,11 +25,10 @@ public final class ProjectCreateCommand extends AbstractCommand {
     @Override
     public void execute() {
         System.out.println("ENTER NAME OF PROJECT TO CREATE");
-        @NotNull String name = bootstrap.getTerminalService().nextLine();
+        @NotNull final String name = bootstrap.getTerminalService().nextLine();
         projectCreateCommand(name);
         System.out.println("OK");
     }
-
 
     private void projectCreateCommand(@NotNull String name) {
         bootstrap.getProjectService().add(bootstrap.getCurrentUser(), name);

@@ -16,7 +16,7 @@ public final class User extends AbstractEntity {
     @Nullable
     private String login;
 
-    @NotNull
+    @Nullable
     private String passwordHash;
 
     @Nullable
@@ -35,5 +35,10 @@ public final class User extends AbstractEntity {
 
     public void setPasswordHash(String password) {
         this.passwordHash = MD5Util.passwordToHash(password);
+    }
+
+    @Override
+    public String toString() {
+        return login + ", " + id;
     }
 }

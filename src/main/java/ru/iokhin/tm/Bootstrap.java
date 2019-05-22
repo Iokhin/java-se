@@ -12,11 +12,11 @@ import ru.iokhin.tm.entity.User;
 import ru.iokhin.tm.enumerated.RoleType;
 import ru.iokhin.tm.repository.ProjectRepository;
 import ru.iokhin.tm.repository.TaskRepository;
-import ru.iokhin.tm.repository.old.UserRepositoryOLD;
+import ru.iokhin.tm.repository.UserRepository;
 import ru.iokhin.tm.service.ProjectService;
 import ru.iokhin.tm.service.TaskService;
 import ru.iokhin.tm.service.TerminalService;
-import ru.iokhin.tm.service.old.UserService;
+import ru.iokhin.tm.service.UserService;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -26,7 +26,7 @@ import java.util.Map;
 public final class Bootstrap implements IServiceLocator {
 
     @NotNull
-    private Map<String, AbstractCommand> commandMap = new LinkedHashMap<>(0);
+    private final Map<String, AbstractCommand> commandMap = new LinkedHashMap<>(0);
 
     @NotNull
     private final ProjectRepository projectRepository = new ProjectRepository();
@@ -35,7 +35,7 @@ public final class Bootstrap implements IServiceLocator {
     private final TaskRepository taskRepository = new TaskRepository();
 
     @NotNull
-    private final UserRepositoryOLD userRepository = new UserRepositoryOLD();
+    private final UserRepository userRepository = new UserRepository();
 
     @NotNull
     private final ProjectService projectService = new ProjectService(projectRepository);
@@ -74,8 +74,7 @@ public final class Bootstrap implements IServiceLocator {
 
         System.out.println("***WELCOME TO TASK MANAGER***");
 
-        @NotNull
-        String input = "";
+        @NotNull String input = "";
 
         while (!input.equals("exit")) {
             input = terminalService.nextLine();
@@ -108,7 +107,7 @@ public final class Bootstrap implements IServiceLocator {
         return o instanceof AbstractCommand;
     }
 
-    void generateTestData() {
+    private void generateTestData() {
         //Test data
         //---------
 
@@ -118,28 +117,28 @@ public final class Bootstrap implements IServiceLocator {
         @NotNull
         User userUser = new User(RoleType.USER, "user", "user");
 
-        userRepository.userMap.put(userAdmin.getId(), userAdmin);
-        userRepository.userMap.put(userUser.getId(), userUser);
+        userRepository.getRepository().put(userAdmin.getId(), userAdmin);
+        userRepository.getRepository().put(userUser.getId(), userUser);
 
-        Project project1 = new Project("Project 1", userUser.getId());
-        Project project2 = new Project("Project 2", userUser.getId());
-        Project project3 = new Project("Project 3", userAdmin.getId());
+        Project project1 = new Project(userUser.getId(), "Project 1");
+        Project project2 = new Project(userUser.getId(), "Project 2");
+        Project project3 = new Project(userAdmin.getId(), "Project 3");
 
-        projectRepository.getRepositoryMap().put(project1.getId(), project1);
-        projectRepository.getRepositoryMap().put(project2.getId(), project2);
-        projectRepository.getRepositoryMap().put(project3.getId(), project3);
+        projectRepository.getRepository().put(project1.getId(), project1);
+        projectRepository.getRepository().put(project2.getId(), project2);
+        projectRepository.getRepository().put(project3.getId(), project3);
 
-        Task task1 = new Task(project1.getUserId(), project1.getId(), "TASK 1 FOR PROJECT 1");
-        Task task2 = new Task(project1.getUserId(), project1.getId(), "TASK 2 FOR PROJECT 1");
-        Task task3 = new Task(project2.getUserId(), project2.getId(), "TASK 3 FOR PROJECT 2");
-        Task task4 = new Task(project2.getUserId(), project2.getId(), "TASK 4 FOR PROJECT 2");
-        Task task5 = new Task(project3.getUserId(), project3.getId(), "TASK 5 FOR PROJECT 3");
+        Task task1 = new Task(project1.getParentId(), project1.getId(), "TASK 1 FOR PROJECT 1");
+        Task task2 = new Task(project1.getParentId(), project1.getId(), "TASK 2 FOR PROJECT 1");
+        Task task3 = new Task(project2.getParentId(), project2.getId(), "TASK 3 FOR PROJECT 2");
+        Task task4 = new Task(project2.getParentId(), project2.getId(), "TASK 4 FOR PROJECT 2");
+        Task task5 = new Task(project3.getParentId(), project3.getId(), "TASK 5 FOR PROJECT 3");
 
-        taskRepository.getRepositoryMap().put(task1.getId(), task1);
-        taskRepository.getRepositoryMap().put(task2.getId(), task2);
-        taskRepository.getRepositoryMap().put(task3.getId(), task3);
-        taskRepository.getRepositoryMap().put(task4.getId(), task4);
-        taskRepository.getRepositoryMap().put(task5.getId(), task5);
+        taskRepository.getRepository().put(task1.getId(), task1);
+        taskRepository.getRepository().put(task2.getId(), task2);
+        taskRepository.getRepository().put(task3.getId(), task3);
+        taskRepository.getRepository().put(task4.getId(), task4);
+        taskRepository.getRepository().put(task5.getId(), task5);
 
         //---------
     }

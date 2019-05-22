@@ -1,6 +1,7 @@
 package ru.iokhin.tm.command.system;
 
 import lombok.NoArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.command.AbstractCommand;
 
 @NoArgsConstructor
@@ -27,7 +28,7 @@ public final class HelpCommand extends AbstractCommand {
     }
 
     private void helpCommand() {
-        for (AbstractCommand abstractCommand : bootstrap.getCommandMap().values()) {
+        for (@NotNull AbstractCommand abstractCommand : bootstrap.getCommandMap().values()) {
             System.out.println(abstractCommand.name() + ": " + abstractCommand.description());
         }
     }

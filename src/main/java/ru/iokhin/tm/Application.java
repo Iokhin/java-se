@@ -20,7 +20,7 @@ public final class Application {
             UserAuthorizationCommand.class, UserEndSessionCommand.class,
             UserListCommand.class, UserPasswordChangeCommand.class,
             UserProfileEditCommand.class, UserRegistrationCommand.class,
-            TaskRemoveAllByUserCommand.class
+            TaskRemoveAllByUserCommand.class, TaskListAllCommand.class
     };
 
     public static void main(@NotNull String[] args) {

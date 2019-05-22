@@ -2,7 +2,6 @@ package ru.iokhin.tm.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -10,14 +9,13 @@ import ru.iokhin.tm.enumerated.ReadinessStatus;
 
 
 import java.util.Date;
-import java.util.UUID;
 
 @Getter
 @Setter
 @NoArgsConstructor
 public final class Project extends AbstractEntity {
 
-    @NotNull
+    @Nullable
     private String parentId;
 
     @Nullable
@@ -27,7 +25,7 @@ public final class Project extends AbstractEntity {
     private Date endDate;
 
     @NotNull
-    private final ReadinessStatus status = ReadinessStatus.PLANNIG;
+    private final ReadinessStatus status = ReadinessStatus.PLANNING;
 
     public Project(@NotNull String userId, @NotNull String name) {
         this.name = name;
@@ -37,6 +35,6 @@ public final class Project extends AbstractEntity {
 
     @Override
     public String toString() {
-        return String.format("%s, %s", this.name, this.id);
+        return String.format("%s, %s", name, id);
     }
 }

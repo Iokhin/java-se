@@ -13,15 +13,6 @@ public final class TaskEditCommand extends AbstractCommand {
         return true;
     }
 
-//    private boolean isHaveAccess(Bootstrap bootstrap, String taskId) {
-//
-//        @NotNull final String currentUserId = bootstrap.getCurrentUser().getId();
-//        @NotNull final String allowedUserId = bootstrap.getTaskService().findOne(taskId).getUserId();
-//
-//        return currentUserId.equals(allowedUserId);
-//    }
-
-
     @Override
     public String name() {
         return "task-edit";
@@ -34,22 +25,15 @@ public final class TaskEditCommand extends AbstractCommand {
 
     @Override
     public void execute() {
+        bootstrap.getCommandMap().get("task-list-all").execute();
         System.out.println("ENTER ID OF TASK TO EDIT");
-        @NotNull String taskId = bootstrap.getTerminalService().nextLine();
-
-//        if (bootstrap.getTaskService().findOne(taskId) == null) {
-//            System.out.println("NO SUCH TASK ID");
-//            return;
-//        }
-//
-//        if (!isHaveAccess(bootstrap, taskId)) {
-//            System.out.println("NO ACCESS FOR THIS OPERATION");
-//            return;
-//        }
-
+        @NotNull final String taskId = bootstrap.getTerminalService().nextLine();
         System.out.println("ENTER NEW NAME OF TASK TO EDIT");
-        @NotNull String newTaskName = bootstrap.getTerminalService().nextLine();
-        bootstrap.getTaskService().edit(bootstrap.getCurrentUser(), taskId, newTaskName);
+        @NotNull final String newTaskName = bootstrap.getTerminalService().nextLine();
+        if (bootstrap.getTaskService().edit(bootstrap.getCurrentUser(), taskId, newTaskName) == null) {
+            System.out.println("NO SUCH TASK ID");
+            return;
+        }
         System.out.println("OK");
     }
 }
