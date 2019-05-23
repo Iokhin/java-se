@@ -3,6 +3,7 @@ package ru.iokhin.tm;
 import lombok.Getter;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.iokhin.tm.api.service.IProjectService;
 import ru.iokhin.tm.api.service.IServiceLocator;
 import ru.iokhin.tm.api.service.ITaskService;
@@ -11,6 +12,7 @@ import ru.iokhin.tm.command.*;
 import ru.iokhin.tm.entity.Project;
 import ru.iokhin.tm.enumerated.RoleType;
 import ru.iokhin.tm.exeption.AuthException;
+import ru.iokhin.tm.exeption.NonexistentCommandException;
 import ru.iokhin.tm.service.*;
 
 import java.util.LinkedHashMap;
@@ -49,16 +51,16 @@ final class Bootstrap {
         while (!input.equals("exit")) {
             input = serviceLocator.getTerminalService().nextLine();
             AbstractCommand command = this.commandMap.get(input);
-            if (command == null) continue;
             try {
                 execute(command);
-            } catch (AuthException | IllegalArgumentException e) {
+            } catch (AuthException | IllegalArgumentException | NonexistentCommandException e) {
                 System.out.println(e.getMessage());
             }
         }
     }
 
-    private void execute(@NotNull AbstractCommand command) throws AuthException {
+    private void execute(@Nullable AbstractCommand command) throws AuthException, NonexistentCommandException {
+        if (command == null) throw new NonexistentCommandException();
         if (!command.security()) {
             command.execute();
         } else {
@@ -86,8 +88,8 @@ final class Bootstrap {
         @NotNull final ITaskService taskService = serviceLocator.getTaskService();
         @NotNull final IUserService userService = serviceLocator.getUserService();
 
-        userService.add(RoleType.ADMIN, "admin", "admin");
-        userService.add(RoleType.USER, "user", "user");
+        userService.add(RoleType.ADMIN, "3afe899e-ee58-4543-8076-48af7f1abd71", "admin", "admin");
+        userService.add(RoleType.USER, "7cfe899e-ee58-3290-8076-48af7f1abd66", "user", "user");
 
         projectService.add(userService.findByLogin("user"), "Project 1");
         projectService.add(userService.findByLogin("admin"), "Project 2");

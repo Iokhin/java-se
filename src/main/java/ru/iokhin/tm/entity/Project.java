@@ -7,12 +7,16 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.iokhin.tm.enumerated.Status;
 
-
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@XmlRootElement(name = "project")
+@XmlAccessorType(XmlAccessType.FIELD)
 public final class Project extends AbstractEntity {
 
     @Nullable

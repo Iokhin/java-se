@@ -8,9 +8,15 @@ import org.jetbrains.annotations.Nullable;
 import ru.iokhin.tm.util.MD5Util;
 import ru.iokhin.tm.enumerated.RoleType;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
 @Getter
 @Setter
 @NoArgsConstructor
+@XmlRootElement(name = "user")
+@XmlAccessorType(XmlAccessType.FIELD)
 public final class User extends AbstractEntity {
 
     @Nullable
@@ -24,6 +30,14 @@ public final class User extends AbstractEntity {
 
     public User(@NotNull RoleType roleType, @NotNull String login, @NotNull String password) {
         this.roleType = roleType;
+        this.login = login;
+        this.passwordHash = MD5Util.passwordToHash(password);
+    }
+
+    //Constructor for permanent id of user
+    public User(@NotNull RoleType roleType, @NotNull String id, @NotNull String login, @NotNull String password) {
+        this.roleType = roleType;
+        this.id = id;
         this.login = login;
         this.passwordHash = MD5Util.passwordToHash(password);
     }

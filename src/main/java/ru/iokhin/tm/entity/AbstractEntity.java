@@ -7,19 +7,25 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.iokhin.tm.api.IEntity;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class AbstractEntity implements IEntity {
-
-    @Nullable protected String parentId = "";
-    @NotNull protected String id = UUID.randomUUID().toString();
-    @Nullable protected String name = "";
-    @Nullable protected String description = "";
-    @Nullable protected Date startDate;
-    @Nullable protected Date endDate;
+public class AbstractEntity implements IEntity, Serializable {
+    @Nullable
+    protected String parentId = "";
+    @NotNull
+    protected String id = UUID.randomUUID().toString();
+    @Nullable
+    protected String name = "";
+    @Nullable
+    protected String description = "";
+    @Nullable
+    protected Date startDate;
+    @Nullable
+    protected Date endDate;
 
 }

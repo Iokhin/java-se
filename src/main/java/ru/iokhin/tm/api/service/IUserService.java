@@ -7,8 +7,9 @@ import ru.iokhin.tm.entity.User;
 import ru.iokhin.tm.enumerated.RoleType;
 
 public interface IUserService extends IService<User> {
-
     User add(@NotNull final RoleType roleType, @NotNull final String login, @NotNull final String password);
+
+    User add(@NotNull final RoleType roleType, @NotNull final String id, @NotNull final String login, @NotNull final String password);
 
     User edit(@NotNull final String userId, @NotNull final String newLogin, @NotNull final String newPasswordHash);
 

@@ -1,6 +1,9 @@
 package ru.iokhin.tm;
 
 import org.jetbrains.annotations.NotNull;
+import ru.iokhin.tm.command.data.DataLoadSerializedCommand;
+import ru.iokhin.tm.command.data.DataSaveJAXBtoXMLCommand;
+import ru.iokhin.tm.command.data.DataSaveSerializedCommand;
 import ru.iokhin.tm.command.project.*;
 import ru.iokhin.tm.command.system.AboutCommand;
 import ru.iokhin.tm.command.system.ExitCommand;
@@ -22,7 +25,9 @@ public final class Application {
             UserProfileEditCommand.class, UserRegistrationCommand.class,
             TaskRemoveAllByUserCommand.class, TaskListAllCommand.class,
             ProjectSortListCommand.class, TaskSortListCommand.class,
-            ProjectFindByPartCommand.class, TaskFindByPartCommand.class
+            ProjectFindByPartCommand.class, TaskFindByPartCommand.class,
+            DataSaveSerializedCommand.class, DataLoadSerializedCommand.class,
+            DataSaveJAXBtoXMLCommand.class
     };
 
     public static void main(@NotNull String[] args) {

@@ -25,6 +25,12 @@ public class UserService extends AbstractService<User, IUserRepository> implemen
         return repository.persist(new User(roleType, login, password));
     }
 
+    //Method for testing data load
+    @Override
+    public User add(@NotNull RoleType roleType, @NotNull String id, @NotNull String login, @NotNull String password) {
+        return repository.persist(new User(roleType, id, login, password));
+    }
+
     @Override
     public User edit(@NotNull final String userId, @NotNull final String newLogin, @NotNull final String newPassword) {
         @Nullable final User user = findOne(userId);

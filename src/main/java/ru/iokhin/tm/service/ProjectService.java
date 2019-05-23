@@ -13,7 +13,7 @@ import java.util.Collection;
 
 public class ProjectService extends AbstractService<Project, IProjectRepository> implements IProjectService {
 
-    public ProjectService(IProjectRepository repository) {
+    ProjectService(IProjectRepository repository) {
         super(repository);
     }
 
@@ -22,6 +22,11 @@ public class ProjectService extends AbstractService<Project, IProjectRepository>
         StringValidator.validate(name);
         return repository.persist(new Project(user.getId(), name));
     }
+
+//    @Override
+//    public Project merge(@NotNull Project entity) {
+//        return repository.persist(entity);
+//    }
 
     @Override
     public Project edit(@NotNull final User user, @NotNull final String id, @NotNull final String name) {
