@@ -28,7 +28,7 @@ public final class HelpCommand extends AbstractCommand {
     }
 
     private void helpCommand() {
-        for (@NotNull AbstractCommand abstractCommand : bootstrap.getCommandMap().values()) {
+        for (@NotNull AbstractCommand abstractCommand : serviceLocator.getCommandMap().values()) {
             System.out.println(abstractCommand.name() + ": " + abstractCommand.description());
         }
     }

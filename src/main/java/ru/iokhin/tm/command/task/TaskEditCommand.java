@@ -24,7 +24,6 @@ public final class TaskEditCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        bootstrap.getCommandMap().get("task-list-all").execute();
         System.out.println("ENTER ID OF TASK TO EDIT");
         @NotNull final String taskId = serviceLocator.getTerminalService().nextLine();
         System.out.println("ENTER NEW NAME OF TASK TO EDIT");

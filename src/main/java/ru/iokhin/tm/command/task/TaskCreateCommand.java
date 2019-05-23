@@ -25,7 +25,6 @@ public final class TaskCreateCommand extends AbstractCommand {
     @Override
     public void execute() {
         System.out.println("ENTER ID OF PROJECT TO CREATE TASK");
-        bootstrap.getCommandMap().get("project-list").execute();
         @NotNull final String projectId = serviceLocator.getTerminalService().nextLine();
         if (serviceLocator.getProjectService().findOne(serviceLocator.getUserService().getCurrentUser(), projectId) == null) {
             System.out.println("NO SUCH PROJECT ID");

@@ -24,7 +24,6 @@ public final class TaskRemoveAllByProjectCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        bootstrap.getCommandMap().get("project-list").execute();
         System.out.println("ENTER ID OF PROJECT TO CLEAR TASKS");
         @NotNull final String projectId = serviceLocator.getTerminalService().nextLine();
         if (!serviceLocator.getTaskService().removeAllByProjectId(serviceLocator.getUserService().getCurrentUser(), projectId)) {

@@ -18,22 +18,19 @@ import java.util.Map;
 
 @Getter
 @Setter
-public final class Bootstrap {
-
-    @NotNull
-    final IServiceLocator serviceLocator = new ServiceLocator();
-
+final class Bootstrap {
     @NotNull
     private final Map<String, AbstractCommand> commandMap = new LinkedHashMap<>(0);
+
+    @NotNull
+    private final IServiceLocator serviceLocator = new ServiceLocator(commandMap);
 
     private boolean isAuth() {
         return serviceLocator.getUserService().getCurrentUser() != null;
     }
 
     void init(Class[] CLASSES) {
-
         generateTestData();
-
         for (Class commandClass : CLASSES) {
             AbstractCommand commandInstance = null;
             try {
@@ -47,7 +44,6 @@ public final class Bootstrap {
         }
 
         System.out.println("***WELCOME TO TASK MANAGER***");
-
         @NotNull String input = "";
 
         while (!input.equals("exit")) {
@@ -75,7 +71,6 @@ public final class Bootstrap {
     }
 
     private void commandRegister(AbstractCommand abstractCommand) {
-        abstractCommand.setBootstrap(this);
         abstractCommand.setServiceLocator(serviceLocator);
         this.commandMap.put(abstractCommand.name(), abstractCommand);
     }
@@ -87,7 +82,6 @@ public final class Bootstrap {
     private void generateTestData() {
         //Test data
         //---------
-
         @NotNull final IProjectService projectService = serviceLocator.getProjectService();
         @NotNull final ITaskService taskService = serviceLocator.getTaskService();
         @NotNull final IUserService userService = serviceLocator.getUserService();
@@ -111,7 +105,6 @@ public final class Bootstrap {
             taskService.add(userService.findByLogin("user"), project.getId(), "USER TASK 3");
             taskService.add(userService.findByLogin("user"), project.getId(), "USER TASK 4");
         }
-
         //---------
     }
 }

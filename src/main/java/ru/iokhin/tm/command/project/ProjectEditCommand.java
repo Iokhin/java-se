@@ -24,7 +24,6 @@ public final class ProjectEditCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        bootstrap.getCommandMap().get("project-list").execute();
         System.out.println("ENTER ID OF PROJECT TO EDIT");
         @NotNull final String projectId = serviceLocator.getTerminalService().nextLine();
         System.out.println("ENTER NEW NAME OF PROJECT TO EDIT");

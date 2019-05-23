@@ -36,10 +36,6 @@ public class UserService extends AbstractService<User, IUserRepository> implemen
 
     @Override
     public User findByLogin(@NotNull final String login) {
-        for (User user : findAll()) {
-            if (user.getLogin().equals(login))
-                return user;
-        }
-        return null;
+        return repository.findByLogin(login);
     }
 }
