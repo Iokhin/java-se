@@ -25,4 +25,6 @@ public interface ITaskService extends IService<Task> {
 
     Collection<Task> sortByUserId(@NotNull final String userId, @NotNull final String comparator);
 
+    Collection<Task> findByPartOfNameOrDescription(@NotNull final String userId, @NotNull final String keyWord);
+
 }

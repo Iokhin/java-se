@@ -28,8 +28,8 @@ public final class TaskListCommand extends AbstractCommand {
     @Override
     public void execute() {
         System.out.println("ENTER ID OF PROJECT TO LIST TASKS");
-        @NotNull final String projectId = bootstrap.getTerminalService().nextLine();
-        if (bootstrap.getProjectService().findOne(bootstrap.getCurrentUser(), projectId) == null) {
+        @NotNull final String projectId = serviceLocator.getTerminalService().nextLine();
+        if (serviceLocator.getProjectService().findOne(serviceLocator.getUserService().getCurrentUser(), projectId) == null) {
             System.out.println("NO SUCH PROJECT ID");
             return;
         }
@@ -41,6 +41,6 @@ public final class TaskListCommand extends AbstractCommand {
     }
 
     private Collection<Task> getTaskList(String projectId) {
-        return bootstrap.getTaskService().findAllByProjectId(bootstrap.getCurrentUser(), projectId);
+        return serviceLocator.getTaskService().findAllByProjectId(serviceLocator.getUserService().getCurrentUser(), projectId);
     }
 }

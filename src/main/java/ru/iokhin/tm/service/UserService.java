@@ -1,5 +1,7 @@
 package ru.iokhin.tm.service;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.iokhin.tm.api.repository.IUserRepository;
@@ -8,7 +10,11 @@ import ru.iokhin.tm.entity.User;
 import ru.iokhin.tm.enumerated.RoleType;
 import ru.iokhin.tm.util.MD5Util;
 
+@Getter
+@Setter
 public class UserService extends AbstractService<User, IUserRepository> implements IUserService {
+
+    @Nullable private User currentUser;
 
     public UserService(@NotNull final IUserRepository repository) {
         super(repository);

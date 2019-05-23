@@ -10,7 +10,6 @@ import ru.iokhin.tm.util.ComparatorUtil;
 import ru.iokhin.tm.util.StringValidator;
 
 import java.util.Collection;
-import java.util.Collections;
 
 public class ProjectService extends AbstractService<Project, IProjectRepository> implements IProjectService {
 
@@ -57,7 +56,7 @@ public class ProjectService extends AbstractService<Project, IProjectRepository>
     }
 
     @Override
-    public Collection<Project> sortByUserId(User user, String comparator) {
+    public Collection<Project> sortByUserId(@NotNull final User user, @NotNull final String comparator) {
         StringValidator.validate(user.getId(), comparator);
         if (comparator.equals("order")) return findAllByUser(user);
         if (ComparatorUtil.getProjectComparator(comparator) == null) return null;
@@ -65,7 +64,7 @@ public class ProjectService extends AbstractService<Project, IProjectRepository>
     }
 
     @Override
-    public Collection<Project> findByPartOfNameOrDescription(@NotNull String userId, @NotNull String part) {
+    public Collection<Project> findByPartOfNameOrDescription(@NotNull final String userId, @NotNull final String part) {
         return repository.findByPartOfNameOrDescription(userId, part);
     }
 

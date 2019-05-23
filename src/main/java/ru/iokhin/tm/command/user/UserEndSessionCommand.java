@@ -23,7 +23,7 @@ public class UserEndSessionCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        System.out.println(bootstrap.getCurrentUser().getLogin() + " was logged out");
-        bootstrap.setCurrentUser(null);
+        System.out.println(serviceLocator.getUserService().getCurrentUser().getLogin() + " was logged out");
+        serviceLocator.getUserService().setCurrentUser(null);
     }
 }

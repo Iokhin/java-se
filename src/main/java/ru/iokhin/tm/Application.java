@@ -22,7 +22,7 @@ public final class Application {
             UserProfileEditCommand.class, UserRegistrationCommand.class,
             TaskRemoveAllByUserCommand.class, TaskListAllCommand.class,
             ProjectSortListCommand.class, TaskSortListCommand.class,
-            ProjectFindByPartCommand.class
+            ProjectFindByPartCommand.class, TaskFindByPartCommand.class
     };
 
     public static void main(@NotNull String[] args) {

@@ -25,12 +25,16 @@ public class UserProfileEditCommand extends AbstractCommand {
     @Override
     public void execute() {
         System.out.println("USER PROFILE:");
-        System.out.println("USER ID: " + bootstrap.getCurrentUser().getId());
-        System.out.println("USER LOGIN: " + bootstrap.getCurrentUser().getLogin());
-        System.out.println("USER RIGHTS: " + bootstrap.getCurrentUser().getRoleType().displayName());
+        System.out.println("USER ID: " + serviceLocator.getUserService().getCurrentUser().getId());
+        System.out.println("USER LOGIN: " + serviceLocator.getUserService().getCurrentUser().getLogin());
+        System.out.println("USER RIGHTS: " + serviceLocator.getUserService().getCurrentUser().getRoleType().displayName());
         System.out.println("ENTER NEW LOGIN TO EDIT");
-        @NotNull final String input = bootstrap.getTerminalService().nextLine();
-        bootstrap.getCurrentUser().setLogin(input);
+        @NotNull final String login = serviceLocator.getTerminalService().nextLine();
+        if (serviceLocator.getUserService().findByLogin(login) != null) {
+            System.out.println("SUCH LOGIN ALREADY EXIST");
+            return;
+        }
+        serviceLocator.getUserService().getCurrentUser().setLogin(login);
         System.out.println("SUCCESS");
     }
 }

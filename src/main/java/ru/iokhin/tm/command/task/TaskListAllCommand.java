@@ -21,6 +21,6 @@ public class TaskListAllCommand extends AbstractCommand {
     @Override
     public void execute() {
         System.out.println("TASK LIST:");
-        bootstrap.getTaskService().findAllByUser(bootstrap.getCurrentUser()).forEach(System.out::println);
+        serviceLocator.getTaskService().findAllByUser(serviceLocator.getUserService().getCurrentUser()).forEach(System.out::println);
     }
 }

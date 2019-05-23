@@ -26,8 +26,8 @@ public final class TaskRemoveCommand extends AbstractCommand {
     public void execute() {
         bootstrap.getCommandMap().get("task-list-all").execute();
         System.out.println("ENTER ID OF TASk TO REMOVE");
-        @NotNull final String taskId = bootstrap.getTerminalService().nextLine();
-        if (bootstrap.getTaskService().remove(bootstrap.getCurrentUser(), taskId) == null) {
+        @NotNull final String taskId = serviceLocator.getTerminalService().nextLine();
+        if (serviceLocator.getTaskService().remove(serviceLocator.getUserService().getCurrentUser(), taskId) == null) {
             System.out.println("NO SUCH TASK ID");
             return;
         }

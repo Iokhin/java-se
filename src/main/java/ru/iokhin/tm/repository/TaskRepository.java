@@ -44,9 +44,20 @@ public class TaskRepository extends AbstractRepository<Task> implements ITaskRep
     }
 
     @Override
-    public Collection<Task> sortByUserId(@NotNull String userId, Comparator<Task> comparator) {
+    public Collection<Task> sortByUserId(@NotNull final String userId, @NotNull final Comparator<Task> comparator) {
         List<Task> taskList = new ArrayList<>(findAllByUserId(userId));
         taskList.sort(comparator);
+        return taskList;
+    }
+
+    @Override
+    public Collection<Task> findByPartOfNameOrDescription(@NotNull String userId, @NotNull String keyWord) {
+        List<Task> taskList = new ArrayList<>(0);
+        for (Task task : findAllByUserId(userId)) {
+            if (task.getName().toLowerCase().contains(keyWord.toLowerCase()) ||
+                    task.getDescription().toLowerCase().contains(keyWord.toLowerCase()))
+                taskList.add(task);
+        }
         return taskList;
     }
 

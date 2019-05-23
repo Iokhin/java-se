@@ -6,7 +6,6 @@ import ru.iokhin.tm.entity.Project;
 import ru.iokhin.tm.entity.User;
 
 import java.util.Collection;
-import java.util.Comparator;
 
 public interface IProjectService extends IService<Project> {
 

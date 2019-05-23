@@ -26,10 +26,10 @@ public final class ProjectEditCommand extends AbstractCommand {
     public void execute() {
         bootstrap.getCommandMap().get("project-list").execute();
         System.out.println("ENTER ID OF PROJECT TO EDIT");
-        @NotNull final String projectId = bootstrap.getTerminalService().nextLine();
+        @NotNull final String projectId = serviceLocator.getTerminalService().nextLine();
         System.out.println("ENTER NEW NAME OF PROJECT TO EDIT");
-        @NotNull final String newName = bootstrap.getTerminalService().nextLine();
-        if (bootstrap.getProjectService().edit(bootstrap.getCurrentUser(), projectId, newName) == null) {
+        @NotNull final String newName = serviceLocator.getTerminalService().nextLine();
+        if (serviceLocator.getProjectService().edit(serviceLocator.getUserService().getCurrentUser(), projectId, newName) == null) {
             System.out.println("NO SUCH PROJECT ID");
             return;
         }

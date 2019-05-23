@@ -26,14 +26,14 @@ public final class TaskCreateCommand extends AbstractCommand {
     public void execute() {
         System.out.println("ENTER ID OF PROJECT TO CREATE TASK");
         bootstrap.getCommandMap().get("project-list").execute();
-        @NotNull final String projectId = bootstrap.getTerminalService().nextLine();
-        if (bootstrap.getProjectService().findOne(bootstrap.getCurrentUser(), projectId) == null) {
+        @NotNull final String projectId = serviceLocator.getTerminalService().nextLine();
+        if (serviceLocator.getProjectService().findOne(serviceLocator.getUserService().getCurrentUser(), projectId) == null) {
             System.out.println("NO SUCH PROJECT ID");
             return;
         }
         System.out.println("ENTER NAME OF TASK TO CREATE");
-        @NotNull final String taskName = bootstrap.getTerminalService().nextLine();
-        bootstrap.getTaskService().add(bootstrap.getCurrentUser(), projectId, taskName);
+        @NotNull final String taskName = serviceLocator.getTerminalService().nextLine();
+        serviceLocator.getTaskService().add(serviceLocator.getUserService().getCurrentUser(), projectId, taskName);
         System.out.println("OK");
     }
 }

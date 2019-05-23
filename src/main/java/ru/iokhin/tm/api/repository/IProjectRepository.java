@@ -5,7 +5,6 @@ import ru.iokhin.tm.api.IRepository;
 import ru.iokhin.tm.entity.Project;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Comparator;
 
 public interface IProjectRepository extends IRepository<Project> {

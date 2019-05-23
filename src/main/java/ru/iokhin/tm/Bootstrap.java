@@ -3,58 +3,31 @@ package ru.iokhin.tm;
 import lombok.Getter;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import ru.iokhin.tm.api.service.IProjectService;
 import ru.iokhin.tm.api.service.IServiceLocator;
+import ru.iokhin.tm.api.service.ITaskService;
+import ru.iokhin.tm.api.service.IUserService;
 import ru.iokhin.tm.command.*;
 import ru.iokhin.tm.entity.Project;
-import ru.iokhin.tm.entity.Task;
-import ru.iokhin.tm.entity.User;
 import ru.iokhin.tm.enumerated.RoleType;
-import ru.iokhin.tm.enumerated.Status;
-import ru.iokhin.tm.repository.ProjectRepository;
-import ru.iokhin.tm.repository.TaskRepository;
-import ru.iokhin.tm.repository.UserRepository;
-import ru.iokhin.tm.service.ProjectService;
-import ru.iokhin.tm.service.TaskService;
-import ru.iokhin.tm.service.TerminalService;
-import ru.iokhin.tm.service.UserService;
+import ru.iokhin.tm.exeption.AuthException;
+import ru.iokhin.tm.service.*;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Getter
 @Setter
-public final class Bootstrap implements IServiceLocator {
+public final class Bootstrap {
+
+    @NotNull
+    final IServiceLocator serviceLocator = new ServiceLocator();
 
     @NotNull
     private final Map<String, AbstractCommand> commandMap = new LinkedHashMap<>(0);
 
-    @NotNull
-    private final ProjectRepository projectRepository = new ProjectRepository();
-
-    @NotNull
-    private final TaskRepository taskRepository = new TaskRepository();
-
-    @NotNull
-    private final UserRepository userRepository = new UserRepository();
-
-    @NotNull
-    private final ProjectService projectService = new ProjectService(projectRepository);
-
-    @NotNull
-    private final TaskService taskService = new TaskService(taskRepository);
-
-    @NotNull
-    private final UserService userService = new UserService(userRepository);
-
-    @NotNull
-    private final TerminalService terminalService = new TerminalService();
-
-    @Nullable
-    private User currentUser;
-
     private boolean isAuth() {
-        return getCurrentUser() != null;
+        return serviceLocator.getUserService().getCurrentUser() != null;
     }
 
     void init(Class[] CLASSES) {
@@ -78,29 +51,32 @@ public final class Bootstrap implements IServiceLocator {
         @NotNull String input = "";
 
         while (!input.equals("exit")) {
-            input = terminalService.nextLine();
+            input = serviceLocator.getTerminalService().nextLine();
             AbstractCommand command = this.commandMap.get(input);
             if (command == null) continue;
-            execute(command);
+            try {
+                execute(command);
+            } catch (AuthException | IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
-    private void execute(@NotNull AbstractCommand command) {
+    private void execute(@NotNull AbstractCommand command) throws AuthException {
         if (!command.security()) {
             command.execute();
         } else {
             if (this.isAuth())
                 command.execute();
             else {
-                this.commandMap.get("user-login").execute();
-                if (this.isAuth())
-                    command.execute();
+                throw new AuthException();
             }
         }
     }
 
     private void commandRegister(AbstractCommand abstractCommand) {
-        abstractCommand.bootstrap = this;
+        abstractCommand.setBootstrap(this);
+        abstractCommand.setServiceLocator(serviceLocator);
         this.commandMap.put(abstractCommand.name(), abstractCommand);
     }
 
@@ -112,34 +88,29 @@ public final class Bootstrap implements IServiceLocator {
         //Test data
         //---------
 
-        @NotNull
-        User userAdmin = new User(RoleType.ADMIN, "admin", "admin");
+        @NotNull final IProjectService projectService = serviceLocator.getProjectService();
+        @NotNull final ITaskService taskService = serviceLocator.getTaskService();
+        @NotNull final IUserService userService = serviceLocator.getUserService();
 
-        @NotNull
-        User userUser = new User(RoleType.USER, "user", "user");
+        userService.add(RoleType.ADMIN, "admin", "admin");
+        userService.add(RoleType.USER, "user", "user");
 
-        userRepository.getRepository().put(userAdmin.getId(), userAdmin);
-        userRepository.getRepository().put(userUser.getId(), userUser);
+        projectService.add(userService.findByLogin("user"), "Project 1");
+        projectService.add(userService.findByLogin("admin"), "Project 2");
 
-        Project project1 = new Project(userUser.getId(), "Project 1");
-        Project project2 = new Project(userUser.getId(), "Project 2", Status.PROCCESSING);
-        Project project3 = new Project(userAdmin.getId(), "Project 3");
+        for (Project project : projectService.findAllByUser(userService.findByLogin("admin"))) {
+            taskService.add(userService.findByLogin("admin"), project.getId(), "ADMIN TASK 5");
+            taskService.add(userService.findByLogin("admin"), project.getId(), "ADMIN TASK 6");
+            taskService.add(userService.findByLogin("admin"), project.getId(), "ADMIN TASK 7");
+            taskService.add(userService.findByLogin("admin"), project.getId(), "ADMIN TASK 8");
+        }
 
-        projectRepository.getRepository().put(project1.getId(), project1);
-        projectRepository.getRepository().put(project2.getId(), project2);
-        projectRepository.getRepository().put(project3.getId(), project3);
-
-        Task task1 = new Task(project1.getParentId(), project1.getId(), "TASK 1 FOR PROJECT 1");
-        Task task2 = new Task(project1.getParentId(), project1.getId(), "TASK 2 FOR PROJECT 1", Status.PROCCESSING);
-        Task task3 = new Task(project2.getParentId(), project2.getId(), "TASK 3 FOR PROJECT 2");
-        Task task4 = new Task(project2.getParentId(), project2.getId(), "TASK 4 FOR PROJECT 2");
-        Task task5 = new Task(project3.getParentId(), project3.getId(), "TASK 5 FOR PROJECT 3");
-
-        taskRepository.getRepository().put(task1.getId(), task1);
-        taskRepository.getRepository().put(task2.getId(), task2);
-        taskRepository.getRepository().put(task3.getId(), task3);
-        taskRepository.getRepository().put(task4.getId(), task4);
-        taskRepository.getRepository().put(task5.getId(), task5);
+        for (Project project : projectService.findAllByUser(userService.findByLogin("user"))) {
+            taskService.add(userService.findByLogin("user"), project.getId(), "USER TASK 1");
+            taskService.add(userService.findByLogin("user"), project.getId(), "USER TASK 2");
+            taskService.add(userService.findByLogin("user"), project.getId(), "USER TASK 3");
+            taskService.add(userService.findByLogin("user"), project.getId(), "USER TASK 4");
+        }
 
         //---------
     }

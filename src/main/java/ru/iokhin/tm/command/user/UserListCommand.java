@@ -24,6 +24,6 @@ public class UserListCommand extends AbstractCommand {
     @Override
     public void execute() {
         System.out.println("USERS LIST:");
-        bootstrap.getUserService().findAll().forEach(System.out::println);
+        serviceLocator.getUserService().findAll().forEach(System.out::println);
     }
 }

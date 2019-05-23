@@ -74,9 +74,14 @@ public class TaskService extends AbstractService<Task, ITaskRepository> implemen
     @Override
     public Collection<Task> sortByUserId(@NotNull String userId, @NotNull String comparator) {
         StringValidator.validate(userId, comparator);
-        if (ComparatorUtil.getTaskComparator(comparator) == null) return null;
         if (comparator.equals("order")) return repository.findAllByUserId(userId);
+        if (ComparatorUtil.getTaskComparator(comparator) == null) return null;
         return repository.sortByUserId(userId, ComparatorUtil.getTaskComparator(comparator));
+    }
+
+    @Override
+    public Collection<Task> findByPartOfNameOrDescription(@NotNull final String userId, @NotNull final String keyWord) {
+        return repository.findByPartOfNameOrDescription(userId, keyWord);
     }
 
 

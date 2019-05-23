@@ -26,12 +26,12 @@ public final class TaskRemoveAllByProjectCommand extends AbstractCommand {
     public void execute() {
         bootstrap.getCommandMap().get("project-list").execute();
         System.out.println("ENTER ID OF PROJECT TO CLEAR TASKS");
-        @NotNull final String projectId = bootstrap.getTerminalService().nextLine();
-        if (!bootstrap.getTaskService().removeAllByProjectId(bootstrap.getCurrentUser(), projectId)) {
+        @NotNull final String projectId = serviceLocator.getTerminalService().nextLine();
+        if (!serviceLocator.getTaskService().removeAllByProjectId(serviceLocator.getUserService().getCurrentUser(), projectId)) {
             System.out.println("NO SUCH PROJECT ID");
             return;
         }
-        bootstrap.getTaskService().removeAllByProjectId(bootstrap.getCurrentUser(), projectId);
+        serviceLocator.getTaskService().removeAllByProjectId(serviceLocator.getUserService().getCurrentUser(), projectId);
         System.out.println("OK");
     }
 }

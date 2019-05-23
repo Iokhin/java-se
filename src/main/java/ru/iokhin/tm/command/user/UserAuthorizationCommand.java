@@ -28,17 +28,17 @@ public class UserAuthorizationCommand extends AbstractCommand {
     @Override
     public void execute() {
         System.out.println("PLEASE ENTER YOUR LOGIN");
-        @NotNull final String login = bootstrap.getTerminalService().nextLine();
-        @Nullable final User user = bootstrap.getUserService().findByLogin(login);
+        @NotNull final String login = serviceLocator.getTerminalService().nextLine();
+        @Nullable final User user = serviceLocator.getUserService().findByLogin(login);
         if (user == null) {
             System.out.println("INCORRECT LOGIN");
             return;
         }
         System.out.println("PLEASE ENTER YOUR PASSWORD");
-        @NotNull final String password = bootstrap.getTerminalService().nextLine();
+        @NotNull final String password = serviceLocator.getTerminalService().nextLine();
         @NotNull final String passwordHash = MD5Util.passwordToHash(password);
         if (user.getPasswordHash().equals(passwordHash)) {
-            bootstrap.setCurrentUser(user);
+            serviceLocator.getUserService().setCurrentUser(user);
             System.out.println("WELCOME, " + user.getLogin());
         } else System.out.println("INCORRECT PASSWORD");
     }

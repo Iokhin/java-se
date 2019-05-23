@@ -1,14 +1,12 @@
 package ru.iokhin.tm.util;
 
+import org.jetbrains.annotations.NotNull;
+
 public final class StringValidator {
-    public static void validate(String ...strings) {
+    public static void validate(@NotNull final String... strings) {
         for (String string : strings) {
-            if (string == null || string.trim().isEmpty())
+            if (string.trim().isEmpty())
                 throw new IllegalArgumentException("INVALID PARAMETER");
         }
-    }
-
-    public static void main(String[] args) {
-        validate("");
     }
 }

@@ -19,4 +19,6 @@ public interface ITaskRepository extends IRepository<Task> {
 
     Collection<Task> sortByUserId(@NotNull final String userId, Comparator<Task> comparator);
 
+    Collection<Task> findByPartOfNameOrDescription(@NotNull final String userId, @NotNull final String keyWord);
+
 }

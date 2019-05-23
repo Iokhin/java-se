@@ -25,8 +25,12 @@ public class TaskSortListCommand extends AbstractCommand {
     @Override
     public void execute() {
         System.out.println("CHOSE ONE OF THIS OPTIONS TO SORT: order, dateStart, dateEnd, status");
-        @NotNull final String option = bootstrap.getTerminalService().nextLine();
-        Collection<Task> sorted = bootstrap.getTaskService().sortByUserId(bootstrap.getCurrentUser().getId(), option);
+        @NotNull final String option = serviceLocator.getTerminalService().nextLine();
+        Collection<Task> sorted = serviceLocator.getTaskService().sortByUserId(serviceLocator.getUserService().getCurrentUser().getId(), option);
+        if (sorted == null) {
+            System.out.println("WRONG OPTION");
+            return;
+        }
         sorted.forEach(System.out::println);
     }
 }

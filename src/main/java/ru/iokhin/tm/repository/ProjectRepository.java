@@ -41,17 +41,18 @@ public class ProjectRepository extends AbstractRepository<Project> implements IP
     }
 
     @Override
-    public Collection<Project> sortByUserId(@NotNull final String userId, Comparator<Project> comparator) {
+    public Collection<Project> sortByUserId(@NotNull final String userId, @NotNull final Comparator<Project> comparator) {
         List<Project> projectList = new ArrayList<>(findAllByUserId(userId));
         projectList.sort(comparator);
         return projectList;
     }
 
     @Override
-    public Collection<Project> findByPartOfNameOrDescription(@NotNull final String userId, @NotNull final String part) {
+    public Collection<Project> findByPartOfNameOrDescription(@NotNull final String userId, @NotNull final String keyWord) {
         List<Project> projectList = new ArrayList<>(0);
         for (Project project : findAllByUserId(userId)) {
-            if (project.getName().contains(part) || project.getDescription().contains(part)) {
+            if (project.getName().toLowerCase().contains(keyWord.toLowerCase()) ||
+                    project.getDescription().toLowerCase().contains(keyWord.toLowerCase())) {
                 projectList.add(project);
             }
         }

@@ -26,11 +26,11 @@ public class UserPasswordChangeCommand extends AbstractCommand {
     @Override
     public void execute() {
         System.out.println("ENTER THE CURRENT PASSWORD");
-        @NotNull final String password = bootstrap.getTerminalService().nextLine();
-        if (bootstrap.getCurrentUser().getPasswordHash().equals(MD5Util.passwordToHash(password))) {
+        @NotNull final String password = serviceLocator.getTerminalService().nextLine();
+        if (serviceLocator.getUserService().getCurrentUser().getPasswordHash().equals(MD5Util.passwordToHash(password))) {
             System.out.println("ENTER NEW PASSWORD");
-            @NotNull final String newPassword = bootstrap.getTerminalService().nextLine();
-            bootstrap.getCurrentUser().setPasswordHash(newPassword);
+            @NotNull final String newPassword = serviceLocator.getTerminalService().nextLine();
+            serviceLocator.getUserService().getCurrentUser().setPasswordHash(newPassword);
             System.out.println("OK");
             return;
         }

@@ -4,7 +4,6 @@ import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.command.AbstractCommand;
 import ru.iokhin.tm.enumerated.RoleType;
-import ru.iokhin.tm.entity.User;
 
 @NoArgsConstructor
 public class UserRegistrationCommand extends AbstractCommand {
@@ -27,16 +26,14 @@ public class UserRegistrationCommand extends AbstractCommand {
     @Override
     public void execute() {
         System.out.println("ENTER NEW USER'S LOGIN");
-        @NotNull final String login = bootstrap.getTerminalService().nextLine();
-        for (@NotNull User user : bootstrap.getUserService().findAll()) {
-            if (user.getLogin().equals(login)) {
-                System.out.println("SUCH LOGIN ALREADY EXIST");
-                return;
-            }
+        @NotNull final String login = serviceLocator.getTerminalService().nextLine();
+        if (serviceLocator.getUserService().findByLogin(login) != null) {
+            System.out.println("SUCH LOGIN ALREADY EXIST");
+            return;
         }
         System.out.println("ENTER NEW USER'S PASSWORD");
-        @NotNull final String password = bootstrap.getTerminalService().nextLine();
-        bootstrap.getUserService().add(RoleType.USER, login, password);
+        @NotNull final String password = serviceLocator.getTerminalService().nextLine();
+        serviceLocator.getUserService().add(RoleType.USER, login, password);
         System.out.println("SUCCESS");
     }
 }
