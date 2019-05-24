@@ -13,7 +13,7 @@ import javax.xml.bind.Marshaller;
 import java.io.File;
 import java.util.ArrayList;
 
-public class DataSaveJAXBtoXMLCommand extends AbstractCommand {
+public class DataSaveJAXBToXMLCommand extends AbstractCommand {
     @Override
     public boolean security() {
         return false;
@@ -21,7 +21,7 @@ public class DataSaveJAXBtoXMLCommand extends AbstractCommand {
 
     @Override
     public String name() {
-        return "jax";
+        return "jaxb-xml-save";
     }
 
     @Override

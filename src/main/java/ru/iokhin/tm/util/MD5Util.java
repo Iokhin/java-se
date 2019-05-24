@@ -1,10 +1,15 @@
 package ru.iokhin.tm.util;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+
 public class MD5Util {
-    public static String passwordToHash(String password) {
+    @Nullable
+    public static String passwordToHash(@Nullable final String password) {
+        if (password == null) return null;
         String generatedPassword = null;
         try {
             // Create MessageDigest instance for MD5

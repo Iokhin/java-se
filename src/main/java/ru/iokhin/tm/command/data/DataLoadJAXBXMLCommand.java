@@ -3,9 +3,12 @@ package ru.iokhin.tm.command.data;
 import ru.iokhin.tm.command.AbstractCommand;
 import ru.iokhin.tm.util.DataScope;
 
-import java.io.*;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+import java.io.File;
 
-public class DataLoadSerializedCommand extends AbstractCommand {
+public class DataLoadJAXBXMLCommand extends AbstractCommand {
     @Override
     public boolean security() {
         return false;
@@ -13,23 +16,27 @@ public class DataLoadSerializedCommand extends AbstractCommand {
 
     @Override
     public String name() {
-        return "data-load";
+        return "jaxb-xml-load";
     }
 
     @Override
     public String description() {
-        return "Load serialized objects";
+        return null;
     }
 
     @Override
     public void execute() {
-        try(ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream("serializedData"))) {
-            DataScope dataScope = (DataScope)objectInputStream.readObject();
+        DataScope dataScope;
+        final JAXBContext jaxbContext;
+        try {
+            jaxbContext = JAXBContext.newInstance(DataScope.class);
+            final Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+            dataScope = (DataScope)unmarshaller.unmarshal(new File("jaxb.xml"));
             dataScope.getProjects().forEach(serviceLocator.getProjectService()::merge);
             dataScope.getTasks().forEach(serviceLocator.getTaskService()::merge);
             dataScope.getUsers().forEach(serviceLocator.getUserService()::merge);
             System.out.println("SUCCESS");
-        } catch (IOException | ClassNotFoundException e) {
+        } catch (JAXBException e) {
             e.printStackTrace();
         }
     }

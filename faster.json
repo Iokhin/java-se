@@ -1,0 +1,211 @@
+{
+  "projects" : [ {
+    "parentId" : "7cfe899e-ee58-3290-8076-48af7f1abd66",
+    "id" : "672c6540-2499-4ffe-8382-7db8ddedcc56",
+    "name" : "Project 1",
+    "description" : "",
+    "startDate" : 1558696327521,
+    "endDate" : null,
+    "status" : "PLANNING"
+  }, {
+    "parentId" : "3afe899e-ee58-4543-8076-48af7f1abd71",
+    "id" : "093188d3-cf3f-4c1c-b458-abb45b84c13c",
+    "name" : "Project 2",
+    "description" : "",
+    "startDate" : 1558696327522,
+    "endDate" : null,
+    "status" : "PLANNING"
+  }, {
+    "parentId" : "7cfe899e-ee58-3290-8076-48af7f1abd66",
+    "id" : "0f2dce58-cc2a-4293-99ba-89d48ea766f3",
+    "name" : "Project 1",
+    "description" : "",
+    "startDate" : 1558696290454,
+    "endDate" : null,
+    "status" : "PLANNING"
+  }, {
+    "parentId" : "3afe899e-ee58-4543-8076-48af7f1abd71",
+    "id" : "e0acdf81-7152-4203-8b40-34bd431746c5",
+    "name" : "Project 2",
+    "description" : "",
+    "startDate" : 1558696290454,
+    "endDate" : null,
+    "status" : "PLANNING"
+  } ],
+  "tasks" : [ {
+    "parentId" : "3afe899e-ee58-4543-8076-48af7f1abd71",
+    "id" : "85a0e459-6b9c-4977-aa03-7067ce609acc",
+    "name" : "ADMIN TASK 5",
+    "description" : "",
+    "startDate" : 1558696327522,
+    "endDate" : null,
+    "projectId" : "093188d3-cf3f-4c1c-b458-abb45b84c13c",
+    "status" : "PLANNING"
+  }, {
+    "parentId" : "3afe899e-ee58-4543-8076-48af7f1abd71",
+    "id" : "01ea0ba2-a29b-4950-b00f-db41b5f42079",
+    "name" : "ADMIN TASK 6",
+    "description" : "",
+    "startDate" : 1558696327522,
+    "endDate" : null,
+    "projectId" : "093188d3-cf3f-4c1c-b458-abb45b84c13c",
+    "status" : "PLANNING"
+  }, {
+    "parentId" : "3afe899e-ee58-4543-8076-48af7f1abd71",
+    "id" : "9f529e44-9bd8-4168-b5f7-17d5852f89b5",
+    "name" : "ADMIN TASK 7",
+    "description" : "",
+    "startDate" : 1558696327522,
+    "endDate" : null,
+    "projectId" : "093188d3-cf3f-4c1c-b458-abb45b84c13c",
+    "status" : "PLANNING"
+  }, {
+    "parentId" : "3afe899e-ee58-4543-8076-48af7f1abd71",
+    "id" : "ff3e7051-99ec-41cf-b5a1-2dfd6b325456",
+    "name" : "ADMIN TASK 8",
+    "description" : "",
+    "startDate" : 1558696327522,
+    "endDate" : null,
+    "projectId" : "093188d3-cf3f-4c1c-b458-abb45b84c13c",
+    "status" : "PLANNING"
+  }, {
+    "parentId" : "7cfe899e-ee58-3290-8076-48af7f1abd66",
+    "id" : "c9a96349-51d6-4170-b256-92fb174f1c0d",
+    "name" : "USER TASK 1",
+    "description" : "",
+    "startDate" : 1558696327522,
+    "endDate" : null,
+    "projectId" : "672c6540-2499-4ffe-8382-7db8ddedcc56",
+    "status" : "PLANNING"
+  }, {
+    "parentId" : "7cfe899e-ee58-3290-8076-48af7f1abd66",
+    "id" : "5b0adb8b-0891-4575-b1cc-b1011ceea036",
+    "name" : "USER TASK 2",
+    "description" : "",
+    "startDate" : 1558696327522,
+    "endDate" : null,
+    "projectId" : "672c6540-2499-4ffe-8382-7db8ddedcc56",
+    "status" : "PLANNING"
+  }, {
+    "parentId" : "7cfe899e-ee58-3290-8076-48af7f1abd66",
+    "id" : "6bcfd3da-faa9-4187-839a-fa9559c4b45a",
+    "name" : "USER TASK 3",
+    "description" : "",
+    "startDate" : 1558696327522,
+    "endDate" : null,
+    "projectId" : "672c6540-2499-4ffe-8382-7db8ddedcc56",
+    "status" : "PLANNING"
+  }, {
+    "parentId" : "7cfe899e-ee58-3290-8076-48af7f1abd66",
+    "id" : "f1be119f-b486-494f-b49d-5c684f1cf0c4",
+    "name" : "USER TASK 4",
+    "description" : "",
+    "startDate" : 1558696327522,
+    "endDate" : null,
+    "projectId" : "672c6540-2499-4ffe-8382-7db8ddedcc56",
+    "status" : "PLANNING"
+  }, {
+    "parentId" : "3afe899e-ee58-4543-8076-48af7f1abd71",
+    "id" : "fff3977a-baab-4375-9e13-09d9b6be9b82",
+    "name" : "ADMIN TASK 5",
+    "description" : "",
+    "startDate" : 1558696290454,
+    "endDate" : null,
+    "projectId" : "e0acdf81-7152-4203-8b40-34bd431746c5",
+    "status" : "PLANNING"
+  }, {
+    "parentId" : "3afe899e-ee58-4543-8076-48af7f1abd71",
+    "id" : "a3dbdffd-dfa8-4707-9c92-a3ea532dafbe",
+    "name" : "ADMIN TASK 6",
+    "description" : "",
+    "startDate" : 1558696290454,
+    "endDate" : null,
+    "projectId" : "e0acdf81-7152-4203-8b40-34bd431746c5",
+    "status" : "PLANNING"
+  }, {
+    "parentId" : "3afe899e-ee58-4543-8076-48af7f1abd71",
+    "id" : "59ed397a-a9b0-42cf-a130-2a7f9eacd524",
+    "name" : "ADMIN TASK 7",
+    "description" : "",
+    "startDate" : 1558696290454,
+    "endDate" : null,
+    "projectId" : "e0acdf81-7152-4203-8b40-34bd431746c5",
+    "status" : "PLANNING"
+  }, {
+    "parentId" : "3afe899e-ee58-4543-8076-48af7f1abd71",
+    "id" : "d46285c2-dd54-486d-ace0-3c8a5c8b27ec",
+    "name" : "ADMIN TASK 8",
+    "description" : "",
+    "startDate" : 1558696290454,
+    "endDate" : null,
+    "projectId" : "e0acdf81-7152-4203-8b40-34bd431746c5",
+    "status" : "PLANNING"
+  }, {
+    "parentId" : "7cfe899e-ee58-3290-8076-48af7f1abd66",
+    "id" : "a4ec9ec5-430b-4430-ab94-a43e8f06f832",
+    "name" : "USER TASK 1",
+    "description" : "",
+    "startDate" : 1558696290454,
+    "endDate" : null,
+    "projectId" : "0f2dce58-cc2a-4293-99ba-89d48ea766f3",
+    "status" : "PLANNING"
+  }, {
+    "parentId" : "7cfe899e-ee58-3290-8076-48af7f1abd66",
+    "id" : "50a76dca-c6dd-4a62-b9a7-28044f4c3fc7",
+    "name" : "USER TASK 2",
+    "description" : "",
+    "startDate" : 1558696290454,
+    "endDate" : null,
+    "projectId" : "0f2dce58-cc2a-4293-99ba-89d48ea766f3",
+    "status" : "PLANNING"
+  }, {
+    "parentId" : "7cfe899e-ee58-3290-8076-48af7f1abd66",
+    "id" : "0cd5f5cc-91ba-4793-a2d0-c9378f9bb99a",
+    "name" : "USER TASK 3",
+    "description" : "",
+    "startDate" : 1558696290454,
+    "endDate" : null,
+    "projectId" : "0f2dce58-cc2a-4293-99ba-89d48ea766f3",
+    "status" : "PLANNING"
+  }, {
+    "parentId" : "7cfe899e-ee58-3290-8076-48af7f1abd66",
+    "id" : "4bccea00-c8b8-481e-9953-18c26d8a5388",
+    "name" : "USER TASK 4",
+    "description" : "",
+    "startDate" : 1558696290455,
+    "endDate" : null,
+    "projectId" : "0f2dce58-cc2a-4293-99ba-89d48ea766f3",
+    "status" : "PLANNING"
+  } ],
+  "users" : [ {
+    "parentId" : "",
+    "id" : "3afe899e-ee58-4543-8076-48af7f1abd71",
+    "name" : "admin",
+    "description" : "",
+    "startDate" : null,
+    "endDate" : null,
+    "login" : "admin",
+    "passwordHash" : "c3284d0f94606de1fd2af172aba15bf3",
+    "roleType" : "ADMIN"
+  }, {
+    "parentId" : "",
+    "id" : "7cfe899e-ee58-3290-8076-48af7f1abd66",
+    "name" : "user",
+    "description" : "",
+    "startDate" : null,
+    "endDate" : null,
+    "login" : "user",
+    "passwordHash" : "0d8d5cd06832b29560745fe4e1b941cf",
+    "roleType" : "USER"
+  }, {
+    "parentId" : "",
+    "id" : "cc737670-36d2-443d-a7b1-fbd08330409b",
+    "name" : "s",
+    "description" : "",
+    "startDate" : null,
+    "endDate" : null,
+    "login" : "s",
+    "passwordHash" : "0305d718926ac8776a442023509c21ce",
+    "roleType" : "USER"
+  } ]
+}

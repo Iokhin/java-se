@@ -1,9 +1,7 @@
 package ru.iokhin.tm;
 
 import org.jetbrains.annotations.NotNull;
-import ru.iokhin.tm.command.data.DataLoadSerializedCommand;
-import ru.iokhin.tm.command.data.DataSaveJAXBtoXMLCommand;
-import ru.iokhin.tm.command.data.DataSaveSerializedCommand;
+import ru.iokhin.tm.command.data.*;
 import ru.iokhin.tm.command.project.*;
 import ru.iokhin.tm.command.system.AboutCommand;
 import ru.iokhin.tm.command.system.ExitCommand;
@@ -27,10 +25,14 @@ public final class Application {
             ProjectSortListCommand.class, TaskSortListCommand.class,
             ProjectFindByPartCommand.class, TaskFindByPartCommand.class,
             DataSaveSerializedCommand.class, DataLoadSerializedCommand.class,
-            DataSaveJAXBtoXMLCommand.class
+            DataSaveJAXBToXMLCommand.class, DataLoadJAXBXMLCommand.class,
+            DataSaveJAXBJSONCommand.class, DataLoadJAXBFromJSONCommand.class,
+            DataSaveFasterXMLCommand.class, DataLoadFasterXMLCommand.class,
+            DataSaveFasterJSONCommand.class, DataLoadFasterJSONCommand.class
     };
 
     public static void main(@NotNull String[] args) {
+        System.setProperty("javax.xml.bind.context.factory","org.eclipse.persistence.jaxb.JAXBContextFactory");
 
         @NotNull final Bootstrap bootstrap = new Bootstrap();
 

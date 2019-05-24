@@ -37,23 +37,4 @@ public class ServiceLocator implements IServiceLocator {
     @NotNull
     private final TerminalService terminalService = new TerminalService();
 
-    @Override
-    public IUserService getUserService() {
-        return userService;
-    }
-
-    @Override
-    public IProjectService getProjectService() {
-        return projectService;
-    }
-
-    @Override
-    public ITaskService getTaskService() {
-        return taskService;
-    }
-
-    @Override
-    public ITerminalService getTerminalService() {
-        return terminalService;
-    }
 }
