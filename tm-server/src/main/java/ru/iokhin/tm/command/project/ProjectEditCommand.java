@@ -28,7 +28,7 @@ public final class ProjectEditCommand extends AbstractCommand {
         @NotNull final String projectId = serviceLocator.getTerminalService().nextLine();
         System.out.println("ENTER NEW NAME OF PROJECT TO EDIT");
         @NotNull final String newName = serviceLocator.getTerminalService().nextLine();
-        if (serviceLocator.getProjectService().edit(serviceLocator.getUserService().getCurrentUser(), projectId, newName) == null) {
+        if (serviceLocator.getProjectService().edit(serviceLocator.getUserService().getCurrentUser().getId(), projectId, newName) == null) {
             System.out.println("NO SUCH PROJECT ID");
             return;
         }

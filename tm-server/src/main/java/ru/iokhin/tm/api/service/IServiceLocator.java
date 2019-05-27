@@ -16,5 +16,7 @@ public interface IServiceLocator {
 
     Map<String, AbstractCommand> getCommandMap();
 
+    ISessionService getSessionService();
+
 }
 

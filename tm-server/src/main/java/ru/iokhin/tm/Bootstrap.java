@@ -91,17 +91,17 @@ final class Bootstrap {
         userService.add(RoleType.ADMIN, "3afe899e-ee58-4543-8076-48af7f1abd71", "admin", "admin");
         userService.add(RoleType.USER, "7cfe899e-ee58-3290-8076-48af7f1abd66", "user", "user");
 
-        projectService.add(userService.findByLogin("user"), "Project 1");
-        projectService.add(userService.findByLogin("admin"), "Project 2");
+        projectService.add(userService.findByLogin("user").getId(), "Project 1");
+        projectService.add(userService.findByLogin("admin").getId(), "Project 2");
 
-        for (Project project : projectService.findAllByUser(userService.findByLogin("admin"))) {
+        for (Project project : projectService.findAllByUserId(userService.findByLogin("admin").getId())) {
             taskService.add(userService.findByLogin("admin"), project.getId(), "ADMIN TASK 5");
             taskService.add(userService.findByLogin("admin"), project.getId(), "ADMIN TASK 6");
             taskService.add(userService.findByLogin("admin"), project.getId(), "ADMIN TASK 7");
             taskService.add(userService.findByLogin("admin"), project.getId(), "ADMIN TASK 8");
         }
 
-        for (Project project : projectService.findAllByUser(userService.findByLogin("user"))) {
+        for (Project project : projectService.findAllByUserId(userService.findByLogin("user").getId())) {
             taskService.add(userService.findByLogin("user"), project.getId(), "USER TASK 1");
             taskService.add(userService.findByLogin("user"), project.getId(), "USER TASK 2");
             taskService.add(userService.findByLogin("user"), project.getId(), "USER TASK 3");

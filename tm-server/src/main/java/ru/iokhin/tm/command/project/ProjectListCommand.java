@@ -35,6 +35,6 @@ public final class ProjectListCommand extends AbstractCommand {
     }
 
     private Collection<Project> projectList() {
-        return serviceLocator.getProjectService().findAllByUser(serviceLocator.getUserService().getCurrentUser());
+        return serviceLocator.getProjectService().findAllByUserId(serviceLocator.getUserService().getCurrentUser().getId());
     }
 }

@@ -23,7 +23,7 @@ public final class ProjectRemoveAllCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        serviceLocator.getProjectService().removeAllByUser(serviceLocator.getUserService().getCurrentUser());
+        serviceLocator.getProjectService().removeAllByUserId(serviceLocator.getUserService().getCurrentUser().getId());
         System.out.println("OK");
     }
 }

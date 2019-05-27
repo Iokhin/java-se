@@ -26,7 +26,7 @@ public final class ProjectRemoveCommand extends AbstractCommand {
     public void execute() {
         System.out.println("ENTER ID OF PROJECT TO REMOVE");
         @NotNull final String projectId = serviceLocator.getTerminalService().nextLine();
-        if (serviceLocator.getProjectService().remove(serviceLocator.getUserService().getCurrentUser(), projectId) == null) {
+        if (serviceLocator.getProjectService().remove(serviceLocator.getUserService().getCurrentUser().getId(), projectId) == null) {
             System.out.println("NO SUCH PROJECT ID");
             return;
         }

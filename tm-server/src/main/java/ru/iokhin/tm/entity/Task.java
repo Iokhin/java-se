@@ -19,8 +19,8 @@ import java.util.Date;
 @XmlAccessorType(XmlAccessType.FIELD)
 public final class Task extends AbstractEntity {
 
-    @Nullable
-    private String parentId;
+//    @Nullable
+//    private String parentId;
 
     @Nullable
     private String projectId;

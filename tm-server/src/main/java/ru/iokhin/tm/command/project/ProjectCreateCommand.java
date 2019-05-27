@@ -31,6 +31,6 @@ public final class ProjectCreateCommand extends AbstractCommand {
     }
 
     private void projectCreateCommand(@NotNull String name) {
-        serviceLocator.getProjectService().add(serviceLocator.getUserService().getCurrentUser(), name);
+        serviceLocator.getProjectService().add(serviceLocator.getUserService().getCurrentUser().getId(), name);
     }
 }

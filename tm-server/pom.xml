@@ -104,12 +104,12 @@
                     <artifactItems>
                         <artifactItem>
                             <groupId>ru.iokhin.tm</groupId>
-                            <artifactId>task-manager</artifactId>
+                            <artifactId>tm-server</artifactId>
                             <version>1.0.0</version>
                             <type>jar</type>
                             <overWrite>true</overWrite>
                             <outputDirectory>${project.build.directory}/task-manager/bin</outputDirectory>
-                            <destFileName>task-manager-1.0.0.jar</destFileName>
+                            <destFileName>tm-server-1.0.0.jar</destFileName>
                         </artifactItem>
                     </artifactItems>
                     <overWriteReleases>false</overWriteReleases>

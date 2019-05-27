@@ -15,7 +15,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 public class AbstractEntity implements IEntity, Serializable {
-    @Nullable
+    @NotNull
     protected String parentId = "";
     @NotNull
     protected String id = UUID.randomUUID().toString();
