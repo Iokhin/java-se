@@ -11,7 +11,7 @@ import java.io.File;
 public class DataLoadJAXBXMLCommand extends AbstractCommand {
     @Override
     public boolean security() {
-        return false;
+        return true;
     }
 
     @Override
@@ -21,7 +21,7 @@ public class DataLoadJAXBXMLCommand extends AbstractCommand {
 
     @Override
     public String description() {
-        return null;
+        return "Load data from JAX-B XML";
     }
 
     @Override

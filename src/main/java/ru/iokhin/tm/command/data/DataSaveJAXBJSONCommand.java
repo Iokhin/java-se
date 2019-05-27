@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class DataSaveJAXBJSONCommand extends AbstractCommand {
     @Override
     public boolean security() {
-        return false;
+        return true;
     }
 
     @Override
@@ -27,7 +27,7 @@ public class DataSaveJAXBJSONCommand extends AbstractCommand {
 
     @Override
     public String description() {
-        return null;
+        return "Save data into JAX-B JSON";
     }
 
     @Override

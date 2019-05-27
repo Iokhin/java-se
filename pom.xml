@@ -8,11 +8,6 @@
     <artifactId>task-manager</artifactId>
     <version>1.0.0</version>
 
-    <modules>
-        <module>tm-client</module>
-        <module>tm-server</module>
-    </modules>
-
     <name>task-manager-application</name>
     <!-- FIXME change it to the project's website -->
     <url>http://www.example.com</url>
@@ -180,6 +175,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <mainClass>ru.iokhin.tm.Application</mainClass>
+                            <classpathPrefix>../lib</classpathPrefix>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                         </manifest>
                         <manifestEntries>

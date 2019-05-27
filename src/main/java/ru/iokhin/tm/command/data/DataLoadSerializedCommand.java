@@ -8,7 +8,7 @@ import java.io.*;
 public class DataLoadSerializedCommand extends AbstractCommand {
     @Override
     public boolean security() {
-        return false;
+        return true;
     }
 
     @Override

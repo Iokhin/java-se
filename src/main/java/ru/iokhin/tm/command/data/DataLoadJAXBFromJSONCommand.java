@@ -16,7 +16,7 @@ import java.io.File;
 public class DataLoadJAXBFromJSONCommand extends AbstractCommand {
     @Override
     public boolean security() {
-        return false;
+        return true;
     }
 
     @Override
@@ -26,7 +26,7 @@ public class DataLoadJAXBFromJSONCommand extends AbstractCommand {
 
     @Override
     public String description() {
-        return null;
+        return "Load data from JAX-B JSON";
     }
 
     @Override

@@ -14,7 +14,7 @@ import java.io.IOException;
 public class DataLoadFasterXMLCommand extends AbstractCommand {
     @Override
     public boolean security() {
-        return false;
+        return true;
     }
 
     @Override
@@ -24,7 +24,7 @@ public class DataLoadFasterXMLCommand extends AbstractCommand {
 
     @Override
     public String description() {
-        return null;
+        return "Load data from Faster XML";
     }
 
     @Override

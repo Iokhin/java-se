@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class DataSaveSerializedCommand extends AbstractCommand {
     @Override
     public boolean security() {
-        return false;
+        return true;
     }
 
     @Override

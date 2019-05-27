@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class DataSaveJAXBToXMLCommand extends AbstractCommand {
     @Override
     public boolean security() {
-        return false;
+        return true;
     }
 
     @Override
@@ -26,7 +26,7 @@ public class DataSaveJAXBToXMLCommand extends AbstractCommand {
 
     @Override
     public String description() {
-        return null;
+        return "Save data into JAX-B XML";
     }
 
     @Override

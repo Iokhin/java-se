@@ -10,12 +10,11 @@ import ru.iokhin.tm.util.DataScope;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class DataLoadFasterJSONCommand extends AbstractCommand {
     @Override
     public boolean security() {
-        return false;
+        return true;
     }
 
     @Override
@@ -25,7 +24,7 @@ public class DataLoadFasterJSONCommand extends AbstractCommand {
 
     @Override
     public String description() {
-        return null;
+        return "Load data from Faster JSON";
     }
 
     @Override

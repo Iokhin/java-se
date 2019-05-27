@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class DataSaveFasterJSONCommand extends AbstractCommand {
     @Override
     public boolean security() {
-        return false;
+        return true;
     }
 
     @Override
@@ -25,7 +25,7 @@ public class DataSaveFasterJSONCommand extends AbstractCommand {
 
     @Override
     public String description() {
-        return null;
+        return "Load data from Faster JSON";
     }
 
     @Override
