@@ -14,7 +14,7 @@ public final class TaskEditCommand extends AbstractCommand {
 
     @Override
     public String name() {
-        return "task-edit";
+        return "task-editUser";
     }
 
     @Override
@@ -28,7 +28,7 @@ public final class TaskEditCommand extends AbstractCommand {
         @NotNull final String taskId = serviceLocator.getTerminalService().nextLine();
         System.out.println("ENTER NEW NAME OF TASK TO EDIT");
         @NotNull final String newTaskName = serviceLocator.getTerminalService().nextLine();
-        if (serviceLocator.getTaskService().edit(serviceLocator.getUserService().getCurrentUser(), taskId, newTaskName) == null) {
+        if (serviceLocator.getTaskService().edit(serviceLocator.getUserService().getCurrentUser().getId(), taskId, newTaskName) == null) {
             System.out.println("NO SUCH TASK ID");
             return;
         }

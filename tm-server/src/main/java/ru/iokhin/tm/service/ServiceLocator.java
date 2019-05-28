@@ -5,7 +5,9 @@ import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.api.service.*;
 import ru.iokhin.tm.command.AbstractCommand;
+import ru.iokhin.tm.entity.Session;
 import ru.iokhin.tm.repository.ProjectRepository;
+import ru.iokhin.tm.repository.SessionRepository;
 import ru.iokhin.tm.repository.TaskRepository;
 import ru.iokhin.tm.repository.UserRepository;
 
@@ -26,6 +28,9 @@ public class ServiceLocator implements IServiceLocator {
     private final UserRepository userRepository = new UserRepository();
 
     @NotNull
+    private final SessionRepository sessionRepository = new SessionRepository();
+
+    @NotNull
     private final ProjectService projectService = new ProjectService(projectRepository);
 
     @NotNull
@@ -36,5 +41,8 @@ public class ServiceLocator implements IServiceLocator {
 
     @NotNull
     private final TerminalService terminalService = new TerminalService();
+
+    @NotNull
+    private final SessionService sessionService = new SessionService(sessionRepository);
 
 }

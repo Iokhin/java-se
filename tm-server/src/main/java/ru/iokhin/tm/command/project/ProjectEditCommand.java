@@ -14,7 +14,7 @@ public final class ProjectEditCommand extends AbstractCommand {
 
     @Override
     public String name() {
-        return "project-edit";
+        return "project-editUser";
     }
 
     @Override

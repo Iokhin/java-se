@@ -11,7 +11,7 @@ import javax.jws.WebService;
 import java.util.Collection;
 
 @WebService
-public interface IProjectEndpoint {
+public interface ProjectEndpoint {
 
     Project add(@WebParam(name = "session") @NotNull final Session session,
                 @WebParam(name = "name") @NotNull final String name) throws AuthException;
@@ -36,6 +36,5 @@ public interface IProjectEndpoint {
 
     Collection<Project> findByPartOfNameOrDescription(@WebParam(name = "session") @NotNull final Session session,
                                                       @WebParam(name = "part") @NotNull final String part) throws AuthException;
-
 
 }

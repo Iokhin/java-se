@@ -32,7 +32,7 @@ public final class TaskCreateCommand extends AbstractCommand {
         }
         System.out.println("ENTER NAME OF TASK TO CREATE");
         @NotNull final String taskName = serviceLocator.getTerminalService().nextLine();
-        serviceLocator.getTaskService().add(serviceLocator.getUserService().getCurrentUser(), projectId, taskName);
+        serviceLocator.getTaskService().add(serviceLocator.getUserService().getCurrentUser().getId(), projectId, taskName);
         System.out.println("OK");
     }
 }

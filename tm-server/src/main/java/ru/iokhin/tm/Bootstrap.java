@@ -9,12 +9,17 @@ import ru.iokhin.tm.api.service.IServiceLocator;
 import ru.iokhin.tm.api.service.ITaskService;
 import ru.iokhin.tm.api.service.IUserService;
 import ru.iokhin.tm.command.*;
+import ru.iokhin.tm.endpoint.ProjectEndpointBean;
+import ru.iokhin.tm.endpoint.SessionEndpointBean;
+import ru.iokhin.tm.endpoint.TaskEndpointBean;
+import ru.iokhin.tm.endpoint.UserEndpointBean;
 import ru.iokhin.tm.entity.Project;
 import ru.iokhin.tm.enumerated.RoleType;
 import ru.iokhin.tm.exeption.AuthException;
 import ru.iokhin.tm.exeption.NonexistentCommandException;
 import ru.iokhin.tm.service.*;
 
+import javax.xml.ws.Endpoint;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -32,6 +37,10 @@ final class Bootstrap {
     }
 
     void init(Class[] CLASSES) {
+        Endpoint.publish("http://localhost:8080/ProjectEndpointBean", new ProjectEndpointBean(serviceLocator));
+        Endpoint.publish("http://localhost:8080/SessionEndpointBean", new SessionEndpointBean(serviceLocator));
+        Endpoint.publish("http://localhost:8080/TaskEndpointBean", new TaskEndpointBean(serviceLocator));
+        Endpoint.publish("http://localhost:8080/UserEndpointBean", new UserEndpointBean(serviceLocator));
         generateTestData();
         for (Class commandClass : CLASSES) {
             AbstractCommand commandInstance = null;
@@ -95,17 +104,17 @@ final class Bootstrap {
         projectService.add(userService.findByLogin("admin").getId(), "Project 2");
 
         for (Project project : projectService.findAllByUserId(userService.findByLogin("admin").getId())) {
-            taskService.add(userService.findByLogin("admin"), project.getId(), "ADMIN TASK 5");
-            taskService.add(userService.findByLogin("admin"), project.getId(), "ADMIN TASK 6");
-            taskService.add(userService.findByLogin("admin"), project.getId(), "ADMIN TASK 7");
-            taskService.add(userService.findByLogin("admin"), project.getId(), "ADMIN TASK 8");
+            taskService.add(userService.findByLogin("admin").getId(), project.getId(), "ADMIN TASK 5");
+            taskService.add(userService.findByLogin("admin").getId(), project.getId(), "ADMIN TASK 6");
+            taskService.add(userService.findByLogin("admin").getId(), project.getId(), "ADMIN TASK 7");
+            taskService.add(userService.findByLogin("admin").getId(), project.getId(), "ADMIN TASK 8");
         }
 
         for (Project project : projectService.findAllByUserId(userService.findByLogin("user").getId())) {
-            taskService.add(userService.findByLogin("user"), project.getId(), "USER TASK 1");
-            taskService.add(userService.findByLogin("user"), project.getId(), "USER TASK 2");
-            taskService.add(userService.findByLogin("user"), project.getId(), "USER TASK 3");
-            taskService.add(userService.findByLogin("user"), project.getId(), "USER TASK 4");
+            taskService.add(userService.findByLogin("user").getId(), project.getId(), "USER TASK 1");
+            taskService.add(userService.findByLogin("user").getId(), project.getId(), "USER TASK 2");
+            taskService.add(userService.findByLogin("user").getId(), project.getId(), "USER TASK 3");
+            taskService.add(userService.findByLogin("user").getId(), project.getId(), "USER TASK 4");
         }
         //---------
     }

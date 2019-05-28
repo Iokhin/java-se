@@ -41,6 +41,6 @@ public final class TaskListCommand extends AbstractCommand {
     }
 
     private Collection<Task> getTaskList(String projectId) {
-        return serviceLocator.getTaskService().findAllByProjectId(serviceLocator.getUserService().getCurrentUser(), projectId);
+        return serviceLocator.getTaskService().findAllByProjectId(serviceLocator.getUserService().getCurrentUser().getId(), projectId);
     }
 }

@@ -20,7 +20,7 @@ public class TaskRemoveAllByUserCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        serviceLocator.getTaskService().removeAllByUser(serviceLocator.getUserService().getCurrentUser());
+        serviceLocator.getTaskService().removeAllByUserId(serviceLocator.getUserService().getCurrentUser().getId());
         System.out.println("ALL TASKS FOR " + serviceLocator.getUserService().getCurrentUser().getLogin() + " WAS REMOVED");
     }
 }

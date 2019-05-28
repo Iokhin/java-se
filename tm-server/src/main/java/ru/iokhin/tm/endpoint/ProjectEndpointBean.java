@@ -2,7 +2,6 @@ package ru.iokhin.tm.endpoint;
 
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
-import ru.iokhin.tm.api.endpoint.IProjectEndpoint;
 import ru.iokhin.tm.api.service.IProjectService;
 import ru.iokhin.tm.api.service.IServiceLocator;
 import ru.iokhin.tm.api.service.ISessionService;
@@ -17,14 +16,14 @@ import java.util.Collection;
 
 @WebService
 @NoArgsConstructor
-public class ProjectEndpoint implements IProjectEndpoint {
+public class ProjectEndpointBean implements ru.iokhin.tm.api.endpoint.ProjectEndpoint {
     @NotNull
     private IProjectService projectService;
 
     @NotNull
     private ISessionService sessionService;
 
-    public ProjectEndpoint(@NotNull final IServiceLocator serviceLocator) {
+    public ProjectEndpointBean(@NotNull final IServiceLocator serviceLocator) {
         this.projectService = serviceLocator.getProjectService();
         this.sessionService = serviceLocator.getSessionService();
     }
@@ -33,7 +32,7 @@ public class ProjectEndpoint implements IProjectEndpoint {
     public Project add(@WebParam(name = "session") @NotNull final Session session,
                        @WebParam(name = "name") @NotNull final String name) throws AuthException {
         sessionService.validate(session);
-        return projectService.add(session.getParentId(), name);
+        return projectService.add("7cfe899e-ee58-3290-8076-48af7f1abd66", name);
     }
 
     @Override

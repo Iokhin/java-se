@@ -14,7 +14,7 @@ import java.util.Collection;
 
 public class ProjectService extends AbstractService<Project, IProjectRepository> implements IProjectService {
 
-    ProjectService(IProjectRepository repository) {
+    public ProjectService(IProjectRepository repository) {
         super(repository);
     }
 

@@ -6,6 +6,7 @@ import ru.iokhin.tm.entity.Task;
 
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.List;
 
 public interface ITaskRepository extends IRepository<Task> {
 
@@ -19,6 +20,6 @@ public interface ITaskRepository extends IRepository<Task> {
 
     Collection<Task> sortByUserId(@NotNull final String userId, Comparator<Task> comparator);
 
-    Collection<Task> findByPartOfNameOrDescription(@NotNull final String userId, @NotNull final String keyWord);
+    List<Task> findByPartOfNameOrDescription(@NotNull final String userId, @NotNull final String keyWord);
 
 }

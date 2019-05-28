@@ -33,7 +33,6 @@ public final class Application {
 
     public static void main(@NotNull String[] args) {
         System.setProperty("javax.xml.bind.context.factory","org.eclipse.persistence.jaxb.JAXBContextFactory");
-
         @NotNull final Bootstrap bootstrap = new Bootstrap();
 
         bootstrap.init(CLASSES);

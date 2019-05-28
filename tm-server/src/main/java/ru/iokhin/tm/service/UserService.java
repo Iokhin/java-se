@@ -8,13 +8,16 @@ import ru.iokhin.tm.api.repository.IUserRepository;
 import ru.iokhin.tm.api.service.IUserService;
 import ru.iokhin.tm.entity.User;
 import ru.iokhin.tm.enumerated.RoleType;
+import ru.iokhin.tm.exeption.AuthException;
 import ru.iokhin.tm.util.MD5Util;
+import ru.iokhin.tm.util.StringValidator;
 
 @Getter
 @Setter
 public class UserService extends AbstractService<User, IUserRepository> implements IUserService {
 
-    @Nullable private User currentUser;
+    @Nullable
+    private User currentUser;
 
     public UserService(@NotNull final IUserRepository repository) {
         super(repository);
@@ -43,5 +46,15 @@ public class UserService extends AbstractService<User, IUserRepository> implemen
     @Override
     public User findByLogin(@NotNull final String login) {
         return repository.findByLogin(login);
+    }
+
+    @Override
+    public User authUser(@NotNull String login, @NotNull String password) throws AuthException {
+        StringValidator.validate(login, password);
+        @NotNull final User user = repository.findByLogin(login);
+        if (user == null) throw new AuthException("NO SUCH USER LOGIN");
+        if (!user.getPasswordHash().equals(MD5Util.passwordToHash(password)))
+            throw new AuthException("WRONG PASSWORD");
+        return user;
     }
 }

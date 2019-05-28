@@ -5,12 +5,12 @@ import org.jetbrains.annotations.Nullable;
 import ru.iokhin.tm.api.repository.ITaskRepository;
 import ru.iokhin.tm.api.service.ITaskService;
 import ru.iokhin.tm.entity.Task;
-import ru.iokhin.tm.entity.User;
 import ru.iokhin.tm.util.ComparatorUtil;
 import ru.iokhin.tm.util.StringValidator;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class TaskService extends AbstractService<Task, ITaskRepository> implements ITaskService {
 
@@ -19,42 +19,42 @@ public class TaskService extends AbstractService<Task, ITaskRepository> implemen
     }
 
     @Override
-    public Task add(@NotNull final User user, @NotNull final String projectId, @NotNull final String name) {
+    public Task add(@NotNull final String userId, @NotNull final String projectId, @NotNull final String name) {
         StringValidator.validate(projectId, name);
-        return repository.persist(new Task(user.getId(), projectId, name));
+        return repository.persist(new Task(userId, projectId, name));
     }
 
     @Override
-    public Task edit(@NotNull final User user, @NotNull final String id, @NotNull final String name) {
+    public Task edit(@NotNull final String userId, @NotNull final String id, @NotNull final String name) {
         StringValidator.validate(name, id);
-        @Nullable final Task task = repository.findOne(user.getId(), id);
+        @Nullable final Task task = repository.findOne(userId, id);
         if (task == null) return null;
         task.setName(name);
         return task;
     }
 
     @Override
-    public Task remove(@NotNull final User user, @NotNull final String id) {
+    public Task remove(@NotNull final String userId, @NotNull final String id) {
         StringValidator.validate(id);
-        @Nullable final Task task = repository.findOne(user.getId(), id);
+        @Nullable final Task task = repository.findOne(userId, id);
         if (task == null) return null;
-        return repository.remove(user.getId(), id);
+        return repository.remove(userId, id);
     }
 
     @Override
-    public void removeAllByUser(@NotNull final User user) {
-        repository.removeAllByUserId(user.getId());
+    public void removeAllByUserId(@NotNull final String userId) {
+        repository.removeAllByUserId(userId);
     }
 
     @Override
-    public Collection<Task> findAllByUser(@NotNull final User user) {
-        return repository.findAllByUserId(user.getId());
+    public Collection<Task> findAllByUserId(@NotNull final String userId) {
+        return repository.findAllByUserId(userId);
     }
 
     @Override
-    public Collection<Task> findAllByProjectId(@NotNull final User user, @NotNull final String projectId) {
+    public Collection<Task> findAllByProjectId(@NotNull final String userId, @NotNull final String projectId) {
         @NotNull final Collection<Task> tasks = new ArrayList<>(0);
-        for (Task task : findAllByUser(user)) {
+        for (Task task : findAllByUserId(userId)) {
             if (task.getProjectId().equals(projectId))
                 tasks.add(task);
         }
@@ -62,10 +62,10 @@ public class TaskService extends AbstractService<Task, ITaskRepository> implemen
     }
 
     @Override
-    public boolean removeAllByProjectId(@NotNull final User user, @NotNull final String projectId) {
+    public boolean removeAllByProjectId(@NotNull final String userId, @NotNull final String projectId) {
         @NotNull boolean flag = false;
-        for (Task task : findAllByProjectId(user, projectId)) {
-            repository.remove(user.getId(), task.getId());
+        for (Task task : findAllByProjectId(userId, projectId)) {
+            repository.remove(userId, task.getId());
             flag = true;
         }
         return flag;
@@ -80,7 +80,7 @@ public class TaskService extends AbstractService<Task, ITaskRepository> implemen
     }
 
     @Override
-    public Collection<Task> findByPartOfNameOrDescription(@NotNull final String userId, @NotNull final String keyWord) {
+    public List<Task> findByPartOfNameOrDescription(@NotNull final String userId, @NotNull final String keyWord) {
         return repository.findByPartOfNameOrDescription(userId, keyWord);
     }
 

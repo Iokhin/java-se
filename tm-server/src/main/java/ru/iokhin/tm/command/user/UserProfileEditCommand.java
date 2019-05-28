@@ -14,7 +14,7 @@ public class UserProfileEditCommand extends AbstractCommand {
 
     @Override
     public String name() {
-        return "user-edit";
+        return "user-editUser";
     }
 
     @Override

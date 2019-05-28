@@ -51,7 +51,7 @@ public class TaskRepository extends AbstractRepository<Task> implements ITaskRep
     }
 
     @Override
-    public Collection<Task> findByPartOfNameOrDescription(@NotNull String userId, @NotNull String keyWord) {
+    public List<Task> findByPartOfNameOrDescription(@NotNull String userId, @NotNull String keyWord) {
         List<Task> taskList = new ArrayList<>(0);
         for (Task task : findAllByUserId(userId)) {
             if (task.getName().toLowerCase().contains(keyWord.toLowerCase()) ||
