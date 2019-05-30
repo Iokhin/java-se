@@ -7,15 +7,14 @@ import ru.iokhin.tm.entity.User;
 import ru.iokhin.tm.enumerated.RoleType;
 import ru.iokhin.tm.exeption.AuthException;
 
+import javax.jws.WebMethod;
 import javax.jws.WebParam;
+import javax.xml.soap.SOAPException;
 
 public interface UserEndpoint {
 
-    User addUser(@NotNull final RoleType roleType,
-                 @WebParam(name = "login") @NotNull final String login,
+    User addUser(@WebParam(name = "login") @NotNull final String login,
                  @WebParam(name = "password") @NotNull final String password);
-
-//    User addUser(@NotNull final RoleType roleType, @NotNull final String id, @NotNull final String login, @NotNull final String password);
 
     User editUser(@WebParam(name = "session") @NotNull final Session session,
                   @WebParam(name = "newLogin") @NotNull final String newLogin,
@@ -25,9 +24,12 @@ public interface UserEndpoint {
 
     User getCurrentUser();
 
-//    void setCurrentUser(@Nullable final Session session);
+    @WebMethod
+    Session authUser(@WebParam(name = "login") @NotNull String login,
+                  @WebParam(name = "password") @NotNull String password) throws AuthException, SOAPException;
 
-    User authUser(@WebParam(name = "login") @NotNull String login,
-                  @WebParam(name = "password") @NotNull String password) throws AuthException;
+    User findById(@WebParam(name = "id") @NotNull final  String id);
 
+    boolean passChange(@WebParam(name = "oldPassword") @NotNull final String oldPassword,
+                              @WebParam(name = "newPassword") @NotNull final String newPassword);
 }

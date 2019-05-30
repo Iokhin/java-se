@@ -16,7 +16,8 @@ public abstract class AbstractRepository<E extends AbstractEntity> implements IR
 
     @Override
     public E persist(@NotNull final E entity) {
-        return repository.put(entity.getId(), entity);
+        repository.put(entity.getId(), entity);
+        return entity;
     }
 
     @Override

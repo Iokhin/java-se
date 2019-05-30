@@ -5,12 +5,16 @@ import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.iokhin.tm.api.repository.IUserRepository;
+import ru.iokhin.tm.api.service.ISessionService;
 import ru.iokhin.tm.api.service.IUserService;
+import ru.iokhin.tm.entity.Session;
 import ru.iokhin.tm.entity.User;
 import ru.iokhin.tm.enumerated.RoleType;
 import ru.iokhin.tm.exeption.AuthException;
 import ru.iokhin.tm.util.MD5Util;
 import ru.iokhin.tm.util.StringValidator;
+
+import javax.xml.soap.SOAPException;
 
 @Getter
 @Setter
@@ -18,6 +22,8 @@ public class UserService extends AbstractService<User, IUserRepository> implemen
 
     @Nullable
     private User currentUser;
+
+    @NotNull ISessionService sessionService;
 
     public UserService(@NotNull final IUserRepository repository) {
         super(repository);
@@ -52,9 +58,19 @@ public class UserService extends AbstractService<User, IUserRepository> implemen
     public User authUser(@NotNull String login, @NotNull String password) throws AuthException {
         StringValidator.validate(login, password);
         @NotNull final User user = repository.findByLogin(login);
-        if (user == null) throw new AuthException("NO SUCH USER LOGIN");
+        if (user == null) throw new AuthException("WRONG LOGIN");
         if (!user.getPasswordHash().equals(MD5Util.passwordToHash(password)))
             throw new AuthException("WRONG PASSWORD");
+        setCurrentUser(user);
         return user;
+    }
+
+    @Override
+    public boolean changePassword(@NotNull String oldPassword, @NotNull String newPassword) {
+        StringValidator.validate(oldPassword, newPassword);
+        if (!MD5Util.passwordToHash(oldPassword).equals(getCurrentUser().getPasswordHash()))
+            return false;
+        getCurrentUser().setPasswordHash(MD5Util.passwordToHash(newPassword));
+        return true;
     }
 }

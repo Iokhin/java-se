@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.iokhin.tm.api.service.IServiceLocator;
+import ru.iokhin.tm.exeption.AuthException;
+
+import javax.xml.soap.SOAPException;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,6 +23,6 @@ abstract public class AbstractCommand {
 
     abstract public String description();
 
-    abstract public void execute();
+    abstract public void execute() throws AuthException, SOAPException;
 
 }

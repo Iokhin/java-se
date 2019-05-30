@@ -8,6 +8,8 @@ import ru.iokhin.tm.util.MD5Util;
 import ru.iokhin.tm.command.AbstractCommand;
 import ru.iokhin.tm.entity.User;
 
+import javax.xml.soap.SOAPException;
+
 @NoArgsConstructor
 public class UserAuthorizationCommand extends AbstractCommand {
 
@@ -27,18 +29,15 @@ public class UserAuthorizationCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() {
+    public void execute() throws AuthException, SOAPException {
         System.out.println("PLEASE ENTER YOUR LOGIN");
         @NotNull final String login = serviceLocator.getTerminalService().nextLine();
         System.out.println("PLEASE ENTER YOUR PASSWORD");
         @NotNull final String password = serviceLocator.getTerminalService().nextLine();
-        try {
-            User user = serviceLocator.getUserService().authUser(login, password);
-            serviceLocator.getUserService().setCurrentUser(user);
-            serviceLocator.getSessionService().create(user.getId());
-            System.out.println("WELCOME, " + user.getLogin());
-        } catch (AuthException e) {
-            System.out.println(e.getMessage());
-        }
+        User user = null;
+        user = serviceLocator.getUserService().authUser(login, password);
+        serviceLocator.getUserService().setCurrentUser(user);
+        System.out.println("WELCOME, " + user.getLogin());
+
     }
 }

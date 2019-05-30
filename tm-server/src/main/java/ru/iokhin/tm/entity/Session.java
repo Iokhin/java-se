@@ -4,11 +4,26 @@ import lombok.Getter;
 import lombok.Setter;
 import org.jetbrains.annotations.Nullable;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
 @Getter
 @Setter
-public class Session extends AbstractEntity {
+//@XmlRootElement(name = "session")
+//@XmlAccessorType(XmlAccessType.FIELD)
+public class Session extends AbstractEntity implements Cloneable {
+
+    @Override
+    public Session clone() {
+        try {
+            return (Session) super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     @Nullable
     private String signature;
@@ -19,7 +34,7 @@ public class Session extends AbstractEntity {
     @Override
     public String toString() {
         return "Session{" +
-                "userId = " + parentId + '\'' +
+                "userId = '" + parentId + '\'' +
                 ", signature ='" + signature + '\'' +
                 ", timeStamp =" + timeStamp +
                 ", id='" + id + '\'' +

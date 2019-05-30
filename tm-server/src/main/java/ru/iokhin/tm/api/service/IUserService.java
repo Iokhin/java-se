@@ -3,9 +3,12 @@ package ru.iokhin.tm.api.service;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.iokhin.tm.api.IService;
+import ru.iokhin.tm.entity.Session;
 import ru.iokhin.tm.entity.User;
 import ru.iokhin.tm.enumerated.RoleType;
 import ru.iokhin.tm.exeption.AuthException;
+
+import javax.xml.soap.SOAPException;
 
 public interface IUserService extends IService<User> {
     User add(@NotNull final RoleType roleType, @NotNull final String login, @NotNull final String password);
@@ -21,4 +24,6 @@ public interface IUserService extends IService<User> {
     void setCurrentUser(@Nullable final User user);
 
     User authUser(@NotNull String login, @NotNull String password) throws AuthException;
+
+    boolean changePassword(@NotNull String oldPassword, @NotNull String newPassword);
 }

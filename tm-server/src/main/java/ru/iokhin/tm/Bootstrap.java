@@ -19,6 +19,7 @@ import ru.iokhin.tm.exeption.AuthException;
 import ru.iokhin.tm.exeption.NonexistentCommandException;
 import ru.iokhin.tm.service.*;
 
+import javax.xml.soap.SOAPException;
 import javax.xml.ws.Endpoint;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -54,7 +55,7 @@ final class Bootstrap {
             }
         }
 
-        System.out.println("***WELCOME TO TASK MANAGER***");
+        System.out.println("***WELCOME TO TM-SERVER***");
         @NotNull String input = "";
 
         while (!input.equals("exit")) {
@@ -64,11 +65,13 @@ final class Bootstrap {
                 execute(command);
             } catch (AuthException | IllegalArgumentException | NonexistentCommandException e) {
                 System.out.println(e.getMessage());
+            } catch (SOAPException e) {
+
             }
         }
     }
 
-    private void execute(@Nullable AbstractCommand command) throws AuthException, NonexistentCommandException {
+    private void execute(@Nullable AbstractCommand command) throws AuthException, NonexistentCommandException, SOAPException {
         if (command == null) throw new NonexistentCommandException();
         if (!command.security()) {
             command.execute();

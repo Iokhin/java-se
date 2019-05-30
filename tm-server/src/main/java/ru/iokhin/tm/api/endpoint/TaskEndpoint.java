@@ -33,7 +33,7 @@ public interface TaskEndpoint {
     boolean removeAllByProjectId(@WebParam(name = "session") @NotNull final Session session,
                                  @WebParam(name = "projectId") @NotNull final String projectId) throws AuthException;
 
-    Collection<Task> sortByUserId(@WebParam(name = "session") @NotNull final Session session,
+    Collection<Task> sortTaskByUserId(@WebParam(name = "session") @NotNull final Session session,
                                   @WebParam(name = "comparator") @NotNull final String comparator) throws AuthException;
 
     Collection<Task> findByPartOfNameOrDescriptionTask(@WebParam(name = "session") @NotNull final Session session,

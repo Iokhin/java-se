@@ -80,7 +80,7 @@ public class TaskEndpointBean implements TaskEndpoint {
     }
 
     @Override
-    public Collection<Task> sortByUserId(@WebParam(name = "session") @NotNull final Session session,
+    public Collection<Task> sortTaskByUserId(@WebParam(name = "session") @NotNull final Session session,
                                          @WebParam(name = "comparator") @NotNull final String comparator) throws AuthException {
         sessionService.validate(session);
         return taskService.sortByUserId(session.getParentId(), comparator);

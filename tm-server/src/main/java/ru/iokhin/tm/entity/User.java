@@ -8,15 +8,9 @@ import org.jetbrains.annotations.Nullable;
 import ru.iokhin.tm.util.MD5Util;
 import ru.iokhin.tm.enumerated.RoleType;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-
 @Getter
 @Setter
 @NoArgsConstructor
-@XmlRootElement(name = "user")
-@XmlAccessorType(XmlAccessType.FIELD)
 public final class User extends AbstractEntity {
 
     @Nullable
@@ -55,4 +49,5 @@ public final class User extends AbstractEntity {
     public String toString() {
         return login + ", " + id;
     }
+
 }

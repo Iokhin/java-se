@@ -13,8 +13,10 @@ import ru.iokhin.tm.enumerated.RoleType;
 import ru.iokhin.tm.exeption.AuthException;
 import ru.iokhin.tm.util.MD5Util;
 
+import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
+import javax.xml.soap.SOAPException;
 
 @WebService
 @NoArgsConstructor
@@ -32,16 +34,10 @@ public class UserEndpointBean implements UserEndpoint {
     }
 
     @Override
-    public User addUser(@NotNull RoleType roleType,
-                        @WebParam(name = "login") @NotNull final String login,
+    public User addUser(@WebParam(name = "login") @NotNull final String login,
                         @WebParam(name = "password") @NotNull final String password) {
         return userService.add(RoleType.USER, login, password);
     }
-
-//    @Override
-//    public User addUser(@NotNull RoleType roleType, @NotNull String id, @NotNull String login, @NotNull String password) {
-//        return null;
-//    }
 
     @Override
     public User editUser(@WebParam(name = "session") @NotNull final Session session,
@@ -61,14 +57,24 @@ public class UserEndpointBean implements UserEndpoint {
         return userService.getCurrentUser();
     }
 
-//    @Override
-//    public void setCurrentUser(@Nullable Session session) {
-//        userService.setCurrentUser();
-//    }
+    @Override
+    @WebMethod
+    public Session authUser(@WebParam(name = "login") @NotNull final String login,
+                         @WebParam(name = "password") @NotNull final String password) throws AuthException {
+        User user = userService.authUser(login, password);
+        if (user == null) return null;
+//        if ("user".equals(user.getLogin())) throw new AuthException();
+        return sessionService.create(user.getId());
+    }
 
     @Override
-    public User authUser(@WebParam(name = "login") @NotNull final String login,
-                         @WebParam(name = "password") @NotNull final String password) throws AuthException {
-        return userService.authUser(login, password);
+    public User findById(@WebParam(name = "id") @NotNull final String id) {
+        return userService.findOne(id);
+    }
+
+    @Override
+    public boolean passChange(@WebParam(name = "oldPassword") @NotNull final String oldPassword,
+                              @WebParam(name = "newPassword") @NotNull final String newPassword) {
+        return userService.changePassword(oldPassword, newPassword);
     }
 }

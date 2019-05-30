@@ -15,8 +15,8 @@ import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
-@XmlRootElement(name = "project")
-@XmlAccessorType(XmlAccessType.FIELD)
+//@XmlRootElement(name = "project")
+//@XmlAccessorType(XmlAccessType.FIELD)
 public final class Project extends AbstractEntity {
 
 //    @Nullable
