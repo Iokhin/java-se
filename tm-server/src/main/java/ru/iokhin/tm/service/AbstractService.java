@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.api.IRepository;
 import ru.iokhin.tm.api.IService;
+import ru.iokhin.tm.api.service.IServiceLocator;
 import ru.iokhin.tm.entity.AbstractEntity;
 
 import java.util.Collection;

@@ -2,6 +2,7 @@ package ru.iokhin.tm.command.data;
 
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.command.AbstractCommand;
+import ru.iokhin.tm.endpoint.JAXBException_Exception;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -26,23 +27,8 @@ public class DataSaveJAXBToXMLCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() {
-//        @NotNull final IProjectService projectService = serviceLocator.getProjectService();
-//        @NotNull final ITaskService taskService = serviceLocator.getTaskService();
-//        @NotNull final IUserService userService = serviceLocator.getUserService();
-//        @NotNull final DataScope dataScope = new DataScope(new ArrayList<>(projectService.findAll()), new ArrayList<>(taskService.findAll()),
-//                new ArrayList<>(userService.findAll()));
-//        final JAXBContext jaxbContext;
-//        try {
-//
-//            jaxbContext = JAXBContext.newInstance(DataScope.class);
-//            final Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-//            jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-//            jaxbMarshaller.marshal(dataScope, new File("jaxb.xml"));
-//            System.out.println("SUCCESS");
-//        } catch (JAXBException e) {
-//            e.printStackTrace();
-//        }
-
+    public void execute() throws JAXBException_Exception {
+        endpointServiceLocator.getUserEndpointBean().dataJAXBXMLSave();
+        System.out.println("SUCCESS");
     }
 }

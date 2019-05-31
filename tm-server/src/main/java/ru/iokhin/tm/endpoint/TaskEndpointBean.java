@@ -32,8 +32,8 @@ public class TaskEndpointBean implements TaskEndpoint {
 
     @Override
     public Task addTask(@WebParam(name = "session") @NotNull final Session session,
-                    @WebParam(name = "projectId") @NotNull final String projectId,
-                    @WebParam(name = "name") @NotNull final String name) throws AuthException {
+                        @WebParam(name = "projectId") @NotNull final String projectId,
+                        @WebParam(name = "name") @NotNull final String name) throws AuthException {
         sessionService.validate(session);
         return taskService.add(session.getParentId(), projectId, name);
     }
@@ -81,14 +81,14 @@ public class TaskEndpointBean implements TaskEndpoint {
 
     @Override
     public Collection<Task> sortTaskByUserId(@WebParam(name = "session") @NotNull final Session session,
-                                         @WebParam(name = "comparator") @NotNull final String comparator) throws AuthException {
+                                             @WebParam(name = "comparator") @NotNull final String comparator) throws AuthException {
         sessionService.validate(session);
         return taskService.sortByUserId(session.getParentId(), comparator);
     }
 
     @Override
     public Collection<Task> findByPartOfNameOrDescriptionTask(@WebParam(name = "session") @NotNull final Session session,
-                                                        @WebParam(name = "keyWord") @NotNull final String keyWord) throws AuthException {
+                                                              @WebParam(name = "keyWord") @NotNull final String keyWord) throws AuthException {
         sessionService.validate(session);
         return taskService.findByPartOfNameOrDescription(session.getParentId(), keyWord);
     }

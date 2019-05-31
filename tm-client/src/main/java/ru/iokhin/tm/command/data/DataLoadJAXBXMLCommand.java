@@ -1,6 +1,7 @@
 package ru.iokhin.tm.command.data;
 
 import ru.iokhin.tm.command.AbstractCommand;
+import ru.iokhin.tm.endpoint.JAXBException_Exception;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -24,19 +25,8 @@ public class DataLoadJAXBXMLCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() {
-//        DataScope dataScope;
-//        final JAXBContext jaxbContext;
-//        try {
-//            jaxbContext = JAXBContext.newInstance(DataScope.class);
-//            final Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-//            dataScope = (DataScope)unmarshaller.unmarshal(new File("jaxb.xml"));
-//            dataScope.getProjects().forEach(serviceLocator.getProjectService()::merge);
-//            dataScope.getTasks().forEach(serviceLocator.getTaskService()::merge);
-//            dataScope.getUsers().forEach(serviceLocator.getUserService()::merge);
-//            System.out.println("SUCCESS");
-//        } catch (JAXBException e) {
-//            e.printStackTrace();
-//        }
+    public void execute() throws JAXBException_Exception {
+        endpointServiceLocator.getUserEndpointBean().dataJAXBXMLLoad();
+        System.out.println("SUCCESS");
     }
 }

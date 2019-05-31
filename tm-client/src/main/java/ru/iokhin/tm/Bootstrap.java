@@ -6,7 +6,9 @@ import org.jetbrains.annotations.Nullable;
 import ru.iokhin.tm.api.IEndpointServiceLocator;
 import ru.iokhin.tm.command.AbstractCommand;
 import ru.iokhin.tm.endpoint.AuthException_Exception;
-import ru.iokhin.tm.endpoint.SOAPException_Exception;
+import ru.iokhin.tm.endpoint.ClassNotFoundException_Exception;
+import ru.iokhin.tm.endpoint.IOException_Exception;
+import ru.iokhin.tm.endpoint.JAXBException_Exception;
 import ru.iokhin.tm.exception.NonexistentCommandException;
 import ru.iokhin.tm.service.EndpointServiceLocator;
 
@@ -20,11 +22,6 @@ class Bootstrap {
     private final Map<String, AbstractCommand> commandMap = new LinkedHashMap<>(0);
 
     private IEndpointServiceLocator endpointServiceLocator = new EndpointServiceLocator(commandMap);
-
-    private void commandRegister(AbstractCommand abstractCommand) {
-        abstractCommand.setEndpointServiceLocator(endpointServiceLocator);
-        this.commandMap.put(abstractCommand.name(), abstractCommand);
-    }
 
     void init(Class[] CLASSES) {
         for (Class commandClass : CLASSES) {
@@ -43,22 +40,20 @@ class Bootstrap {
             try {
                 execute(command);
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                e.printStackTrace();
             }
         }
     }
 
-    private void execute(@Nullable AbstractCommand command) throws AuthException_Exception, NonexistentCommandException, SOAPException_Exception {
+    private void commandRegister(AbstractCommand abstractCommand) {
+        abstractCommand.setEndpointServiceLocator(endpointServiceLocator);
+        this.commandMap.put(abstractCommand.name(), abstractCommand);
+    }
+
+    private void execute(@Nullable AbstractCommand command) throws AuthException_Exception, NonexistentCommandException, JAXBException_Exception, IOException_Exception, ClassNotFoundException_Exception {
         if (command == null) throw new NonexistentCommandException();
-//        if (!command.security()) {
-            command.execute();
-//        } else {
-//            if (this.isAuth())
-//                command.execute();
-//            else {
-//                throw new AuthException_Exception();
-//            }
-//        }
+        if (command.security() && endpointServiceLocator.getSession() == null) throw new AuthException_Exception();
+        command.execute();
     }
 }
 

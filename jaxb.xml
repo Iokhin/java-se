@@ -1,197 +1,109 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <DataScope>
-   <projects>
-      <description></description>
-      <id>953a57df-6fee-432e-9bc8-687022449fb4</id>
-      <name>Project 1</name>
-      <parentId>7cfe899e-ee58-3290-8076-48af7f1abd66</parentId>
-      <startDate>2019-05-24T14:15:21.401+03:00</startDate>
-      <status>PLANNING</status>
-   </projects>
-   <projects>
-      <description></description>
-      <id>62b7cf03-ccd7-40d5-9553-c0af6b10eb38</id>
-      <name>Project 2</name>
-      <parentId>3afe899e-ee58-4543-8076-48af7f1abd71</parentId>
-      <startDate>2019-05-24T14:15:21.401+03:00</startDate>
-      <status>PLANNING</status>
-   </projects>
-   <projects>
-      <description></description>
-      <id>5b2c3fd8-e0bc-4be5-a624-8d058a750476</id>
-      <name>Project 1</name>
-      <parentId>7cfe899e-ee58-3290-8076-48af7f1abd66</parentId>
-      <startDate>2019-05-24T14:14:49.03+03:00</startDate>
-      <status>PLANNING</status>
-   </projects>
-   <projects>
-      <description></description>
-      <id>ea78a885-8e44-4f2d-ad72-58ebb3b7304a</id>
-      <name>Project 2</name>
-      <parentId>3afe899e-ee58-4543-8076-48af7f1abd71</parentId>
-      <startDate>2019-05-24T14:14:49.03+03:00</startDate>
-      <status>PLANNING</status>
-   </projects>
-   <tasks>
-      <description></description>
-      <id>ba6859ca-a0c8-4cba-9887-9d805d8e3824</id>
-      <name>ADMIN TASK 5</name>
-      <parentId>3afe899e-ee58-4543-8076-48af7f1abd71</parentId>
-      <startDate>2019-05-24T14:15:21.401+03:00</startDate>
-      <projectId>62b7cf03-ccd7-40d5-9553-c0af6b10eb38</projectId>
-      <status>PLANNING</status>
-   </tasks>
-   <tasks>
-      <description></description>
-      <id>b7e7d3f1-48fc-4ecb-8a7f-aeb7fde70800</id>
-      <name>ADMIN TASK 6</name>
-      <parentId>3afe899e-ee58-4543-8076-48af7f1abd71</parentId>
-      <startDate>2019-05-24T14:15:21.401+03:00</startDate>
-      <projectId>62b7cf03-ccd7-40d5-9553-c0af6b10eb38</projectId>
-      <status>PLANNING</status>
-   </tasks>
-   <tasks>
-      <description></description>
-      <id>c9e8c210-5e00-4fb7-a58d-6eee4dfa05bc</id>
-      <name>ADMIN TASK 7</name>
-      <parentId>3afe899e-ee58-4543-8076-48af7f1abd71</parentId>
-      <startDate>2019-05-24T14:15:21.401+03:00</startDate>
-      <projectId>62b7cf03-ccd7-40d5-9553-c0af6b10eb38</projectId>
-      <status>PLANNING</status>
-   </tasks>
-   <tasks>
-      <description></description>
-      <id>cf59717c-2901-41c7-ae14-4bdd7ac8248b</id>
-      <name>ADMIN TASK 8</name>
-      <parentId>3afe899e-ee58-4543-8076-48af7f1abd71</parentId>
-      <startDate>2019-05-24T14:15:21.401+03:00</startDate>
-      <projectId>62b7cf03-ccd7-40d5-9553-c0af6b10eb38</projectId>
-      <status>PLANNING</status>
-   </tasks>
-   <tasks>
-      <description></description>
-      <id>720b8e72-e75f-4db2-afa4-9462064b290b</id>
-      <name>USER TASK 1</name>
-      <parentId>7cfe899e-ee58-3290-8076-48af7f1abd66</parentId>
-      <startDate>2019-05-24T14:15:21.401+03:00</startDate>
-      <projectId>953a57df-6fee-432e-9bc8-687022449fb4</projectId>
-      <status>PLANNING</status>
-   </tasks>
-   <tasks>
-      <description></description>
-      <id>37ed3f35-8a3f-470b-b795-d532f7202e21</id>
-      <name>USER TASK 2</name>
-      <parentId>7cfe899e-ee58-3290-8076-48af7f1abd66</parentId>
-      <startDate>2019-05-24T14:15:21.401+03:00</startDate>
-      <projectId>953a57df-6fee-432e-9bc8-687022449fb4</projectId>
-      <status>PLANNING</status>
-   </tasks>
-   <tasks>
-      <description></description>
-      <id>8c5d13f1-01fb-4207-8363-715d84b0b038</id>
-      <name>USER TASK 3</name>
-      <parentId>7cfe899e-ee58-3290-8076-48af7f1abd66</parentId>
-      <startDate>2019-05-24T14:15:21.402+03:00</startDate>
-      <projectId>953a57df-6fee-432e-9bc8-687022449fb4</projectId>
-      <status>PLANNING</status>
-   </tasks>
-   <tasks>
-      <description></description>
-      <id>151c3ff6-530f-4c83-9824-6dda03e8b0a2</id>
-      <name>USER TASK 4</name>
-      <parentId>7cfe899e-ee58-3290-8076-48af7f1abd66</parentId>
-      <startDate>2019-05-24T14:15:21.402+03:00</startDate>
-      <projectId>953a57df-6fee-432e-9bc8-687022449fb4</projectId>
-      <status>PLANNING</status>
-   </tasks>
-   <tasks>
-      <description></description>
-      <id>fe268cd3-9e29-446b-97ac-8f701a077ad5</id>
-      <name>ADMIN TASK 5</name>
-      <parentId>3afe899e-ee58-4543-8076-48af7f1abd71</parentId>
-      <startDate>2019-05-24T14:14:49.03+03:00</startDate>
-      <projectId>ea78a885-8e44-4f2d-ad72-58ebb3b7304a</projectId>
-      <status>PLANNING</status>
-   </tasks>
-   <tasks>
-      <description></description>
-      <id>de067311-a1fa-400f-b7a1-3b33805268d1</id>
-      <name>ADMIN TASK 6</name>
-      <parentId>3afe899e-ee58-4543-8076-48af7f1abd71</parentId>
-      <startDate>2019-05-24T14:14:49.03+03:00</startDate>
-      <projectId>ea78a885-8e44-4f2d-ad72-58ebb3b7304a</projectId>
-      <status>PLANNING</status>
-   </tasks>
-   <tasks>
-      <description></description>
-      <id>c1f160c9-d4e9-4d87-9bd1-16bffd9fec96</id>
-      <name>ADMIN TASK 7</name>
-      <parentId>3afe899e-ee58-4543-8076-48af7f1abd71</parentId>
-      <startDate>2019-05-24T14:14:49.03+03:00</startDate>
-      <projectId>ea78a885-8e44-4f2d-ad72-58ebb3b7304a</projectId>
-      <status>PLANNING</status>
-   </tasks>
-   <tasks>
-      <description></description>
-      <id>025d4ea8-86b6-43a3-91ed-2b3e6aa3c8ab</id>
-      <name>ADMIN TASK 8</name>
-      <parentId>3afe899e-ee58-4543-8076-48af7f1abd71</parentId>
-      <startDate>2019-05-24T14:14:49.03+03:00</startDate>
-      <projectId>ea78a885-8e44-4f2d-ad72-58ebb3b7304a</projectId>
-      <status>PLANNING</status>
-   </tasks>
-   <tasks>
-      <description></description>
-      <id>c892d8d1-8e32-4c34-b996-fc3b4cde94e3</id>
-      <name>USER TASK 1</name>
-      <parentId>7cfe899e-ee58-3290-8076-48af7f1abd66</parentId>
-      <startDate>2019-05-24T14:14:49.03+03:00</startDate>
-      <projectId>5b2c3fd8-e0bc-4be5-a624-8d058a750476</projectId>
-      <status>PLANNING</status>
-   </tasks>
-   <tasks>
-      <description></description>
-      <id>1aecb8d5-fa2f-4584-b7e8-4bf0cee7a032</id>
-      <name>USER TASK 2</name>
-      <parentId>7cfe899e-ee58-3290-8076-48af7f1abd66</parentId>
-      <startDate>2019-05-24T14:14:49.03+03:00</startDate>
-      <projectId>5b2c3fd8-e0bc-4be5-a624-8d058a750476</projectId>
-      <status>PLANNING</status>
-   </tasks>
-   <tasks>
-      <description></description>
-      <id>aad2860c-c5f0-46de-b1cb-d3ebeab9465c</id>
-      <name>USER TASK 3</name>
-      <parentId>7cfe899e-ee58-3290-8076-48af7f1abd66</parentId>
-      <startDate>2019-05-24T14:14:49.03+03:00</startDate>
-      <projectId>5b2c3fd8-e0bc-4be5-a624-8d058a750476</projectId>
-      <status>PLANNING</status>
-   </tasks>
-   <tasks>
-      <description></description>
-      <id>c9505da7-0570-4c99-bd4d-150628db6495</id>
-      <name>USER TASK 4</name>
-      <parentId>7cfe899e-ee58-3290-8076-48af7f1abd66</parentId>
-      <startDate>2019-05-24T14:14:49.03+03:00</startDate>
-      <projectId>5b2c3fd8-e0bc-4be5-a624-8d058a750476</projectId>
-      <status>PLANNING</status>
-   </tasks>
-   <users>
-      <description></description>
-      <id>3afe899e-ee58-4543-8076-48af7f1abd71</id>
-      <name>admin</name>
-      <parentId></parentId>
-      <login>admin</login>
-      <passwordHash>21232f297a57a5a743894a0e4a801fc3</passwordHash>
-      <roleType>ADMIN</roleType>
-   </users>
-   <users>
-      <description></description>
-      <id>7cfe899e-ee58-3290-8076-48af7f1abd66</id>
-      <name>user</name>
-      <parentId></parentId>
-      <login>user</login>
-      <passwordHash>ee11cbb19052e40b07aac0ca060c23ee</passwordHash>
-      <roleType>USER</roleType>
-   </users>
+    <projects>
+        <description></description>
+        <id>0085fa7d-7474-49d9-8f43-f70864b45297</id>
+        <name>Project 1</name>
+        <parentId>7cfe899e-ee58-3290-8076-48af7f1abd66</parentId>
+        <startDate>2019-05-31T10:46:57.130+03:00</startDate>
+        <status>PLANNING</status>
+    </projects>
+    <projects>
+        <description></description>
+        <id>81b99c7d-8045-403a-a0d9-52847e48dd0e</id>
+        <name>Project 2</name>
+        <parentId>3afe899e-ee58-4543-8076-48af7f1abd71</parentId>
+        <startDate>2019-05-31T10:46:57.130+03:00</startDate>
+        <status>PLANNING</status>
+    </projects>
+    <tasks>
+        <description></description>
+        <id>53b06c6f-3a15-45a6-a833-87cab17c0e9d</id>
+        <name>ADMIN TASK 5</name>
+        <parentId>3afe899e-ee58-4543-8076-48af7f1abd71</parentId>
+        <startDate>2019-05-31T10:46:57.130+03:00</startDate>
+        <projectId>81b99c7d-8045-403a-a0d9-52847e48dd0e</projectId>
+        <status>PLANNING</status>
+    </tasks>
+    <tasks>
+        <description></description>
+        <id>acf64338-4147-4650-bf0b-69e706d1bec0</id>
+        <name>ADMIN TASK 6</name>
+        <parentId>3afe899e-ee58-4543-8076-48af7f1abd71</parentId>
+        <startDate>2019-05-31T10:46:57.130+03:00</startDate>
+        <projectId>81b99c7d-8045-403a-a0d9-52847e48dd0e</projectId>
+        <status>PLANNING</status>
+    </tasks>
+    <tasks>
+        <description></description>
+        <id>054010dd-a12e-48d0-8c0d-f5ff45fb4674</id>
+        <name>ADMIN TASK 7</name>
+        <parentId>3afe899e-ee58-4543-8076-48af7f1abd71</parentId>
+        <startDate>2019-05-31T10:46:57.130+03:00</startDate>
+        <projectId>81b99c7d-8045-403a-a0d9-52847e48dd0e</projectId>
+        <status>PLANNING</status>
+    </tasks>
+    <tasks>
+        <description></description>
+        <id>c4e9eaaf-748c-43ab-8772-7514e928e1eb</id>
+        <name>ADMIN TASK 8</name>
+        <parentId>3afe899e-ee58-4543-8076-48af7f1abd71</parentId>
+        <startDate>2019-05-31T10:46:57.130+03:00</startDate>
+        <projectId>81b99c7d-8045-403a-a0d9-52847e48dd0e</projectId>
+        <status>PLANNING</status>
+    </tasks>
+    <tasks>
+        <description></description>
+        <id>7485c4aa-3933-4e5a-9028-f45a644eb004</id>
+        <name>USER TASK 1</name>
+        <parentId>7cfe899e-ee58-3290-8076-48af7f1abd66</parentId>
+        <startDate>2019-05-31T10:46:57.130+03:00</startDate>
+        <projectId>0085fa7d-7474-49d9-8f43-f70864b45297</projectId>
+        <status>PLANNING</status>
+    </tasks>
+    <tasks>
+        <description></description>
+        <id>1f2ee851-d7a5-4f4d-a699-e1cbe6e3b59f</id>
+        <name>USER TASK 2</name>
+        <parentId>7cfe899e-ee58-3290-8076-48af7f1abd66</parentId>
+        <startDate>2019-05-31T10:46:57.130+03:00</startDate>
+        <projectId>0085fa7d-7474-49d9-8f43-f70864b45297</projectId>
+        <status>PLANNING</status>
+    </tasks>
+    <tasks>
+        <description></description>
+        <id>fabbdf6a-7ae4-4937-b383-ddc0aa72c1c6</id>
+        <name>USER TASK 3</name>
+        <parentId>7cfe899e-ee58-3290-8076-48af7f1abd66</parentId>
+        <startDate>2019-05-31T10:46:57.130+03:00</startDate>
+        <projectId>0085fa7d-7474-49d9-8f43-f70864b45297</projectId>
+        <status>PLANNING</status>
+    </tasks>
+    <tasks>
+        <description></description>
+        <id>015b3c0b-6bfe-4bc4-98a5-28bbbc3887e6</id>
+        <name>USER TASK 4</name>
+        <parentId>7cfe899e-ee58-3290-8076-48af7f1abd66</parentId>
+        <startDate>2019-05-31T10:46:57.130+03:00</startDate>
+        <projectId>0085fa7d-7474-49d9-8f43-f70864b45297</projectId>
+        <status>PLANNING</status>
+    </tasks>
+    <users>
+        <description></description>
+        <id>3afe899e-ee58-4543-8076-48af7f1abd71</id>
+        <name>admin</name>
+        <parentId></parentId>
+        <login>admin</login>
+        <passwordHash>21232f297a57a5a743894a0e4a801fc3</passwordHash>
+        <roleType>ADMIN</roleType>
+    </users>
+    <users>
+        <description></description>
+        <id>7cfe899e-ee58-3290-8076-48af7f1abd66</id>
+        <name>user</name>
+        <parentId></parentId>
+        <login>user</login>
+        <passwordHash>ee11cbb19052e40b07aac0ca060c23ee</passwordHash>
+        <roleType>USER</roleType>
+    </users>
 </DataScope>

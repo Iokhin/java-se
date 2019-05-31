@@ -16,7 +16,9 @@ import ru.iokhin.tm.util.MD5Util;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
+import javax.xml.bind.JAXBException;
 import javax.xml.soap.SOAPException;
+import java.io.IOException;
 
 @WebService
 @NoArgsConstructor
@@ -60,7 +62,7 @@ public class UserEndpointBean implements UserEndpoint {
     @Override
     @WebMethod
     public Session authUser(@WebParam(name = "login") @NotNull final String login,
-                         @WebParam(name = "password") @NotNull final String password) throws AuthException {
+                            @WebParam(name = "password") @NotNull final String password) throws AuthException {
         User user = userService.authUser(login, password);
         if (user == null) return null;
 //        if ("user".equals(user.getLogin())) throw new AuthException();
@@ -76,5 +78,55 @@ public class UserEndpointBean implements UserEndpoint {
     public boolean passChange(@WebParam(name = "oldPassword") @NotNull final String oldPassword,
                               @WebParam(name = "newPassword") @NotNull final String newPassword) {
         return userService.changePassword(oldPassword, newPassword);
+    }
+
+    @Override
+    public void dataBinSave() throws IOException {
+        userService.dataBinSave();
+    }
+
+    @Override
+    public void dataBinLoad() throws IOException, java.lang.ClassNotFoundException {
+        userService.dataBinLoad();
+    }
+
+    @Override
+    public void dataJAXBXMLSave() throws JAXBException {
+        userService.dataJAXBXMLSave();
+    }
+
+    @Override
+    public void dataJAXBXMLLoad() throws JAXBException {
+        userService.dataJAXBXMLLoad();
+    }
+
+    @Override
+    public void dataJAXBJSONSave() throws JAXBException {
+        userService.dataJAXBJSONSave();
+    }
+
+    @Override
+    public void dataJAXBJSONLoad() throws JAXBException {
+        userService.dataJAXBJSONLoad();
+    }
+
+    @Override
+    public void dataFasterXMLSave() throws IOException {
+        userService.dataFasterXMLSave();
+    }
+
+    @Override
+    public void dataFasterXMLLoad() throws IOException {
+        userService.dataFasterXMLLoad();
+    }
+
+    @Override
+    public void dataFasterJSONLoad() throws IOException {
+        userService.dataFasterJSONLoad();
+    }
+
+    @Override
+    public void dataFasterJSONSave() throws IOException {
+        userService.dataFasterJSONSave();
     }
 }

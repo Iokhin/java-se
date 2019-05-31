@@ -3,6 +3,7 @@ package ru.iokhin.tm.command.data;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.command.AbstractCommand;
+import ru.iokhin.tm.endpoint.IOException_Exception;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,17 +26,8 @@ public class DataSaveFasterXMLCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() {
-//        @NotNull final IProjectService projectService = serviceLocator.getProjectService();
-//        @NotNull final IUserService userService = serviceLocator.getUserService();
-//        @NotNull final ITaskService taskService = serviceLocator.getTaskService();
-//        DataScope dataScope = new DataScope(new ArrayList<>(projectService.findAll()), new ArrayList<>(taskService.findAll()), new ArrayList<>(userService.findAll()));
-//        XmlMapper mapper = new XmlMapper();
-//        try {
-//            mapper.writerWithDefaultPrettyPrinter().writeValue(new File("faster.xml"), dataScope);
-//            System.out.println("SUCCESS");
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+    public void execute() throws IOException_Exception {
+        endpointServiceLocator.getUserEndpointBean().dataFasterXMLSave();
+        System.out.println("SUCCESS");
     }
 }

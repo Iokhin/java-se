@@ -1,6 +1,8 @@
 package ru.iokhin.tm.command.data;
 
 import ru.iokhin.tm.command.AbstractCommand;
+import ru.iokhin.tm.endpoint.ClassNotFoundException_Exception;
+import ru.iokhin.tm.endpoint.IOException_Exception;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -23,15 +25,8 @@ public class DataLoadSerializedCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() {
-//        try(ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream("serializedData"))) {
-//            DataScope dataScope = (DataScope)objectInputStream.readObject();
-//            dataScope.getProjects().forEach(serviceLocator.getProjectService()::merge);
-//            dataScope.getTasks().forEach(serviceLocator.getTaskService()::merge);
-//            dataScope.getUsers().forEach(serviceLocator.getUserService()::merge);
-//            System.out.println("SUCCESS");
-//        } catch (IOException | ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
+    public void execute() throws ClassNotFoundException_Exception, IOException_Exception {
+        endpointServiceLocator.getUserEndpointBean().dataBinLoad();
+        System.out.println("SUCCESS");
     }
 }

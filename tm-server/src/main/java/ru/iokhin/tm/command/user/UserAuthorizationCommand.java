@@ -29,13 +29,12 @@ public class UserAuthorizationCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() throws AuthException, SOAPException {
+    public void execute() throws AuthException {
         System.out.println("PLEASE ENTER YOUR LOGIN");
         @NotNull final String login = serviceLocator.getTerminalService().nextLine();
         System.out.println("PLEASE ENTER YOUR PASSWORD");
         @NotNull final String password = serviceLocator.getTerminalService().nextLine();
-        User user = null;
-        user = serviceLocator.getUserService().authUser(login, password);
+        @NotNull final User user = serviceLocator.getUserService().authUser(login, password);
         serviceLocator.getUserService().setCurrentUser(user);
         System.out.println("WELCOME, " + user.getLogin());
 

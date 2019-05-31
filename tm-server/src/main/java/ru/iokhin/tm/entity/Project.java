@@ -15,12 +15,7 @@ import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
-//@XmlRootElement(name = "project")
-//@XmlAccessorType(XmlAccessType.FIELD)
 public final class Project extends AbstractEntity {
-
-//    @Nullable
-//    private String parentId;
 
     @Nullable
     private Date startDate;

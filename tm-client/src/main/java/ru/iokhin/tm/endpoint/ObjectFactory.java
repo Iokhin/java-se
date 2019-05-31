@@ -25,10 +25,33 @@ import javax.xml.namespace.QName;
 public class ObjectFactory {
 
     private final static QName _AuthException_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "AuthException");
+    private final static QName _ClassNotFoundException_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "ClassNotFoundException");
+    private final static QName _IOException_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "IOException");
+    private final static QName _JAXBException_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "JAXBException");
     private final static QName _AddUser_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "addUser");
     private final static QName _AddUserResponse_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "addUserResponse");
     private final static QName _AuthUser_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "authUser");
     private final static QName _AuthUserResponse_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "authUserResponse");
+    private final static QName _DataBinLoad_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "dataBinLoad");
+    private final static QName _DataBinLoadResponse_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "dataBinLoadResponse");
+    private final static QName _DataBinSave_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "dataBinSave");
+    private final static QName _DataBinSaveResponse_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "dataBinSaveResponse");
+    private final static QName _DataFasterJSONLoad_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "dataFasterJSONLoad");
+    private final static QName _DataFasterJSONLoadResponse_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "dataFasterJSONLoadResponse");
+    private final static QName _DataFasterJSONSave_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "dataFasterJSONSave");
+    private final static QName _DataFasterJSONSaveResponse_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "dataFasterJSONSaveResponse");
+    private final static QName _DataFasterXMLLoad_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "dataFasterXMLLoad");
+    private final static QName _DataFasterXMLLoadResponse_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "dataFasterXMLLoadResponse");
+    private final static QName _DataFasterXMLSave_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "dataFasterXMLSave");
+    private final static QName _DataFasterXMLSaveResponse_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "dataFasterXMLSaveResponse");
+    private final static QName _DataJAXBJSONLoad_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "dataJAXBJSONLoad");
+    private final static QName _DataJAXBJSONLoadResponse_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "dataJAXBJSONLoadResponse");
+    private final static QName _DataJAXBJSONSave_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "dataJAXBJSONSave");
+    private final static QName _DataJAXBJSONSaveResponse_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "dataJAXBJSONSaveResponse");
+    private final static QName _DataJAXBXMLLoad_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "dataJAXBXMLLoad");
+    private final static QName _DataJAXBXMLLoadResponse_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "dataJAXBXMLLoadResponse");
+    private final static QName _DataJAXBXMLSave_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "dataJAXBXMLSave");
+    private final static QName _DataJAXBXMLSaveResponse_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "dataJAXBXMLSaveResponse");
     private final static QName _EditUser_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "editUser");
     private final static QName _EditUserResponse_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "editUserResponse");
     private final static QName _FindById_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "findById");
@@ -53,6 +76,30 @@ public class ObjectFactory {
      */
     public AuthException createAuthException() {
         return new AuthException();
+    }
+
+    /**
+     * Create an instance of {@link ClassNotFoundException }
+     * 
+     */
+    public ClassNotFoundException createClassNotFoundException() {
+        return new ClassNotFoundException();
+    }
+
+    /**
+     * Create an instance of {@link IOException }
+     * 
+     */
+    public IOException createIOException() {
+        return new IOException();
+    }
+
+    /**
+     * Create an instance of {@link JAXBException }
+     * 
+     */
+    public JAXBException createJAXBException() {
+        return new JAXBException();
     }
 
     /**
@@ -85,6 +132,166 @@ public class ObjectFactory {
      */
     public AuthUserResponse createAuthUserResponse() {
         return new AuthUserResponse();
+    }
+
+    /**
+     * Create an instance of {@link DataBinLoad }
+     * 
+     */
+    public DataBinLoad createDataBinLoad() {
+        return new DataBinLoad();
+    }
+
+    /**
+     * Create an instance of {@link DataBinLoadResponse }
+     * 
+     */
+    public DataBinLoadResponse createDataBinLoadResponse() {
+        return new DataBinLoadResponse();
+    }
+
+    /**
+     * Create an instance of {@link DataBinSave }
+     * 
+     */
+    public DataBinSave createDataBinSave() {
+        return new DataBinSave();
+    }
+
+    /**
+     * Create an instance of {@link DataBinSaveResponse }
+     * 
+     */
+    public DataBinSaveResponse createDataBinSaveResponse() {
+        return new DataBinSaveResponse();
+    }
+
+    /**
+     * Create an instance of {@link DataFasterJSONLoad }
+     * 
+     */
+    public DataFasterJSONLoad createDataFasterJSONLoad() {
+        return new DataFasterJSONLoad();
+    }
+
+    /**
+     * Create an instance of {@link DataFasterJSONLoadResponse }
+     * 
+     */
+    public DataFasterJSONLoadResponse createDataFasterJSONLoadResponse() {
+        return new DataFasterJSONLoadResponse();
+    }
+
+    /**
+     * Create an instance of {@link DataFasterJSONSave }
+     * 
+     */
+    public DataFasterJSONSave createDataFasterJSONSave() {
+        return new DataFasterJSONSave();
+    }
+
+    /**
+     * Create an instance of {@link DataFasterJSONSaveResponse }
+     * 
+     */
+    public DataFasterJSONSaveResponse createDataFasterJSONSaveResponse() {
+        return new DataFasterJSONSaveResponse();
+    }
+
+    /**
+     * Create an instance of {@link DataFasterXMLLoad }
+     * 
+     */
+    public DataFasterXMLLoad createDataFasterXMLLoad() {
+        return new DataFasterXMLLoad();
+    }
+
+    /**
+     * Create an instance of {@link DataFasterXMLLoadResponse }
+     * 
+     */
+    public DataFasterXMLLoadResponse createDataFasterXMLLoadResponse() {
+        return new DataFasterXMLLoadResponse();
+    }
+
+    /**
+     * Create an instance of {@link DataFasterXMLSave }
+     * 
+     */
+    public DataFasterXMLSave createDataFasterXMLSave() {
+        return new DataFasterXMLSave();
+    }
+
+    /**
+     * Create an instance of {@link DataFasterXMLSaveResponse }
+     * 
+     */
+    public DataFasterXMLSaveResponse createDataFasterXMLSaveResponse() {
+        return new DataFasterXMLSaveResponse();
+    }
+
+    /**
+     * Create an instance of {@link DataJAXBJSONLoad }
+     * 
+     */
+    public DataJAXBJSONLoad createDataJAXBJSONLoad() {
+        return new DataJAXBJSONLoad();
+    }
+
+    /**
+     * Create an instance of {@link DataJAXBJSONLoadResponse }
+     * 
+     */
+    public DataJAXBJSONLoadResponse createDataJAXBJSONLoadResponse() {
+        return new DataJAXBJSONLoadResponse();
+    }
+
+    /**
+     * Create an instance of {@link DataJAXBJSONSave }
+     * 
+     */
+    public DataJAXBJSONSave createDataJAXBJSONSave() {
+        return new DataJAXBJSONSave();
+    }
+
+    /**
+     * Create an instance of {@link DataJAXBJSONSaveResponse }
+     * 
+     */
+    public DataJAXBJSONSaveResponse createDataJAXBJSONSaveResponse() {
+        return new DataJAXBJSONSaveResponse();
+    }
+
+    /**
+     * Create an instance of {@link DataJAXBXMLLoad }
+     * 
+     */
+    public DataJAXBXMLLoad createDataJAXBXMLLoad() {
+        return new DataJAXBXMLLoad();
+    }
+
+    /**
+     * Create an instance of {@link DataJAXBXMLLoadResponse }
+     * 
+     */
+    public DataJAXBXMLLoadResponse createDataJAXBXMLLoadResponse() {
+        return new DataJAXBXMLLoadResponse();
+    }
+
+    /**
+     * Create an instance of {@link DataJAXBXMLSave }
+     * 
+     */
+    public DataJAXBXMLSave createDataJAXBXMLSave() {
+        return new DataJAXBXMLSave();
+    }
+
+    /**
+     * Create an instance of {@link DataJAXBXMLSaveResponse }
+     * 
+     */
+    public DataJAXBXMLSaveResponse createDataJAXBXMLSaveResponse() {
+        return new DataJAXBXMLSaveResponse();
     }
 
     /**
@@ -184,6 +391,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Throwable }
+     * 
+     */
+    public Throwable createThrowable() {
+        return new Throwable();
+    }
+
+    /**
+     * Create an instance of {@link StackTraceElement }
+     * 
+     */
+    public StackTraceElement createStackTraceElement() {
+        return new StackTraceElement();
+    }
+
+    /**
      * Create an instance of {@link Session }
      * 
      */
@@ -198,6 +421,33 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://endpoint.tm.iokhin.ru/", name = "AuthException")
     public JAXBElement<AuthException> createAuthException(AuthException value) {
         return new JAXBElement<AuthException>(_AuthException_QNAME, AuthException.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ClassNotFoundException }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.tm.iokhin.ru/", name = "ClassNotFoundException")
+    public JAXBElement<ClassNotFoundException> createClassNotFoundException(ClassNotFoundException value) {
+        return new JAXBElement<ClassNotFoundException>(_ClassNotFoundException_QNAME, ClassNotFoundException.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link IOException }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.tm.iokhin.ru/", name = "IOException")
+    public JAXBElement<IOException> createIOException(IOException value) {
+        return new JAXBElement<IOException>(_IOException_QNAME, IOException.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link JAXBException }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.tm.iokhin.ru/", name = "JAXBException")
+    public JAXBElement<JAXBException> createJAXBException(JAXBException value) {
+        return new JAXBElement<JAXBException>(_JAXBException_QNAME, JAXBException.class, null, value);
     }
 
     /**
@@ -234,6 +484,186 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://endpoint.tm.iokhin.ru/", name = "authUserResponse")
     public JAXBElement<AuthUserResponse> createAuthUserResponse(AuthUserResponse value) {
         return new JAXBElement<AuthUserResponse>(_AuthUserResponse_QNAME, AuthUserResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link DataBinLoad }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.tm.iokhin.ru/", name = "dataBinLoad")
+    public JAXBElement<DataBinLoad> createDataBinLoad(DataBinLoad value) {
+        return new JAXBElement<DataBinLoad>(_DataBinLoad_QNAME, DataBinLoad.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link DataBinLoadResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.tm.iokhin.ru/", name = "dataBinLoadResponse")
+    public JAXBElement<DataBinLoadResponse> createDataBinLoadResponse(DataBinLoadResponse value) {
+        return new JAXBElement<DataBinLoadResponse>(_DataBinLoadResponse_QNAME, DataBinLoadResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link DataBinSave }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.tm.iokhin.ru/", name = "dataBinSave")
+    public JAXBElement<DataBinSave> createDataBinSave(DataBinSave value) {
+        return new JAXBElement<DataBinSave>(_DataBinSave_QNAME, DataBinSave.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link DataBinSaveResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.tm.iokhin.ru/", name = "dataBinSaveResponse")
+    public JAXBElement<DataBinSaveResponse> createDataBinSaveResponse(DataBinSaveResponse value) {
+        return new JAXBElement<DataBinSaveResponse>(_DataBinSaveResponse_QNAME, DataBinSaveResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link DataFasterJSONLoad }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.tm.iokhin.ru/", name = "dataFasterJSONLoad")
+    public JAXBElement<DataFasterJSONLoad> createDataFasterJSONLoad(DataFasterJSONLoad value) {
+        return new JAXBElement<DataFasterJSONLoad>(_DataFasterJSONLoad_QNAME, DataFasterJSONLoad.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link DataFasterJSONLoadResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.tm.iokhin.ru/", name = "dataFasterJSONLoadResponse")
+    public JAXBElement<DataFasterJSONLoadResponse> createDataFasterJSONLoadResponse(DataFasterJSONLoadResponse value) {
+        return new JAXBElement<DataFasterJSONLoadResponse>(_DataFasterJSONLoadResponse_QNAME, DataFasterJSONLoadResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link DataFasterJSONSave }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.tm.iokhin.ru/", name = "dataFasterJSONSave")
+    public JAXBElement<DataFasterJSONSave> createDataFasterJSONSave(DataFasterJSONSave value) {
+        return new JAXBElement<DataFasterJSONSave>(_DataFasterJSONSave_QNAME, DataFasterJSONSave.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link DataFasterJSONSaveResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.tm.iokhin.ru/", name = "dataFasterJSONSaveResponse")
+    public JAXBElement<DataFasterJSONSaveResponse> createDataFasterJSONSaveResponse(DataFasterJSONSaveResponse value) {
+        return new JAXBElement<DataFasterJSONSaveResponse>(_DataFasterJSONSaveResponse_QNAME, DataFasterJSONSaveResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link DataFasterXMLLoad }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.tm.iokhin.ru/", name = "dataFasterXMLLoad")
+    public JAXBElement<DataFasterXMLLoad> createDataFasterXMLLoad(DataFasterXMLLoad value) {
+        return new JAXBElement<DataFasterXMLLoad>(_DataFasterXMLLoad_QNAME, DataFasterXMLLoad.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link DataFasterXMLLoadResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.tm.iokhin.ru/", name = "dataFasterXMLLoadResponse")
+    public JAXBElement<DataFasterXMLLoadResponse> createDataFasterXMLLoadResponse(DataFasterXMLLoadResponse value) {
+        return new JAXBElement<DataFasterXMLLoadResponse>(_DataFasterXMLLoadResponse_QNAME, DataFasterXMLLoadResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link DataFasterXMLSave }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.tm.iokhin.ru/", name = "dataFasterXMLSave")
+    public JAXBElement<DataFasterXMLSave> createDataFasterXMLSave(DataFasterXMLSave value) {
+        return new JAXBElement<DataFasterXMLSave>(_DataFasterXMLSave_QNAME, DataFasterXMLSave.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link DataFasterXMLSaveResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.tm.iokhin.ru/", name = "dataFasterXMLSaveResponse")
+    public JAXBElement<DataFasterXMLSaveResponse> createDataFasterXMLSaveResponse(DataFasterXMLSaveResponse value) {
+        return new JAXBElement<DataFasterXMLSaveResponse>(_DataFasterXMLSaveResponse_QNAME, DataFasterXMLSaveResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link DataJAXBJSONLoad }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.tm.iokhin.ru/", name = "dataJAXBJSONLoad")
+    public JAXBElement<DataJAXBJSONLoad> createDataJAXBJSONLoad(DataJAXBJSONLoad value) {
+        return new JAXBElement<DataJAXBJSONLoad>(_DataJAXBJSONLoad_QNAME, DataJAXBJSONLoad.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link DataJAXBJSONLoadResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.tm.iokhin.ru/", name = "dataJAXBJSONLoadResponse")
+    public JAXBElement<DataJAXBJSONLoadResponse> createDataJAXBJSONLoadResponse(DataJAXBJSONLoadResponse value) {
+        return new JAXBElement<DataJAXBJSONLoadResponse>(_DataJAXBJSONLoadResponse_QNAME, DataJAXBJSONLoadResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link DataJAXBJSONSave }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.tm.iokhin.ru/", name = "dataJAXBJSONSave")
+    public JAXBElement<DataJAXBJSONSave> createDataJAXBJSONSave(DataJAXBJSONSave value) {
+        return new JAXBElement<DataJAXBJSONSave>(_DataJAXBJSONSave_QNAME, DataJAXBJSONSave.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link DataJAXBJSONSaveResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.tm.iokhin.ru/", name = "dataJAXBJSONSaveResponse")
+    public JAXBElement<DataJAXBJSONSaveResponse> createDataJAXBJSONSaveResponse(DataJAXBJSONSaveResponse value) {
+        return new JAXBElement<DataJAXBJSONSaveResponse>(_DataJAXBJSONSaveResponse_QNAME, DataJAXBJSONSaveResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link DataJAXBXMLLoad }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.tm.iokhin.ru/", name = "dataJAXBXMLLoad")
+    public JAXBElement<DataJAXBXMLLoad> createDataJAXBXMLLoad(DataJAXBXMLLoad value) {
+        return new JAXBElement<DataJAXBXMLLoad>(_DataJAXBXMLLoad_QNAME, DataJAXBXMLLoad.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link DataJAXBXMLLoadResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.tm.iokhin.ru/", name = "dataJAXBXMLLoadResponse")
+    public JAXBElement<DataJAXBXMLLoadResponse> createDataJAXBXMLLoadResponse(DataJAXBXMLLoadResponse value) {
+        return new JAXBElement<DataJAXBXMLLoadResponse>(_DataJAXBXMLLoadResponse_QNAME, DataJAXBXMLLoadResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link DataJAXBXMLSave }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.tm.iokhin.ru/", name = "dataJAXBXMLSave")
+    public JAXBElement<DataJAXBXMLSave> createDataJAXBXMLSave(DataJAXBXMLSave value) {
+        return new JAXBElement<DataJAXBXMLSave>(_DataJAXBXMLSave_QNAME, DataJAXBXMLSave.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link DataJAXBXMLSaveResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.tm.iokhin.ru/", name = "dataJAXBXMLSaveResponse")
+    public JAXBElement<DataJAXBXMLSaveResponse> createDataJAXBXMLSaveResponse(DataJAXBXMLSaveResponse value) {
+        return new JAXBElement<DataJAXBXMLSaveResponse>(_DataJAXBXMLSaveResponse_QNAME, DataJAXBXMLSaveResponse.class, null, value);
     }
 
     /**

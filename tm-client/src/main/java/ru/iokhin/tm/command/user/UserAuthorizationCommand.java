@@ -26,7 +26,7 @@ public class UserAuthorizationCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() throws AuthException_Exception, SOAPException_Exception {
+    public void execute() throws AuthException_Exception {
         System.out.println("PLEASE ENTER YOUR LOGIN");
         @NotNull final String login = endpointServiceLocator.getTerminalService().nextLine();
         System.out.println("PLEASE ENTER YOUR PASSWORD");

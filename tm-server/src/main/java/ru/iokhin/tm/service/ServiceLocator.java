@@ -12,6 +12,7 @@ import ru.iokhin.tm.repository.TaskRepository;
 import ru.iokhin.tm.repository.UserRepository;
 
 import java.util.Map;
+
 @Getter
 @AllArgsConstructor
 public class ServiceLocator implements IServiceLocator {
@@ -37,7 +38,7 @@ public class ServiceLocator implements IServiceLocator {
     private final TaskService taskService = new TaskService(taskRepository);
 
     @NotNull
-    private final UserService userService = new UserService(userRepository);
+    private final UserService userService = new UserService(userRepository, projectRepository, taskRepository);
 
     @NotNull
     private final TerminalService terminalService = new TerminalService();

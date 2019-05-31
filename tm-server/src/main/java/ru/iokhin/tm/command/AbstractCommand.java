@@ -23,6 +23,6 @@ abstract public class AbstractCommand {
 
     abstract public String description();
 
-    abstract public void execute() throws AuthException, SOAPException;
+    abstract public void execute() throws AuthException;
 
 }

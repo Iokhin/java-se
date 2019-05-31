@@ -8,7 +8,9 @@ import ru.iokhin.tm.entity.User;
 import ru.iokhin.tm.enumerated.RoleType;
 import ru.iokhin.tm.exeption.AuthException;
 
+import javax.xml.bind.JAXBException;
 import javax.xml.soap.SOAPException;
+import java.io.IOException;
 
 public interface IUserService extends IService<User> {
     User add(@NotNull final RoleType roleType, @NotNull final String login, @NotNull final String password);
@@ -26,4 +28,25 @@ public interface IUserService extends IService<User> {
     User authUser(@NotNull String login, @NotNull String password) throws AuthException;
 
     boolean changePassword(@NotNull String oldPassword, @NotNull String newPassword);
+
+    void dataBinSave() throws IOException;
+
+    void dataBinLoad() throws IOException, ClassNotFoundException;
+
+    void dataJAXBXMLSave() throws JAXBException;
+
+    void dataJAXBXMLLoad() throws JAXBException;
+
+    void dataJAXBJSONSave() throws JAXBException;
+
+    void dataJAXBJSONLoad() throws JAXBException;
+
+    void dataFasterXMLSave() throws IOException;
+
+    void dataFasterXMLLoad() throws IOException;
+
+    void dataFasterJSONLoad() throws IOException;
+
+    void dataFasterJSONSave() throws IOException;
+
 }

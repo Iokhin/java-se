@@ -33,64 +33,13 @@ final class Bootstrap {
     @NotNull
     private final IServiceLocator serviceLocator = new ServiceLocator(commandMap);
 
-    private boolean isAuth() {
-        return serviceLocator.getUserService().getCurrentUser() != null;
-    }
-
-    void init(Class[] CLASSES) {
+    void init() {
         Endpoint.publish("http://localhost:8080/ProjectEndpointBean", new ProjectEndpointBean(serviceLocator));
         Endpoint.publish("http://localhost:8080/SessionEndpointBean", new SessionEndpointBean(serviceLocator));
         Endpoint.publish("http://localhost:8080/TaskEndpointBean", new TaskEndpointBean(serviceLocator));
         Endpoint.publish("http://localhost:8080/UserEndpointBean", new UserEndpointBean(serviceLocator));
         generateTestData();
-        for (Class commandClass : CLASSES) {
-            AbstractCommand commandInstance = null;
-            try {
-                commandInstance = (AbstractCommand) commandClass.newInstance();
-            } catch (InstantiationException | IllegalAccessException e) {
-                e.printStackTrace();
-            }
-            if (isAbstractCommand(commandInstance)) {
-                commandRegister(commandInstance);
-            }
-        }
-
         System.out.println("***WELCOME TO TM-SERVER***");
-        @NotNull String input = "";
-
-        while (!input.equals("exit")) {
-            input = serviceLocator.getTerminalService().nextLine();
-            AbstractCommand command = this.commandMap.get(input);
-            try {
-                execute(command);
-            } catch (AuthException | IllegalArgumentException | NonexistentCommandException e) {
-                System.out.println(e.getMessage());
-            } catch (SOAPException e) {
-
-            }
-        }
-    }
-
-    private void execute(@Nullable AbstractCommand command) throws AuthException, NonexistentCommandException, SOAPException {
-        if (command == null) throw new NonexistentCommandException();
-        if (!command.security()) {
-            command.execute();
-        } else {
-            if (this.isAuth())
-                command.execute();
-            else {
-                throw new AuthException();
-            }
-        }
-    }
-
-    private void commandRegister(AbstractCommand abstractCommand) {
-        abstractCommand.setServiceLocator(serviceLocator);
-        this.commandMap.put(abstractCommand.name(), abstractCommand);
-    }
-
-    private boolean isAbstractCommand(Object o) {
-        return o instanceof AbstractCommand;
     }
 
     private void generateTestData() {
