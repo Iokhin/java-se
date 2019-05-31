@@ -22,7 +22,7 @@ public class TaskRemoveAllByUserCommand extends AbstractCommand {
 
     @Override
     public void execute() throws AuthException_Exception {
-        endpointServiceLocator.getTaskEndpointBean().removeAllByUserId(endpointServiceLocator.getSession());
+        endpointServiceLocator.getTaskEndpointBean().removeAllTaskByUserId(endpointServiceLocator.getSession());
         User user = endpointServiceLocator.getUserEndpointBean().findById(endpointServiceLocator.getSession().getParentId());
         System.out.println("ALL TASKS FOR " + user.getLogin() + " WAS REMOVED");
     }

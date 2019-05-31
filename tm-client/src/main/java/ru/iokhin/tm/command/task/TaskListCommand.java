@@ -42,6 +42,6 @@ public final class TaskListCommand extends AbstractCommand {
     }
 
     private Collection<Task> getTaskList(String projectId) throws AuthException_Exception {
-        return endpointServiceLocator.getTaskEndpointBean().findAllByProjectId(endpointServiceLocator.getSession(), projectId);
+        return endpointServiceLocator.getTaskEndpointBean().findAllTaskByProjectId(endpointServiceLocator.getSession(), projectId);
     }
 }

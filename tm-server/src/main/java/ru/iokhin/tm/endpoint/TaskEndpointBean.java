@@ -39,7 +39,7 @@ public class TaskEndpointBean implements TaskEndpoint {
     }
 
     @Override
-    public Task edit(@WebParam(name = "session") @NotNull final Session session,
+    public Task editTask(@WebParam(name = "session") @NotNull final Session session,
                      @WebParam(name = "id") @NotNull final String id,
                      @WebParam(name = "name") @NotNull final String name) throws AuthException {
         sessionService.validate(session);
@@ -47,26 +47,26 @@ public class TaskEndpointBean implements TaskEndpoint {
     }
 
     @Override
-    public Task remove(@WebParam(name = "session") @NotNull final Session session,
+    public Task removeTask(@WebParam(name = "session") @NotNull final Session session,
                        @WebParam(name = "id") @NotNull final String id) throws AuthException {
         sessionService.validate(session);
         return taskService.remove(session.getParentId(), id);
     }
 
     @Override
-    public void removeAllByUserId(@WebParam(name = "session") @NotNull final Session session) throws AuthException {
+    public void removeAllTaskByUserId(@WebParam(name = "session") @NotNull final Session session) throws AuthException {
         sessionService.validate(session);
         taskService.removeAllByUserId(session.getParentId());
     }
 
     @Override
-    public Collection<Task> findAllByUserId(@WebParam(name = "session") @NotNull final Session session) throws AuthException {
+    public Collection<Task> findAllTaskByUserId(@WebParam(name = "session") @NotNull final Session session) throws AuthException {
         sessionService.validate(session);
         return taskService.findAllByUserId(session.getParentId());
     }
 
     @Override
-    public Collection<Task> findAllByProjectId(@WebParam(name = "session") @NotNull final Session session,
+    public Collection<Task> findAllTaskByProjectId(@WebParam(name = "session") @NotNull final Session session,
                                                @WebParam(name = "projectId") @NotNull final String projectId) throws AuthException {
         sessionService.validate(session);
         return taskService.findAllByProjectId(session.getParentId(), projectId);

@@ -16,18 +16,18 @@ public interface TaskEndpoint {
              @WebParam(name = "projectId") @NotNull final String projectId,
              @WebParam(name = "name") @NotNull final String name) throws AuthException;
 
-    Task edit(@WebParam(name = "session") @NotNull final Session session,
+    Task editTask(@WebParam(name = "session") @NotNull final Session session,
               @WebParam(name = "id") @NotNull final String id,
               @WebParam(name = "name") @NotNull final String name) throws AuthException;
 
-    Task remove(@WebParam(name = "session") @NotNull final Session session,
+    Task removeTask(@WebParam(name = "session") @NotNull final Session session,
                 @WebParam(name = "id") @NotNull final String id) throws AuthException;
 
-    void removeAllByUserId(@WebParam(name = "session") @NotNull final Session session) throws AuthException;
+    void removeAllTaskByUserId(@WebParam(name = "session") @NotNull final Session session) throws AuthException;
 
-    Collection<Task> findAllByUserId(@WebParam(name = "session") @NotNull final Session session) throws AuthException;
+    Collection<Task> findAllTaskByUserId(@WebParam(name = "session") @NotNull final Session session) throws AuthException;
 
-    Collection<Task> findAllByProjectId(@WebParam(name = "session") @NotNull final Session session,
+    Collection<Task> findAllTaskByProjectId(@WebParam(name = "session") @NotNull final Session session,
                                         @WebParam(name = "projectId") @NotNull final String projectId) throws AuthException;
 
     boolean removeAllByProjectId(@WebParam(name = "session") @NotNull final Session session,

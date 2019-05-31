@@ -7,18 +7,17 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for edit complex type.
+ * <p>Java class for findAllTaskByProjectId complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="edit"&gt;
+ * &lt;complexType name="findAllTaskByProjectId"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
  *         &lt;element name="session" type="{http://endpoint.tm.iokhin.ru/}session" minOccurs="0"/&gt;
- *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
- *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="projectId" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -28,16 +27,14 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "edit", propOrder = {
+@XmlType(name = "findAllTaskByProjectId", propOrder = {
     "session",
-    "id",
-    "name"
+    "projectId"
 })
-public class Edit {
+public class FindAllTaskByProjectId {
 
     protected Session session;
-    protected String id;
-    protected String name;
+    protected String projectId;
 
     /**
      * Gets the value of the session property.
@@ -64,51 +61,27 @@ public class Edit {
     }
 
     /**
-     * Gets the value of the id property.
+     * Gets the value of the projectId property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getId() {
-        return id;
+    public String getProjectId() {
+        return projectId;
     }
 
     /**
-     * Sets the value of the id property.
+     * Sets the value of the projectId property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setId(String value) {
-        this.id = value;
-    }
-
-    /**
-     * Gets the value of the name property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Sets the value of the name property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setName(String value) {
-        this.name = value;
+    public void setProjectId(String value) {
+        this.projectId = value;
     }
 
 }

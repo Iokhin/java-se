@@ -18,8 +18,7 @@ public interface ProjectEndpoint {
 
     Project edit(@WebParam(name = "session") @NotNull final Session session,
                  @WebParam(name = "id") @NotNull final String id,
-                 @WebParam(name = "name") @NotNull final String name,
-                 @WebParam(name = "status") @NotNull final Status status) throws AuthException;
+                 @WebParam(name = "name") @NotNull final String name) throws AuthException;
 
     Project remove(@WebParam(name = "session") @NotNull final Session session,
                    @WebParam(name = "id") @NotNull final String id) throws AuthException;

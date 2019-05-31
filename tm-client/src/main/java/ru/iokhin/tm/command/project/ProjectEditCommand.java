@@ -30,7 +30,7 @@ public final class ProjectEditCommand extends AbstractCommand {
         @NotNull final String projectId = endpointServiceLocator.getTerminalService().nextLine();
         System.out.println("ENTER NEW NAME OF PROJECT TO EDIT");
         @NotNull final String newName = endpointServiceLocator.getTerminalService().nextLine();
-        if (endpointServiceLocator.getProjectEndpointBean().edit(endpointServiceLocator.getSession(), projectId, newName, Status.PROCCESSING) == null) {
+        if (endpointServiceLocator.getProjectEndpointBean().edit(endpointServiceLocator.getSession(), projectId, newName) == null) {
             System.out.println("NO SUCH PROJECT ID");
             return;
         }

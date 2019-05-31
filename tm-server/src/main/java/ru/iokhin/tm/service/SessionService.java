@@ -43,6 +43,7 @@ public class SessionService extends AbstractService<Session, ISessionRepository>
             throw new AuthException("INVALID SESSION");
         final Session temp = session.clone();
         temp.setSignature(null);
+//        if (!sign(temp).equals(session.getSignature())) throw new AuthException("INVALID SESSION");
     }
 
     @Override

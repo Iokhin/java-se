@@ -22,6 +22,6 @@ public class TaskListAllCommand extends AbstractCommand {
     @Override
     public void execute() throws AuthException_Exception {
         System.out.println("TASK LIST:");
-        endpointServiceLocator.getTaskEndpointBean().findAllByUserId(endpointServiceLocator.getSession()).forEach(System.out::println);
+        endpointServiceLocator.getTaskEndpointBean().findAllTaskByUserId(endpointServiceLocator.getSession()).forEach(System.out::println);
     }
 }

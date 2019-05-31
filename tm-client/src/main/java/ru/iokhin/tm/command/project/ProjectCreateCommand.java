@@ -32,7 +32,7 @@ public final class ProjectCreateCommand extends AbstractCommand {
         System.out.println("OK");
     }
 
-    private void projectCreateCommand(@NotNull String name) {
+    private void projectCreateCommand(@NotNull String name) throws AuthException_Exception {
         endpointServiceLocator.getProjectEndpointBean().add(endpointServiceLocator.getSession(), name);
     }
 }

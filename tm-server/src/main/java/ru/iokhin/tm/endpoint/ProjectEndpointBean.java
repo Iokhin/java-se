@@ -30,22 +30,17 @@ public class ProjectEndpointBean implements ru.iokhin.tm.api.endpoint.ProjectEnd
 
     @Override
     public Project add(@WebParam(name = "session") @NotNull final Session session,
-                       @WebParam(name = "name") @NotNull final String name) {
-        try {
-            sessionService.validate(session);
-        } catch (AuthException e) {
-            System.out.println(e.getMessage());
-        }
+                       @WebParam(name = "name") @NotNull final String name) throws AuthException {
+        sessionService.validate(session);
         return projectService.add(session.getParentId(), name);
     }
 
     @Override
     public Project edit(@WebParam(name = "session") @NotNull final Session session,
                         @WebParam(name = "id") @NotNull final String id,
-                        @WebParam(name = "name") @NotNull final String name,
-                        @WebParam(name = "status") @NotNull final Status status) throws AuthException {
+                        @WebParam(name = "name") @NotNull final String name) throws AuthException {
         sessionService.validate(session);
-        return projectService.edit(session.getParentId(), id, name, status);
+        return projectService.edit(session.getParentId(), id, name, Status.PROCCESSING);
     }
 
     @Override

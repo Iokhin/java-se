@@ -4,7 +4,6 @@ import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.command.AbstractCommand;
 import ru.iokhin.tm.endpoint.AuthException_Exception;
-import ru.iokhin.tm.endpoint.SOAPException_Exception;
 import ru.iokhin.tm.endpoint.Session;
 
 @NoArgsConstructor

@@ -30,7 +30,7 @@ public final class TaskEditCommand extends AbstractCommand {
         @NotNull final String taskId = endpointServiceLocator.getTerminalService().nextLine();
         System.out.println("ENTER NEW NAME OF TASK TO EDIT");
         @NotNull final String newTaskName = endpointServiceLocator.getTerminalService().nextLine();
-        if (endpointServiceLocator.getTaskEndpointBean().edit(endpointServiceLocator.getSession(), taskId, newTaskName, Status.PROCCESSING) == null) {
+        if (endpointServiceLocator.getTaskEndpointBean().editTask(endpointServiceLocator.getSession(), taskId, newTaskName) == null) {
             System.out.println("NO SUCH TASK ID");
             return;
         }

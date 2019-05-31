@@ -27,7 +27,7 @@ public final class TaskRemoveCommand extends AbstractCommand {
     public void execute() throws AuthException_Exception {
         System.out.println("ENTER ID OF TASk TO REMOVE");
         @NotNull final String taskId = endpointServiceLocator.getTerminalService().nextLine();
-        if (endpointServiceLocator.getTaskEndpointBean().remove(endpointServiceLocator.getSession(), taskId) == null) {
+        if (endpointServiceLocator.getTaskEndpointBean().removeTask(endpointServiceLocator.getSession(), taskId) == null) {
             System.out.println("NO SUCH TASK ID");
             return;
         }
