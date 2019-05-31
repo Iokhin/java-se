@@ -12,4 +12,6 @@
 
 Для запуска приложения:
 
-	mvn exec:java
+	java -jar tm-server-1.0.0.jar
+	
+	java -jar tm-client-1.0.0.jar
