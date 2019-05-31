@@ -12,6 +12,11 @@ public final class ExitCommand extends AbstractCommand {
     }
 
     @Override
+    public boolean admin() {
+        return false;
+    }
+
+    @Override
     public final String name() {
         return "exit";
     }

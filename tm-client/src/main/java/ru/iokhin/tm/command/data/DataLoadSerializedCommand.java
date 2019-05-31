@@ -15,6 +15,11 @@ public class DataLoadSerializedCommand extends AbstractCommand {
     }
 
     @Override
+    public boolean admin() {
+        return true;
+    }
+
+    @Override
     public String name() {
         return "data-load";
     }

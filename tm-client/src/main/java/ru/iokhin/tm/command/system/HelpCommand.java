@@ -13,6 +13,11 @@ public final class HelpCommand extends AbstractCommand {
     }
 
     @Override
+    public boolean admin() {
+        return false;
+    }
+
+    @Override
     public String name() {
         return "help";
     }

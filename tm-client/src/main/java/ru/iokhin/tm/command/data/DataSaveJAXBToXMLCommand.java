@@ -17,6 +17,11 @@ public class DataSaveJAXBToXMLCommand extends AbstractCommand {
     }
 
     @Override
+    public boolean admin() {
+        return true;
+    }
+
+    @Override
     public String name() {
         return "jaxb-xml-save";
     }

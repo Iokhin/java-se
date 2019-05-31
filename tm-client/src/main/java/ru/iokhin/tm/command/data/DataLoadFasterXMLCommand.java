@@ -15,6 +15,11 @@ public class DataLoadFasterXMLCommand extends AbstractCommand {
     }
 
     @Override
+    public boolean admin() {
+        return true;
+    }
+
+    @Override
     public String name() {
         return "faster-xml-load";
     }

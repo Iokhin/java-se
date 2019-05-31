@@ -11,6 +11,11 @@ public class TaskRemoveAllByUserCommand extends AbstractCommand {
     }
 
     @Override
+    public boolean admin() {
+        return false;
+    }
+
+    @Override
     public String name() {
         return "task-clear-all";
     }

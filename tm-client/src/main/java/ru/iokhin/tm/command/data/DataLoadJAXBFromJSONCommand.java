@@ -17,6 +17,11 @@ public class DataLoadJAXBFromJSONCommand extends AbstractCommand {
     }
 
     @Override
+    public boolean admin() {
+        return true;
+    }
+
+    @Override
     public String name() {
         return "jaxb-json-load";
     }

@@ -17,6 +17,11 @@ public final class TaskListCommand extends AbstractCommand {
     }
 
     @Override
+    public boolean admin() {
+        return false;
+    }
+
+    @Override
     public String name() {
         return "task-list";
     }

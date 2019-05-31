@@ -14,6 +14,11 @@ public class UserPasswordChangeCommand extends AbstractCommand {
     }
 
     @Override
+    public boolean admin() {
+        return false;
+    }
+
+    @Override
     public String name() {
         return "user-password-change";
     }

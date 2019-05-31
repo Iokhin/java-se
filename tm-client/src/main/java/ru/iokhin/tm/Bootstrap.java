@@ -5,10 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.iokhin.tm.api.IEndpointServiceLocator;
 import ru.iokhin.tm.command.AbstractCommand;
-import ru.iokhin.tm.endpoint.AuthException_Exception;
-import ru.iokhin.tm.endpoint.ClassNotFoundException_Exception;
-import ru.iokhin.tm.endpoint.IOException_Exception;
-import ru.iokhin.tm.endpoint.JAXBException_Exception;
+import ru.iokhin.tm.endpoint.*;
 import ru.iokhin.tm.exception.NonexistentCommandException;
 import ru.iokhin.tm.service.EndpointServiceLocator;
 
@@ -53,6 +50,9 @@ class Bootstrap {
     private void execute(@Nullable AbstractCommand command) throws AuthException_Exception, NonexistentCommandException, JAXBException_Exception, IOException_Exception, ClassNotFoundException_Exception {
         if (command == null) throw new NonexistentCommandException();
         if (command.security() && endpointServiceLocator.getSession() == null) throw new AuthException_Exception();
+        if (command.admin() &&
+                endpointServiceLocator.getUserEndpointBean().findById(endpointServiceLocator.getSession().getParentId()).getRoleType() != RoleType.ADMIN)
+            throw new AuthException_Exception("THIS COMMAND ALLOWS ONLY FOR ADMIN");
         command.execute();
     }
 }

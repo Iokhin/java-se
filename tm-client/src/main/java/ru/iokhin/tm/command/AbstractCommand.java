@@ -17,6 +17,8 @@ abstract public class AbstractCommand {
 
     abstract public boolean security();
 
+    abstract public boolean admin();
+
     abstract public String name();
 
     abstract public String description();

@@ -18,6 +18,11 @@ public class DataSaveJAXBJSONCommand extends AbstractCommand {
     }
 
     @Override
+    public boolean admin() {
+        return true;
+    }
+
+    @Override
     public String name() {
         return "jaxb-json-save";
     }

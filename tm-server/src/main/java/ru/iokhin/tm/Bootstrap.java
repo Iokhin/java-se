@@ -2,38 +2,38 @@ package ru.iokhin.tm;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.SneakyThrows;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import ru.iokhin.tm.api.service.IProjectService;
 import ru.iokhin.tm.api.service.IServiceLocator;
 import ru.iokhin.tm.api.service.ITaskService;
 import ru.iokhin.tm.api.service.IUserService;
-import ru.iokhin.tm.command.*;
 import ru.iokhin.tm.endpoint.ProjectEndpointBean;
 import ru.iokhin.tm.endpoint.SessionEndpointBean;
 import ru.iokhin.tm.endpoint.TaskEndpointBean;
 import ru.iokhin.tm.endpoint.UserEndpointBean;
 import ru.iokhin.tm.entity.Project;
 import ru.iokhin.tm.enumerated.RoleType;
-import ru.iokhin.tm.exeption.AuthException;
-import ru.iokhin.tm.exeption.NonexistentCommandException;
 import ru.iokhin.tm.service.*;
+import ru.iokhin.tm.util.DBConnect;
+import ru.iokhin.tm.util.PropertiesUtil;
 
-import javax.xml.soap.SOAPException;
 import javax.xml.ws.Endpoint;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.sql.*;
+import java.util.Properties;
 
 @Getter
 @Setter
 final class Bootstrap {
-    @NotNull
-    private final Map<String, AbstractCommand> commandMap = new LinkedHashMap<>(0);
 
     @NotNull
-    private final IServiceLocator serviceLocator = new ServiceLocator(commandMap);
+    private final IServiceLocator serviceLocator = new ServiceLocator();
 
+    @SneakyThrows
     void init() {
+        Properties properties = PropertiesUtil.load(Application.class);
+        Connection connection = DBConnect.connect(properties);
+
         Endpoint.publish("http://localhost:8080/ProjectEndpointBean", new ProjectEndpointBean(serviceLocator));
         Endpoint.publish("http://localhost:8080/SessionEndpointBean", new SessionEndpointBean(serviceLocator));
         Endpoint.publish("http://localhost:8080/TaskEndpointBean", new TaskEndpointBean(serviceLocator));

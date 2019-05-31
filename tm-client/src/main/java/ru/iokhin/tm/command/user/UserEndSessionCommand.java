@@ -14,6 +14,11 @@ public class UserEndSessionCommand extends AbstractCommand {
     }
 
     @Override
+    public boolean admin() {
+        return false;
+    }
+
+    @Override
     public String name() {
         return "user-logout";
     }

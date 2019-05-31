@@ -20,6 +20,11 @@ public final class AboutCommand extends AbstractCommand {
     }
 
     @Override
+    public boolean admin() {
+        return false;
+    }
+
+    @Override
     public final String name() {
         return "about";
     }

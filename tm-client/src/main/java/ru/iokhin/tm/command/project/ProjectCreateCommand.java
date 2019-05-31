@@ -14,6 +14,11 @@ public final class ProjectCreateCommand extends AbstractCommand {
     }
 
     @Override
+    public boolean admin() {
+        return false;
+    }
+
+    @Override
     public String name() {
         return "project-create";
     }

@@ -16,6 +16,11 @@ public class DataSaveFasterJSONCommand extends AbstractCommand {
     }
 
     @Override
+    public boolean admin() {
+        return true;
+    }
+
+    @Override
     public String name() {
         return "faster-json-save";
     }

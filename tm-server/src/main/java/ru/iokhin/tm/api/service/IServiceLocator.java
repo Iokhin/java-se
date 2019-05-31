@@ -1,9 +1,5 @@
 package ru.iokhin.tm.api.service;
 
-import ru.iokhin.tm.command.AbstractCommand;
-
-import java.util.Map;
-
 public interface IServiceLocator {
 
     IUserService getUserService();
@@ -13,8 +9,6 @@ public interface IServiceLocator {
     ITaskService getTaskService();
 
     ITerminalService getTerminalService();
-
-    Map<String, AbstractCommand> getCommandMap();
 
     ISessionService getSessionService();
 

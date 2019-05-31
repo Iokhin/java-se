@@ -14,6 +14,11 @@ public final class TaskRemoveAllByProjectCommand extends AbstractCommand {
     }
 
     @Override
+    public boolean admin() {
+        return false;
+    }
+
+    @Override
     public String name() {
         return "task-clear";
     }

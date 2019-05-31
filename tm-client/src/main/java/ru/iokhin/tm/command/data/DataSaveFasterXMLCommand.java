@@ -16,6 +16,11 @@ public class DataSaveFasterXMLCommand extends AbstractCommand {
     }
 
     @Override
+    public boolean admin() {
+        return true;
+    }
+
+    @Override
     public String name() {
         return "faster-xml-save";
     }

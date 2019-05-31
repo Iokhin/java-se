@@ -14,6 +14,11 @@ public class ProjectSortListCommand extends AbstractCommand {
     }
 
     @Override
+    public boolean admin() {
+        return false;
+    }
+
+    @Override
     public String name() {
         return "project-sort-list";
     }

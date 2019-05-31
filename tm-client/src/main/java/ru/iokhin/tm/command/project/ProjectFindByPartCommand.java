@@ -14,6 +14,11 @@ public class ProjectFindByPartCommand extends AbstractCommand {
     }
 
     @Override
+    public boolean admin() {
+        return false;
+    }
+
+    @Override
     public String name() {
         return "project-find";
     }

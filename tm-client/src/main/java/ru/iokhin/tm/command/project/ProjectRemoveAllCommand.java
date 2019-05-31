@@ -13,6 +13,11 @@ public final class ProjectRemoveAllCommand extends AbstractCommand {
     }
 
     @Override
+    public boolean admin() {
+        return false;
+    }
+
+    @Override
     public String name() {
         return "project-clear";
     }

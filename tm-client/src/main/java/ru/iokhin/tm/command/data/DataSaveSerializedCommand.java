@@ -15,6 +15,11 @@ public class DataSaveSerializedCommand extends AbstractCommand {
     }
 
     @Override
+    public boolean admin() {
+        return true;
+    }
+
+    @Override
     public String name() {
         return "data-save";
     }
