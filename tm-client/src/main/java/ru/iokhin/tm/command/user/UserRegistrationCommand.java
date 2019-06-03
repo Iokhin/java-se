@@ -3,6 +3,7 @@ package ru.iokhin.tm.command.user;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.command.AbstractCommand;
+import ru.iokhin.tm.endpoint.RoleType;
 
 @NoArgsConstructor
 public class UserRegistrationCommand extends AbstractCommand {
@@ -29,15 +30,15 @@ public class UserRegistrationCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-//        System.out.println("ENTER NEW USER'S LOGIN");
-//        @NotNull final String login = serviceLocator.getTerminalService().nextLine();
-//        if (serviceLocator.getUserService().findByLogin(login) != null) {
-//            System.out.println("SUCH LOGIN ALREADY EXIST");
-//            return;
-//        }
-//        System.out.println("ENTER NEW USER'S PASSWORD");
-//        @NotNull final String password = serviceLocator.getTerminalService().nextLine();
-//        serviceLocator.getUserService().add(RoleType.USER, login, password);
-//        System.out.println("SUCCESS");
+        System.out.println("ENTER NEW USER'S LOGIN");
+        @NotNull final String login = endpointServiceLocator.getTerminalService().nextLine();
+        if (endpointServiceLocator.getUserEndpointBean().findByLogin(login) != null) {
+            System.out.println("SUCH LOGIN ALREADY EXIST");
+            return;
+        }
+        System.out.println("ENTER NEW USER'S PASSWORD");
+        @NotNull final String password = endpointServiceLocator.getTerminalService().nextLine();
+        endpointServiceLocator.getUserEndpointBean().addUser(login, password);
+        System.out.println("SUCCESS");
     }
 }

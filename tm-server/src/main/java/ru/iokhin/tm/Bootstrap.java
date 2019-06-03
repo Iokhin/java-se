@@ -31,7 +31,7 @@ final class Bootstrap {
 
     @SneakyThrows
     void init() {
-        Properties properties = PropertiesUtil.load(Application.class);
+        Properties properties = PropertiesUtil.getProperties(Application.class);
         Connection connection = DBConnect.connect(properties);
 
         Endpoint.publish("http://localhost:8080/ProjectEndpointBean", new ProjectEndpointBean(serviceLocator));

@@ -1,13 +1,29 @@
 package ru.iokhin.tm.repository;
 
+import lombok.SneakyThrows;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.iokhin.tm.api.repository.IProjectRepository;
 import ru.iokhin.tm.entity.Project;
+import ru.iokhin.tm.util.FieldConst;
 
+import java.sql.ResultSet;
 import java.util.*;
 
 public class ProjectRepository extends AbstractRepository<Project> implements IProjectRepository {
+
+    @Nullable
+    @SneakyThrows
+    private Project fetch(@Nullable final ResultSet row) {
+        if (row == null) return null;
+        @NotNull final Project project = new Project();
+        project.setId(row.getString(FieldConst.ID));
+        project.setName(row.getString(FieldConst.NAME));
+        project.setDescription(row.getString(FieldConst.DESCRIPTION));
+        project.setStartDate(row.getDate(FieldConst.DATE_BEGIN));
+        project.setEndDate(row.getDate(FieldConst.DATE_END));
+        return project;
+    }
 
     @Override
     public Collection<Project> findAllByUserId(@NotNull final String userId) {

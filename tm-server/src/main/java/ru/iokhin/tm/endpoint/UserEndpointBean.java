@@ -44,9 +44,9 @@ public class UserEndpointBean implements UserEndpoint {
     @Override
     public User editUser(@WebParam(name = "session") @NotNull final Session session,
                          @WebParam(name = "newLogin") @NotNull final String newLogin,
-                         @WebParam(name = "newPasswordHash") @NotNull final String newPasswordHash) throws AuthException { //newPasswordHash????
+                         @WebParam(name = "newPassword") @NotNull final String newPassword) throws AuthException {
         sessionService.validate(session);
-        return userService.edit(session.getParentId(), newLogin, MD5Util.passwordToHash(newPasswordHash));
+        return userService.edit(session.getParentId(), newLogin, newPassword);
     }
 
     @Override

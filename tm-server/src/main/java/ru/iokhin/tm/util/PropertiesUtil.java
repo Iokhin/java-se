@@ -8,7 +8,7 @@ import java.util.Properties;
 
 public class PropertiesUtil {
 
-    public static Properties load(Class main) {
+    public static Properties getProperties(Class main) {
         @NotNull final Properties properties = new Properties();
         try (InputStream resourceStream = main.getClassLoader().getResourceAsStream("app.properties")) {
             properties.load(resourceStream);

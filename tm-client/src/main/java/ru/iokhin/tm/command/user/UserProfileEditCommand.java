@@ -2,7 +2,10 @@ package ru.iokhin.tm.command.user;
 
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.iokhin.tm.command.AbstractCommand;
+import ru.iokhin.tm.endpoint.AuthException_Exception;
+import ru.iokhin.tm.endpoint.User;
 
 @NoArgsConstructor
 public class UserProfileEditCommand extends AbstractCommand {
@@ -28,18 +31,17 @@ public class UserProfileEditCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() {
+    public void execute() throws AuthException_Exception {
+        @Nullable User currentUser = endpointServiceLocator.getUserEndpointBean().findById(endpointServiceLocator.getSession().getParentId());
         System.out.println("USER PROFILE:");
-//        System.out.println("USER ID: " + serviceLocator.getUserService().getCurrentUser().getId());
-//        System.out.println("USER LOGIN: " + serviceLocator.getUserService().getCurrentUser().getLogin());
-//        System.out.println("USER RIGHTS: " + serviceLocator.getUserService().getCurrentUser().getRoleType().displayName());
-//        System.out.println("ENTER NEW LOGIN TO EDIT");
-//        @NotNull final String login = serviceLocator.getTerminalService().nextLine();
-//        if (serviceLocator.getUserService().findByLogin(login) != null) {
-//            System.out.println("SUCH LOGIN ALREADY EXIST");
-//            return;
-//        }
-//        serviceLocator.getUserService().getCurrentUser().setLogin(login);
-//        System.out.println("SUCCESS");
+        System.out.println("USER ID: " + currentUser.getId());
+        System.out.println("USER LOGIN: " + currentUser.getLogin());
+        System.out.println("USER RIGHTS: " + currentUser.getRoleType());
+        System.out.println("ENTER NEW LOGIN TO EDIT");
+        @NotNull final String login = endpointServiceLocator.getTerminalService().nextLine();
+        System.out.println("ENTER NEW LOGIN TO EDIT");
+        @NotNull final String password = endpointServiceLocator.getTerminalService().nextLine();
+        endpointServiceLocator.getUserEndpointBean().editUser(endpointServiceLocator.getSession(), login, password);
+        System.out.println("SUCCESS");
     }
 }

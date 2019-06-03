@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence&gt;
  *         &lt;element name="session" type="{http://endpoint.tm.iokhin.ru/}session" minOccurs="0"/&gt;
  *         &lt;element name="newLogin" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
- *         &lt;element name="newPasswordHash" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="newPassword" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -31,13 +31,13 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "editUser", propOrder = {
     "session",
     "newLogin",
-    "newPasswordHash"
+    "newPassword"
 })
 public class EditUser {
 
     protected Session session;
     protected String newLogin;
-    protected String newPasswordHash;
+    protected String newPassword;
 
     /**
      * Gets the value of the session property.
@@ -88,27 +88,27 @@ public class EditUser {
     }
 
     /**
-     * Gets the value of the newPasswordHash property.
+     * Gets the value of the newPassword property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getNewPasswordHash() {
-        return newPasswordHash;
+    public String getNewPassword() {
+        return newPassword;
     }
 
     /**
-     * Sets the value of the newPasswordHash property.
+     * Sets the value of the newPassword property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setNewPasswordHash(String value) {
-        this.newPasswordHash = value;
+    public void setNewPassword(String value) {
+        this.newPassword = value;
     }
 
 }
