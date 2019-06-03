@@ -24,10 +24,6 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _AuthException_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "AuthException");
-    private final static QName _ClassNotFoundException_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "ClassNotFoundException");
-    private final static QName _IOException_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "IOException");
-    private final static QName _JAXBException_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "JAXBException");
     private final static QName _AddUser_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "addUser");
     private final static QName _AddUserResponse_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "addUserResponse");
     private final static QName _AuthUser_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "authUser");
@@ -54,10 +50,10 @@ public class ObjectFactory {
     private final static QName _DataJAXBXMLSaveResponse_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "dataJAXBXMLSaveResponse");
     private final static QName _EditUser_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "editUser");
     private final static QName _EditUserResponse_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "editUserResponse");
-    private final static QName _FindById_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "findById");
-    private final static QName _FindByIdResponse_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "findByIdResponse");
     private final static QName _FindByLogin_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "findByLogin");
     private final static QName _FindByLoginResponse_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "findByLoginResponse");
+    private final static QName _FindUserById_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "findUserById");
+    private final static QName _FindUserByIdResponse_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "findUserByIdResponse");
     private final static QName _GetCurrentUser_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "getCurrentUser");
     private final static QName _GetCurrentUserResponse_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "getCurrentUserResponse");
     private final static QName _PassChange_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "passChange");
@@ -68,38 +64,6 @@ public class ObjectFactory {
      * 
      */
     public ObjectFactory() {
-    }
-
-    /**
-     * Create an instance of {@link AuthException }
-     * 
-     */
-    public AuthException createAuthException() {
-        return new AuthException();
-    }
-
-    /**
-     * Create an instance of {@link ClassNotFoundException }
-     * 
-     */
-    public ClassNotFoundException createClassNotFoundException() {
-        return new ClassNotFoundException();
-    }
-
-    /**
-     * Create an instance of {@link IOException }
-     * 
-     */
-    public IOException createIOException() {
-        return new IOException();
-    }
-
-    /**
-     * Create an instance of {@link JAXBException }
-     * 
-     */
-    public JAXBException createJAXBException() {
-        return new JAXBException();
     }
 
     /**
@@ -311,22 +275,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link FindById }
-     * 
-     */
-    public FindById createFindById() {
-        return new FindById();
-    }
-
-    /**
-     * Create an instance of {@link FindByIdResponse }
-     * 
-     */
-    public FindByIdResponse createFindByIdResponse() {
-        return new FindByIdResponse();
-    }
-
-    /**
      * Create an instance of {@link FindByLogin }
      * 
      */
@@ -340,6 +288,22 @@ public class ObjectFactory {
      */
     public FindByLoginResponse createFindByLoginResponse() {
         return new FindByLoginResponse();
+    }
+
+    /**
+     * Create an instance of {@link FindUserById }
+     * 
+     */
+    public FindUserById createFindUserById() {
+        return new FindUserById();
+    }
+
+    /**
+     * Create an instance of {@link FindUserByIdResponse }
+     * 
+     */
+    public FindUserByIdResponse createFindUserByIdResponse() {
+        return new FindUserByIdResponse();
     }
 
     /**
@@ -391,63 +355,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Throwable }
-     * 
-     */
-    public Throwable createThrowable() {
-        return new Throwable();
-    }
-
-    /**
-     * Create an instance of {@link StackTraceElement }
-     * 
-     */
-    public StackTraceElement createStackTraceElement() {
-        return new StackTraceElement();
-    }
-
-    /**
      * Create an instance of {@link Session }
      * 
      */
     public Session createSession() {
         return new Session();
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link AuthException }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.tm.iokhin.ru/", name = "AuthException")
-    public JAXBElement<AuthException> createAuthException(AuthException value) {
-        return new JAXBElement<AuthException>(_AuthException_QNAME, AuthException.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ClassNotFoundException }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.tm.iokhin.ru/", name = "ClassNotFoundException")
-    public JAXBElement<ClassNotFoundException> createClassNotFoundException(ClassNotFoundException value) {
-        return new JAXBElement<ClassNotFoundException>(_ClassNotFoundException_QNAME, ClassNotFoundException.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link IOException }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.tm.iokhin.ru/", name = "IOException")
-    public JAXBElement<IOException> createIOException(IOException value) {
-        return new JAXBElement<IOException>(_IOException_QNAME, IOException.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link JAXBException }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.tm.iokhin.ru/", name = "JAXBException")
-    public JAXBElement<JAXBException> createJAXBException(JAXBException value) {
-        return new JAXBElement<JAXBException>(_JAXBException_QNAME, JAXBException.class, null, value);
     }
 
     /**
@@ -685,24 +597,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link FindById }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.tm.iokhin.ru/", name = "findById")
-    public JAXBElement<FindById> createFindById(FindById value) {
-        return new JAXBElement<FindById>(_FindById_QNAME, FindById.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link FindByIdResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://endpoint.tm.iokhin.ru/", name = "findByIdResponse")
-    public JAXBElement<FindByIdResponse> createFindByIdResponse(FindByIdResponse value) {
-        return new JAXBElement<FindByIdResponse>(_FindByIdResponse_QNAME, FindByIdResponse.class, null, value);
-    }
-
-    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link FindByLogin }{@code >}}
      * 
      */
@@ -718,6 +612,24 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://endpoint.tm.iokhin.ru/", name = "findByLoginResponse")
     public JAXBElement<FindByLoginResponse> createFindByLoginResponse(FindByLoginResponse value) {
         return new JAXBElement<FindByLoginResponse>(_FindByLoginResponse_QNAME, FindByLoginResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link FindUserById }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.tm.iokhin.ru/", name = "findUserById")
+    public JAXBElement<FindUserById> createFindUserById(FindUserById value) {
+        return new JAXBElement<FindUserById>(_FindUserById_QNAME, FindUserById.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link FindUserByIdResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.tm.iokhin.ru/", name = "findUserByIdResponse")
+    public JAXBElement<FindUserByIdResponse> createFindUserByIdResponse(FindUserByIdResponse value) {
+        return new JAXBElement<FindUserByIdResponse>(_FindUserByIdResponse_QNAME, FindUserByIdResponse.class, null, value);
     }
 
     /**

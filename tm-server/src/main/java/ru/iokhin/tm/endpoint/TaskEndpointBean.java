@@ -1,6 +1,7 @@
 package ru.iokhin.tm.endpoint;
 
 import lombok.NoArgsConstructor;
+import lombok.SneakyThrows;
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.api.endpoint.TaskEndpoint;
 import ru.iokhin.tm.api.service.IServiceLocator;
@@ -31,64 +32,73 @@ public class TaskEndpointBean implements TaskEndpoint {
     }
 
     @Override
+    @SneakyThrows
     public Task addTask(@WebParam(name = "session") @NotNull final Session session,
                         @WebParam(name = "projectId") @NotNull final String projectId,
-                        @WebParam(name = "name") @NotNull final String name) throws AuthException {
+                        @WebParam(name = "name") @NotNull final String name) {
         sessionService.validate(session);
         return taskService.add(session.getParentId(), projectId, name);
     }
 
     @Override
+    @SneakyThrows
     public Task editTask(@WebParam(name = "session") @NotNull final Session session,
                      @WebParam(name = "id") @NotNull final String id,
-                     @WebParam(name = "name") @NotNull final String name) throws AuthException {
+                     @WebParam(name = "name") @NotNull final String name) {
         sessionService.validate(session);
         return taskService.edit(session.getParentId(), id, name);
     }
 
     @Override
+    @SneakyThrows
     public Task removeTask(@WebParam(name = "session") @NotNull final Session session,
-                       @WebParam(name = "id") @NotNull final String id) throws AuthException {
+                       @WebParam(name = "id") @NotNull final String id) {
         sessionService.validate(session);
         return taskService.remove(session.getParentId(), id);
     }
 
     @Override
-    public void removeAllTaskByUserId(@WebParam(name = "session") @NotNull final Session session) throws AuthException {
+    @SneakyThrows
+    public void removeAllTaskByUserId(@WebParam(name = "session") @NotNull final Session session) {
         sessionService.validate(session);
         taskService.removeAllByUserId(session.getParentId());
     }
 
     @Override
-    public Collection<Task> findAllTaskByUserId(@WebParam(name = "session") @NotNull final Session session) throws AuthException {
+    @SneakyThrows
+    public Collection<Task> findAllTaskByUserId(@WebParam(name = "session") @NotNull final Session session) {
         sessionService.validate(session);
         return taskService.findAllByUserId(session.getParentId());
     }
 
     @Override
+    @SneakyThrows
     public Collection<Task> findAllTaskByProjectId(@WebParam(name = "session") @NotNull final Session session,
-                                               @WebParam(name = "projectId") @NotNull final String projectId) throws AuthException {
+                                               @WebParam(name = "projectId") @NotNull final String projectId) {
         sessionService.validate(session);
         return taskService.findAllByProjectId(session.getParentId(), projectId);
     }
 
     @Override
+    @SneakyThrows
     public boolean removeAllByProjectId(@WebParam(name = "session") @NotNull final Session session,
-                                        @WebParam(name = "projectId") @NotNull final String projectId) throws AuthException {
+                                        @WebParam(name = "projectId") @NotNull final String projectId) {
         sessionService.validate(session);
         return taskService.removeAllByProjectId(session.getParentId(), projectId);
     }
 
     @Override
+    @SneakyThrows
     public Collection<Task> sortTaskByUserId(@WebParam(name = "session") @NotNull final Session session,
-                                             @WebParam(name = "comparator") @NotNull final String comparator) throws AuthException {
+                                             @WebParam(name = "comparator") @NotNull final String comparator) {
         sessionService.validate(session);
         return taskService.sortByUserId(session.getParentId(), comparator);
     }
 
     @Override
-    public Collection<Task> findByPartOfNameOrDescriptionTask(@WebParam(name = "session") @NotNull final Session session,
-                                                              @WebParam(name = "keyWord") @NotNull final String keyWord) throws AuthException {
+    @SneakyThrows
+    public Collection<Task> findTaskByPartOfNameOrDescription(@WebParam(name = "session") @NotNull final Session session,
+                                                              @WebParam(name = "keyWord") @NotNull final String keyWord) {
         sessionService.validate(session);
         return taskService.findByPartOfNameOrDescription(session.getParentId(), keyWord);
     }

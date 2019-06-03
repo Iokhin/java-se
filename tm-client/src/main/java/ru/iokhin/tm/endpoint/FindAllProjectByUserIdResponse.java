@@ -10,12 +10,12 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for findAllByUserIdResponse complex type.
+ * <p>Java class for findAllProjectByUserIdResponse complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="findAllByUserIdResponse"&gt;
+ * &lt;complexType name="findAllProjectByUserIdResponse"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
@@ -29,10 +29,10 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "findAllByUserIdResponse", propOrder = {
+@XmlType(name = "findAllProjectByUserIdResponse", propOrder = {
     "_return"
 })
-public class FindAllByUserIdResponse {
+public class FindAllProjectByUserIdResponse {
 
     @XmlElement(name = "return")
     protected List<Project> _return;

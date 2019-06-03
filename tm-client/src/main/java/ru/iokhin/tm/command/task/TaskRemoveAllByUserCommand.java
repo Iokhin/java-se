@@ -1,7 +1,6 @@
 package ru.iokhin.tm.command.task;
 
 import ru.iokhin.tm.command.AbstractCommand;
-import ru.iokhin.tm.endpoint.AuthException_Exception;
 import ru.iokhin.tm.endpoint.User;
 
 public class TaskRemoveAllByUserCommand extends AbstractCommand {
@@ -26,9 +25,9 @@ public class TaskRemoveAllByUserCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() throws AuthException_Exception {
+    public void execute() {
         endpointServiceLocator.getTaskEndpointBean().removeAllTaskByUserId(endpointServiceLocator.getSession());
-        User user = endpointServiceLocator.getUserEndpointBean().findById(endpointServiceLocator.getSession().getParentId());
+        User user = endpointServiceLocator.getUserEndpointBean().findUserById(endpointServiceLocator.getSession().getParentId());
         System.out.println("ALL TASKS FOR " + user.getLogin() + " WAS REMOVED");
     }
 }

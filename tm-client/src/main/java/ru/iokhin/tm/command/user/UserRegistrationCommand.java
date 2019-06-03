@@ -3,7 +3,6 @@ package ru.iokhin.tm.command.user;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.command.AbstractCommand;
-import ru.iokhin.tm.endpoint.RoleType;
 
 @NoArgsConstructor
 public class UserRegistrationCommand extends AbstractCommand {

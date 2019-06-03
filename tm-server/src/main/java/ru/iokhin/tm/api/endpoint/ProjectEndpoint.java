@@ -13,27 +13,27 @@ import java.util.Collection;
 @WebService
 public interface ProjectEndpoint {
 
-    Project add(@WebParam(name = "session") @NotNull final Session session,
-                @WebParam(name = "name") @NotNull final String name) throws AuthException;
+    Project addProject(@WebParam(name = "session") @NotNull final Session session,
+                       @WebParam(name = "name") @NotNull final String name) throws AuthException;
 
-    Project edit(@WebParam(name = "session") @NotNull final Session session,
-                 @WebParam(name = "id") @NotNull final String id,
-                 @WebParam(name = "name") @NotNull final String name) throws AuthException;
+    Project editProject(@WebParam(name = "session") @NotNull final Session session,
+                        @WebParam(name = "id") @NotNull final String id,
+                        @WebParam(name = "name") @NotNull final String name) throws AuthException;
 
-    Project remove(@WebParam(name = "session") @NotNull final Session session,
-                   @WebParam(name = "id") @NotNull final String id) throws AuthException;
+    Project removeProject(@WebParam(name = "session") @NotNull final Session session,
+                          @WebParam(name = "id") @NotNull final String id) throws AuthException;
 
-    void removeAllByUserId(@WebParam(name = "session") @NotNull final Session session) throws AuthException;
+    void removeAllProjectByUserId(@WebParam(name = "session") @NotNull final Session session) throws AuthException;
 
-    Collection<Project> findAllByUserId(@WebParam(name = "session") @NotNull final Session session) throws AuthException;
+    Collection<Project> findAllProjectByUserId(@WebParam(name = "session") @NotNull final Session session) throws AuthException;
 
-    Project findOne(@WebParam(name = "session") @NotNull final Session session,
-                    @WebParam(name = "id") @NotNull final String id) throws AuthException;
+    Project findProject(@WebParam(name = "session") @NotNull final Session session,
+                        @WebParam(name = "id") @NotNull final String id) throws AuthException;
 
-    Collection<Project> sortByUserId(@WebParam(name = "session") Session session,
-                                     @WebParam(name = "comparator") String comparator) throws AuthException;
+    Collection<Project> sortProjectByUserId(@WebParam(name = "session") Session session,
+                                            @WebParam(name = "comparator") String comparator) throws AuthException;
 
-    Collection<Project> findByPartOfNameOrDescription(@WebParam(name = "session") @NotNull final Session session,
-                                                      @WebParam(name = "part") @NotNull final String part) throws AuthException;
+    Collection<Project> findProjectByPartOfNameOrDescription(@WebParam(name = "session") @NotNull final Session session,
+                                                             @WebParam(name = "part") @NotNull final String part) throws AuthException;
 
 }

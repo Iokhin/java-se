@@ -10,16 +10,16 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for throwable complex type.
+ * <p>Java class for findProjectByPartOfNameOrDescriptionResponse complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="throwable"&gt;
+ * &lt;complexType name="findProjectByPartOfNameOrDescriptionResponse"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="stackTrace" type="{http://endpoint.tm.iokhin.ru/}stackTraceElement" maxOccurs="unbounded" minOccurs="0"/&gt;
+ *         &lt;element name="return" type="{http://endpoint.tm.iokhin.ru/}project" maxOccurs="unbounded" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -29,41 +29,41 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "throwable", propOrder = {
-    "stackTrace"
+@XmlType(name = "findProjectByPartOfNameOrDescriptionResponse", propOrder = {
+    "_return"
 })
-public class Throwable {
+public class FindProjectByPartOfNameOrDescriptionResponse {
 
-    @XmlElement(nillable = true)
-    protected List<StackTraceElement> stackTrace;
+    @XmlElement(name = "return")
+    protected List<Project> _return;
 
     /**
-     * Gets the value of the stackTrace property.
+     * Gets the value of the return property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the stackTrace property.
+     * This is why there is not a <CODE>set</CODE> method for the return property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getStackTrace().add(newItem);
+     *    getReturn().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link StackTraceElement }
+     * {@link Project }
      * 
      * 
      */
-    public List<StackTraceElement> getStackTrace() {
-        if (stackTrace == null) {
-            stackTrace = new ArrayList<StackTraceElement>();
+    public List<Project> getReturn() {
+        if (_return == null) {
+            _return = new ArrayList<Project>();
         }
-        return this.stackTrace;
+        return this._return;
     }
 
 }

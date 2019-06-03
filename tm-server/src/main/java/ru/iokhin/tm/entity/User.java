@@ -41,8 +41,16 @@ public final class User extends AbstractEntity {
         return login;
     }
 
-    public void setPasswordHash(String password) {
-        this.passwordHash = MD5Util.passwordToHash(password);
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
+
+    public void setRole(String roleType) {
+        if (roleType.equals("Администратор")) {
+            this.roleType = RoleType.ADMIN;
+            return;
+        }
+        this.roleType = RoleType.USER;
     }
 
     @Override

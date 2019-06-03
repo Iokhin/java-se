@@ -6,11 +6,12 @@ import ru.iokhin.tm.entity.Project;
 import ru.iokhin.tm.entity.User;
 import ru.iokhin.tm.enumerated.Status;
 
+import java.sql.SQLException;
 import java.util.Collection;
 
 public interface IProjectService extends IService<Project> {
 
-    Project add(@NotNull final String userId, @NotNull final String name);
+    Project add(@NotNull final String userId, @NotNull final String name) throws SQLException;
 
     Project edit(@NotNull final String userId, @NotNull final String id, @NotNull final String name);
 

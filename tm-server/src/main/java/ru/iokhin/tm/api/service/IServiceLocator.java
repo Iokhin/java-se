@@ -1,5 +1,7 @@
 package ru.iokhin.tm.api.service;
 
+import java.sql.Connection;
+
 public interface IServiceLocator {
 
     IUserService getUserService();
@@ -11,6 +13,8 @@ public interface IServiceLocator {
     ITerminalService getTerminalService();
 
     ISessionService getSessionService();
+
+    void setConnection(Connection connection);
 
 }
 

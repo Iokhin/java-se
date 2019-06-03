@@ -8,12 +8,12 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for removeResponse complex type.
+ * <p>Java class for addProjectResponse complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="removeResponse"&gt;
+ * &lt;complexType name="addProjectResponse"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
@@ -27,10 +27,10 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "removeResponse", propOrder = {
+@XmlType(name = "addProjectResponse", propOrder = {
     "_return"
 })
-public class RemoveResponse {
+public class AddProjectResponse {
 
     @XmlElement(name = "return")
     protected Project _return;

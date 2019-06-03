@@ -1,12 +1,6 @@
 package ru.iokhin.tm.command.data;
 
 import ru.iokhin.tm.command.AbstractCommand;
-import ru.iokhin.tm.endpoint.IOException_Exception;
-
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
 
 public class DataSaveSerializedCommand extends AbstractCommand {
     @Override
@@ -30,7 +24,7 @@ public class DataSaveSerializedCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() throws IOException_Exception {
+    public void execute() {
         endpointServiceLocator.getUserEndpointBean().dataBinSave();
         System.out.println("SUCCESS");
     }

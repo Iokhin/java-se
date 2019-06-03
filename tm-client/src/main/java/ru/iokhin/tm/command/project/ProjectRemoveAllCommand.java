@@ -2,7 +2,6 @@ package ru.iokhin.tm.command.project;
 
 import lombok.NoArgsConstructor;
 import ru.iokhin.tm.command.AbstractCommand;
-import ru.iokhin.tm.endpoint.AuthException_Exception;
 
 @NoArgsConstructor
 public final class ProjectRemoveAllCommand extends AbstractCommand {
@@ -28,8 +27,8 @@ public final class ProjectRemoveAllCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() throws AuthException_Exception {
-        endpointServiceLocator.getProjectEndpointBean().removeAllByUserId(endpointServiceLocator.getSession());
+    public void execute() {
+        endpointServiceLocator.getProjectEndpointBean().removeAllProjectByUserId(endpointServiceLocator.getSession());
         System.out.println("OK");
     }
 }

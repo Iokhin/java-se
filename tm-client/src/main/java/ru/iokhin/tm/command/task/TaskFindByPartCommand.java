@@ -2,7 +2,6 @@ package ru.iokhin.tm.command.task;
 
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.command.AbstractCommand;
-import ru.iokhin.tm.endpoint.AuthException_Exception;
 import ru.iokhin.tm.endpoint.Task;
 
 import java.util.Collection;
@@ -29,10 +28,10 @@ public class TaskFindByPartCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() throws AuthException_Exception {
+    public void execute() {
         System.out.println("ENTER KEY WORD TO FIND");
         @NotNull final String keyWord = endpointServiceLocator.getTerminalService().nextLine();
-        Collection<Task> found = endpointServiceLocator.getTaskEndpointBean().findByPartOfNameOrDescriptionTask(endpointServiceLocator.getSession(), keyWord);
+        Collection<Task> found = endpointServiceLocator.getTaskEndpointBean().findTaskByPartOfNameOrDescription(endpointServiceLocator.getSession(), keyWord);
         if (found.size() == 0) {
             System.out.println("NO RESULTS FOUND FOR " + keyWord);
             return;

@@ -3,6 +3,7 @@ package ru.iokhin.tm.service;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.api.service.*;
 import ru.iokhin.tm.repository.ProjectRepository;
@@ -10,37 +11,53 @@ import ru.iokhin.tm.repository.SessionRepository;
 import ru.iokhin.tm.repository.TaskRepository;
 import ru.iokhin.tm.repository.UserRepository;
 
+import java.sql.Connection;
 import java.util.Map;
 
 @Getter
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
 public class ServiceLocator implements IServiceLocator {
 
-    @NotNull
-    private final ProjectRepository projectRepository = new ProjectRepository();
+    private Connection connection;
 
     @NotNull
-    private final TaskRepository taskRepository = new TaskRepository();
+    private ProjectRepository projectRepository;
 
     @NotNull
-    private final UserRepository userRepository = new UserRepository();
+    private TaskRepository taskRepository;
 
     @NotNull
-    private final SessionRepository sessionRepository = new SessionRepository();
+    private UserRepository userRepository;
 
     @NotNull
-    private final ProjectService projectService = new ProjectService(projectRepository);
+    private SessionRepository sessionRepository;
 
     @NotNull
-    private final TaskService taskService = new TaskService(taskRepository);
+    private ProjectService projectService;
 
     @NotNull
-    private final UserService userService = new UserService(userRepository, projectRepository, taskRepository);
+    private TaskService taskService;
+
+    @NotNull
+    private UserService userService;
 
     @NotNull
     private final TerminalService terminalService = new TerminalService();
 
     @NotNull
-    private final SessionService sessionService = new SessionService(sessionRepository);
+    private SessionService sessionService;
 
+    public ServiceLocator(Connection connection) {
+        this.connection = connection;
+        this.projectRepository = new ProjectRepository(connection);
+        this.taskRepository = new TaskRepository(connection);
+        this.userRepository = new UserRepository(connection);
+        this.sessionRepository = new SessionRepository(connection);
+        this.projectService = new ProjectService(this.projectRepository);
+        this.taskService = new TaskService(this.taskRepository);
+        this.userService = new UserService(this.userRepository, this.projectRepository, this.taskRepository);
+        this.sessionService = new SessionService(this.sessionRepository);
+    }
 }

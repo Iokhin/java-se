@@ -8,6 +8,8 @@ import ru.iokhin.tm.entity.Task;
 import ru.iokhin.tm.util.ComparatorUtil;
 import ru.iokhin.tm.util.StringValidator;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -19,7 +21,7 @@ public class TaskService extends AbstractService<Task, ITaskRepository> implemen
     }
 
     @Override
-    public Task add(@NotNull final String userId, @NotNull final String projectId, @NotNull final String name) {
+    public Task add(@NotNull final String userId, @NotNull final String projectId, @NotNull final String name) throws SQLException {
         StringValidator.validate(projectId, name);
         return repository.persist(new Task(userId, projectId, name));
     }
@@ -27,7 +29,7 @@ public class TaskService extends AbstractService<Task, ITaskRepository> implemen
     @Override
     public Task edit(@NotNull final String userId, @NotNull final String id, @NotNull final String name) {
         StringValidator.validate(name, id);
-        @Nullable final Task task = repository.findOne(userId, id);
+        @Nullable final Task task = repository.findOneByUserId(userId, id);
         if (task == null) return null;
         task.setName(name);
         return task;
@@ -36,7 +38,7 @@ public class TaskService extends AbstractService<Task, ITaskRepository> implemen
     @Override
     public Task remove(@NotNull final String userId, @NotNull final String id) {
         StringValidator.validate(id);
-        @Nullable final Task task = repository.findOne(userId, id);
+        @Nullable final Task task = repository.findOneByUserId(userId, id);
         if (task == null) return null;
         return repository.remove(userId, id);
     }
@@ -85,4 +87,8 @@ public class TaskService extends AbstractService<Task, ITaskRepository> implemen
     }
 
 
+    @Override
+    public Connection getConnection() {
+        return repository.getConnection();
+    }
 }

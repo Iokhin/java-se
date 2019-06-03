@@ -3,8 +3,6 @@ package ru.iokhin.tm.command.project;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.command.AbstractCommand;
-import ru.iokhin.tm.endpoint.AuthException_Exception;
-import ru.iokhin.tm.endpoint.Status;
 
 @NoArgsConstructor
 public final class ProjectEditCommand extends AbstractCommand {
@@ -30,12 +28,12 @@ public final class ProjectEditCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() throws AuthException_Exception {
+    public void execute() {
         System.out.println("ENTER ID OF PROJECT TO EDIT");
         @NotNull final String projectId = endpointServiceLocator.getTerminalService().nextLine();
         System.out.println("ENTER NEW NAME OF PROJECT TO EDIT");
         @NotNull final String newName = endpointServiceLocator.getTerminalService().nextLine();
-        if (endpointServiceLocator.getProjectEndpointBean().edit(endpointServiceLocator.getSession(), projectId, newName) == null) {
+        if (endpointServiceLocator.getProjectEndpointBean().editProject(endpointServiceLocator.getSession(), projectId, newName) == null) {
             System.out.println("NO SUCH PROJECT ID");
             return;
         }

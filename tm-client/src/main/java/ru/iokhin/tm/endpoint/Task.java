@@ -3,7 +3,6 @@ package ru.iokhin.tm.endpoint;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -18,7 +17,6 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;extension base="{http://endpoint.tm.iokhin.ru/}abstractEntity"&gt;
  *       &lt;sequence&gt;
  *         &lt;element name="projectId" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
- *         &lt;element name="status" type="{http://endpoint.tm.iokhin.ru/}status" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/extension&gt;
  *   &lt;/complexContent&gt;
@@ -29,16 +27,13 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "task", propOrder = {
-    "projectId",
-    "status"
+    "projectId"
 })
 public class Task
     extends AbstractEntity
 {
 
     protected String projectId;
-    @XmlSchemaType(name = "string")
-    protected Status status;
 
     /**
      * Gets the value of the projectId property.
@@ -62,30 +57,6 @@ public class Task
      */
     public void setProjectId(String value) {
         this.projectId = value;
-    }
-
-    /**
-     * Gets the value of the status property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Status }
-     *     
-     */
-    public Status getStatus() {
-        return status;
-    }
-
-    /**
-     * Sets the value of the status property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Status }
-     *     
-     */
-    public void setStatus(Status value) {
-        this.status = value;
     }
 
 }

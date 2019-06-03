@@ -3,21 +3,20 @@ package ru.iokhin.tm.endpoint;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for editResponse complex type.
+ * <p>Java class for findAllProjectByUserId complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="editResponse"&gt;
+ * &lt;complexType name="findAllProjectByUserId"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="return" type="{http://endpoint.tm.iokhin.ru/}project" minOccurs="0"/&gt;
+ *         &lt;element name="session" type="{http://endpoint.tm.iokhin.ru/}session" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -27,36 +26,35 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "editResponse", propOrder = {
-    "_return"
+@XmlType(name = "findAllProjectByUserId", propOrder = {
+    "session"
 })
-public class EditResponse {
+public class FindAllProjectByUserId {
 
-    @XmlElement(name = "return")
-    protected Project _return;
+    protected Session session;
 
     /**
-     * Gets the value of the return property.
+     * Gets the value of the session property.
      * 
      * @return
      *     possible object is
-     *     {@link Project }
+     *     {@link Session }
      *     
      */
-    public Project getReturn() {
-        return _return;
+    public Session getSession() {
+        return session;
     }
 
     /**
-     * Sets the value of the return property.
+     * Sets the value of the session property.
      * 
      * @param value
      *     allowed object is
-     *     {@link Project }
+     *     {@link Session }
      *     
      */
-    public void setReturn(Project value) {
-        this._return = value;
+    public void setSession(Session value) {
+        this.session = value;
     }
 
 }

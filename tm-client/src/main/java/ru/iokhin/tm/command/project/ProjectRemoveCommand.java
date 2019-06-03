@@ -3,7 +3,6 @@ package ru.iokhin.tm.command.project;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.command.AbstractCommand;
-import ru.iokhin.tm.endpoint.AuthException_Exception;
 
 @NoArgsConstructor
 public final class ProjectRemoveCommand extends AbstractCommand {
@@ -29,10 +28,10 @@ public final class ProjectRemoveCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() throws AuthException_Exception {
+    public void execute() {
         System.out.println("ENTER ID OF PROJECT TO REMOVE");
         @NotNull final String projectId = endpointServiceLocator.getTerminalService().nextLine();
-        if (endpointServiceLocator.getProjectEndpointBean().remove(endpointServiceLocator.getSession(), projectId) == null) {
+        if (endpointServiceLocator.getProjectEndpointBean().removeProject(endpointServiceLocator.getSession(), projectId) == null) {
             System.out.println("NO SUCH PROJECT ID");
             return;
         }

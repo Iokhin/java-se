@@ -7,17 +7,17 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for findByPartOfNameOrDescriptionTask complex type.
+ * <p>Java class for sortProjectByUserId complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="findByPartOfNameOrDescriptionTask"&gt;
+ * &lt;complexType name="sortProjectByUserId"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
  *         &lt;element name="session" type="{http://endpoint.tm.iokhin.ru/}session" minOccurs="0"/&gt;
- *         &lt;element name="keyWord" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="comparator" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -27,14 +27,14 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "findByPartOfNameOrDescriptionTask", propOrder = {
+@XmlType(name = "sortProjectByUserId", propOrder = {
     "session",
-    "keyWord"
+    "comparator"
 })
-public class FindByPartOfNameOrDescriptionTask {
+public class SortProjectByUserId {
 
     protected Session session;
-    protected String keyWord;
+    protected String comparator;
 
     /**
      * Gets the value of the session property.
@@ -61,27 +61,27 @@ public class FindByPartOfNameOrDescriptionTask {
     }
 
     /**
-     * Gets the value of the keyWord property.
+     * Gets the value of the comparator property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getKeyWord() {
-        return keyWord;
+    public String getComparator() {
+        return comparator;
     }
 
     /**
-     * Sets the value of the keyWord property.
+     * Sets the value of the comparator property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setKeyWord(String value) {
-        this.keyWord = value;
+    public void setComparator(String value) {
+        this.comparator = value;
     }
 
 }

@@ -1,14 +1,11 @@
 package ru.iokhin.tm;
 
 import org.jetbrains.annotations.NotNull;
-import ru.iokhin.tm.api.IEndpointServiceLocator;
 import ru.iokhin.tm.command.data.*;
 import ru.iokhin.tm.command.project.*;
 import ru.iokhin.tm.command.system.*;
 import ru.iokhin.tm.command.task.*;
 import ru.iokhin.tm.command.user.*;
-import ru.iokhin.tm.endpoint.AuthException_Exception;
-import ru.iokhin.tm.service.EndpointServiceLocator;
 
 public class Application {
 

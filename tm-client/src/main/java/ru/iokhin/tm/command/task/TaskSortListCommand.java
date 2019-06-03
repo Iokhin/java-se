@@ -2,8 +2,6 @@ package ru.iokhin.tm.command.task;
 
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.command.AbstractCommand;
-import ru.iokhin.tm.endpoint.AuthException_Exception;
-import ru.iokhin.tm.endpoint.Project;
 import ru.iokhin.tm.endpoint.Task;
 
 import java.util.Collection;
@@ -30,7 +28,7 @@ public class TaskSortListCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() throws AuthException_Exception {
+    public void execute() {
         System.out.println("CHOSE ONE OF THIS OPTIONS TO SORT: order, dateStart, dateEnd, status");
         @NotNull final String option = endpointServiceLocator.getTerminalService().nextLine();
         Collection<Task> sorted = endpointServiceLocator.getTaskEndpointBean().sortTaskByUserId(endpointServiceLocator.getSession(), option);

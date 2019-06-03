@@ -2,7 +2,6 @@ package ru.iokhin.tm.command.project;
 
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.command.AbstractCommand;
-import ru.iokhin.tm.endpoint.AuthException_Exception;
 import ru.iokhin.tm.endpoint.Project;
 
 import java.util.Collection;
@@ -29,10 +28,10 @@ public class ProjectSortListCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() throws AuthException_Exception {
+    public void execute() {
         System.out.println("CHOSE ONE OF THIS OPTIONS TO SORT: order, dateStart, dateEnd, status");
         @NotNull final String option = endpointServiceLocator.getTerminalService().nextLine();
-        Collection<Project> sorted = endpointServiceLocator.getProjectEndpointBean().sortByUserId(endpointServiceLocator.getSession(), option);
+        Collection<Project> sorted = endpointServiceLocator.getProjectEndpointBean().sortProjectByUserId(endpointServiceLocator.getSession(), option);
         if (sorted == null) {
             System.out.println("WRONG OPTION");
             return;

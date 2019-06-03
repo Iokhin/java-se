@@ -1,9 +1,10 @@
 package ru.iokhin.tm.command.project;
 
 import lombok.NoArgsConstructor;
+import lombok.SneakyThrows;
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.command.AbstractCommand;
-import ru.iokhin.tm.endpoint.AuthException_Exception;
+import ru.iokhin.tm.exception.AuthException;
 
 @NoArgsConstructor
 public final class ProjectCreateCommand extends AbstractCommand {
@@ -29,15 +30,16 @@ public final class ProjectCreateCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() throws AuthException_Exception {
-        if (endpointServiceLocator.getSession() == null) throw new AuthException_Exception();
+    @SneakyThrows
+    public void execute() {
+        if (endpointServiceLocator.getSession() == null) throw new AuthException();
         System.out.println("ENTER NAME OF PROJECT TO CREATE");
         @NotNull final String name = endpointServiceLocator.getTerminalService().nextLine();
         projectCreateCommand(name);
         System.out.println("OK");
     }
 
-    private void projectCreateCommand(@NotNull String name) throws AuthException_Exception {
-        endpointServiceLocator.getProjectEndpointBean().add(endpointServiceLocator.getSession(), name);
+    private void projectCreateCommand(@NotNull String name) {
+        endpointServiceLocator.getProjectEndpointBean().addProject(endpointServiceLocator.getSession(), name);
     }
 }

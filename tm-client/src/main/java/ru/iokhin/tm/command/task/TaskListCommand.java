@@ -3,7 +3,6 @@ package ru.iokhin.tm.command.task;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.command.AbstractCommand;
-import ru.iokhin.tm.endpoint.AuthException_Exception;
 import ru.iokhin.tm.endpoint.Task;
 
 import java.util.Collection;
@@ -32,10 +31,10 @@ public final class TaskListCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() throws AuthException_Exception {
+    public void execute() {
         System.out.println("ENTER ID OF PROJECT TO LIST TASKS");
         @NotNull final String projectId = endpointServiceLocator.getTerminalService().nextLine();
-        if (endpointServiceLocator.getProjectEndpointBean().findOne(endpointServiceLocator.getSession(), projectId) == null) {
+        if (endpointServiceLocator.getProjectEndpointBean().findProject(endpointServiceLocator.getSession(), projectId) == null) {
             System.out.println("NO SUCH PROJECT ID");
             return;
         }
@@ -46,7 +45,7 @@ public final class TaskListCommand extends AbstractCommand {
         }
     }
 
-    private Collection<Task> getTaskList(String projectId) throws AuthException_Exception {
+    private Collection<Task> getTaskList(String projectId) {
         return endpointServiceLocator.getTaskEndpointBean().findAllTaskByProjectId(endpointServiceLocator.getSession(), projectId);
     }
 }

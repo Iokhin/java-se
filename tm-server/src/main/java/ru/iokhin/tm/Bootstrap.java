@@ -20,20 +20,19 @@ import ru.iokhin.tm.util.PropertiesUtil;
 
 import javax.xml.ws.Endpoint;
 import java.sql.*;
-import java.util.Properties;
 
 @Getter
 @Setter
 final class Bootstrap {
 
     @NotNull
-    private final IServiceLocator serviceLocator = new ServiceLocator();
+    private static Connection connection = DBConnect.connect(PropertiesUtil.getProperties(Application.class));
+
+    @NotNull
+    private final IServiceLocator serviceLocator = new ServiceLocator(connection);
 
     @SneakyThrows
     void init() {
-        Properties properties = PropertiesUtil.getProperties(Application.class);
-        Connection connection = DBConnect.connect(properties);
-
         Endpoint.publish("http://localhost:8080/ProjectEndpointBean", new ProjectEndpointBean(serviceLocator));
         Endpoint.publish("http://localhost:8080/SessionEndpointBean", new SessionEndpointBean(serviceLocator));
         Endpoint.publish("http://localhost:8080/TaskEndpointBean", new TaskEndpointBean(serviceLocator));
@@ -42,7 +41,7 @@ final class Bootstrap {
         System.out.println("***WELCOME TO TM-SERVER***");
     }
 
-    private void generateTestData() {
+    private void generateTestData() throws SQLException {
         //Test data
         //---------
         @NotNull final IProjectService projectService = serviceLocator.getProjectService();

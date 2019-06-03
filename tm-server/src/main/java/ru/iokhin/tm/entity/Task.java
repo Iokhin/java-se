@@ -56,4 +56,12 @@ public final class Task extends AbstractEntity {
         return name + ", " + id;
     }
 
+    public void setStatus(@NotNull final String status) {
+        if (status.equals("Готово"))
+            this.status = Status.READY;
+        if (status.equals("В процессе"))
+            this.status = Status.PROCCESSING;
+        this.status = Status.PLANNING;
+    }
+
 }

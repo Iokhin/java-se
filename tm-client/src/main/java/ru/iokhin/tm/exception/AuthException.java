@@ -1,8 +1,8 @@
-package ru.iokhin.tm.exeption;
+package ru.iokhin.tm.exception;
 
 import org.jetbrains.annotations.NotNull;
 
-public class AuthException extends Throwable {
+public class AuthException extends Exception {
     public AuthException() {
         super("THIS COMMAND ALLOWS ONLY FOR AUTHORIZED USER, PLEASE LOGIN");
     }
@@ -11,3 +11,4 @@ public class AuthException extends Throwable {
         super(message);
     }
 }
+

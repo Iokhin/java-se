@@ -17,4 +17,9 @@ public class DBConnect {
         return DriverManager.getConnection(url, login, password);
     }
 
+//    public static void main(String[] args) throws SQLException {
+//        ResultSet resultSet = connect(PropertiesUtil.getProperties(Application.class)).createStatement().executeQuery("SELECT * from project");
+//        while (resultSet.next())
+//            System.out.println(resultSet.getString(FieldConst.ID));
+//    }
 }

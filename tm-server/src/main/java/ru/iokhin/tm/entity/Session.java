@@ -11,8 +11,6 @@ import java.util.Date;
 
 @Getter
 @Setter
-//@XmlRootElement(name = "session")
-//@XmlAccessorType(XmlAccessType.FIELD)
 public class Session extends AbstractEntity implements Cloneable {
 
     @Override

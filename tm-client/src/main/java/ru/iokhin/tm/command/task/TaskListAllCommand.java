@@ -1,7 +1,6 @@
 package ru.iokhin.tm.command.task;
 
 import ru.iokhin.tm.command.AbstractCommand;
-import ru.iokhin.tm.endpoint.AuthException_Exception;
 
 public class TaskListAllCommand extends AbstractCommand {
     @Override
@@ -25,7 +24,7 @@ public class TaskListAllCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() throws AuthException_Exception {
+    public void execute() {
         System.out.println("TASK LIST:");
         endpointServiceLocator.getTaskEndpointBean().findAllTaskByUserId(endpointServiceLocator.getSession()).forEach(System.out::println);
     }

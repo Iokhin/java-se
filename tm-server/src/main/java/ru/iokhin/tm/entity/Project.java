@@ -32,6 +32,12 @@ public final class Project extends AbstractEntity {
         this.startDate = new Date();
     }
 
+    public Project(@NotNull String userId, @NotNull String name, @NotNull final String description) {
+        this.name = name;
+        this.parentId = userId;
+        this.startDate = new Date();
+        this.description = description;
+    }
 
     //----------Constructor for testing status sorting
     public Project(@NotNull String userId, @NotNull String name, Status status) {

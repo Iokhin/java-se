@@ -1,12 +1,7 @@
 package ru.iokhin.tm.command.data;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.jetbrains.annotations.NotNull;
+import lombok.SneakyThrows;
 import ru.iokhin.tm.command.AbstractCommand;
-import ru.iokhin.tm.endpoint.IOException_Exception;
-
-import java.io.File;
-import java.io.IOException;
 
 public class DataLoadFasterJSONCommand extends AbstractCommand {
     @Override
@@ -30,7 +25,7 @@ public class DataLoadFasterJSONCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() throws IOException_Exception {
+    public void execute() {
         endpointServiceLocator.getUserEndpointBean().dataFasterJSONLoad();
         System.out.println("SUCCESS");
     }

@@ -11,11 +11,12 @@ import ru.iokhin.tm.exeption.AuthException;
 import javax.xml.bind.JAXBException;
 import javax.xml.soap.SOAPException;
 import java.io.IOException;
+import java.sql.SQLException;
 
 public interface IUserService extends IService<User> {
-    User add(@NotNull final RoleType roleType, @NotNull final String login, @NotNull final String password);
+    User add(@NotNull final RoleType roleType, @NotNull final String login, @NotNull final String password) throws SQLException;
 
-    User add(@NotNull final RoleType roleType, @NotNull final String id, @NotNull final String login, @NotNull final String password);
+    User add(@NotNull final RoleType roleType, @NotNull final String id, @NotNull final String login, @NotNull final String password) throws SQLException;
 
     User edit(@NotNull final String userId, @NotNull final String newLogin, @NotNull final String newPasswordHash);
 

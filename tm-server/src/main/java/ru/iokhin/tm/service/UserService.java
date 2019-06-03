@@ -5,6 +5,7 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import jdk.nashorn.internal.runtime.linker.Bootstrap;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.SneakyThrows;
 import org.eclipse.persistence.jaxb.MarshallerProperties;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -29,6 +30,8 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.soap.SOAPException;
 import java.io.*;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 @Getter
@@ -53,17 +56,18 @@ public class UserService extends AbstractService<User, IUserRepository> implemen
     }
 
     @Override
-    public User add(@NotNull final RoleType roleType, @NotNull final String login, @NotNull final String password) {
+    public User add(@NotNull final RoleType roleType, @NotNull final String login, @NotNull final String password) throws SQLException {
         return repository.persist(new User(roleType, login, password));
     }
 
     //Method for testing data getProperties
     @Override
-    public User add(@NotNull RoleType roleType, @NotNull String id, @NotNull String login, @NotNull String password) {
+    public User add(@NotNull RoleType roleType, @NotNull String id, @NotNull String login, @NotNull String password) throws SQLException {
         return repository.persist(new User(roleType, id, login, password));
     }
 
     @Override
+    @SneakyThrows
     public User edit(@NotNull final String userId, @NotNull final String newLogin, @NotNull final String newPassword) {
         @Nullable final User user = findOne(userId);
         if (user == null) return null;
@@ -98,6 +102,7 @@ public class UserService extends AbstractService<User, IUserRepository> implemen
     }
 
     @Override
+    @SneakyThrows
     public void dataBinSave() throws IOException {
         @NotNull final DataScope dataScope = new DataScope(new ArrayList<>(projectRepository.findAll()),
                 new ArrayList<>(taskRepository.findAll()),
@@ -125,6 +130,7 @@ public class UserService extends AbstractService<User, IUserRepository> implemen
     }
 
     @Override
+    @SneakyThrows
     public void dataJAXBXMLSave() throws JAXBException {
         @NotNull final DataScope dataScope = new DataScope(new ArrayList<>(projectRepository.findAll()),
                 new ArrayList<>(taskRepository.findAll()),
@@ -159,6 +165,7 @@ public class UserService extends AbstractService<User, IUserRepository> implemen
     }
 
     @Override
+    @SneakyThrows
     public void dataJAXBJSONSave() throws JAXBException {
         @NotNull final DataScope dataScope = new DataScope(new ArrayList<>(projectRepository.findAll()),
                 new ArrayList<>(taskRepository.findAll()),
@@ -196,6 +203,7 @@ public class UserService extends AbstractService<User, IUserRepository> implemen
     }
 
     @Override
+    @SneakyThrows
     public void dataFasterXMLSave() throws IOException {
         @NotNull final DataScope dataScope = new DataScope(new ArrayList<>(projectRepository.findAll()),
                 new ArrayList<>(taskRepository.findAll()),
@@ -210,6 +218,7 @@ public class UserService extends AbstractService<User, IUserRepository> implemen
     }
 
     @Override
+    @SneakyThrows
     public void dataFasterXMLLoad() throws IOException {
         @NotNull final DataScope dataScope = new DataScope(new ArrayList<>(projectRepository.findAll()),
                 new ArrayList<>(taskRepository.findAll()),
@@ -251,5 +260,10 @@ public class UserService extends AbstractService<User, IUserRepository> implemen
         } catch (IOException e) {
             throw e;
         }
+    }
+
+    @Override
+    public Connection getConnection() {
+        return null;
     }
 }

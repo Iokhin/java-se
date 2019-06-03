@@ -3,7 +3,6 @@ package ru.iokhin.tm.command.task;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.command.AbstractCommand;
-import ru.iokhin.tm.endpoint.AuthException_Exception;
 
 @NoArgsConstructor
 public final class TaskCreateCommand extends AbstractCommand {
@@ -29,10 +28,10 @@ public final class TaskCreateCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() throws AuthException_Exception {
+    public void execute() {
         System.out.println("ENTER ID OF PROJECT TO CREATE TASK");
         @NotNull final String projectId = endpointServiceLocator.getTerminalService().nextLine();
-        if (endpointServiceLocator.getProjectEndpointBean().findOne(endpointServiceLocator.getSession(), projectId) == null) {
+        if (endpointServiceLocator.getProjectEndpointBean().findProject(endpointServiceLocator.getSession(), projectId) == null) {
             System.out.println("NO SUCH PROJECT ID");
             return;
         }

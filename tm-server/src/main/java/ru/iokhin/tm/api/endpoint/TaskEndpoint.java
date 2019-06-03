@@ -36,7 +36,7 @@ public interface TaskEndpoint {
     Collection<Task> sortTaskByUserId(@WebParam(name = "session") @NotNull final Session session,
                                   @WebParam(name = "comparator") @NotNull final String comparator) throws AuthException;
 
-    Collection<Task> findByPartOfNameOrDescriptionTask(@WebParam(name = "session") @NotNull final Session session,
+    Collection<Task> findTaskByPartOfNameOrDescription(@WebParam(name = "session") @NotNull final Session session,
                                                        @WebParam(name = "keyWord") @NotNull final String keyWord) throws AuthException;
 
 }

@@ -1,11 +1,13 @@
 package ru.iokhin.tm;
 
 import lombok.Getter;
+import lombok.SneakyThrows;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.iokhin.tm.api.IEndpointServiceLocator;
 import ru.iokhin.tm.command.AbstractCommand;
-import ru.iokhin.tm.endpoint.*;
+import ru.iokhin.tm.endpoint.RoleType;
+import ru.iokhin.tm.exception.AuthException;
 import ru.iokhin.tm.exception.NonexistentCommandException;
 import ru.iokhin.tm.service.EndpointServiceLocator;
 
@@ -47,12 +49,13 @@ class Bootstrap {
         this.commandMap.put(abstractCommand.name(), abstractCommand);
     }
 
-    private void execute(@Nullable AbstractCommand command) throws AuthException_Exception, NonexistentCommandException, JAXBException_Exception, IOException_Exception, ClassNotFoundException_Exception {
+    @SneakyThrows
+    private void execute(@Nullable AbstractCommand command) {
         if (command == null) throw new NonexistentCommandException();
-        if (command.security() && endpointServiceLocator.getSession() == null) throw new AuthException_Exception();
+        if (command.security() && endpointServiceLocator.getSession() == null) throw new AuthException();
         if (command.admin() &&
-                endpointServiceLocator.getUserEndpointBean().findById(endpointServiceLocator.getSession().getParentId()).getRoleType() != RoleType.ADMIN)
-            throw new AuthException_Exception("THIS COMMAND ALLOWS ONLY FOR ADMIN");
+                endpointServiceLocator.getUserEndpointBean().findUserById(endpointServiceLocator.getSession().getParentId()).getRoleType() != RoleType.ADMIN)
+            throw new AuthException("THIS COMMAND ALLOWS ONLY FOR ADMIN");
         command.execute();
     }
 }

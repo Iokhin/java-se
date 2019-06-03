@@ -14,7 +14,7 @@ public interface ITaskRepository extends IRepository<Task> {
 
     void removeAllByUserId(@NotNull final String userId);
 
-    Task findOne(@NotNull final String parentId, @NotNull final String id);
+    Task findOneByUserId(@NotNull final String parentId, @NotNull final String id);
 
     Task remove(@NotNull final String parentId, @NotNull final String id);
 

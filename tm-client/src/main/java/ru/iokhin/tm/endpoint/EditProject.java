@@ -7,17 +7,18 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for findByPartOfNameOrDescription complex type.
+ * <p>Java class for editProject complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="findByPartOfNameOrDescription"&gt;
+ * &lt;complexType name="editProject"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
  *         &lt;element name="session" type="{http://endpoint.tm.iokhin.ru/}session" minOccurs="0"/&gt;
- *         &lt;element name="part" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -27,14 +28,16 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "findByPartOfNameOrDescription", propOrder = {
+@XmlType(name = "editProject", propOrder = {
     "session",
-    "part"
+    "id",
+    "name"
 })
-public class FindByPartOfNameOrDescription {
+public class EditProject {
 
     protected Session session;
-    protected String part;
+    protected String id;
+    protected String name;
 
     /**
      * Gets the value of the session property.
@@ -61,27 +64,51 @@ public class FindByPartOfNameOrDescription {
     }
 
     /**
-     * Gets the value of the part property.
+     * Gets the value of the id property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getPart() {
-        return part;
+    public String getId() {
+        return id;
     }
 
     /**
-     * Sets the value of the part property.
+     * Sets the value of the id property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setPart(String value) {
-        this.part = value;
+    public void setId(String value) {
+        this.id = value;
+    }
+
+    /**
+     * Gets the value of the name property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Sets the value of the name property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setName(String value) {
+        this.name = value;
     }
 
 }

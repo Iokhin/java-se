@@ -32,7 +32,7 @@ public class UserEndSessionCommand extends AbstractCommand {
     public void execute() {
         Session session = endpointServiceLocator.getSession();
         UserEndpointBean userEndpointBean = endpointServiceLocator.getUserEndpointBean();
-        System.out.println(userEndpointBean.findById(session.getParentId()).getLogin() + " was logged out");
+        System.out.println(userEndpointBean.findUserById(session.getParentId()).getLogin() + " was logged out");
         endpointServiceLocator.setSession(null);
     }
 }

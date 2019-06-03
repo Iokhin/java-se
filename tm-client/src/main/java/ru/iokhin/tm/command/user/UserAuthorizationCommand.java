@@ -3,7 +3,6 @@ package ru.iokhin.tm.command.user;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.command.AbstractCommand;
-import ru.iokhin.tm.endpoint.AuthException_Exception;
 import ru.iokhin.tm.endpoint.Session;
 
 @NoArgsConstructor
@@ -30,7 +29,7 @@ public class UserAuthorizationCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() throws AuthException_Exception {
+    public void execute() {
         System.out.println("PLEASE ENTER YOUR LOGIN");
         @NotNull final String login = endpointServiceLocator.getTerminalService().nextLine();
         System.out.println("PLEASE ENTER YOUR PASSWORD");
@@ -42,7 +41,7 @@ public class UserAuthorizationCommand extends AbstractCommand {
         }
         endpointServiceLocator.setSession(session);
         System.out.println("WELCOME, " +
-                endpointServiceLocator.getUserEndpointBean().findById(session.getParentId()).getLogin() + ", " +
-                endpointServiceLocator.getUserEndpointBean().findById(session.getParentId()).getId());
+                endpointServiceLocator.getUserEndpointBean().findUserById(session.getParentId()).getLogin() + ", " +
+                endpointServiceLocator.getUserEndpointBean().findUserById(session.getParentId()).getId());
     }
 }

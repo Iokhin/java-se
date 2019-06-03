@@ -5,12 +5,13 @@ import ru.iokhin.tm.api.IService;
 import ru.iokhin.tm.entity.Task;
 import ru.iokhin.tm.entity.User;
 
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
 
 public interface ITaskService extends IService<Task> {
 
-    Task add(@NotNull final String userId, @NotNull final String projectId, @NotNull final String name);
+    Task add(@NotNull final String userId, @NotNull final String projectId, @NotNull final String name) throws SQLException;
 
     Task edit(@NotNull final String userId, @NotNull final String id, @NotNull final String name);
 

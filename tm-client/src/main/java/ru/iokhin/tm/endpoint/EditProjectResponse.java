@@ -8,16 +8,16 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for findByIdResponse complex type.
+ * <p>Java class for editProjectResponse complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="findByIdResponse"&gt;
+ * &lt;complexType name="editProjectResponse"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="return" type="{http://endpoint.tm.iokhin.ru/}user" minOccurs="0"/&gt;
+ *         &lt;element name="return" type="{http://endpoint.tm.iokhin.ru/}project" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -27,23 +27,23 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "findByIdResponse", propOrder = {
+@XmlType(name = "editProjectResponse", propOrder = {
     "_return"
 })
-public class FindByIdResponse {
+public class EditProjectResponse {
 
     @XmlElement(name = "return")
-    protected User _return;
+    protected Project _return;
 
     /**
      * Gets the value of the return property.
      * 
      * @return
      *     possible object is
-     *     {@link User }
+     *     {@link Project }
      *     
      */
-    public User getReturn() {
+    public Project getReturn() {
         return _return;
     }
 
@@ -52,10 +52,10 @@ public class FindByIdResponse {
      * 
      * @param value
      *     allowed object is
-     *     {@link User }
+     *     {@link Project }
      *     
      */
-    public void setReturn(User value) {
+    public void setReturn(Project value) {
         this._return = value;
     }
 

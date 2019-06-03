@@ -1,6 +1,7 @@
 package ru.iokhin.tm.endpoint;
 
 import lombok.NoArgsConstructor;
+import lombok.SneakyThrows;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.iokhin.tm.api.endpoint.UserEndpoint;
@@ -19,6 +20,7 @@ import javax.jws.WebService;
 import javax.xml.bind.JAXBException;
 import javax.xml.soap.SOAPException;
 import java.io.IOException;
+import java.sql.SQLException;
 
 @WebService
 @NoArgsConstructor
@@ -36,20 +38,23 @@ public class UserEndpointBean implements UserEndpoint {
     }
 
     @Override
+    @SneakyThrows
     public User addUser(@WebParam(name = "login") @NotNull final String login,
                         @WebParam(name = "password") @NotNull final String password) {
         return userService.add(RoleType.USER, login, password);
     }
 
     @Override
+    @SneakyThrows
     public User editUser(@WebParam(name = "session") @NotNull final Session session,
                          @WebParam(name = "newLogin") @NotNull final String newLogin,
-                         @WebParam(name = "newPassword") @NotNull final String newPassword) throws AuthException {
+                         @WebParam(name = "newPassword") @NotNull final String newPassword) {
         sessionService.validate(session);
         return userService.edit(session.getParentId(), newLogin, newPassword);
     }
 
     @Override
+    @SneakyThrows
     public User findByLogin(@WebParam(name = "login") @NotNull final String login) {
         return userService.findByLogin(login);
     }
@@ -61,72 +66,84 @@ public class UserEndpointBean implements UserEndpoint {
 
     @Override
     @WebMethod
+    @SneakyThrows
     public Session authUser(@WebParam(name = "login") @NotNull final String login,
-                            @WebParam(name = "password") @NotNull final String password) throws AuthException {
+                            @WebParam(name = "password") @NotNull final String password) {
         User user = userService.authUser(login, password);
         if (user == null) return null;
-//        if ("user".equals(user.getLogin())) throw new AuthException();
         return sessionService.create(user.getId());
     }
 
     @Override
-    public User findById(@WebParam(name = "id") @NotNull final String id) {
+    @SneakyThrows
+    public User findUserById(@WebParam(name = "id") @NotNull final String id) {
         return userService.findOne(id);
     }
 
     @Override
+    @SneakyThrows
     public boolean passChange(@WebParam(name = "oldPassword") @NotNull final String oldPassword,
                               @WebParam(name = "newPassword") @NotNull final String newPassword) {
         return userService.changePassword(oldPassword, newPassword);
     }
 
     @Override
-    public void dataBinSave() throws IOException {
+    @SneakyThrows
+    public void dataBinSave() {
         userService.dataBinSave();
     }
 
     @Override
-    public void dataBinLoad() throws IOException, java.lang.ClassNotFoundException {
+    @SneakyThrows
+    public void dataBinLoad() {
         userService.dataBinLoad();
     }
 
     @Override
-    public void dataJAXBXMLSave() throws JAXBException {
+    @SneakyThrows
+    public void dataJAXBXMLSave() {
         userService.dataJAXBXMLSave();
     }
 
     @Override
-    public void dataJAXBXMLLoad() throws JAXBException {
+    @SneakyThrows
+    public void dataJAXBXMLLoad() {
         userService.dataJAXBXMLLoad();
     }
 
     @Override
-    public void dataJAXBJSONSave() throws JAXBException {
+    @SneakyThrows
+    public void dataJAXBJSONSave() {
         userService.dataJAXBJSONSave();
     }
 
     @Override
-    public void dataJAXBJSONLoad() throws JAXBException {
+    @SneakyThrows
+    public void dataJAXBJSONLoad() {
         userService.dataJAXBJSONLoad();
     }
 
     @Override
-    public void dataFasterXMLSave() throws IOException {
+    @SneakyThrows
+    public void dataFasterXMLSave() {
         userService.dataFasterXMLSave();
     }
 
     @Override
-    public void dataFasterXMLLoad() throws IOException {
+    @SneakyThrows
+    public void dataFasterXMLLoad() {
         userService.dataFasterXMLLoad();
     }
 
     @Override
-    public void dataFasterJSONLoad() throws IOException {
+    @SneakyThrows
+    public void dataFasterJSONLoad() {
         userService.dataFasterJSONLoad();
     }
 
     @Override
-    public void dataFasterJSONSave() throws IOException {
+    @SneakyThrows
+    public void dataFasterJSONSave() {
         userService.dataFasterJSONSave();
     }
 }

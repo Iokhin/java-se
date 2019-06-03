@@ -11,7 +11,8 @@ public enum RoleType {
     @NotNull
     private final String title;
 
-    public String displayName() {
+    @Override
+    public String toString() {
         return this.title;
     }
 

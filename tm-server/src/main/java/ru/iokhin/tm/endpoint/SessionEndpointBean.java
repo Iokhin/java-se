@@ -1,6 +1,7 @@
 package ru.iokhin.tm.endpoint;
 
 import lombok.NoArgsConstructor;
+import lombok.SneakyThrows;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.iokhin.tm.api.endpoint.SessionEndpoint;
@@ -11,6 +12,7 @@ import ru.iokhin.tm.exeption.AuthException;
 
 import javax.jws.WebParam;
 import javax.jws.WebService;
+import java.sql.SQLException;
 
 @WebService
 @NoArgsConstructor
@@ -23,12 +25,14 @@ public class SessionEndpointBean implements SessionEndpoint {
     }
 
     @Override
+    @SneakyThrows
     public Session create(@WebParam(name = "userId") @NotNull String userId) {
         return sessionService.create(userId);
     }
 
     @Override
-    public void validate(@WebParam(name = "session") @Nullable Session session) throws AuthException {
+    @SneakyThrows
+    public void validate(@WebParam(name = "session") @Nullable Session session) {
         sessionService.validate(session);
     }
 }

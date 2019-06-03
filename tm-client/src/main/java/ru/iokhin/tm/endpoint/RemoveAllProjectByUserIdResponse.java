@@ -7,12 +7,12 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for removeAllByUserIdResponse complex type.
+ * <p>Java class for removeAllProjectByUserIdResponse complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="removeAllByUserIdResponse"&gt;
+ * &lt;complexType name="removeAllProjectByUserIdResponse"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
@@ -25,8 +25,8 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "removeAllByUserIdResponse")
-public class RemoveAllByUserIdResponse {
+@XmlType(name = "removeAllProjectByUserIdResponse")
+public class RemoveAllProjectByUserIdResponse {
 
 
 }

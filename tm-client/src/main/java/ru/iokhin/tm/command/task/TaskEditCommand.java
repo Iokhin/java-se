@@ -3,8 +3,6 @@ package ru.iokhin.tm.command.task;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.command.AbstractCommand;
-import ru.iokhin.tm.endpoint.AuthException_Exception;
-import ru.iokhin.tm.endpoint.Status;
 
 @NoArgsConstructor
 public final class TaskEditCommand extends AbstractCommand {
@@ -30,7 +28,7 @@ public final class TaskEditCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() throws AuthException_Exception {
+    public void execute() {
         System.out.println("ENTER ID OF TASK TO EDIT");
         @NotNull final String taskId = endpointServiceLocator.getTerminalService().nextLine();
         System.out.println("ENTER NEW NAME OF TASK TO EDIT");
