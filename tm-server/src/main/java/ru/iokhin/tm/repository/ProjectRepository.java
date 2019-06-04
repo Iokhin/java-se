@@ -1,12 +1,10 @@
 package ru.iokhin.tm.repository;
 
-import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.iokhin.tm.api.repository.IProjectRepository;
 import ru.iokhin.tm.entity.Project;
-import ru.iokhin.tm.util.DBConnect;
 import ru.iokhin.tm.util.DateFormatter;
 import ru.iokhin.tm.util.FieldConst;
 
@@ -42,8 +40,7 @@ public class ProjectRepository extends AbstractRepository<Project> implements IP
     @Override
     @SneakyThrows
     public Project merge(@NotNull Project entity) {
-        @NotNull final String query = "UPDATE task SET description = ?, name = ?, dateBegin = ?," +
-                " user_id = ?, status = ? where id = ?";
+        @NotNull final String query = "UPDATE project SET description = ?, name = ?, dateBegin = ?, user_id = ?, status = ? where id = ?";
         @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
         statement.setString(1, entity.getDescription());
         statement.setString(2, entity.getName());
@@ -66,6 +63,8 @@ public class ProjectRepository extends AbstractRepository<Project> implements IP
         project.setDescription(row.getString(FieldConst.DESCRIPTION));
         project.setStartDate(row.getDate(FieldConst.DATE_BEGIN));
         project.setEndDate(row.getDate(FieldConst.DATE_END));
+        project.setParentId(row.getString(FieldConst.USER_ID));
+        project.setStatusFromRepository(row.getString(FieldConst.STATUS));
         return project;
     }
 

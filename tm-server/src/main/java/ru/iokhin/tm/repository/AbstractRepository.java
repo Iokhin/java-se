@@ -25,7 +25,7 @@ public abstract class AbstractRepository<E extends AbstractEntity> implements IR
 
     protected Connection connection;
 
-    abstract E fetch(@Nullable final ResultSet resultSet);
+    abstract E fetch(@Nullable final ResultSet resultSet) throws SQLException;
 
     @Override
     public E persist(@NotNull final E entity) throws SQLException {

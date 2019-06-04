@@ -1,5 +1,6 @@
 package ru.iokhin.tm.service;
 
+import lombok.SneakyThrows;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.iokhin.tm.api.repository.ITaskRepository;
@@ -27,15 +28,18 @@ public class TaskService extends AbstractService<Task, ITaskRepository> implemen
     }
 
     @Override
+    @SneakyThrows
     public Task edit(@NotNull final String userId, @NotNull final String id, @NotNull final String name) {
-        StringValidator.validate(name, id);
+        StringValidator.validate(name, id, userId);
         @Nullable final Task task = repository.findOneByUserId(userId, id);
         if (task == null) return null;
         task.setName(name);
+        repository.merge(task);
         return task;
     }
 
     @Override
+    @SneakyThrows
     public Task remove(@NotNull final String userId, @NotNull final String id) {
         StringValidator.validate(id);
         @Nullable final Task task = repository.findOneByUserId(userId, id);
@@ -49,6 +53,7 @@ public class TaskService extends AbstractService<Task, ITaskRepository> implemen
     }
 
     @Override
+    @SneakyThrows
     public Collection<Task> findAllByUserId(@NotNull final String userId) {
         return repository.findAllByUserId(userId);
     }
@@ -74,6 +79,7 @@ public class TaskService extends AbstractService<Task, ITaskRepository> implemen
     }
 
     @Override
+    @SneakyThrows
     public Collection<Task> sortByUserId(@NotNull String userId, @NotNull String comparator) {
         StringValidator.validate(userId, comparator);
         if (comparator.equals("order")) return repository.findAllByUserId(userId);

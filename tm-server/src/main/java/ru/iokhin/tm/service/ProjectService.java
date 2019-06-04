@@ -37,11 +37,12 @@ public class ProjectService extends AbstractService<Project, IProjectRepository>
 
     @Override
     public Project edit(@NotNull String userId, @NotNull String id, @NotNull String name, @NotNull Status status) {
-        StringValidator.validate(name, id);
+        StringValidator.validate(name, id, userId);
         @Nullable final Project project = repository.findOneByUserId(userId, id);
         if (project == null) return null;
         project.setName(name);
         project.setStatus(status);
+        repository.merge(project);
         return project;
     }
 

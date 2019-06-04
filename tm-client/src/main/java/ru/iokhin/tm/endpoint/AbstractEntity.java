@@ -201,4 +201,8 @@ public class AbstractEntity {
         this.startDate = value;
     }
 
+    @Override
+    public String toString() {
+        return name + ", " + id;
+    }
 }

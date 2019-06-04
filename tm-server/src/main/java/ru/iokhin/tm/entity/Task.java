@@ -15,12 +15,7 @@ import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
-//@XmlRootElement(name = "task")
-//@XmlAccessorType(XmlAccessType.FIELD)
 public final class Task extends AbstractEntity {
-
-//    @Nullable
-//    private String parentId;
 
     @Nullable
     private String projectId;
@@ -56,10 +51,10 @@ public final class Task extends AbstractEntity {
         return name + ", " + id;
     }
 
-    public void setStatus(@NotNull final String status) {
-        if (status.equals("Готово"))
+    public void setStatusFromRepository(@NotNull final String status) {
+        if ("Готово".equals(status))
             this.status = Status.READY;
-        if (status.equals("В процессе"))
+        if ("В процессе".equals(status))
             this.status = Status.PROCCESSING;
         this.status = Status.PLANNING;
     }

@@ -52,4 +52,18 @@ public final class Project extends AbstractEntity {
     public String toString() {
         return String.format("%s, %s", name, id);
     }
+
+    @Override
+    public @NotNull String getParentId() {
+        return this.parentId;
+    }
+
+    public void setStatusFromRepository(String status) {
+        if ("Запланировано".equals(status))
+            this.status = Status.PLANNING;
+        if ("В процессе".equals(status))
+            this.status = Status.PROCCESSING;
+        if ("Готово".equals(status))
+            this.status = Status.READY;
+    }
 }

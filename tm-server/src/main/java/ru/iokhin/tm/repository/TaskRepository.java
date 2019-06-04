@@ -4,7 +4,6 @@ import lombok.SneakyThrows;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.iokhin.tm.api.repository.ITaskRepository;
-import ru.iokhin.tm.entity.Project;
 import ru.iokhin.tm.entity.Task;
 import ru.iokhin.tm.util.DateFormatter;
 import ru.iokhin.tm.util.FieldConst;
@@ -25,21 +24,22 @@ public class TaskRepository extends AbstractRepository<Task> implements ITaskRep
     }
 
     @Override
-    @SneakyThrows
-    Task fetch(@Nullable ResultSet resultSet) {
+    Task fetch(@Nullable ResultSet resultSet) throws SQLException {
         if (resultSet == null) return null;
         @NotNull final Task task = new Task();
         task.setId(resultSet.getString(FieldConst.ID));
         task.setName(resultSet.getString(FieldConst.NAME));
         task.setDescription(resultSet.getString(FieldConst.DESCRIPTION));
-        task.setStatus(resultSet.getString(FieldConst.STATUS));
+        task.setStatusFromRepository(resultSet.getString(FieldConst.STATUS));
+        task.setProjectId(resultSet.getString(FieldConst.PROJECT_ID));
+        task.setParentId(resultSet.getString(FieldConst.USER_ID));
         return task;
     }
 
     @Override
     public Task persist(@NotNull Task entity) throws SQLException {
-        @NotNull final String query = "INSERT INTO task (id, description, name, dateBegin, user_id, status)" +
-                " values (?, ?, ?, ?, ?, ?)";
+        @NotNull final String query = "INSERT INTO task (id, description, name, dateBegin, user_id, status, project_id)" +
+                " values (?, ?, ?, ?, ?, ?, ?)";
         @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
         statement.setString(1, entity.getId());
         statement.setString(2, entity.getDescription());
@@ -47,6 +47,7 @@ public class TaskRepository extends AbstractRepository<Task> implements ITaskRep
         statement.setString(4, DateFormatter.format(entity.getStartDate()));
         statement.setString(5, entity.getParentId());
         statement.setString(6, entity.getStatus().toString());
+        statement.setString(7, entity.getProjectId());
         statement.executeUpdate();
         statement.close();
         return entity;
@@ -55,12 +56,12 @@ public class TaskRepository extends AbstractRepository<Task> implements ITaskRep
     @Override
     @SneakyThrows
     public Task merge(@NotNull Task entity) {
-        @NotNull final String query = "UPDATE task SET description = ?, name = ?, dateBegin = ?," +
+        @NotNull final String query = "UPDATE task SET description = ?, name = ?, project_id = ?," +
                 " user_id = ?, status = ? where id = ?";
         @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
         statement.setString(1, entity.getDescription());
         statement.setString(2, entity.getName());
-        statement.setString(3, DateFormatter.format(entity.getStartDate()));
+        statement.setString(3, entity.getProjectId());
         statement.setString(4, entity.getParentId());
         statement.setString(5, entity.getStatus().toString());
         statement.setString(6, entity.getId());
@@ -70,9 +71,8 @@ public class TaskRepository extends AbstractRepository<Task> implements ITaskRep
     }
 
     @Override
-    @SneakyThrows
-    public Collection<Task> findAllByUserId(@NotNull final String userId) {
-        @NotNull final String query = "SELECT * FROM project where user_id = ?";
+    public Collection<Task> findAllByUserId(@NotNull final String userId) throws SQLException {
+        @NotNull final String query = "SELECT * FROM task where user_id = ?";
         @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
         statement.setString(1, userId);
         @NotNull final ResultSet resultSet = statement.executeQuery();
@@ -93,9 +93,8 @@ public class TaskRepository extends AbstractRepository<Task> implements ITaskRep
     }
 
     @Override
-    @SneakyThrows
-    public Task findOneByUserId(@NotNull final String userId, @NotNull final String id) {
-        @NotNull final String query = "SELECT FROM task WHERE user_id = ? and id = ?";
+    public Task findOneByUserId(@NotNull final String userId, @NotNull final String id) throws SQLException {
+        @NotNull final String query = "SELECT * FROM task WHERE user_id = ? and id = ?";
         @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
         statement.setString(1, userId);
         statement.setString(2, id);
@@ -111,7 +110,7 @@ public class TaskRepository extends AbstractRepository<Task> implements ITaskRep
     public Task remove(@NotNull final String parentId, @NotNull final String id) {
         @Nullable final Task task = findOneByUserId(parentId, id);
         if (task == null) return null;
-        @NotNull final String query = "DELETE FROM project WHERE id = ?";
+        @NotNull final String query = "DELETE FROM task WHERE id = ?";
         @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
         statement.setString(1, id);
         statement.executeUpdate();
@@ -120,6 +119,7 @@ public class TaskRepository extends AbstractRepository<Task> implements ITaskRep
     }
 
     @Override
+    @SneakyThrows
     public Collection<Task> sortByUserId(@NotNull final String userId, @NotNull final Comparator<Task> comparator) {
         List<Task> taskList = new ArrayList<>(findAllByUserId(userId));
         taskList.sort(comparator);
@@ -127,6 +127,7 @@ public class TaskRepository extends AbstractRepository<Task> implements ITaskRep
     }
 
     @Override
+    @SneakyThrows
     public List<Task> findByPartOfNameOrDescription(@NotNull String userId, @NotNull String keyWord) {
         List<Task> taskList = new ArrayList<>(0);
         for (Task task : findAllByUserId(userId)) {
