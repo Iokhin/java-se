@@ -18,7 +18,7 @@ public interface IUserService extends IService<User> {
 
     User add(@NotNull final RoleType roleType, @NotNull final String id, @NotNull final String login, @NotNull final String password) throws SQLException;
 
-    User edit(@NotNull final String userId, @NotNull final String newLogin, @NotNull final String newPasswordHash);
+    User edit(@NotNull final String id, @NotNull final String newLogin, @NotNull final String newPasswordHash);
 
     User findByLogin(@NotNull final String login);
 

@@ -58,4 +58,7 @@ public final class User extends AbstractEntity {
         return login + ", " + id;
     }
 
+//    public String getRoleType() {
+//        return roleType.toString();
+//    }
 }

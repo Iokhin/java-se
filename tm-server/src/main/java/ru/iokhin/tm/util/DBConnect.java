@@ -2,12 +2,13 @@ package ru.iokhin.tm.util;
 
 import lombok.SneakyThrows;
 import org.jetbrains.annotations.NotNull;
-import ru.iokhin.tm.Application;
 
 import java.sql.*;
 import java.util.Properties;
 
 public class DBConnect {
+
+    PropertiesUtil propertiesUtil = new PropertiesUtil();
 
     @SneakyThrows
     static public Connection connect(@NotNull final Properties properties){
@@ -17,9 +18,11 @@ public class DBConnect {
         return DriverManager.getConnection(url, login, password);
     }
 
-//    public static void main(String[] args) throws SQLException {
-//        ResultSet resultSet = connect(PropertiesUtil.getProperties(Application.class)).createStatement().executeQuery("SELECT * from project");
-//        while (resultSet.next())
-//            System.out.println(resultSet.getString(FieldConst.ID));
-//    }
+    @SneakyThrows
+    public Connection getConnection(){
+        @NotNull final String url = propertiesUtil.getJdbcUrl();
+        @NotNull final String login = propertiesUtil.getJdbcUsername();
+        @NotNull final String password = propertiesUtil.getJdbcPassword();
+        return DriverManager.getConnection(url, login, password);
+    }
 }

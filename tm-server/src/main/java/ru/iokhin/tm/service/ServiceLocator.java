@@ -5,11 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
+import ru.iokhin.tm.api.repository.IProjectRepository;
 import ru.iokhin.tm.api.service.*;
-import ru.iokhin.tm.repository.ProjectRepository;
-import ru.iokhin.tm.repository.SessionRepository;
-import ru.iokhin.tm.repository.TaskRepository;
-import ru.iokhin.tm.repository.UserRepository;
+//import ru.iokhin.tm.repository.ProjectRepository;
+//import ru.iokhin.tm.repository.SessionRepository;
+//import ru.iokhin.tm.repository.TaskRepository;
+//import ru.iokhin.tm.repository.UserRepository;
 
 import java.sql.Connection;
 import java.util.Map;
@@ -22,42 +23,43 @@ public class ServiceLocator implements IServiceLocator {
 
     private Connection connection;
 
-    @NotNull
-    private ProjectRepository projectRepository;
+//    @NotNull
+//    private ProjectRepository projectRepository;
+//
+//    @NotNull
+//    private TaskRepository taskRepository;
+
+//    @NotNull
+//    private UserRepository userRepository;
+
+//    @NotNull
+//    private SessionRepository sessionRepository;
 
     @NotNull
-    private TaskRepository taskRepository;
+    private IProjectService projectService;
 
     @NotNull
-    private UserRepository userRepository;
+    private ITaskService taskService;
 
     @NotNull
-    private SessionRepository sessionRepository;
-
-    @NotNull
-    private ProjectService projectService;
-
-    @NotNull
-    private TaskService taskService;
-
-    @NotNull
-    private UserService userService;
+    private IUserService userService;
 
     @NotNull
     private final TerminalService terminalService = new TerminalService();
 
     @NotNull
-    private SessionService sessionService;
+    private ISessionService sessionService;
 
-    public ServiceLocator(Connection connection) {
-        this.connection = connection;
-        this.projectRepository = new ProjectRepository(connection);
-        this.taskRepository = new TaskRepository(connection);
-        this.userRepository = new UserRepository(connection);
-        this.sessionRepository = new SessionRepository(connection);
-        this.projectService = new ProjectService(this.projectRepository);
-        this.taskService = new TaskService(this.taskRepository);
-        this.userService = new UserService(this.userRepository, this.projectRepository, this.taskRepository);
-        this.sessionService = new SessionService(this.sessionRepository);
+    public ServiceLocator(@NotNull final ISessionService sessionService, @NotNull final IUserService userService,
+                          @NotNull final IProjectService projectService, @NotNull final ITaskService taskService) {
+//        this.connection = connection;
+//        this.projectRepository = new ProjectRepository(connection);
+//        this.taskRepository = new TaskRepository(connection);
+//        this.userRepository = new UserRepository(connection);
+//        this.sessionRepository = new SessionRepository(connection);
+        this.projectService = projectService;
+        this.taskService = taskService;
+        this.userService = userService;
+        this.sessionService = sessionService;
     }
 }

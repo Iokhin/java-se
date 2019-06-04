@@ -1,6 +1,8 @@
 package ru.iokhin.tm.service;
 
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.iokhin.tm.api.repository.IProjectRepository;
@@ -14,11 +16,15 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Collection;
 
+@RequiredArgsConstructor
 public class ProjectService extends AbstractService<Project, IProjectRepository> implements IProjectService {
 
-    public ProjectService(IProjectRepository repository) {
-        super(repository);
-    }
+//    public ProjectService(IProjectRepository repository) {
+//        super(repository);
+//    }
+
+    @NotNull
+    private final SqlSessionFactory sqlSessionFactory;
 
     @Override
     public Project add(@NotNull final String userId, @NotNull final String name) throws SQLException {
@@ -86,8 +92,4 @@ public class ProjectService extends AbstractService<Project, IProjectRepository>
         return repository.findByPartOfNameOrDescription(userId, part);
     }
 
-    @Override
-    public Connection getConnection() {
-        return repository.getConnection();
-    }
 }

@@ -20,5 +20,4 @@ public interface IRepository<E extends AbstractEntity> {
 
     void removeAll();
 
-    Connection getConnection();
 }

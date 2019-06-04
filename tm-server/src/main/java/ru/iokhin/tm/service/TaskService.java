@@ -1,6 +1,8 @@
 package ru.iokhin.tm.service;
 
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.iokhin.tm.api.repository.ITaskRepository;
@@ -15,11 +17,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+@RequiredArgsConstructor
 public class TaskService extends AbstractService<Task, ITaskRepository> implements ITaskService {
 
-    public TaskService(@NotNull final ITaskRepository repository) {
-        super(repository);
-    }
+//    public TaskService(@NotNull final ITaskRepository repository) {
+//        super(repository);
+//    }
+
+    @NotNull
+    private final SqlSessionFactory sqlSessionFactory;
 
     @Override
     public Task add(@NotNull final String userId, @NotNull final String projectId, @NotNull final String name) throws SQLException {
@@ -92,9 +98,4 @@ public class TaskService extends AbstractService<Task, ITaskRepository> implemen
         return repository.findByPartOfNameOrDescription(userId, keyWord);
     }
 
-
-    @Override
-    public Connection getConnection() {
-        return repository.getConnection();
-    }
 }
