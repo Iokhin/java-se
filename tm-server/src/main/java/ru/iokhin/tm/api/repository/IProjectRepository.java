@@ -50,7 +50,8 @@ public interface IProjectRepository {
             @Result(property = "parentId", column = "user_id"),
             @Result(property = "status", column = "status")
     })
-    Project findOneByUserId(@NotNull final String userId, @NotNull final String id);
+    Project findOneByUserId(@Param("userId")@NotNull final String userId,
+                            @Param("id")@NotNull final String id);
 
     @Select(SELECT_ALL)
     @Results({
@@ -86,7 +87,8 @@ public interface IProjectRepository {
     Integer removeAllByUserId(@NotNull final String userId);
 
     @Delete(REMOVE_BY_UserID)
-    Integer removeByUserId(@NotNull final String parentId, @NotNull final String id);
+    Integer removeByUserId(@Param("parentId")@NotNull final String parentId,
+                           @Param("id")@NotNull final String id);
 
     Collection<Project> sortByUserId(String userId, Comparator<Project> comparator);
 

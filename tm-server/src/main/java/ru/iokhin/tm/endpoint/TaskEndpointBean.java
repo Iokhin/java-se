@@ -9,13 +9,10 @@ import ru.iokhin.tm.api.service.ISessionService;
 import ru.iokhin.tm.api.service.ITaskService;
 import ru.iokhin.tm.entity.Session;
 import ru.iokhin.tm.entity.Task;
-import ru.iokhin.tm.exeption.AuthException;
 
-import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 import java.util.Collection;
-import java.util.List;
 
 @WebService
 @NoArgsConstructor
@@ -54,7 +51,7 @@ public class TaskEndpointBean implements TaskEndpoint {
     public Task removeTask(@WebParam(name = "session") @NotNull final Session session,
                        @WebParam(name = "id") @NotNull final String id) {
         sessionService.validate(session);
-        return taskService.remove(session.getParentId(), id);
+        return taskService.removeByUserId(session.getParentId(), id);
     }
 
     @Override

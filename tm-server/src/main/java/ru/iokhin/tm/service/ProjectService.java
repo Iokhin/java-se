@@ -154,9 +154,8 @@ public class ProjectService implements IProjectService {
     @Override
     public Collection<Project> findAll() {
         try (SqlSession session = sqlSessionFactory.openSession()) {
-            session.getMapper(IProjectRepository.class).removeAll();
+            return session.getMapper(IProjectRepository.class).findAll();
         }
-        return null;
     }
 
     @Override

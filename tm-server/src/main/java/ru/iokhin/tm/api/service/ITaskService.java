@@ -3,7 +3,6 @@ package ru.iokhin.tm.api.service;
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.api.IService;
 import ru.iokhin.tm.entity.Task;
-import ru.iokhin.tm.entity.User;
 
 import java.sql.SQLException;
 import java.util.Collection;
@@ -15,9 +14,11 @@ public interface ITaskService extends IService<Task> {
 
     Task edit(@NotNull final String userId, @NotNull final String id, @NotNull final String name);
 
-    Task remove(@NotNull final String userId, @NotNull final String id);
+    Task removeByUserId(@NotNull final String userId, @NotNull final String id);
 
     void removeAllByUserId(@NotNull final String userId);
+
+    Task findOneByUserId(@NotNull final String userId, @NotNull final String id);
 
     Collection<Task> findAllByUserId(@NotNull final String userId);
 
