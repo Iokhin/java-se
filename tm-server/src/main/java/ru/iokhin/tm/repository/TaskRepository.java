@@ -107,7 +107,7 @@
 //
 //    @Override
 //    @SneakyThrows
-//    public Task remove(@NotNull final String parentId, @NotNull final String id) {
+//    public Task removeByUserId(@NotNull final String parentId, @NotNull final String id) {
 //        @Nullable final Task task = findOneByUserId(parentId, id);
 //        if (task == null) return null;
 //        @NotNull final String query = "DELETE FROM task WHERE id = ?";
@@ -151,7 +151,7 @@
 //    }
 //
 //    @Override
-//    public Task findOne(@NotNull String id) throws SQLException {
+//    public Task findOneByUserId(@NotNull String id) throws SQLException {
 //        @NotNull final String query = "SELECT * FROM task WHERE id = ?";
 //        @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
 //        statement.setString(1, id);

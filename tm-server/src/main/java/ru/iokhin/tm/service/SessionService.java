@@ -15,6 +15,7 @@ import ru.iokhin.tm.util.PropertiesUtil;
 import ru.iokhin.tm.util.SignatureUtil;
 
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Date;
 
@@ -53,8 +54,6 @@ public class SessionService implements ISessionService {
 //            throw new AuthException("INVALID SESSION");
         final Session temp = session.clone();
         temp.setSignature(null);
-        System.out.println(sign(temp));
-        System.out.println(session.getSignature());
         if (!sign(temp).equals(session.getSignature())) throw new AuthException("INVALID SESSION");
     }
 

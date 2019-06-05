@@ -2,6 +2,7 @@ package ru.iokhin.tm.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -12,69 +13,81 @@ import ru.iokhin.tm.enumerated.Status;
 import ru.iokhin.tm.util.ComparatorUtil;
 import ru.iokhin.tm.util.StringValidator;
 
-import java.sql.Connection;
-import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
+import java.util.List;
 
 @RequiredArgsConstructor
-public class ProjectService extends AbstractService<Project, IProjectRepository> implements IProjectService {
-
-//    public ProjectService(IProjectRepository repository) {
-//        super(repository);
-//    }
+public class ProjectService implements IProjectService {
 
     @NotNull
     private final SqlSessionFactory sqlSessionFactory;
 
     @Override
-    public Project add(@NotNull final String userId, @NotNull final String name) throws SQLException {
+    public Project add(@NotNull final String userId, @NotNull final String name) {
         StringValidator.validate(name);
-        return repository.persist(new Project(userId, name));
+        return persist(new Project(userId, name));
     }
 
     @Override
     public Project edit(@NotNull final String userId, @NotNull final String id, @NotNull final String name) {
-        StringValidator.validate(name, id);
-        @Nullable final Project project = repository.findOneByUserId(userId, id);
+        StringValidator.validate(name, id, userId);
+        @Nullable final Project project = findOneByUserId(userId, id);
         if (project == null) return null;
         project.setName(name);
+        merge(project);
         return project;
     }
 
     @Override
     public Project edit(@NotNull String userId, @NotNull String id, @NotNull String name, @NotNull Status status) {
         StringValidator.validate(name, id, userId);
-        @Nullable final Project project = repository.findOneByUserId(userId, id);
+        @Nullable final Project project = findOneByUserId(userId, id);
         if (project == null) return null;
         project.setName(name);
         project.setStatus(status);
-        repository.merge(project);
+        merge(project);
         return project;
     }
 
     @Override
     public Project remove(@NotNull final String userId, @NotNull final String id) {
-        StringValidator.validate(id);
-        @Nullable final Project project = repository.findOneByUserId(userId, id);
+        StringValidator.validate(id, userId);
+        @Nullable final Project project = findOneByUserId(userId, id);
         if (project == null) return null;
-        return repository.remove(userId, id);
+        return remove(id);
     }
 
     @Override
     @SneakyThrows
     public void removeAllByUserId(@NotNull final String userId) {
-        repository.removeAllByUserId(userId);
+        SqlSession session = null;
+        try {
+            session = sqlSessionFactory.openSession();
+            session.getMapper(IProjectRepository.class).removeAllByUserId(userId);
+            session.commit();
+        } catch (Exception e) {
+            if (session != null) session.rollback();
+            throw e;
+        } finally {
+            if (session != null) session.close();
+        }
     }
 
     @Override
     @SneakyThrows
     public Collection<Project> findAllByUserId(@NotNull final String userId) {
-        return repository.findAllByUserId(userId);
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            return session.getMapper(IProjectRepository.class).findAllByUserId(userId);
+        }
     }
 
     @Override
-    public Project findOne(@NotNull final String userId, @NotNull final String id) {
-        return repository.findOneByUserId(userId, id);
+    public Project findOneByUserId(@NotNull final String userId, @NotNull final String id) {
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            return session.getMapper(IProjectRepository.class).findOneByUserId(userId, id);
+        }
     }
 
     @Override
@@ -82,14 +95,100 @@ public class ProjectService extends AbstractService<Project, IProjectRepository>
     public Collection<Project> sortByUserId(@NotNull final String userId, @NotNull final String comparator) {
         StringValidator.validate(userId, comparator);
         if (comparator.equals("order")) return findAllByUserId(userId);
-        if (ComparatorUtil.getProjectComparator(comparator) == null) return null;
-        return repository.sortByUserId(userId, ComparatorUtil.getProjectComparator(comparator));
+        Comparator<Project> projectComparator = ComparatorUtil.getProjectComparator(comparator);
+        if (projectComparator == null) return null;
+        List<Project> projectList = new ArrayList<>(findAllByUserId(userId));
+        projectList.sort(projectComparator);
+        return projectList;
     }
 
     @Override
     @SneakyThrows
     public Collection<Project> findByPartOfNameOrDescription(@NotNull final String userId, @NotNull final String part) {
-        return repository.findByPartOfNameOrDescription(userId, part);
+        List<Project> projectList = new ArrayList<>();
+        for (Project project : findAllByUserId(userId)) {
+            if (project.getName() != null && project.getName().contains(part)) projectList.add(project);
+        }
+        return projectList;
     }
 
+    @Override
+    public Project persist(@NotNull Project entity) {
+        SqlSession session = null;
+        try {
+            session = sqlSessionFactory.openSession();
+            session.getMapper(IProjectRepository.class).persist(entity);
+            session.commit();
+            return entity;
+        } catch (Exception e) {
+            if (session != null) session.rollback();
+            throw e;
+        } finally {
+            if (session != null) session.close();
+        }
+    }
+
+    @Override
+    public Project merge(@NotNull Project entity) {
+        SqlSession session = null;
+        try {
+            session = sqlSessionFactory.openSession();
+            session.getMapper(IProjectRepository.class).merge(entity);
+            session.commit();
+            return entity;
+        } catch (Exception e) {
+            if (session != null) session.rollback();
+            throw e;
+        } finally {
+            if (session != null) session.close();
+        }
+    }
+
+    @Override
+    public Project findOne(@NotNull String id) {
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            return session.getMapper(IProjectRepository.class).findOne(id);
+        }
+    }
+
+    @Override
+    public Collection<Project> findAll() {
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            session.getMapper(IProjectRepository.class).removeAll();
+        }
+        return null;
+    }
+
+    @Override
+    public Project remove(@NotNull String id) {
+        Project project = findOne(id);
+        if (project == null) return null;
+        SqlSession session = null;
+        try {
+            session = sqlSessionFactory.openSession();
+            session.getMapper(IProjectRepository.class).remove(id);
+            session.commit();
+            return project;
+        } catch (Exception e) {
+            if (session != null) session.rollback();
+            throw e;
+        } finally {
+            if (session != null) session.close();
+        }
+    }
+
+    @Override
+    public void removeAll() {
+        SqlSession session = null;
+        try {
+            session = sqlSessionFactory.openSession();
+            session.getMapper(IProjectRepository.class).removeAll();
+            session.commit();
+        } catch (Exception e) {
+            if (session != null) session.rollback();
+            throw e;
+        } finally {
+            if (session != null) session.close();
+        }
+    }
 }

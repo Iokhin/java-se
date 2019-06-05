@@ -72,7 +72,7 @@
 //    }
 //
 //    @Override
-//    public Session findOne(@NotNull String id) throws SQLException {
+//    public Session findOneByUserId(@NotNull String id) throws SQLException {
 //        @NotNull final String query = "SELECT * FROM session WHERE id = ?";
 //        @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
 //        statement.setString(1, id);
@@ -84,10 +84,10 @@
 //    }
 //
 //    @Override
-//    public Session remove(@NotNull String id) throws SQLException {
+//    public Session removeByUserId(@NotNull String id) throws SQLException {
 //        @NotNull final String query = "DELETE FROM session WHERE id = ?";
 //        @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
-//        @NotNull final Session session = findOne(id);
+//        @NotNull final Session session = findOneByUserId(id);
 //        statement.setString(1, id);
 //        statement.executeUpdate();
 //        statement.close();

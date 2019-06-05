@@ -23,7 +23,7 @@ public interface IProjectService extends IService<Project> {
 
     Collection<Project> findAllByUserId(@NotNull final String userId);
 
-    Project findOne(@NotNull final String userId, @NotNull final String id);
+    Project findOneByUserId(@NotNull final String userId, @NotNull final String id);
 
     Collection<Project> sortByUserId(String userId, String comparator);
 

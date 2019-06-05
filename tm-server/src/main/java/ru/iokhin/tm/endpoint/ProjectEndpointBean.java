@@ -9,7 +9,6 @@ import ru.iokhin.tm.api.service.ISessionService;
 import ru.iokhin.tm.entity.Project;
 import ru.iokhin.tm.entity.Session;
 import ru.iokhin.tm.enumerated.Status;
-import ru.iokhin.tm.exeption.AuthException;
 
 import javax.jws.WebParam;
 import javax.jws.WebService;
@@ -73,7 +72,7 @@ public class ProjectEndpointBean implements ru.iokhin.tm.api.endpoint.ProjectEnd
     public Project findProject(@WebParam(name = "session") @NotNull final Session session,
                                @WebParam(name = "id") @NotNull final String id) {
         sessionService.validate(session);
-        return projectService.findOne(session.getParentId(), id);
+        return projectService.findOneByUserId(session.getParentId(), id);
     }
 
     @Override

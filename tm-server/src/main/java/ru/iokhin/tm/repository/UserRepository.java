@@ -84,7 +84,7 @@ import java.util.List;
 //
 //    @Override
 //    @SneakyThrows
-//    public User findOne(@NotNull String id) {
+//    public User findOneByUserId(@NotNull String id) {
 //        @NotNull final String query = "SELECT * FROM user WHERE id = ?";
 //        @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
 //        statement.setString(1, id);
@@ -97,10 +97,10 @@ import java.util.List;
 //
 //    @Override
 //    @SneakyThrows
-//    public User remove(@NotNull String id) {
+//    public User removeByUserId(@NotNull String id) {
 //        @NotNull final String query = "DELETE FROM user WHERE id = ?";
 //        @NotNull final PreparedStatement statement = getConnection().prepareStatement(query);
-//        @NotNull final User user = findOne(id);
+//        @NotNull final User user = findOneByUserId(id);
 //        statement.setString(1, id);
 //        statement.executeUpdate();
 //        statement.close();

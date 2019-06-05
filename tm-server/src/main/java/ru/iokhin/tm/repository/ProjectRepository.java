@@ -106,7 +106,7 @@
 //
 //    @Override
 //    @SneakyThrows
-//    public Project remove(@NotNull final String parentId, @NotNull final String id) {
+//    public Project removeByUserId(@NotNull final String parentId, @NotNull final String id) {
 //        @Nullable final Project project = findOneByUserId(parentId, id);
 //        if (project == null) return null;
 //        @NotNull final String query = "DELETE FROM project WHERE id = ?";
