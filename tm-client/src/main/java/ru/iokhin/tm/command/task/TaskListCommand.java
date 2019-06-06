@@ -41,7 +41,7 @@ public final class TaskListCommand extends AbstractCommand {
         System.out.println("TASKS LIST:");
         int i = 0;
         for (@NotNull Task task : getTaskList(projectId)) {
-            System.out.println(++i + ". " + task);
+            System.out.println(++i + ". " + task.getName() + ", " + task.getId());
         }
     }
 

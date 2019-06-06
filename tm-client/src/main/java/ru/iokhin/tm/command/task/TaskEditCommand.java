@@ -19,7 +19,7 @@ public final class TaskEditCommand extends AbstractCommand {
 
     @Override
     public String name() {
-        return "task-editUser";
+        return "task-edit";
     }
 
     @Override

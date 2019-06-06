@@ -10,7 +10,6 @@ import ru.iokhin.tm.api.repository.ITaskRepository;
 import ru.iokhin.tm.api.service.ITaskService;
 import ru.iokhin.tm.entity.Task;
 import ru.iokhin.tm.exeption.ObjectNotFound;
-import ru.iokhin.tm.util.ComparatorUtil;
 import ru.iokhin.tm.util.StringValidator;
 
 import java.util.ArrayList;
@@ -36,7 +35,7 @@ public class TaskService implements ITaskService {
         @Nullable final Task task = findOneByUserId(userId, id);
         if (task == null) return null;
         task.setName(name);
-        repository.merge(task);
+        merge(task);
         return task;
     }
 
@@ -44,15 +43,35 @@ public class TaskService implements ITaskService {
     @SneakyThrows
     public Task removeByUserId(@NotNull final String userId, @NotNull final String id) {
         StringValidator.validate(id);
-        @Nullable final Task task = repository.findOneByUserId(userId, id);
-        if (task == null) return null;
-        return repository.remove(userId, id);
+        Task entity = findOneByUserId(userId, id);
+        SqlSession session = null;
+        try {
+            session = sqlSessionFactory.openSession();
+            session.getMapper(ITaskRepository.class).removeByUserId(userId, id);
+            session.commit();
+            return entity;
+        } catch (Exception e) {
+            if (session != null) session.rollback();
+            throw e;
+        } finally {
+            if (session != null) session.close();
+        }
     }
 
     @Override
     public void removeAllByUserId(@NotNull final String userId) {
-        repository.removeAllByUserId(userId);
-    }
+        StringValidator.validate(userId);
+        SqlSession session = null;
+        try {
+            session = sqlSessionFactory.openSession();
+            session.getMapper(ITaskRepository.class).removeAllByUserId(userId);
+            session.commit();
+        } catch (Exception e) {
+            if (session != null) session.rollback();
+            throw e;
+        } finally {
+            if (session != null) session.close();
+        }    }
 
     @Override
     public Task findOneByUserId(@NotNull String userId, @NotNull String id) {
@@ -65,7 +84,7 @@ public class TaskService implements ITaskService {
     @SneakyThrows
     public Collection<Task> findAllByUserId(@NotNull final String userId) {
         try (SqlSession session = sqlSessionFactory.openSession()) {
-            return session.getMapper(ITaskRepository.class).findOneByUserId(id);
+            return session.getMapper(ITaskRepository.class).findAllByUserId(userId);
         }
     }
 
@@ -80,27 +99,35 @@ public class TaskService implements ITaskService {
     }
 
     @Override
-    public boolean removeAllByProjectId(@NotNull final String userId, @NotNull final String projectId) {
-        @NotNull boolean flag = false;
-        for (Task task : findAllByProjectId(userId, projectId)) {
-            repository.remove(userId, task.getId());
-            flag = true;
+    public void removeAllByProjectId(@NotNull final String userId, @NotNull final String projectId) {
+        SqlSession session = null;
+        try {
+            session = sqlSessionFactory.openSession();
+            session.getMapper(ITaskRepository.class).removeAllByProjectId(userId, projectId);
+            session.commit();
+        } catch (Exception e) {
+            if (session != null) session.rollback();
+            throw e;
+        } finally {
+            if (session != null) session.close();
         }
-        return flag;
     }
 
     @Override
     @SneakyThrows
-    public Collection<Task> sortByUserId(@NotNull String userId, @NotNull String comparator) {
-        StringValidator.validate(userId, comparator);
-        if (comparator.equals("order")) return repository.findAllByUserId(userId);
-        if (ComparatorUtil.getTaskComparator(comparator) == null) return null;
-        return repository.sortByUserId(userId, ComparatorUtil.getTaskComparator(comparator));
+    public Collection<Task> sortByUserId(@NotNull String userId, @NotNull String parameter) {
+        StringValidator.validate(userId, parameter);
+        if ("order".equals(parameter)) return findAllByUserId(userId);
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            return session.getMapper(ITaskRepository.class).sortByUserId(userId, parameter);
+        }
     }
 
     @Override
     public List<Task> findByPartOfNameOrDescription(@NotNull final String userId, @NotNull final String keyWord) {
-        return repository.findByPartOfNameOrDescription(userId, keyWord);
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            return session.getMapper(ITaskRepository.class).findByPartOfNameOrDescription(userId, keyWord);
+        }
     }
 
     @Override

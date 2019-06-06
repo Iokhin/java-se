@@ -26,12 +26,11 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.*;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 
-@Getter
+//@Getter
 @Setter
 @RequiredArgsConstructor
 public class UserService implements IUserService {
@@ -157,6 +156,11 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    @Override
     public User authUser(@NotNull String login, @NotNull String password) throws AuthException {
         StringValidator.validate(login, password);
         @NotNull final User user = findByLogin(login);
@@ -172,7 +176,9 @@ public class UserService implements IUserService {
         StringValidator.validate(oldPassword, newPassword);
         if (!MD5Util.passwordToHash(oldPassword).equals(getCurrentUser().getPasswordHash()))
             return false;
-        getCurrentUser().setPasswordHash(MD5Util.passwordToHash(newPassword));
+        User user = getCurrentUser();
+        user.setPasswordHash(MD5Util.passwordToHash(newPassword));
+        merge(user);
         return true;
     }
 

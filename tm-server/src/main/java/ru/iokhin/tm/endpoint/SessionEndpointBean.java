@@ -8,11 +8,9 @@ import ru.iokhin.tm.api.endpoint.SessionEndpoint;
 import ru.iokhin.tm.api.service.IServiceLocator;
 import ru.iokhin.tm.api.service.ISessionService;
 import ru.iokhin.tm.entity.Session;
-import ru.iokhin.tm.exeption.AuthException;
 
 import javax.jws.WebParam;
 import javax.jws.WebService;
-import java.sql.SQLException;
 
 @WebService
 @NoArgsConstructor

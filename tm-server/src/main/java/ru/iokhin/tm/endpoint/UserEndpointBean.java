@@ -3,7 +3,6 @@ package ru.iokhin.tm.endpoint;
 import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import ru.iokhin.tm.api.endpoint.UserEndpoint;
 import ru.iokhin.tm.api.service.IServiceLocator;
 import ru.iokhin.tm.api.service.ISessionService;
@@ -11,16 +10,10 @@ import ru.iokhin.tm.api.service.IUserService;
 import ru.iokhin.tm.entity.Session;
 import ru.iokhin.tm.entity.User;
 import ru.iokhin.tm.enumerated.RoleType;
-import ru.iokhin.tm.exeption.AuthException;
-import ru.iokhin.tm.util.MD5Util;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
-import javax.xml.bind.JAXBException;
-import javax.xml.soap.SOAPException;
-import java.io.IOException;
-import java.sql.SQLException;
 
 @WebService
 @NoArgsConstructor

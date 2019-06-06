@@ -114,5 +114,5 @@ public class User
     public void setRoleType(RoleType value) {
         this.roleType = value;
     }
-    
+
 }

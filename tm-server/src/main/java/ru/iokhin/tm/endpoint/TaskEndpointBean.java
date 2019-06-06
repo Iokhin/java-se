@@ -78,10 +78,10 @@ public class TaskEndpointBean implements TaskEndpoint {
 
     @Override
     @SneakyThrows
-    public boolean removeAllByProjectId(@WebParam(name = "session") @NotNull final Session session,
+    public void removeAllByProjectId(@WebParam(name = "session") @NotNull final Session session,
                                         @WebParam(name = "projectId") @NotNull final String projectId) {
         sessionService.validate(session);
-        return taskService.removeAllByProjectId(session.getParentId(), projectId);
+        taskService.removeAllByProjectId(session.getParentId(), projectId);
     }
 
     @Override

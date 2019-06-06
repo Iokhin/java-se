@@ -31,10 +31,6 @@ public final class TaskRemoveAllByProjectCommand extends AbstractCommand {
     public void execute() {
         System.out.println("ENTER ID OF PROJECT TO CLEAR TASKS");
         @NotNull final String projectId = endpointServiceLocator.getTerminalService().nextLine();
-        if (!endpointServiceLocator.getTaskEndpointBean().removeAllByProjectId(endpointServiceLocator.getSession(), projectId)) {
-            System.out.println("NO SUCH PROJECT ID");
-            return;
-        }
         endpointServiceLocator.getTaskEndpointBean().removeAllByProjectId(endpointServiceLocator.getSession(), projectId);
         System.out.println("OK");
     }

@@ -1,6 +1,5 @@
 package ru.iokhin.tm.service;
 
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.apache.ibatis.session.SqlSession;
@@ -14,12 +13,9 @@ import ru.iokhin.tm.exeption.AuthException;
 import ru.iokhin.tm.util.PropertiesUtil;
 import ru.iokhin.tm.util.SignatureUtil;
 
-import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Date;
 
-//@NoArgsConstructor
 @RequiredArgsConstructor
 public class SessionService implements ISessionService {
 

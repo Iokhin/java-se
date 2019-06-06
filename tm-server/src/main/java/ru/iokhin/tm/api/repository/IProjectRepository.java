@@ -11,8 +11,8 @@ public interface IProjectRepository {
 
     String INSERT = "INSERT INTO project (id, dateBegin, dateEnd, name, description, user_id, status) " +
             "VALUES (#{id}, #{startDate}, #{endDate}, #{name}, #{description}, #{parentId}, #{status})";
-    String UPDATE = "UPDATE project SET id = #{id}, dateBegin = #{startDate}, dateEnd = #{endDate}, " +
-            "name = #{name}, description = #{description}, user_id = #{parentId}, status = #{status}";
+    String UPDATE = "UPDATE project SET dateBegin = #{startDate}, dateEnd = #{endDate}, " +
+            "name = #{name}, description = #{description}, user_id = #{parentId}, status = #{status} WHERE id = #{id}";
     String SELECT_BY_ID = "SELECT * FROM project WHERE id = #{id}";
     String SELECT_BY_UserID = "SELECT * FROM project WHERE user_id = #{userId} AND id = #{id}";
     String SELECT_ALL = "SELECT * FROM project";
@@ -21,6 +21,7 @@ public interface IProjectRepository {
     String REMOVE_BY_UserID = "DELETE FROM project WHERE id = #{id} AND user_id = #{userId}";
     String REMOVE_ALL = "DELETE * FROM project";
     String REMOVE_ALL_BY_UserID = "DELETE * FROM project WHERE user_id = #{userId}";
+    String SORT = "SELECT * FROM project WHERE user_id = #{userId} ORDER BY #{parameter}";
 
     @Insert(INSERT)
     Integer persist(final @NotNull Project entity);
@@ -90,7 +91,29 @@ public interface IProjectRepository {
     Integer removeByUserId(@Param("parentId")@NotNull final String parentId,
                            @Param("id")@NotNull final String id);
 
-    Collection<Project> sortByUserId(String userId, Comparator<Project> comparator);
+    @Select(SORT)
+    @Results({
+            @Result(property = "id", column = "id"),
+            @Result(property = "startDate", column = "dateBegin"),
+            @Result(property = "endDate", column = "dateEnd"),
+            @Result(property = "name", column = "name"),
+            @Result(property = "description", column = "description"),
+            @Result(property = "parentId", column = "user_id"),
+            @Result(property = "status", column = "status")
+    })
+    Collection<Project> sortByUserId(@Param("userId") String userId,
+                                     @Param("parameter") String parameter);
 
-    Collection<Project> findByPartOfNameOrDescription(@NotNull final String userId, @NotNull final String part);
+    @Select("SELECT * FROM project WHERE (name LIKE CONCAT('%', #{part}, '%') or description LIKE CONCAT('%', #{part}, '%')) and user_id = #{userId}")
+    @Results({
+            @Result(property = "id", column = "id"),
+            @Result(property = "startDate", column = "dateBegin"),
+            @Result(property = "endDate", column = "dateEnd"),
+            @Result(property = "name", column = "name"),
+            @Result(property = "description", column = "description"),
+            @Result(property = "parentId", column = "user_id"),
+            @Result(property = "status", column = "status")
+    })
+    Collection<Project> findByPartOfNameOrDescription(@Param("userId") @NotNull final String userId,
+                                                      @Param("part") @NotNull final String part);
 }

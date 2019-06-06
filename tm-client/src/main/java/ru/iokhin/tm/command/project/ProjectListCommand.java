@@ -35,7 +35,7 @@ public final class ProjectListCommand extends AbstractCommand {
         System.out.println("PROJECTS LIST:");
         @NotNull int i = 0;
         for (@NotNull Project project : projectList()) {
-            System.out.println(++i + ". " + project);
+            System.out.println(++i + ". " + project.getName() + ", " + project.getId());
         }
     }
 

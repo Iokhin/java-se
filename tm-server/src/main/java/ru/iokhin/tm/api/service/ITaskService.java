@@ -24,7 +24,7 @@ public interface ITaskService extends IService<Task> {
 
     Collection<Task> findAllByProjectId(@NotNull final String userId, @NotNull final String projectId);
 
-    boolean removeAllByProjectId(@NotNull final String userId, @NotNull final String projectId);
+    void removeAllByProjectId(@NotNull final String userId, @NotNull final String projectId);
 
     Collection<Task> sortByUserId(@NotNull final String userId, @NotNull final String comparator);
 

@@ -33,7 +33,7 @@ public class UserPasswordChangeCommand extends AbstractCommand {
         UserEndpointBean userEndpoint = endpointServiceLocator.getUserEndpointBean();
         System.out.println("ENTER THE CURRENT PASSWORD");
         @NotNull final String oldPassword = endpointServiceLocator.getTerminalService().nextLine();
-        System.out.println("ENTER THE CURRENT PASSWORD");
+        System.out.println("ENTER NEW PASSWORD");
         @NotNull final String newPassword = endpointServiceLocator.getTerminalService().nextLine();
         if (!userEndpoint.passChange(oldPassword, newPassword)) {
             System.out.println("WRONG PASSWORD, TRY AGAIN");

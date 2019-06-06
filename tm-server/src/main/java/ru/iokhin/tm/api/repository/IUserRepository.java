@@ -15,7 +15,7 @@ public interface IUserRepository {
     String SELECT_ALL = "SELECT * FROM user";
     String DELETE_BY_ID = "DELETE FROM user WHERE id = #{id}";
     String DELETE_ALL = "DELETE FROM user";
-    String UPDATE_BY_ID = "UPDATE user SET login = #{login}, passwordHash = #{passwordHash}";
+    String UPDATE_BY_ID = "UPDATE user SET login = #{login}, passwordHash = #{passwordHash}, role = #{roleType} WHERE id = #{id}";
     String SELECT_BY_LOGIN = "SELECT * FROM user WHERE login = #{login}";
 
     @Select(SELECT_BY_LOGIN)
@@ -52,7 +52,7 @@ public interface IUserRepository {
     void removeAll();
 
     @Update(UPDATE_BY_ID)
-    User merge(final @NotNull User entity);
+    void merge(final @NotNull User user);
 
     @Insert(INSERT)
     void persist(final @NotNull User entity) throws SQLException;

@@ -10,13 +10,9 @@ import ru.iokhin.tm.api.repository.IProjectRepository;
 import ru.iokhin.tm.api.service.IProjectService;
 import ru.iokhin.tm.entity.Project;
 import ru.iokhin.tm.enumerated.Status;
-import ru.iokhin.tm.util.ComparatorUtil;
 import ru.iokhin.tm.util.StringValidator;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Comparator;
-import java.util.List;
 
 @RequiredArgsConstructor
 public class ProjectService implements IProjectService {
@@ -62,6 +58,7 @@ public class ProjectService implements IProjectService {
     @Override
     @SneakyThrows
     public void removeAllByUserId(@NotNull final String userId) {
+        StringValidator.validate(userId);
         SqlSession session = null;
         try {
             session = sqlSessionFactory.openSession();
@@ -78,6 +75,7 @@ public class ProjectService implements IProjectService {
     @Override
     @SneakyThrows
     public Collection<Project> findAllByUserId(@NotNull final String userId) {
+        StringValidator.validate(userId);
         try (SqlSession session = sqlSessionFactory.openSession()) {
             return session.getMapper(IProjectRepository.class).findAllByUserId(userId);
         }
@@ -85,6 +83,7 @@ public class ProjectService implements IProjectService {
 
     @Override
     public Project findOneByUserId(@NotNull final String userId, @NotNull final String id) {
+        StringValidator.validate(userId, id);
         try (SqlSession session = sqlSessionFactory.openSession()) {
             return session.getMapper(IProjectRepository.class).findOneByUserId(userId, id);
         }
@@ -92,24 +91,20 @@ public class ProjectService implements IProjectService {
 
     @Override
     @SneakyThrows
-    public Collection<Project> sortByUserId(@NotNull final String userId, @NotNull final String comparator) {
-        StringValidator.validate(userId, comparator);
-        if (comparator.equals("order")) return findAllByUserId(userId);
-        Comparator<Project> projectComparator = ComparatorUtil.getProjectComparator(comparator);
-        if (projectComparator == null) return null;
-        List<Project> projectList = new ArrayList<>(findAllByUserId(userId));
-        projectList.sort(projectComparator);
-        return projectList;
+    public Collection<Project> sortByUserId(@NotNull final String userId, @NotNull final String parameter) {
+        StringValidator.validate(userId, parameter);
+        if ("order".equals(parameter)) return findAllByUserId(userId);
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            return session.getMapper(IProjectRepository.class).sortByUserId(userId, parameter);
+        }
     }
 
     @Override
     @SneakyThrows
     public Collection<Project> findByPartOfNameOrDescription(@NotNull final String userId, @NotNull final String part) {
-        List<Project> projectList = new ArrayList<>();
-        for (Project project : findAllByUserId(userId)) {
-            if (project.getName() != null && project.getName().contains(part)) projectList.add(project);
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            return session.getMapper(IProjectRepository.class).findByPartOfNameOrDescription(userId, part);
         }
-        return projectList;
     }
 
     @Override

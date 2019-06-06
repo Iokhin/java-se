@@ -1,6 +1,10 @@
 package ru.iokhin.tm.command.task;
 
 import ru.iokhin.tm.command.AbstractCommand;
+import ru.iokhin.tm.endpoint.Task;
+import ru.iokhin.tm.endpoint.TaskEndpointBean;
+
+import java.util.Collection;
 
 public class TaskListAllCommand extends AbstractCommand {
     @Override
@@ -26,6 +30,15 @@ public class TaskListAllCommand extends AbstractCommand {
     @Override
     public void execute() {
         System.out.println("TASK LIST:");
-        endpointServiceLocator.getTaskEndpointBean().findAllTaskByUserId(endpointServiceLocator.getSession()).forEach(System.out::println);
+        TaskEndpointBean taskEndpointBean = endpointServiceLocator.getTaskEndpointBean();
+        Collection<Task> taskCollection = taskEndpointBean.findAllTaskByUserId(endpointServiceLocator.getSession());
+        if (taskCollection == null) {
+            System.out.println("NO SUCH PROJECT ID");
+            return;
+        }
+        int i = 0;
+        for (Task task : taskCollection) {
+            System.out.println(++i + ". " + task.getName() + ", " + task.getId());
+        }
     }
 }
