@@ -27,6 +27,9 @@ import ru.iokhin.tm.service.*;
 import ru.iokhin.tm.util.DBConnect;
 import ru.iokhin.tm.util.PropertiesUtil;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.sql.DataSource;
 import javax.xml.ws.Endpoint;
 import java.sql.*;
@@ -36,6 +39,9 @@ import java.sql.*;
 final class Bootstrap {
 
     @NotNull
+    private final EntityManagerFactory factory = Persistence.createEntityManagerFactory("ENTERPRISE");
+
+    @NotNull
     private static final PropertiesUtil propertiesUtil = new PropertiesUtil();
 
     @NotNull
@@ -43,11 +49,10 @@ final class Bootstrap {
 
     @SneakyThrows
     void init() {
-        @NotNull final SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
-        @NotNull final ISessionService sessionService = new SessionService(sqlSessionFactory);
-        @NotNull final IUserService userService = new UserService(sqlSessionFactory);
-        @NotNull final IProjectService projectService = new ProjectService(sqlSessionFactory);
-        @NotNull final ITaskService taskService = new TaskService(sqlSessionFactory);
+        @NotNull final ISessionService sessionService = new SessionService(factory);
+        @NotNull final IUserService userService = new UserService(factory);
+        @NotNull final IProjectService projectService = new ProjectService(factory);
+        @NotNull final ITaskService taskService = new TaskService(factory);
         @NotNull final IServiceLocator serviceLocator = new ServiceLocator(sessionService, userService, projectService, taskService);
         Endpoint.publish("http://localhost:8080/ProjectEndpointBean", new ProjectEndpointBean(serviceLocator));
         Endpoint.publish("http://localhost:8080/SessionEndpointBean", new SessionEndpointBean(serviceLocator));

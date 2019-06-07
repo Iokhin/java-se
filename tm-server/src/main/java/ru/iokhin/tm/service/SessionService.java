@@ -1,32 +1,33 @@
 package ru.iokhin.tm.service;
 
-import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.iokhin.tm.api.repository.ISessionRepository;
 import ru.iokhin.tm.api.service.ISessionService;
 import ru.iokhin.tm.entity.Session;
 import ru.iokhin.tm.exeption.AuthException;
+import ru.iokhin.tm.repository.SessionRepository;
 import ru.iokhin.tm.util.PropertiesUtil;
 import ru.iokhin.tm.util.SignatureUtil;
 
+import javax.persistence.EntityManagerFactory;
 import java.util.Collection;
 import java.util.Date;
 
-@RequiredArgsConstructor
-public class SessionService implements ISessionService {
+public class SessionService extends AbstractService<Session> implements ISessionService {
 
     @NotNull
-    private static final PropertiesUtil propertiesUtil = new PropertiesUtil();
+    private static final PropertiesUtil PROPERTIES_UTIL = new PropertiesUtil();
     @NotNull
-    private static final int cycle = Integer.parseInt(propertiesUtil.getCycle());
+    private static final int CYCLE = Integer.parseInt(PROPERTIES_UTIL.getCycle());
     @NotNull
-    private static final String salt = propertiesUtil.getSalt();
-    @NotNull
-    private final SqlSessionFactory sqlSessionFactory;
+    private static final String SALT = PROPERTIES_UTIL.getSalt();
+
+    public SessionService(@NotNull EntityManagerFactory factory) {
+        super(factory);
+    }
 
     @Override
     @SneakyThrows
@@ -56,12 +57,12 @@ public class SessionService implements ISessionService {
     @Override
     public String sign(@NotNull Session session) {
         session.setSignature(null);
-        session.setSignature(SignatureUtil.sign(session, salt, cycle));
+        session.setSignature(SignatureUtil.sign(session, SALT, CYCLE));
         return session.getSignature();
     }
 
     @Override
-    public Session persist(@NotNull Session entity) {
+    public void persist(@NotNull Session entity) {
         SqlSession session = null;
         try {
             session = sqlSessionFactory.openSession();
@@ -97,6 +98,13 @@ public class SessionService implements ISessionService {
     public Session findOne(@NotNull String id) {
         try (SqlSession session = sqlSessionFactory.openSession()) {
             return session.getMapper(ISessionRepository.class).findOne(id);
+        }
+    }
+
+    @Override
+    public void remove(@NotNull Session entity) {
+        try (em.getTransaction().begin()) {
+
         }
     }
 

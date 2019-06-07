@@ -1,9 +1,7 @@
 package ru.iokhin.tm.service;
 
-import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.iokhin.tm.api.repository.IProjectRepository;
@@ -12,13 +10,14 @@ import ru.iokhin.tm.entity.Project;
 import ru.iokhin.tm.enumerated.Status;
 import ru.iokhin.tm.util.StringValidator;
 
+import javax.persistence.EntityManagerFactory;
 import java.util.Collection;
 
-@RequiredArgsConstructor
-public class ProjectService implements IProjectService {
+public class ProjectService extends AbstractService<Project> implements IProjectService {
 
-    @NotNull
-    private final SqlSessionFactory sqlSessionFactory;
+    public ProjectService(@NotNull EntityManagerFactory factory) {
+        super(factory);
+    }
 
     @Override
     public Project add(@NotNull final String userId, @NotNull final String name) {
@@ -108,7 +107,7 @@ public class ProjectService implements IProjectService {
     }
 
     @Override
-    public Project persist(@NotNull Project entity) {
+    public void persist(@NotNull Project entity) {
         SqlSession session = null;
         try {
             session = sqlSessionFactory.openSession();

@@ -3,11 +3,9 @@ package ru.iokhin.tm.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.SneakyThrows;
 import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.eclipse.persistence.jaxb.MarshallerProperties;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -18,10 +16,12 @@ import ru.iokhin.tm.api.service.IUserService;
 import ru.iokhin.tm.entity.User;
 import ru.iokhin.tm.enumerated.RoleType;
 import ru.iokhin.tm.exeption.AuthException;
+import ru.iokhin.tm.repository.UserRepository;
 import ru.iokhin.tm.util.DataScope;
 import ru.iokhin.tm.util.MD5Util;
 import ru.iokhin.tm.util.StringValidator;
 
+import javax.persistence.EntityManagerFactory;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
@@ -30,16 +30,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 
-//@Getter
+@Getter
 @Setter
-@RequiredArgsConstructor
-public class UserService implements IUserService {
+public class UserService extends AbstractService<User> implements IUserService {
+
+    public UserService(@NotNull EntityManagerFactory factory) {
+        super(factory);
+        repository = new UserRepository(em);
+    }
 
     @Nullable
     private User currentUser;
-
-    @NotNull
-    private final SqlSessionFactory sqlSessionFactory;
 
     @Override
     public User add(@NotNull final RoleType roleType, @NotNull final String login, @NotNull final String password)
@@ -102,7 +103,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User persist(@NotNull User user) throws SQLException {
+    public void persist(@NotNull User user) throws SQLException {
         SqlSession session = null;
         try {
             session = sqlSessionFactory.openSession();
@@ -153,11 +154,6 @@ public class UserService implements IUserService {
         try (SqlSession session = sqlSessionFactory.openSession()) {
             return session.getMapper(IUserRepository.class).findByLogin(login);
         }
-    }
-
-    @Override
-    public User getCurrentUser() {
-        return currentUser;
     }
 
     @Override

@@ -1,9 +1,7 @@
 package ru.iokhin.tm.service;
 
-import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.iokhin.tm.api.repository.ITaskRepository;
@@ -12,15 +10,16 @@ import ru.iokhin.tm.entity.Task;
 import ru.iokhin.tm.exeption.ObjectNotFound;
 import ru.iokhin.tm.util.StringValidator;
 
+import javax.persistence.EntityManagerFactory;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-@RequiredArgsConstructor
-public class TaskService implements ITaskService {
+public class TaskService extends AbstractService<Task> implements ITaskService {
 
-    @NotNull
-    private final SqlSessionFactory sqlSessionFactory;
+    public TaskService(@NotNull EntityManagerFactory factory) {
+        super(factory);
+    }
 
     @Override
     public Task add(@NotNull final String userId, @NotNull final String projectId, @NotNull final String name) {
@@ -131,7 +130,7 @@ public class TaskService implements ITaskService {
     }
 
     @Override
-    public Task persist(@NotNull Task entity) {
+    public void persist(@NotNull Task entity) {
         SqlSession session = null;
         try {
             session = sqlSessionFactory.openSession();

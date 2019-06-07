@@ -8,12 +8,19 @@ import org.jetbrains.annotations.Nullable;
 import ru.iokhin.tm.util.MD5Util;
 import ru.iokhin.tm.enumerated.RoleType;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 @Getter
 @Setter
 @NoArgsConstructor
+@Entity
+@Table(name = "user")
 public final class User extends AbstractEntity {
 
     @Nullable
+    @Column(unique = true)
     private String login;
 
     @Nullable
@@ -35,30 +42,11 @@ public final class User extends AbstractEntity {
         this.login = login;
         this.passwordHash = MD5Util.passwordToHash(password);
     }
-
-    @Override
-    public String getName() {
-        return login;
-    }
-
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
-    }
-
-    public void setRole(String roleType) {
-        if (roleType.equals("Администратор")) {
-            this.roleType = RoleType.ADMIN;
-            return;
-        }
-        this.roleType = RoleType.USER;
-    }
+    //------------------------------------
 
     @Override
     public String toString() {
         return login + ", " + id;
     }
 
-//    public String getRoleType() {
-//        return roleType.toString();
-//    }
 }

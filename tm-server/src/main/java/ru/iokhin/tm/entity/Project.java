@@ -7,6 +7,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.iokhin.tm.enumerated.Status;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -15,7 +17,12 @@ import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
+@Entity
+@Table(name = "project")
 public final class Project extends AbstractEntity {
+
+    @Nullable
+    protected String parentId;
 
     @Nullable
     private Date startDate;
@@ -53,17 +60,4 @@ public final class Project extends AbstractEntity {
         return String.format("%s, %s", name, id);
     }
 
-    @Override
-    public @NotNull String getParentId() {
-        return this.parentId;
-    }
-
-    public void setStatusFromRepository(String status) {
-        if ("Запланировано".equals(status))
-            this.status = Status.PLANNING;
-        if ("В процессе".equals(status))
-            this.status = Status.PROCCESSING;
-        if ("Готово".equals(status))
-            this.status = Status.READY;
-    }
 }

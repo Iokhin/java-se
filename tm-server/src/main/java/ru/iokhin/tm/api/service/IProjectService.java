@@ -3,7 +3,6 @@ package ru.iokhin.tm.api.service;
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.api.IService;
 import ru.iokhin.tm.entity.Project;
-import ru.iokhin.tm.entity.User;
 import ru.iokhin.tm.enumerated.Status;
 
 import java.sql.SQLException;

@@ -7,6 +7,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.iokhin.tm.api.IEntity;
 
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
@@ -14,18 +16,13 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
-public class AbstractEntity implements IEntity, Serializable {
+@MappedSuperclass
+public class AbstractEntity implements Serializable {
     @NotNull
-    protected String parentId = "";
-    @NotNull
+    @Id
     protected String id = UUID.randomUUID().toString();
     @Nullable
     protected String name = "";
     @Nullable
     protected String description = "";
-    @Nullable
-    protected Date startDate;
-    @Nullable
-    protected Date endDate;
-
 }

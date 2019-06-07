@@ -1,57 +1,37 @@
 package ru.iokhin.tm.service;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.SneakyThrows;
-import org.apache.ibatis.session.SqlSessionFactory;
+import lombok.*;
 import org.jetbrains.annotations.NotNull;
-import ru.iokhin.tm.api.IRepository;
 import ru.iokhin.tm.api.IService;
-import ru.iokhin.tm.api.service.IServiceLocator;
 import ru.iokhin.tm.entity.AbstractEntity;
 
-import java.sql.SQLException;
-import java.util.Collection;
+import javax.persistence.EntityManagerFactory;
 
-@AllArgsConstructor
+
 @Getter
 @NoArgsConstructor
-public abstract class AbstractService<E extends AbstractEntity, R extends IRepository<E>> implements IService<E> {
+public abstract class AbstractService<E extends AbstractEntity> implements IService<E> {
 
-    protected R repository;
+    @NotNull
+    protected EntityManagerFactory factory;
 
-    @Override
-    @SneakyThrows
-    public E persist(@NotNull final E entity) {
-        return repository.persist(entity);
+    public AbstractService(@NotNull EntityManagerFactory factory) {
+        this.factory = factory;
     }
 
     @Override
-    public E merge(@NotNull final E entity) {
-        return repository.merge(entity);
+    public void persist(@NotNull E entity) {
+
     }
 
     @Override
-    @SneakyThrows
-    public E findOne(@NotNull final String id) {
-        return repository.findOne(id);
-    }
+    public abstract void merge(@NotNull E entity);
 
     @Override
-    @SneakyThrows
-    public Collection<E> findAll() {
-        return repository.findAll();
-    }
+    public abstract E findOne(@NotNull String id);
 
     @Override
-    @SneakyThrows
-    public E remove(@NotNull final String id) {
-        return repository.remove(id);
-    }
+    public abstract void remove(@NotNull E entity);
 
-    @Override
-    public void removeAll() {
-        repository.removeAll();
-    }
 }
+

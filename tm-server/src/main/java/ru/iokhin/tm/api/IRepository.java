@@ -3,21 +3,15 @@ package ru.iokhin.tm.api;
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.entity.AbstractEntity;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.Collection;
-
 public interface IRepository<E extends AbstractEntity> {
-    E persist(@NotNull final E entity) throws SQLException;
 
-    E merge(@NotNull final E entity);
+    void persist(@NotNull final E entity);
 
-    E findOne(@NotNull final String id) throws SQLException;
+    void merge(@NotNull final E entity);
 
-    Collection<E> findAll() throws SQLException;
+    E findOne(@NotNull final String id);
 
-    E remove(@NotNull final String id) throws SQLException;
+    void remove(@NotNull final E entity);
 
-    void removeAll();
 
 }
