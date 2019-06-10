@@ -4,7 +4,7 @@ import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.command.AbstractCommand;
-import ru.iokhin.tm.exception.AuthException;
+import ru.iokhin.tm.exception.ClientAuthException;
 
 @NoArgsConstructor
 public final class ProjectCreateCommand extends AbstractCommand {
@@ -32,7 +32,7 @@ public final class ProjectCreateCommand extends AbstractCommand {
     @Override
     @SneakyThrows
     public void execute() {
-        if (endpointServiceLocator.getSession() == null) throw new AuthException();
+        if (endpointServiceLocator.getSession() == null) throw new ClientAuthException();
         System.out.println("ENTER NAME OF PROJECT TO CREATE");
         @NotNull final String name = endpointServiceLocator.getTerminalService().nextLine();
         projectCreateCommand(name);

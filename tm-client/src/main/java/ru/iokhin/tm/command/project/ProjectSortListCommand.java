@@ -2,7 +2,7 @@ package ru.iokhin.tm.command.project;
 
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.command.AbstractCommand;
-import ru.iokhin.tm.endpoint.Project;
+import ru.iokhin.tm.endpoint.ProjectDTO;
 
 import java.util.Collection;
 
@@ -31,7 +31,7 @@ public class ProjectSortListCommand extends AbstractCommand {
     public void execute() {
         System.out.println("CHOSE ONE OF THIS OPTIONS TO SORT: order, dateStart, dateEnd, status");
         @NotNull final String option = endpointServiceLocator.getTerminalService().nextLine();
-        Collection<Project> sorted = endpointServiceLocator.getProjectEndpointBean().sortProjectByUserId(endpointServiceLocator.getSession(), option);
+        Collection<ProjectDTO> sorted = endpointServiceLocator.getProjectEndpointBean().sortProjectByUserId(endpointServiceLocator.getSession(), option);
         if (sorted == null) {
             System.out.println("WRONG OPTION");
             return;

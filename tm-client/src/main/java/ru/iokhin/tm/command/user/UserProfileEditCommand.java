@@ -4,7 +4,7 @@ import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.iokhin.tm.command.AbstractCommand;
-import ru.iokhin.tm.endpoint.User;
+import ru.iokhin.tm.endpoint.UserDTO;
 
 @NoArgsConstructor
 public class UserProfileEditCommand extends AbstractCommand {
@@ -31,7 +31,7 @@ public class UserProfileEditCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        @Nullable User currentUser = endpointServiceLocator.getUserEndpointBean().findUserById(endpointServiceLocator.getSession().getParentId());
+        @Nullable UserDTO currentUser = endpointServiceLocator.getUserEndpointBean().findUserById(endpointServiceLocator.getSession().getParentId());
         System.out.println("USER PROFILE:");
         System.out.println("USER ID: " + currentUser.getId());
         System.out.println("USER LOGIN: " + currentUser.getLogin());

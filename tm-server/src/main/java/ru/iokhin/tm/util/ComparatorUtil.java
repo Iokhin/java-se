@@ -1,8 +1,8 @@
 package ru.iokhin.tm.util;
 
 import org.jetbrains.annotations.NotNull;
-import ru.iokhin.tm.entity.Project;
-import ru.iokhin.tm.entity.Task;
+import ru.iokhin.tm.DTO.ProjectDTO;
+import ru.iokhin.tm.DTO.TaskDTO;
 
 import java.util.Comparator;
 import java.util.Date;
@@ -10,8 +10,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ComparatorUtil {
-    public static Comparator<Project> getProjectComparator(@NotNull final String comparator) {
-        Comparator<Project> dateStartComparator = (o1, o2) -> {
+    public static Comparator<ProjectDTO> getProjectComparator(@NotNull final String comparator) {
+        Comparator<ProjectDTO> dateStartComparator = (o1, o2) -> {
             Date date1 = o1.getStartDate();
             Date date2 = o2.getStartDate();
             if (date1 == null) date1 = new Date(Long.MAX_VALUE);
@@ -19,7 +19,7 @@ public class ComparatorUtil {
             return date1.compareTo(date2);
         };
 
-        Comparator<Project> dateEndComparator = (o1, o2) -> {
+        Comparator<ProjectDTO> dateEndComparator = (o1, o2) -> {
             Date date1 = o1.getEndDate();
             Date date2 = o2.getEndDate();
             if (date1 == null) date1 = new Date(Long.MAX_VALUE);
@@ -27,17 +27,17 @@ public class ComparatorUtil {
             return date1.compareTo(date2);
         };
 
-        Comparator<Project> statusComparator = Comparator.comparing(Project::getStatus);
+        Comparator<ProjectDTO> statusComparator = Comparator.comparing(ProjectDTO::getStatus);
 
-        Map<String, Comparator<Project>> comparatorMap = new HashMap<>(0);
+        Map<String, Comparator<ProjectDTO>> comparatorMap = new HashMap<>(0);
         comparatorMap.put("dateStart", dateStartComparator);
         comparatorMap.put("dateEnd", dateEndComparator);
         comparatorMap.put("status", statusComparator);
         return comparatorMap.get(comparator);
     }
 
-    public static Comparator<Task> getTaskComparator(@NotNull final String comparator) {
-        Comparator<Task> dateStartComparator = (o1, o2) -> {
+    public static Comparator<TaskDTO> getTaskComparator(@NotNull final String comparator) {
+        Comparator<TaskDTO> dateStartComparator = (o1, o2) -> {
             Date date1 = o1.getStartDate();
             Date date2 = o2.getStartDate();
             if (date1 == null) date1 = new Date(Long.MAX_VALUE);
@@ -45,7 +45,7 @@ public class ComparatorUtil {
             return date1.compareTo(date2);
         };
 
-        Comparator<Task> dateEndComparator = (o1, o2) -> {
+        Comparator<TaskDTO> dateEndComparator = (o1, o2) -> {
             Date date1 = o1.getEndDate();
             Date date2 = o2.getEndDate();
             if (date1 == null) date1 = new Date(Long.MAX_VALUE);
@@ -53,9 +53,9 @@ public class ComparatorUtil {
             return date1.compareTo(date2);
         };
 
-        Comparator<Task> statusComparator = Comparator.comparing(Task::getStatus);
+        Comparator<TaskDTO> statusComparator = Comparator.comparing(TaskDTO::getStatus);
 
-        Map<String, Comparator<Task>> comparatorMap = new HashMap<>(0);
+        Map<String, Comparator<TaskDTO>> comparatorMap = new HashMap<>(0);
         comparatorMap.put("dateStart", dateStartComparator);
         comparatorMap.put("dateEnd", dateEndComparator);
         comparatorMap.put("status", statusComparator);

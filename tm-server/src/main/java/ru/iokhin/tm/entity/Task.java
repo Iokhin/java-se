@@ -3,56 +3,39 @@ package ru.iokhin.tm.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.iokhin.tm.enumerated.Status;
+import ru.iokhin.tm.DTO.TaskDTO;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import java.util.Date;
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
 @Table(name = "task")
-public final class Task extends AbstractEntity {
+public class Task extends BaseEntity implements Serializable {
 
     @Nullable
-    protected String parentId;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @Nullable
-    private String projectId;
+    @ManyToOne
+    @JoinColumn(name = "project_id")
+    private Project project;
 
-    @Nullable
-    private Date startDate;
-
-    @Nullable
-    private Date endDate;
-
-    @NotNull
-    private Status status = Status.PLANNING;
-
-    public Task(@NotNull String userId, @NotNull String projectId, @NotNull String name) {
-        this.parentId = userId;
-        this.projectId = projectId;
-        this.name = name;
-        this.startDate = new Date();
+    public TaskDTO getTaskDTO() {
+        TaskDTO taskDTO = new TaskDTO();
+        taskDTO.setId(id);
+        taskDTO.setName(name);
+        taskDTO.setDescription(description);
+        taskDTO.setStatus(status);
+        taskDTO.setStartDate(dateStart);
+        taskDTO.setEndDate(dateEnd);
+        taskDTO.setParentId(user.getId());
+        taskDTO.setProjectId(project.getId());
+        return taskDTO;
     }
-
-    //----------Constructor for test sorting by status
-    public Task(@NotNull String userId, @NotNull String projectId, @NotNull String name, Status status) {
-        this.parentId = userId;
-        this.projectId = projectId;
-        this.name = name;
-        this.startDate = new Date();
-        this.status = status;
-    }
-    //------------------------------------------------
-
-    @Override
-    public String toString() {
-        return name + ", " + id;
-    }
-
 }

@@ -3,7 +3,7 @@ package ru.iokhin.tm.command.user;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.command.AbstractCommand;
-import ru.iokhin.tm.endpoint.Session;
+import ru.iokhin.tm.endpoint.SessionDTO;
 
 @NoArgsConstructor
 public class UserAuthorizationCommand extends AbstractCommand {
@@ -34,7 +34,7 @@ public class UserAuthorizationCommand extends AbstractCommand {
         @NotNull final String login = endpointServiceLocator.getTerminalService().nextLine();
         System.out.println("PLEASE ENTER YOUR PASSWORD");
         @NotNull final String password = endpointServiceLocator.getTerminalService().nextLine();
-        Session session = endpointServiceLocator.getUserEndpointBean().authUser(login, password);
+        SessionDTO session = endpointServiceLocator.getUserEndpointBean().authUser(login, password);
         if (session == null) {
             System.out.println("WRONG LOGIN OR PASSWORD");
             return;

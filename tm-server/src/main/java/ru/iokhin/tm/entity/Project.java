@@ -3,61 +3,39 @@ package ru.iokhin.tm.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.iokhin.tm.enumerated.Status;
+import ru.iokhin.tm.DTO.ProjectDTO;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-import java.util.Date;
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
 @Table(name = "project")
-public final class Project extends AbstractEntity {
+public class Project extends BaseEntity implements Serializable {
 
     @Nullable
-    protected String parentId;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @Nullable
-    private Date startDate;
+    @OneToMany(mappedBy = "project", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    List<Task> tasks;
 
-    @Nullable
-    private Date endDate;
-
-    @NotNull
-    private Status status = Status.PLANNING;
-
-    public Project(@NotNull String userId, @NotNull String name) {
-        this.name = name;
-        this.parentId = userId;
-        this.startDate = new Date();
-    }
-
-    public Project(@NotNull String userId, @NotNull String name, @NotNull final String description) {
-        this.name = name;
-        this.parentId = userId;
-        this.startDate = new Date();
-        this.description = description;
-    }
-
-    //----------Constructor for testing status sorting
-    public Project(@NotNull String userId, @NotNull String name, Status status) {
-        this.name = name;
-        this.parentId = userId;
-        this.startDate = new Date();
-        this.status = status;
-    }
-    //------------------------------------------------
-
-    @Override
-    public String toString() {
-        return String.format("%s, %s", name, id);
+    public ProjectDTO getProjectDTO() {
+        ProjectDTO projectDTO = new ProjectDTO();
+        projectDTO.setId(id);
+        projectDTO.setName(name);
+        projectDTO.setDescription(description);
+        projectDTO.setParentId(user.getId());
+        projectDTO.setStatus(status);
+        projectDTO.setStartDate(dateStart);
+        projectDTO.setEndDate(dateEnd);
+        return projectDTO;
     }
 
 }

@@ -2,7 +2,7 @@ package ru.iokhin.tm.command.project;
 
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.command.AbstractCommand;
-import ru.iokhin.tm.endpoint.Project;
+import ru.iokhin.tm.endpoint.ProjectDTO;
 
 import java.util.Collection;
 
@@ -31,7 +31,7 @@ public class ProjectFindByPartCommand extends AbstractCommand {
     public void execute() {
         System.out.println("ENTER KEY WORD TO FIND");
         @NotNull final String keyWord = endpointServiceLocator.getTerminalService().nextLine();
-        Collection<Project> found = endpointServiceLocator.getProjectEndpointBean().findProjectByPartOfNameOrDescription(endpointServiceLocator.getSession(), keyWord);
+        Collection<ProjectDTO> found = endpointServiceLocator.getProjectEndpointBean().findProjectByPartOfNameOrDescription(endpointServiceLocator.getSession(), keyWord);
         if (found.size() == 0) {
             System.out.println("NO RESULTS FOUND FOR " + keyWord);
             return;

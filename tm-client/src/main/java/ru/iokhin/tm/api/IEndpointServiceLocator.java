@@ -1,6 +1,5 @@
 package ru.iokhin.tm.api;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.iokhin.tm.command.AbstractCommand;
 import ru.iokhin.tm.endpoint.*;
@@ -19,9 +18,9 @@ public interface IEndpointServiceLocator {
 
     ITerminalService getTerminalService();
 
-    Session getSession();
+    SessionDTO getSession();
 
-    void setSession(@Nullable final Session session);
+    void setSession(@Nullable final SessionDTO session);
 
     Map<String, AbstractCommand> getCommandMap();
 

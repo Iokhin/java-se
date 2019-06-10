@@ -7,8 +7,8 @@ import org.jetbrains.annotations.Nullable;
 import ru.iokhin.tm.api.IEndpointServiceLocator;
 import ru.iokhin.tm.command.AbstractCommand;
 import ru.iokhin.tm.endpoint.RoleType;
-import ru.iokhin.tm.exception.AuthException;
-import ru.iokhin.tm.exception.NonexistentCommandException;
+import ru.iokhin.tm.exception.ClientAuthException;
+import ru.iokhin.tm.exception.ClientNonexistentCommandException;
 import ru.iokhin.tm.service.EndpointServiceLocator;
 
 import java.util.LinkedHashMap;
@@ -51,11 +51,11 @@ class Bootstrap {
 
     @SneakyThrows
     private void execute(@Nullable AbstractCommand command) {
-        if (command == null) throw new NonexistentCommandException();
-        if (command.security() && endpointServiceLocator.getSession() == null) throw new AuthException();
+        if (command == null) throw new ClientNonexistentCommandException();
+        if (command.security() && endpointServiceLocator.getSession() == null) throw new ClientAuthException();
         if (command.admin() &&
                 endpointServiceLocator.getUserEndpointBean().findUserById(endpointServiceLocator.getSession().getParentId()).getRoleType() != RoleType.ADMIN)
-            throw new AuthException("THIS COMMAND ALLOWS ONLY FOR ADMIN");
+            throw new ClientAuthException("THIS COMMAND ALLOWS ONLY FOR ADMIN");
         command.execute();
     }
 }

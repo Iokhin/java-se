@@ -2,31 +2,33 @@ package ru.iokhin.tm.api.service;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.iokhin.tm.DTO.UserDTO;
 import ru.iokhin.tm.api.IService;
-import ru.iokhin.tm.entity.Session;
 import ru.iokhin.tm.entity.User;
 import ru.iokhin.tm.enumerated.RoleType;
 import ru.iokhin.tm.exeption.AuthException;
 
+import javax.persistence.EntityManager;
 import javax.xml.bind.JAXBException;
-import javax.xml.soap.SOAPException;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public interface IUserService extends IService<User> {
-    User add(@NotNull final RoleType roleType, @NotNull final String login, @NotNull final String password) throws SQLException;
+public interface IUserService extends IService<UserDTO> {
+    UserDTO add(@NotNull final RoleType roleType, @NotNull final String login, @NotNull final String password) throws SQLException;
 
-    User add(@NotNull final RoleType roleType, @NotNull final String id, @NotNull final String login, @NotNull final String password) throws SQLException;
+    UserDTO add(@NotNull final RoleType roleType, @NotNull final String id, @NotNull final String login, @NotNull final String password) throws SQLException;
 
-    User edit(@NotNull final String id, @NotNull final String newLogin, @NotNull final String newPasswordHash);
+    UserDTO edit(@NotNull final String id, @NotNull final String newLogin, @NotNull final String newPasswordHash);
 
-    User findByLogin(@NotNull final String login);
+    UserDTO findByLogin(@NotNull final String login);
 
-    User getCurrentUser();
+    UserDTO findOne(@NotNull String id);
 
-    void setCurrentUser(@Nullable final User user);
+    UserDTO getCurrentUser();
 
-    User authUser(@NotNull String login, @NotNull String password) throws AuthException;
+    void setCurrentUser(@Nullable final UserDTO user);
+
+    UserDTO authUser(@NotNull String login, @NotNull String password) throws AuthException;
 
     boolean changePassword(@NotNull String oldPassword, @NotNull String newPassword);
 
@@ -49,5 +51,7 @@ public interface IUserService extends IService<User> {
     void dataFasterJSONLoad() throws IOException;
 
     void dataFasterJSONSave() throws IOException;
+
+    User getUserFromDTO(UserDTO userDTO);
 
 }

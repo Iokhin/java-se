@@ -1,9 +1,8 @@
 package ru.iokhin.tm.api.endpoint;
 
 import org.jetbrains.annotations.NotNull;
-import ru.iokhin.tm.entity.Session;
-import ru.iokhin.tm.entity.User;
-import ru.iokhin.tm.enumerated.RoleType;
+import ru.iokhin.tm.DTO.SessionDTO;
+import ru.iokhin.tm.DTO.UserDTO;
 import ru.iokhin.tm.exeption.AuthException;
 
 import javax.jws.WebMethod;
@@ -15,22 +14,22 @@ import java.sql.SQLException;
 
 public interface UserEndpoint {
 
-    User addUser(@WebParam(name = "login") @NotNull final String login,
-                 @WebParam(name = "password") @NotNull final String password) throws SQLException;
+    UserDTO addUser(@WebParam(name = "login") @NotNull final String login,
+                    @WebParam(name = "password") @NotNull final String password) throws SQLException;
 
-    User editUser(@WebParam(name = "session") @NotNull final Session session,
-                  @WebParam(name = "newLogin") @NotNull final String newLogin,
-                  @WebParam(name = "newPasswordHash") @NotNull final String newPasswordHash) throws AuthException;
+    UserDTO editUser(@WebParam(name = "session") @NotNull final SessionDTO session,
+                     @WebParam(name = "newLogin") @NotNull final String newLogin,
+                     @WebParam(name = "newPasswordHash") @NotNull final String newPasswordHash) throws AuthException;
 
-    User findByLogin(@WebParam(name = "login") @NotNull final String login);
+    UserDTO findByLogin(@WebParam(name = "login") @NotNull final String login);
 
-    User getCurrentUser();
+    UserDTO getCurrentUser();
 
     @WebMethod
-    Session authUser(@WebParam(name = "login") @NotNull String login,
-                     @WebParam(name = "password") @NotNull String password) throws AuthException, SOAPException, SQLException;
+    SessionDTO authUser(@WebParam(name = "login") @NotNull String login,
+                        @WebParam(name = "password") @NotNull String password) throws AuthException, SOAPException, SQLException;
 
-    User findUserById(@WebParam(name = "id") @NotNull final String id);
+    UserDTO findUserById(@WebParam(name = "id") @NotNull final String id);
 
     boolean passChange(@WebParam(name = "oldPassword") @NotNull final String oldPassword,
                        @WebParam(name = "newPassword") @NotNull final String newPassword);

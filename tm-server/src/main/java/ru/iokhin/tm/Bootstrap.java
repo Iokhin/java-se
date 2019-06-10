@@ -12,6 +12,7 @@ import org.apache.ibatis.transaction.TransactionFactory;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.iokhin.tm.DTO.ProjectDTO;
 import ru.iokhin.tm.api.repository.IProjectRepository;
 import ru.iokhin.tm.api.repository.ISessionRepository;
 import ru.iokhin.tm.api.repository.ITaskRepository;
@@ -21,13 +22,11 @@ import ru.iokhin.tm.endpoint.ProjectEndpointBean;
 import ru.iokhin.tm.endpoint.SessionEndpointBean;
 import ru.iokhin.tm.endpoint.TaskEndpointBean;
 import ru.iokhin.tm.endpoint.UserEndpointBean;
-import ru.iokhin.tm.entity.Project;
 import ru.iokhin.tm.enumerated.RoleType;
 import ru.iokhin.tm.service.*;
 import ru.iokhin.tm.util.DBConnect;
 import ru.iokhin.tm.util.PropertiesUtil;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.sql.DataSource;
@@ -72,17 +71,17 @@ final class Bootstrap {
         userService.add(RoleType.ADMIN, "3afe899e-ee58-4543-8076-48af7f1abd71", "admin", "admin");
         userService.add(RoleType.USER, "7cfe899e-ee58-3290-8076-48af7f1abd66", "user", "user");
 
-        projectService.add(userService.findByLogin("user").getId(), "Project 1");
-        projectService.add(userService.findByLogin("admin").getId(), "Project 2");
+        projectService.add(userService.findByLogin("user").getId(), "ProjectDTO 1");
+        projectService.add(userService.findByLogin("admin").getId(), "ProjectDTO 2");
 
-        for (Project project : projectService.findAllByUserId(userService.findByLogin("admin").getId())) {
+        for (ProjectDTO project : projectService.findAllByUserId(userService.findByLogin("admin").getId())) {
             taskService.add(userService.findByLogin("admin").getId(), project.getId(), "ADMIN TASK 5");
             taskService.add(userService.findByLogin("admin").getId(), project.getId(), "ADMIN TASK 6");
             taskService.add(userService.findByLogin("admin").getId(), project.getId(), "ADMIN TASK 7");
             taskService.add(userService.findByLogin("admin").getId(), project.getId(), "ADMIN TASK 8");
         }
 
-        for (Project project : projectService.findAllByUserId(userService.findByLogin("user").getId())) {
+        for (ProjectDTO project : projectService.findAllByUserId(userService.findByLogin("user").getId())) {
             taskService.add(userService.findByLogin("user").getId(), project.getId(), "USER TASK 1");
             taskService.add(userService.findByLogin("user").getId(), project.getId(), "USER TASK 2");
             taskService.add(userService.findByLogin("user").getId(), project.getId(), "USER TASK 3");

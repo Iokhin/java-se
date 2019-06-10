@@ -5,10 +5,10 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
-import org.apache.ibatis.session.SqlSession;
 import org.eclipse.persistence.jaxb.MarshallerProperties;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.iokhin.tm.DTO.UserDTO;
 import ru.iokhin.tm.api.repository.IProjectRepository;
 import ru.iokhin.tm.api.repository.ITaskRepository;
 import ru.iokhin.tm.api.repository.IUserRepository;
@@ -16,150 +16,134 @@ import ru.iokhin.tm.api.service.IUserService;
 import ru.iokhin.tm.entity.User;
 import ru.iokhin.tm.enumerated.RoleType;
 import ru.iokhin.tm.exeption.AuthException;
+import ru.iokhin.tm.repository.ProjectRepository;
+import ru.iokhin.tm.repository.TaskRepository;
 import ru.iokhin.tm.repository.UserRepository;
 import ru.iokhin.tm.util.DataScope;
 import ru.iokhin.tm.util.MD5Util;
 import ru.iokhin.tm.util.StringValidator;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.*;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
 
 @Getter
 @Setter
-public class UserService extends AbstractService<User> implements IUserService {
+public class UserService extends AbstractService<UserDTO> implements IUserService {
 
     public UserService(@NotNull EntityManagerFactory factory) {
         super(factory);
-        repository = new UserRepository(em);
     }
 
     @Nullable
-    private User currentUser;
+    private UserDTO currentUser;
 
     @Override
-    public User add(@NotNull final RoleType roleType, @NotNull final String login, @NotNull final String password)
-            throws SQLException {
+    public UserDTO add(@NotNull final RoleType roleType, @NotNull final String login, @NotNull final String password) {
         StringValidator.validate(login, password);
-        User user = new User(roleType, login, password);
-        return persist(user);
+        UserDTO user = new UserDTO(roleType, login, password);
+        merge(user);
+        return user;
     }
 
     //Method for testing data
     @Override
-    public User add(@NotNull RoleType roleType, @NotNull String id, @NotNull String login, @NotNull String password) throws SQLException {
+    public UserDTO add(@NotNull RoleType roleType, @NotNull String id, @NotNull String login, @NotNull String password) {
         StringValidator.validate(login, password);
-        User user = new User(roleType, id, login, password);
-        return persist(user);
+        UserDTO user = new UserDTO(roleType, id, login, password);
+        merge(user);
+        return user;
+    }
+
+    //-----------------------
+    @Override
+    @SneakyThrows
+    public UserDTO edit(@NotNull final String id, @NotNull final String newLogin, @NotNull final String newPassword) {
+        @Nullable final UserDTO userDTO = findOne(id);
+        if (userDTO == null) return null;
+        userDTO.setLogin(newLogin);
+        userDTO.setPasswordHash(MD5Util.passwordToHash(newPassword));
+        merge(userDTO);
+        return userDTO;
     }
 
     @Override
-    @SneakyThrows
-    public User edit(@NotNull final String id, @NotNull final String newLogin, @NotNull final String newPassword) {
-        @Nullable final User user = findOne(id);
+    public void persist(@NotNull UserDTO userDTO) {
+        @NotNull final EntityManager em = factory.createEntityManager();
+        @NotNull final IUserRepository userRepository = new UserRepository(em);
+        @NotNull final User user = getUserFromDTO(userDTO);
+        try {
+            em.getTransaction().begin();
+            userRepository.persist(user);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            throw e;
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public void merge(@NotNull UserDTO userDTO) {
+        @NotNull final EntityManager em = factory.createEntityManager();
+        @NotNull final IUserRepository userRepository = new UserRepository(em);
+        @NotNull final User user = getUserFromDTO(userDTO);
+        try {
+            em.getTransaction().begin();
+            userRepository.merge(user);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            throw e;
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public UserDTO findOne(@NotNull String id) {
+        @NotNull final EntityManager em = factory.createEntityManager();
+        @NotNull final IUserRepository userRepository = new UserRepository(em);
+        User user = userRepository.findOne(id);
         if (user == null) return null;
-        user.setLogin(newLogin);
-        user.setPasswordHash(MD5Util.passwordToHash(newPassword));
-        return merge(user);
+        return user.getUserDTO();
     }
 
     @Override
-    @SneakyThrows
-    public User remove(@NotNull String id) {
-        @Nullable final User user = findOne(id);
+    public void remove(@NotNull UserDTO userDTO) {
+        @NotNull final EntityManager em = factory.createEntityManager();
+        @NotNull final IUserRepository userRepository = new UserRepository(em);
+        @NotNull final User user = getUserFromDTO(userDTO);
+        try {
+            em.getTransaction().begin();
+            userRepository.remove(user);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            throw e;
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public UserDTO findByLogin(@NotNull final String login) {
+        @NotNull final EntityManager em = factory.createEntityManager();
+        @NotNull final IUserRepository userRepository = new UserRepository(em);
+        @NotNull final User user = userRepository.findByLogin(login);
         if (user == null) return null;
-        SqlSession session = null;
-        try {
-            session = sqlSessionFactory.openSession();
-            session.getMapper(IUserRepository.class).remove(user.getId());
-            session.commit();
-            return user;
-        } catch (Exception e) {
-            if (session != null) session.rollback();
-            throw e;
-        } finally {
-            if (session != null) session.close();
-        }
+        return user.getUserDTO();
     }
 
     @Override
-    public void removeAll() {
-        SqlSession session = null;
-        try {
-            session = sqlSessionFactory.openSession();
-            session.getMapper(IUserRepository.class).removeAll();
-            session.commit();
-        } catch (Exception e) {
-            if (session != null) session.rollback();
-            throw e;
-        } finally {
-            if (session != null) session.close();
-        }
-    }
-
-    @Override
-    public void persist(@NotNull User user) throws SQLException {
-        SqlSession session = null;
-        try {
-            session = sqlSessionFactory.openSession();
-            session.getMapper(IUserRepository.class).persist(user);
-            session.commit();
-            return user;
-        } catch (Exception e) {
-            if (session != null) session.rollback();
-            throw e;
-        } finally {
-            if (session != null) session.close();
-        }
-    }
-
-    @Override
-    public User merge(@NotNull User user) {
-        SqlSession session = null;
-        try {
-            session = sqlSessionFactory.openSession();
-            session.getMapper(IUserRepository.class).merge(user);
-            session.commit();
-            return user;
-        } catch (Exception e) {
-            if (session != null) session.rollback();
-            throw e;
-        } finally {
-            if (session != null) session.close();
-        }
-    }
-
-    @Override
-    public User findOne(@NotNull String id) {
-        try (SqlSession session = sqlSessionFactory.openSession()) {
-            return session.getMapper(IUserRepository.class).findOne(id);
-        }
-    }
-
-    @Override
-    @SneakyThrows
-    public Collection<User> findAll() {
-        try (SqlSession session = sqlSessionFactory.openSession()) {
-            return session.getMapper(IUserRepository.class).findAll();
-        }
-    }
-
-    @Override
-    public User findByLogin(@NotNull final String login) {
-        try (SqlSession session = sqlSessionFactory.openSession()) {
-            return session.getMapper(IUserRepository.class).findByLogin(login);
-        }
-    }
-
-    @Override
-    public User authUser(@NotNull String login, @NotNull String password) throws AuthException {
+    public UserDTO authUser(@NotNull String login, @NotNull String password) throws AuthException {
         StringValidator.validate(login, password);
-        @NotNull final User user = findByLogin(login);
+        @NotNull final UserDTO user = findByLogin(login);
         if (user == null) throw new AuthException("WRONG LOGIN");
         if (!user.getPasswordHash().equals(MD5Util.passwordToHash(password)))
             throw new AuthException("WRONG PASSWORD");
@@ -172,7 +156,7 @@ public class UserService extends AbstractService<User> implements IUserService {
         StringValidator.validate(oldPassword, newPassword);
         if (!MD5Util.passwordToHash(oldPassword).equals(getCurrentUser().getPasswordHash()))
             return false;
-        User user = getCurrentUser();
+        UserDTO user = getCurrentUser();
         user.setPasswordHash(MD5Util.passwordToHash(newPassword));
         merge(user);
         return true;
@@ -288,28 +272,45 @@ public class UserService extends AbstractService<User> implements IUserService {
         System.out.println("SUCCESS");
     }
 
+    @Override
+    public User getUserFromDTO(UserDTO userDTO) {
+        User user = new User();
+        user.setId(userDTO.getId());
+        user.setLogin(userDTO.getLogin());
+        user.setPasswordHash(userDTO.getPasswordHash());
+        user.setRole(userDTO.getRoleType());
+        return user;
+    }
+
     @SneakyThrows
     private DataScope getDataScope() {
-        try (SqlSession session = sqlSessionFactory.openSession()) {
-            return new DataScope(new ArrayList<>(session.getMapper(IProjectRepository.class).findAll()),
-                    new ArrayList<>(session.getMapper(ITaskRepository.class).findAll()),
-                    new ArrayList<>(findAll()));
-        }
+        @NotNull final EntityManager em = factory.createEntityManager();
+        @NotNull final IProjectRepository projectRepository = new ProjectRepository(em);
+        @NotNull final ITaskRepository taskRepository = new TaskRepository(em);
+        @NotNull final IUserRepository userRepository = new UserRepository(em);
+        new DataScope(new ArrayList<>(projectRepository.findAll()),
+                new ArrayList<>(taskRepository.findAll()),
+                new ArrayList<>(userRepository.findAll()));
+        return null;
     }
 
     @SneakyThrows
     private void mergeLoadedData(DataScope dataScope) {
-        SqlSession session = null;
+        @NotNull final EntityManager em = factory.createEntityManager();
+        @NotNull final IProjectRepository projectRepository = new ProjectRepository(em);
+        @NotNull final ITaskRepository taskRepository = new TaskRepository(em);
+        @NotNull final IUserRepository userRepository = new UserRepository(em);
         try {
-            session = sqlSessionFactory.openSession();
-            dataScope.getUsers().forEach(session.getMapper(IUserRepository.class)::merge);
-            dataScope.getProjects().forEach(session.getMapper(IProjectRepository.class)::merge);
-            dataScope.getTasks().forEach(session.getMapper(ITaskRepository.class)::merge);
+            em.getTransaction().begin();
+            dataScope.getUsers().forEach(userRepository::merge);
+            dataScope.getProjects().forEach(projectRepository::merge);
+            dataScope.getTasks().forEach(taskRepository::merge);
+            em.getTransaction().commit();
         } catch (Exception e) {
-            if (session != null) session.rollback();
+            em.getTransaction().rollback();
             throw e;
         } finally {
-            if (session != null) session.close();
+            em.close();
         }
     }
 }

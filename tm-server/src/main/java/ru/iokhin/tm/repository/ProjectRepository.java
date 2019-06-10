@@ -1,8 +1,8 @@
 package ru.iokhin.tm.repository;
 
 import org.jetbrains.annotations.NotNull;
-import ru.iokhin.tm.api.repository.IProjectRepository;
 import ru.iokhin.tm.entity.Project;
+import ru.iokhin.tm.api.repository.IProjectRepository;
 import ru.iokhin.tm.entity.User;
 
 import javax.persistence.EntityManager;
@@ -21,10 +21,12 @@ public class ProjectRepository extends AbstractRepository<Project> implements IP
 
     @Override
     public Project findOneByUserId(@NotNull final User user, @NotNull final String id) {
-        return em.createQuery("SELECT p FROM Project p WHERE p.user = :user AND p.id = :id", Project.class)
+        List<Project> projects = em.createQuery("SELECT p FROM Project p WHERE p.user = :user AND p.id = :id", Project.class)
                 .setParameter("user", user)
                 .setParameter("id", id)
-                .getSingleResult();
+                .getResultList();
+        if (projects.size() == 0) return null;
+        return projects.get(0);
     }
 
     @Override
@@ -35,14 +37,23 @@ public class ProjectRepository extends AbstractRepository<Project> implements IP
     }
 
     @Override
+    public List<Project> findAll() {
+        return em.createQuery("SELECT p FROM Project p", Project.class)
+                .getResultList();
+    }
+
+    @Override
     public void removeAllByUserId(@NotNull final User user) {
-        em.createQuery("DELETE p FROM Project p WHERE p.user = :user").setParameter("user", user).executeUpdate();
+        List<Project> projects = findAllByUserId(user);
+        if (projects == null) return;
+        projects.forEach(em::remove);
     }
 
     @Override
     public void removeByUserId(@NotNull final User user, @NotNull final String id) {
-        em.createQuery("DELETE p FROM Project p WHERE p.user = :userId and p.id = :id")
-                .setParameter("user", user).executeUpdate();
+        Project project = findOneByUserId(user, id);
+        if (project == null) return;
+        em.remove(project);
     }
 
     @Override

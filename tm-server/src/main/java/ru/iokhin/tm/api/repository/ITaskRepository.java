@@ -12,13 +12,15 @@ public interface ITaskRepository extends IRepository<Task> {
 
     Task findOneByUserId(@NotNull User user, @NotNull String id);
 
+    List<Task> findAll();
+
     List<Task> findAllByUserId(@NotNull User user);
 
     List<Task> findAllByProjectId(@NotNull User user, @NotNull Project project);
 
-    Integer removeByUserId(@NotNull User user, @NotNull String id);
+    void removeByUserId(@NotNull User user, @NotNull String id);
 
-    Integer removeAllByUserId(@NotNull User user);
+    void removeAllByUserId(@NotNull User user);
 
     void removeAllByProjectId(@NotNull User user, @NotNull Project project);
 

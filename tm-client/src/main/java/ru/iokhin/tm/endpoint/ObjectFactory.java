@@ -339,27 +339,27 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link User }
+     * Create an instance of {@link UserDTO }
      * 
      */
-    public User createUser() {
-        return new User();
+    public UserDTO createUserDTO() {
+        return new UserDTO();
     }
 
     /**
-     * Create an instance of {@link AbstractEntity }
+     * Create an instance of {@link AbstractEntityDTO }
      * 
      */
-    public AbstractEntity createAbstractEntity() {
-        return new AbstractEntity();
+    public AbstractEntityDTO createAbstractEntityDTO() {
+        return new AbstractEntityDTO();
     }
 
     /**
-     * Create an instance of {@link Session }
+     * Create an instance of {@link SessionDTO }
      * 
      */
-    public Session createSession() {
-        return new Session();
+    public SessionDTO createSessionDTO() {
+        return new SessionDTO();
     }
 
     /**

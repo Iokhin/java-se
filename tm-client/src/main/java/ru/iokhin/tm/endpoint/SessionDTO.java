@@ -9,15 +9,16 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 
 /**
- * <p>Java class for session complex type.
+ * <p>Java class for sessionDTO complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="session"&gt;
+ * &lt;complexType name="sessionDTO"&gt;
  *   &lt;complexContent&gt;
- *     &lt;extension base="{http://endpoint.tm.iokhin.ru/}abstractEntity"&gt;
+ *     &lt;extension base="{http://endpoint.tm.iokhin.ru/}abstractEntityDTO"&gt;
  *       &lt;sequence&gt;
+ *         &lt;element name="parentId" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="signature" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="timeStamp" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
@@ -29,17 +30,43 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "session", propOrder = {
+@XmlType(name = "sessionDTO", propOrder = {
+    "parentId",
     "signature",
     "timeStamp"
 })
-public class Session
-    extends AbstractEntity
+public class SessionDTO
+    extends AbstractEntityDTO
 {
 
+    protected String parentId;
     protected String signature;
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar timeStamp;
+
+    /**
+     * Gets the value of the parentId property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getParentId() {
+        return parentId;
+    }
+
+    /**
+     * Sets the value of the parentId property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setParentId(String value) {
+        this.parentId = value;
+    }
 
     /**
      * Gets the value of the signature property.

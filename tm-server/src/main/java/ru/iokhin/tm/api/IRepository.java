@@ -13,5 +13,4 @@ public interface IRepository<E extends AbstractEntity> {
 
     void remove(@NotNull final E entity);
 
-
 }

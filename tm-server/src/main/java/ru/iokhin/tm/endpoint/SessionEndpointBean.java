@@ -4,10 +4,10 @@ import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.iokhin.tm.DTO.SessionDTO;
 import ru.iokhin.tm.api.endpoint.SessionEndpoint;
 import ru.iokhin.tm.api.service.IServiceLocator;
 import ru.iokhin.tm.api.service.ISessionService;
-import ru.iokhin.tm.entity.Session;
 
 import javax.jws.WebParam;
 import javax.jws.WebService;
@@ -24,13 +24,13 @@ public class SessionEndpointBean implements SessionEndpoint {
 
     @Override
     @SneakyThrows
-    public Session create(@WebParam(name = "userId") @NotNull String userId) {
+    public SessionDTO create(@WebParam(name = "userId") @NotNull String userId) {
         return sessionService.create(userId);
     }
 
     @Override
     @SneakyThrows
-    public void validate(@WebParam(name = "session") @Nullable Session session) {
+    public void validate(@WebParam(name = "session") @Nullable SessionDTO session) {
         sessionService.validate(session);
     }
 }

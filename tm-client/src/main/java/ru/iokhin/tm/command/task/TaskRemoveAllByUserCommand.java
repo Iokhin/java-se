@@ -1,7 +1,7 @@
 package ru.iokhin.tm.command.task;
 
 import ru.iokhin.tm.command.AbstractCommand;
-import ru.iokhin.tm.endpoint.User;
+import ru.iokhin.tm.endpoint.UserDTO;
 
 public class TaskRemoveAllByUserCommand extends AbstractCommand {
     @Override
@@ -27,7 +27,7 @@ public class TaskRemoveAllByUserCommand extends AbstractCommand {
     @Override
     public void execute() {
         endpointServiceLocator.getTaskEndpointBean().removeAllTaskByUserId(endpointServiceLocator.getSession());
-        User user = endpointServiceLocator.getUserEndpointBean().findUserById(endpointServiceLocator.getSession().getParentId());
+        UserDTO user = endpointServiceLocator.getUserEndpointBean().findUserById(endpointServiceLocator.getSession().getParentId());
         System.out.println("ALL TASKS FOR " + user.getLogin() + " WAS REMOVED");
     }
 }

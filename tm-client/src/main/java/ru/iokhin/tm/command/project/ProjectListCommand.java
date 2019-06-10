@@ -3,7 +3,7 @@ package ru.iokhin.tm.command.project;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.command.AbstractCommand;
-import ru.iokhin.tm.endpoint.Project;
+import ru.iokhin.tm.endpoint.ProjectDTO;
 
 import java.util.Collection;
 
@@ -34,12 +34,12 @@ public final class ProjectListCommand extends AbstractCommand {
     public void execute() {
         System.out.println("PROJECTS LIST:");
         @NotNull int i = 0;
-        for (@NotNull Project project : projectList()) {
+        for (@NotNull ProjectDTO project : projectList()) {
             System.out.println(++i + ". " + project.getName() + ", " + project.getId());
         }
     }
 
-    private Collection<Project> projectList() {
+    private Collection<ProjectDTO> projectList() {
         return endpointServiceLocator.getProjectEndpointBean().findAllProjectByUserId(endpointServiceLocator.getSession());
     }
 }

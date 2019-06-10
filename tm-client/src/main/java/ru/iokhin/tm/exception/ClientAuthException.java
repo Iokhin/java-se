@@ -2,12 +2,12 @@ package ru.iokhin.tm.exception;
 
 import org.jetbrains.annotations.NotNull;
 
-public class AuthException extends Exception {
-    public AuthException() {
+public class ClientAuthException extends Exception {
+    public ClientAuthException() {
         super("THIS COMMAND ALLOWS ONLY FOR AUTHORIZED USER, PLEASE LOGIN");
     }
 
-    public AuthException(@NotNull final String message) {
+    public ClientAuthException(@NotNull final String message) {
         super(message);
     }
 }

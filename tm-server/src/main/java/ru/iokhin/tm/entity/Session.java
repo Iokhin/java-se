@@ -4,9 +4,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.jetbrains.annotations.Nullable;
+import ru.iokhin.tm.DTO.SessionDTO;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.io.Serializable;
 import java.util.Date;
 
 @Getter
@@ -14,20 +18,12 @@ import java.util.Date;
 @NoArgsConstructor
 @Entity
 @Table(name = "session")
-public final class Session extends AbstractEntity implements Cloneable {
+public class Session extends AbstractEntity implements Serializable {
 
     @Nullable
-    protected String parentId;
-
-    @Override
-    public Session clone() {
-        try {
-            return (Session) super.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @Nullable
     private String signature;
@@ -35,13 +31,13 @@ public final class Session extends AbstractEntity implements Cloneable {
     @Nullable
     private Date timeStamp;
 
-    @Override
-    public String toString() {
-        return "Session{" +
-                "userId = '" + parentId + '\'' +
-                ", signature ='" + signature + '\'' +
-                ", timeStamp =" + timeStamp +
-                ", id='" + id + '\'' +
-                '}';
+    public SessionDTO getSessionDTO() {
+        SessionDTO sessionDTO = new SessionDTO();
+        sessionDTO.setId(id);
+        sessionDTO.setParentId(user.getId());
+        sessionDTO.setSignature(signature);
+        sessionDTO.setTimeStamp(timeStamp);
+        return sessionDTO;
     }
+
 }

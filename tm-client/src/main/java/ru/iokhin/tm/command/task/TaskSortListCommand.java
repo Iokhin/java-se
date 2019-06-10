@@ -2,9 +2,9 @@ package ru.iokhin.tm.command.task;
 
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.command.AbstractCommand;
-import ru.iokhin.tm.endpoint.Task;
+import ru.iokhin.tm.endpoint.TaskDTO;
 
-import java.util.Collection;
+import java.util.List;
 
 public class TaskSortListCommand extends AbstractCommand {
     @Override
@@ -31,7 +31,7 @@ public class TaskSortListCommand extends AbstractCommand {
     public void execute() {
         System.out.println("CHOSE ONE OF THIS OPTIONS TO SORT: order, dateStart, dateEnd, status");
         @NotNull final String option = endpointServiceLocator.getTerminalService().nextLine();
-        Collection<Task> sorted = endpointServiceLocator.getTaskEndpointBean().sortTaskByUserId(endpointServiceLocator.getSession(), option);
+        List<TaskDTO> sorted = endpointServiceLocator.getTaskEndpointBean().sortTaskByUserId(endpointServiceLocator.getSession(), option);
         if (sorted == null) {
             System.out.println("WRONG OPTION");
             return;

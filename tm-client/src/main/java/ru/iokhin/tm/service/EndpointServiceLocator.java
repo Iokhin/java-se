@@ -19,7 +19,7 @@ public class EndpointServiceLocator implements IEndpointServiceLocator {
     @Nullable
     @Getter
     @Setter
-    private Session session;
+    private SessionDTO session;
 
     @NotNull
     private final Map<String, AbstractCommand> commandMap;

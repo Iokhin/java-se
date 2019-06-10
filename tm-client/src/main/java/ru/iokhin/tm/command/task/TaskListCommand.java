@@ -3,9 +3,9 @@ package ru.iokhin.tm.command.task;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.command.AbstractCommand;
-import ru.iokhin.tm.endpoint.Task;
+import ru.iokhin.tm.endpoint.TaskDTO;
 
-import java.util.Collection;
+import java.util.List;
 
 @NoArgsConstructor
 public final class TaskListCommand extends AbstractCommand {
@@ -40,12 +40,12 @@ public final class TaskListCommand extends AbstractCommand {
         }
         System.out.println("TASKS LIST:");
         int i = 0;
-        for (@NotNull Task task : getTaskList(projectId)) {
+        for (@NotNull TaskDTO task : getTaskList(projectId)) {
             System.out.println(++i + ". " + task.getName() + ", " + task.getId());
         }
     }
 
-    private Collection<Task> getTaskList(String projectId) {
+    private List<TaskDTO> getTaskList(String projectId) {
         return endpointServiceLocator.getTaskEndpointBean().findAllTaskByProjectId(endpointServiceLocator.getSession(), projectId);
     }
 }

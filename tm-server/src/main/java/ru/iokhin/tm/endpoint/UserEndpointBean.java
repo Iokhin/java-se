@@ -3,13 +3,14 @@ package ru.iokhin.tm.endpoint;
 import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import org.jetbrains.annotations.NotNull;
+import ru.iokhin.tm.DTO.SessionDTO;
+import ru.iokhin.tm.DTO.UserDTO;
 import ru.iokhin.tm.api.endpoint.UserEndpoint;
 import ru.iokhin.tm.api.service.IServiceLocator;
 import ru.iokhin.tm.api.service.ISessionService;
 import ru.iokhin.tm.api.service.IUserService;
-import ru.iokhin.tm.entity.Session;
-import ru.iokhin.tm.entity.User;
 import ru.iokhin.tm.enumerated.RoleType;
+import ru.iokhin.tm.exeption.AuthException;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -32,44 +33,44 @@ public class UserEndpointBean implements UserEndpoint {
 
     @Override
     @SneakyThrows
-    public User addUser(@WebParam(name = "login") @NotNull final String login,
-                        @WebParam(name = "password") @NotNull final String password) {
+    public UserDTO addUser(@WebParam(name = "login") @NotNull final String login,
+                           @WebParam(name = "password") @NotNull final String password) {
         return userService.add(RoleType.USER, login, password);
     }
 
     @Override
     @SneakyThrows
-    public User editUser(@WebParam(name = "session") @NotNull final Session session,
-                         @WebParam(name = "newLogin") @NotNull final String newLogin,
-                         @WebParam(name = "newPassword") @NotNull final String newPassword) {
+    public UserDTO editUser(@WebParam(name = "session") @NotNull final SessionDTO session,
+                            @WebParam(name = "newLogin") @NotNull final String newLogin,
+                            @WebParam(name = "newPassword") @NotNull final String newPassword) {
         sessionService.validate(session);
         return userService.edit(session.getParentId(), newLogin, newPassword);
     }
 
     @Override
     @SneakyThrows
-    public User findByLogin(@WebParam(name = "login") @NotNull final String login) {
+    public UserDTO findByLogin(@WebParam(name = "login") @NotNull final String login) {
         return userService.findByLogin(login);
     }
 
     @Override
-    public User getCurrentUser() {
+    public UserDTO getCurrentUser() {
         return userService.getCurrentUser();
     }
 
     @Override
     @WebMethod
     @SneakyThrows
-    public Session authUser(@WebParam(name = "login") @NotNull final String login,
-                            @WebParam(name = "password") @NotNull final String password) {
-        User user = userService.authUser(login, password);
+    public SessionDTO authUser(@WebParam(name = "login") @NotNull final String login,
+                               @WebParam(name = "password") @NotNull final String password) {
+        UserDTO user = userService.authUser(login, password);
         if (user == null) return null;
         return sessionService.create(user.getId());
     }
 
     @Override
     @SneakyThrows
-    public User findUserById(@WebParam(name = "id") @NotNull final String id) {
+    public UserDTO findUserById(@WebParam(name = "id") @NotNull final String id) {
         return userService.findOne(id);
     }
 

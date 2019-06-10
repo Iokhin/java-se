@@ -6,6 +6,7 @@ import ru.iokhin.tm.api.IRepository;
 import ru.iokhin.tm.entity.AbstractEntity;
 
 import javax.persistence.EntityManager;
+import java.lang.reflect.ParameterizedType;
 
 @Getter
 public abstract class AbstractRepository<E extends AbstractEntity> implements IRepository<E> {
@@ -32,6 +33,8 @@ public abstract class AbstractRepository<E extends AbstractEntity> implements IR
 
     @Override
     public E findOne(@NotNull final String id) {
+        ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
+        this.entityClass = (Class<E>) genericSuperclass.getActualTypeArguments()[0];
         return em.find(entityClass, id);
     }
 

@@ -1,8 +1,8 @@
 package ru.iokhin.tm.repository;
 
 import org.jetbrains.annotations.NotNull;
-import ru.iokhin.tm.api.repository.IUserRepository;
 import ru.iokhin.tm.entity.User;
+import ru.iokhin.tm.api.repository.IUserRepository;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -15,9 +15,11 @@ public class UserRepository extends AbstractRepository<User> implements IUserRep
 
     @Override
     public User findByLogin(@NotNull String login) {
-        return em.createQuery("SELECT u FROM User u WHERE u.login = :login", User.class)
+        @NotNull final List<User> users = em.createQuery("SELECT u FROM User u WHERE u.login = :login", User.class)
                 .setParameter("login", login)
-                .getSingleResult();
+                .getResultList();
+        if (users.size() == 0) return null;
+        return users.get(0);
     }
 
     @Override

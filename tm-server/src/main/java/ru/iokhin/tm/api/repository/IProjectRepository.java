@@ -13,6 +13,8 @@ public interface IProjectRepository extends IRepository<Project> {
 
     List<Project> findAllByUserId(@NotNull User user);
 
+    List<Project> findAll();
+
     void removeAllByUserId(@NotNull User user);
 
     void removeByUserId(@NotNull final User user, String id);

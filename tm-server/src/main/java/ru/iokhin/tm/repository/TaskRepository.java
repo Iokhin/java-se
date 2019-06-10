@@ -16,16 +16,24 @@ import java.util.List;
 
 public class TaskRepository extends AbstractRepository<Task> implements ITaskRepository {
 
-    TaskRepository(@NotNull EntityManager em) {
+    public TaskRepository(@NotNull EntityManager em) {
         super(em);
     }
 
     @Override
     public Task findOneByUserId(@NotNull final User user, @NotNull final String id) {
-        return em.createQuery("SELECT t FROM Task t WHERE t.user = :user AND t.id = :id", Task.class)
+        List<Task> tasks = em.createQuery("SELECT t FROM Task t WHERE t.user = :user AND t.id = :id", Task.class)
                 .setParameter("user", user)
                 .setParameter("id", id)
-                .getSingleResult();
+                .getResultList();
+        if (tasks.size() == 0) return null;
+        return tasks.get(0);
+    }
+
+    @Override
+    public List<Task> findAll() {
+        return em.createQuery("SELECT t FROM Task t", Task.class)
+                .getResultList();
     }
 
     @Override
@@ -44,23 +52,24 @@ public class TaskRepository extends AbstractRepository<Task> implements ITaskRep
     }
 
     @Override
-    public Integer removeByUserId(@NotNull final User user, @NotNull final String id) {
-        return em.createQuery("DELETE t FROM Task t WHERE t.user = :user AND t.id = :id", Task.class)
-                .setParameter("user", user)
-                .setParameter("id", id)
-                .executeUpdate();
+    public void removeByUserId(@NotNull final User user, @NotNull final String id) {
+        Task task = findOneByUserId(user, id);
+        if (task == null) return;
+        em.remove(task);
     }
 
     @Override
-    public Integer removeAllByUserId(@NotNull final User user) {
-        return em.createQuery("DELETE t FROM Task t WHERE t.user = :user")
-                .setParameter("user", user)
-                .executeUpdate();
+    public void removeAllByUserId(@NotNull final User user) {
+        List<Task> tasks = findAllByUserId(user);
+        if (tasks == null) return;
+        tasks.forEach(em::remove);
     }
 
     @Override
     public void removeAllByProjectId(@NotNull final User user, @NotNull final Project project) {
-        findAllByProjectId(user, project).forEach(this::remove);
+        List<Task> tasks = findAllByProjectId(user, project);
+        if (tasks == null) return;
+        tasks.forEach(this::remove);
     }
 
     @Override
