@@ -8,7 +8,7 @@ import lombok.SneakyThrows;
 import org.eclipse.persistence.jaxb.MarshallerProperties;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.iokhin.tm.DTO.UserDTO;
+import ru.iokhin.tm.entityDTO.UserDTO;
 import ru.iokhin.tm.api.repository.IProjectRepository;
 import ru.iokhin.tm.api.repository.ITaskRepository;
 import ru.iokhin.tm.api.repository.IUserRepository;

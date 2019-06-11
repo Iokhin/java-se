@@ -2,7 +2,7 @@ package ru.iokhin.tm.service;
 
 import lombok.*;
 import org.jetbrains.annotations.NotNull;
-import ru.iokhin.tm.DTO.AbstractEntityDTO;
+import ru.iokhin.tm.entityDTO.AbstractEntityDTO;
 import ru.iokhin.tm.api.IService;
 
 import javax.persistence.EntityManagerFactory;

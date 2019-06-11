@@ -12,7 +12,7 @@ import org.apache.ibatis.transaction.TransactionFactory;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.iokhin.tm.DTO.ProjectDTO;
+import ru.iokhin.tm.entityDTO.ProjectDTO;
 import ru.iokhin.tm.api.repository.IProjectRepository;
 import ru.iokhin.tm.api.repository.ISessionRepository;
 import ru.iokhin.tm.api.repository.ITaskRepository;

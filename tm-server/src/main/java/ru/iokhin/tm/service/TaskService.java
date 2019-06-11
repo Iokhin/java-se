@@ -3,7 +3,7 @@ package ru.iokhin.tm.service;
 import lombok.SneakyThrows;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.iokhin.tm.DTO.TaskDTO;
+import ru.iokhin.tm.entityDTO.TaskDTO;
 import ru.iokhin.tm.api.repository.IProjectRepository;
 import ru.iokhin.tm.api.repository.ITaskRepository;
 import ru.iokhin.tm.api.repository.IUserRepository;

@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.jetbrains.annotations.Nullable;
-import ru.iokhin.tm.DTO.SessionDTO;
+import ru.iokhin.tm.entityDTO.SessionDTO;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;

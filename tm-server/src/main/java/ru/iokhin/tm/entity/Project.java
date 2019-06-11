@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.jetbrains.annotations.Nullable;
-import ru.iokhin.tm.DTO.ProjectDTO;
+import ru.iokhin.tm.entityDTO.ProjectDTO;
 
 import javax.persistence.*;
 import java.io.Serializable;

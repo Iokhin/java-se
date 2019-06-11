@@ -2,13 +2,12 @@ package ru.iokhin.tm.api.service;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.iokhin.tm.DTO.UserDTO;
+import ru.iokhin.tm.entityDTO.UserDTO;
 import ru.iokhin.tm.api.IService;
 import ru.iokhin.tm.entity.User;
 import ru.iokhin.tm.enumerated.RoleType;
 import ru.iokhin.tm.exeption.AuthException;
 
-import javax.persistence.EntityManager;
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
 import java.sql.SQLException;

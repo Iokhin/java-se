@@ -2,7 +2,7 @@ package ru.iokhin.tm.api.service;
 
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.api.IService;
-import ru.iokhin.tm.DTO.TaskDTO;
+import ru.iokhin.tm.entityDTO.TaskDTO;
 import ru.iokhin.tm.entity.Project;
 import ru.iokhin.tm.entity.Task;
 import ru.iokhin.tm.entity.User;

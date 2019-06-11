@@ -1,8 +1,8 @@
 package ru.iokhin.tm.api.endpoint;
 
 import org.jetbrains.annotations.NotNull;
-import ru.iokhin.tm.DTO.SessionDTO;
-import ru.iokhin.tm.DTO.TaskDTO;
+import ru.iokhin.tm.entityDTO.SessionDTO;
+import ru.iokhin.tm.entityDTO.TaskDTO;
 import ru.iokhin.tm.exeption.AuthException;
 
 import javax.jws.WebParam;

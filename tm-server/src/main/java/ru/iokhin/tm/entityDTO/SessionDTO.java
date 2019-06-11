@@ -1,4 +1,4 @@
-package ru.iokhin.tm.DTO;
+package ru.iokhin.tm.entityDTO;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,19 +1,20 @@
 package ru.iokhin.tm.api.endpoint;
 
 import org.jetbrains.annotations.NotNull;
-import ru.iokhin.tm.DTO.ProjectDTO;
-import ru.iokhin.tm.DTO.SessionDTO;
+import ru.iokhin.tm.entityDTO.ProjectDTO;
+import ru.iokhin.tm.entityDTO.SessionDTO;
 import ru.iokhin.tm.exeption.AuthException;
 
 import javax.jws.WebParam;
 import javax.jws.WebService;
+import java.sql.SQLException;
 import java.util.Collection;
 
 @WebService
 public interface ProjectEndpoint {
 
     ProjectDTO addProject(@WebParam(name = "session") @NotNull final SessionDTO session,
-                          @WebParam(name = "name") @NotNull final String name) throws AuthException;
+                          @WebParam(name = "name") @NotNull final String name) throws AuthException, SQLException;
 
     ProjectDTO editProject(@WebParam(name = "session") @NotNull final SessionDTO session,
                            @WebParam(name = "id") @NotNull final String id,

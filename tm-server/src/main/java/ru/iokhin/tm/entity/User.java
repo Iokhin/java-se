@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.jetbrains.annotations.Nullable;
-import ru.iokhin.tm.DTO.UserDTO;
+import ru.iokhin.tm.entityDTO.UserDTO;
 import ru.iokhin.tm.enumerated.RoleType;
 
 import javax.persistence.*;

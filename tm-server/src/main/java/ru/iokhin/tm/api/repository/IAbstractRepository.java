@@ -1,7 +1,7 @@
 package ru.iokhin.tm.api.repository;
 
 import org.jetbrains.annotations.NotNull;
-import ru.iokhin.tm.DTO.AbstractEntityDTO;
+import ru.iokhin.tm.entityDTO.AbstractEntityDTO;
 
 import java.util.Collection;
 

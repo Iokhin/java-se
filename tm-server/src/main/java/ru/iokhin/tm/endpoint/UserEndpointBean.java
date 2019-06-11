@@ -3,14 +3,13 @@ package ru.iokhin.tm.endpoint;
 import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import org.jetbrains.annotations.NotNull;
-import ru.iokhin.tm.DTO.SessionDTO;
-import ru.iokhin.tm.DTO.UserDTO;
+import ru.iokhin.tm.entityDTO.SessionDTO;
+import ru.iokhin.tm.entityDTO.UserDTO;
 import ru.iokhin.tm.api.endpoint.UserEndpoint;
 import ru.iokhin.tm.api.service.IServiceLocator;
 import ru.iokhin.tm.api.service.ISessionService;
 import ru.iokhin.tm.api.service.IUserService;
 import ru.iokhin.tm.enumerated.RoleType;
-import ru.iokhin.tm.exeption.AuthException;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
