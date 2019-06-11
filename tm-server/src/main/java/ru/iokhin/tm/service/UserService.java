@@ -8,6 +8,10 @@ import lombok.SneakyThrows;
 import org.eclipse.persistence.jaxb.MarshallerProperties;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.iokhin.tm.api.service.IProjectService;
+import ru.iokhin.tm.api.service.ITaskService;
+import ru.iokhin.tm.entity.Project;
+import ru.iokhin.tm.entity.Task;
 import ru.iokhin.tm.entityDTO.UserDTO;
 import ru.iokhin.tm.api.repository.IProjectRepository;
 import ru.iokhin.tm.api.repository.ITaskRepository;
@@ -30,6 +34,7 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -246,9 +251,10 @@ public class UserService extends AbstractService<UserDTO> implements IUserServic
     @Override
     @SneakyThrows
     public void dataFasterXMLLoad() {
-        @NotNull final DataScope dataScope = getDataScope();
-        @NotNull final ObjectMapper mapper = new ObjectMapper();
-        mapper.writerWithDefaultPrettyPrinter().writeValue(new File("faster.json"), dataScope);
+        @NotNull final DataScope dataScope;
+        @NotNull final XmlMapper mapper = new XmlMapper();
+        dataScope = mapper.readValue(new File("faster.xml"), DataScope.class);
+        mergeLoadedData(dataScope);
         System.out.println("SUCCESS");
     }
 
@@ -263,12 +269,10 @@ public class UserService extends AbstractService<UserDTO> implements IUserServic
     }
 
     @Override
-    @SneakyThrows
-    public void dataFasterJSONSave() {
-        DataScope dataScope;
-        @NotNull final XmlMapper mapper = new XmlMapper();
-        dataScope = mapper.readValue(new File("faster.xml"), DataScope.class);
-        mergeLoadedData(dataScope);
+    public void dataFasterJSONSave() throws IOException {
+        @NotNull final DataScope dataScope = getDataScope();
+        @NotNull final ObjectMapper mapper = new ObjectMapper();
+        mapper.writeValue(new File("faster.json"), dataScope);
         System.out.println("SUCCESS");
     }
 
@@ -282,35 +286,21 @@ public class UserService extends AbstractService<UserDTO> implements IUserServic
         return user;
     }
 
-    @SneakyThrows
     private DataScope getDataScope() {
         @NotNull final EntityManager em = factory.createEntityManager();
         @NotNull final IProjectRepository projectRepository = new ProjectRepository(em);
         @NotNull final ITaskRepository taskRepository = new TaskRepository(em);
         @NotNull final IUserRepository userRepository = new UserRepository(em);
-        new DataScope(new ArrayList<>(projectRepository.findAll()),
-                new ArrayList<>(taskRepository.findAll()),
-                new ArrayList<>(userRepository.findAll()));
-        return null;
+        return new DataScope(new ArrayList<>(projectRepository.findAll().stream().map(Project::getProjectDTO).collect(Collectors.toList())),
+                new ArrayList<>(taskRepository.findAll().stream().map(Task::getTaskDTO).collect(Collectors.toList())),
+                new ArrayList<>(userRepository.findAll().stream().map(User::getUserDTO).collect(Collectors.toList())));
     }
 
-    @SneakyThrows
     private void mergeLoadedData(DataScope dataScope) {
-        @NotNull final EntityManager em = factory.createEntityManager();
-        @NotNull final IProjectRepository projectRepository = new ProjectRepository(em);
-        @NotNull final ITaskRepository taskRepository = new TaskRepository(em);
-        @NotNull final IUserRepository userRepository = new UserRepository(em);
-        try {
-            em.getTransaction().begin();
-            dataScope.getUsers().forEach(userRepository::merge);
-            dataScope.getProjects().forEach(projectRepository::merge);
-            dataScope.getTasks().forEach(taskRepository::merge);
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-            throw e;
-        } finally {
-            em.close();
-        }
+        @NotNull final ProjectService projectService = new ProjectService(factory);
+        @NotNull final TaskService taskService = new TaskService(factory);
+        dataScope.getUsers().forEach(this::merge);
+        dataScope.getProjects().forEach((projectService)::merge);
+        dataScope.getTasks().forEach(taskService::merge);
     }
 }

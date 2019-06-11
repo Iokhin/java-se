@@ -5,9 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
-import ru.iokhin.tm.entity.Project;
-import ru.iokhin.tm.entity.Task;
-import ru.iokhin.tm.entity.User;
+import ru.iokhin.tm.entityDTO.ProjectDTO;
+import ru.iokhin.tm.entityDTO.TaskDTO;
+import ru.iokhin.tm.entityDTO.UserDTO;
 
 import javax.xml.bind.annotation.*;
 import java.io.Serializable;
@@ -22,14 +22,14 @@ import java.util.ArrayList;
 public class DataScope implements Serializable {
     @XmlElement(name = "projects")
     @NotNull
-    private ArrayList<Project> projects;
+    private ArrayList<ProjectDTO> projects;
 
     @XmlElement(name = "tasks")
     @NotNull
-    private ArrayList<Task> tasks;
+    private ArrayList<TaskDTO> tasks;
 
     @XmlElement(name = "users")
     @NotNull
-    private ArrayList<User> users;
+    private ArrayList<UserDTO> users;
 
 }

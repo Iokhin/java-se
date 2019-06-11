@@ -40,7 +40,8 @@ public abstract class AbstractRepository<E extends AbstractEntity> implements IR
 
     @Override
     public void remove(@NotNull final E entity) {
-        em.remove(entity);
+        @NotNull final E foundEnity = findOne(entity.getId());
+        em.remove(foundEnity);
     }
 
 }
