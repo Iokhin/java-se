@@ -14,13 +14,17 @@ import ru.iokhin.tm.repository.ProjectRepository;
 import ru.iokhin.tm.repository.UserRepository;
 import ru.iokhin.tm.util.StringValidator;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@ApplicationScoped
 public class ProjectService extends AbstractService<ProjectDTO> implements IProjectService {
 
+    @Inject
     public ProjectService(@NotNull EntityManagerFactory factory) {
         super(factory);
     }

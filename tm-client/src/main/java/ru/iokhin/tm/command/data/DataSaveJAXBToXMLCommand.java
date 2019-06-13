@@ -1,8 +1,15 @@
 package ru.iokhin.tm.command.data;
 
 import ru.iokhin.tm.command.AbstractCommand;
+import ru.iokhin.tm.endpoint.UserEndpointBean;
+
+import javax.inject.Inject;
 
 public class DataSaveJAXBToXMLCommand extends AbstractCommand {
+
+    @Inject
+    private UserEndpointBean userEndpointBean;
+
     @Override
     public boolean security() {
         return true;
@@ -25,7 +32,7 @@ public class DataSaveJAXBToXMLCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        endpointServiceLocator.getUserEndpointBean().dataJAXBXMLSave();
+        userEndpointBean.dataJAXBXMLSave();
         System.out.println("SUCCESS");
     }
 }

@@ -2,11 +2,33 @@ package ru.iokhin.tm.command.task;
 
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.command.AbstractCommand;
+import ru.iokhin.tm.endpoint.ProjectEndpointBean;
 import ru.iokhin.tm.endpoint.TaskDTO;
+import ru.iokhin.tm.endpoint.TaskEndpointBean;
+import ru.iokhin.tm.service.SessionService;
+import ru.iokhin.tm.service.TerminalService;
 
+import javax.inject.Inject;
 import java.util.List;
 
 public class TaskSortListCommand extends AbstractCommand {
+
+    @Inject
+    @NotNull
+    private ProjectEndpointBean projectEndpointBean;
+
+    @Inject
+    @NotNull
+    private TaskEndpointBean taskEndpointBean;
+
+    @Inject
+    @NotNull
+    private SessionService sessionService;
+
+    @Inject
+    @NotNull
+    private TerminalService terminalService;
+
     @Override
     public boolean security() {
         return true;
@@ -30,8 +52,8 @@ public class TaskSortListCommand extends AbstractCommand {
     @Override
     public void execute() {
         System.out.println("CHOSE ONE OF THIS OPTIONS TO SORT: order, dateStart, dateEnd, status");
-        @NotNull final String option = endpointServiceLocator.getTerminalService().nextLine();
-        List<TaskDTO> sorted = endpointServiceLocator.getTaskEndpointBean().sortTaskByUserId(endpointServiceLocator.getSession(), option);
+        @NotNull final String option = terminalService.nextLine();
+        List<TaskDTO> sorted = taskEndpointBean.sortTaskByUserId(sessionService.getSession(), option);
         if (sorted == null) {
             System.out.println("WRONG OPTION");
             return;

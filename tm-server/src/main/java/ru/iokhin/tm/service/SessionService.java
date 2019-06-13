@@ -15,10 +15,13 @@ import ru.iokhin.tm.repository.UserRepository;
 import ru.iokhin.tm.util.PropertiesUtil;
 import ru.iokhin.tm.util.SignatureUtil;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import java.util.Date;
 
+@ApplicationScoped
 public class SessionService extends AbstractService<SessionDTO> implements ISessionService {
 
     @NotNull
@@ -28,6 +31,7 @@ public class SessionService extends AbstractService<SessionDTO> implements ISess
     @NotNull
     private static final String SALT = PROPERTIES_UTIL.getSalt();
 
+    @Inject
     public SessionService(@NotNull EntityManagerFactory factory) {
         super(factory);
     }
@@ -78,6 +82,18 @@ public class SessionService extends AbstractService<SessionDTO> implements ISess
         @NotNull final String id = sessionDTO.getParentId();
         @NotNull final User user = userRepository.findOne(id);
         return user;
+    }
+
+    @Override
+    public SessionDTO findById(@NotNull String id) {
+        return findOne(id);
+    }
+
+    @Override
+    public void removeById(@NotNull String id) {
+        SessionDTO sessionDTO = findOne(id);
+        if (sessionDTO == null) return;
+        remove(sessionDTO);
     }
 
     @Override

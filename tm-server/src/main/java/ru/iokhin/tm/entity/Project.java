@@ -23,7 +23,7 @@ public class Project extends BaseEntity implements Serializable {
     private User user;
 
     @Nullable
-    @OneToMany(mappedBy = "project", orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     List<Task> tasks;
 
     public ProjectDTO getProjectDTO() {

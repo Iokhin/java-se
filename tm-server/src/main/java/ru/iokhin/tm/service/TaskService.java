@@ -16,14 +16,18 @@ import ru.iokhin.tm.repository.TaskRepository;
 import ru.iokhin.tm.repository.UserRepository;
 import ru.iokhin.tm.util.StringValidator;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@ApplicationScoped
 public class TaskService extends AbstractService<TaskDTO> implements ITaskService {
 
+    @Inject
     public TaskService(@NotNull EntityManagerFactory factory) {
         super(factory);
     }

@@ -3,29 +3,32 @@ package ru.iokhin.tm.endpoint;
 import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import org.jetbrains.annotations.NotNull;
+import ru.iokhin.tm.api.endpoint.ProjectEndpoint;
 import ru.iokhin.tm.entityDTO.ProjectDTO;
 import ru.iokhin.tm.entityDTO.SessionDTO;
 import ru.iokhin.tm.api.service.IProjectService;
-import ru.iokhin.tm.api.service.IServiceLocator;
 import ru.iokhin.tm.api.service.ISessionService;
 import ru.iokhin.tm.enumerated.Status;
 
+import javax.inject.Inject;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 import java.util.Collection;
 
 @WebService
 @NoArgsConstructor
-public class ProjectEndpointBean implements ru.iokhin.tm.api.endpoint.ProjectEndpoint {
+public class ProjectEndpointBean implements ProjectEndpoint {
     @NotNull
     private IProjectService projectService;
 
     @NotNull
     private ISessionService sessionService;
 
-    public ProjectEndpointBean(@NotNull final IServiceLocator serviceLocator) {
-        this.projectService = serviceLocator.getProjectService();
-        this.sessionService = serviceLocator.getSessionService();
+    @Inject
+    public ProjectEndpointBean(@NotNull final IProjectService projectService,
+                               @NotNull final ISessionService sessionService) {
+        this.projectService = projectService;
+        this.sessionService = sessionService;
     }
 
     @Override

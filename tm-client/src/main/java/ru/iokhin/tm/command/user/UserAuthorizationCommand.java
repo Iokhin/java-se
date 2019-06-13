@@ -4,9 +4,26 @@ import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.command.AbstractCommand;
 import ru.iokhin.tm.endpoint.SessionDTO;
+import ru.iokhin.tm.endpoint.UserEndpointBean;
+import ru.iokhin.tm.service.SessionService;
+import ru.iokhin.tm.service.TerminalService;
+
+import javax.inject.Inject;
 
 @NoArgsConstructor
 public class UserAuthorizationCommand extends AbstractCommand {
+
+    @Inject
+    @NotNull
+    private SessionService sessionService;
+
+    @Inject
+    @NotNull
+    private UserEndpointBean userEndpointBean;
+
+    @Inject
+    @NotNull
+    private TerminalService terminalService;
 
     @Override
     public boolean security() {
@@ -31,17 +48,17 @@ public class UserAuthorizationCommand extends AbstractCommand {
     @Override
     public void execute() {
         System.out.println("PLEASE ENTER YOUR LOGIN");
-        @NotNull final String login = endpointServiceLocator.getTerminalService().nextLine();
+        @NotNull final String login = this.terminalService.nextLine();
         System.out.println("PLEASE ENTER YOUR PASSWORD");
-        @NotNull final String password = endpointServiceLocator.getTerminalService().nextLine();
-        SessionDTO session = endpointServiceLocator.getUserEndpointBean().authUser(login, password);
+        @NotNull final String password = terminalService.nextLine();
+        SessionDTO session = userEndpointBean.authUser(login, password);
         if (session == null) {
             System.out.println("WRONG LOGIN OR PASSWORD");
             return;
         }
-        endpointServiceLocator.setSession(session);
+        sessionService.setSession(session);
         System.out.println("WELCOME, " +
-                endpointServiceLocator.getUserEndpointBean().findUserById(session.getParentId()).getLogin() + ", " +
-                endpointServiceLocator.getUserEndpointBean().findUserById(session.getParentId()).getId());
+                userEndpointBean.findUserById(session.getParentId()).getLogin() + ", " +
+                userEndpointBean.findUserById(session.getParentId()).getId());
     }
 }

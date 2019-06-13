@@ -1,9 +1,17 @@
 package ru.iokhin.tm.command.data;
 
-import lombok.SneakyThrows;
+import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.command.AbstractCommand;
+import ru.iokhin.tm.endpoint.UserEndpointBean;
+
+import javax.inject.Inject;
 
 public class DataLoadFasterJSONCommand extends AbstractCommand {
+
+    @Inject
+    @NotNull
+    private UserEndpointBean userEndpointBean;
+
     @Override
     public boolean security() {
         return true;
@@ -26,7 +34,7 @@ public class DataLoadFasterJSONCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        endpointServiceLocator.getUserEndpointBean().dataFasterJSONLoad();
+        userEndpointBean.dataFasterJSONLoad();
         System.out.println("SUCCESS");
     }
 }

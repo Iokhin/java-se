@@ -1,12 +1,24 @@
 package ru.iokhin.tm.command.user;
 
 import lombok.NoArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.command.AbstractCommand;
 import ru.iokhin.tm.endpoint.SessionDTO;
 import ru.iokhin.tm.endpoint.UserEndpointBean;
+import ru.iokhin.tm.service.SessionService;
+
+import javax.inject.Inject;
 
 @NoArgsConstructor
 public class UserEndSessionCommand extends AbstractCommand {
+
+    @Inject
+    @NotNull
+    private SessionService sessionService;
+
+    @Inject
+    @NotNull
+    private UserEndpointBean userEndpointBean;
 
     @Override
     public boolean security() {
@@ -30,9 +42,8 @@ public class UserEndSessionCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        SessionDTO session = endpointServiceLocator.getSession();
-        UserEndpointBean userEndpointBean = endpointServiceLocator.getUserEndpointBean();
+        SessionDTO session = sessionService.getSession();
         System.out.println(userEndpointBean.findUserById(session.getParentId()).getLogin() + " was logged out");
-        endpointServiceLocator.setSession(null);
+        sessionService.setSession(null);
     }
 }

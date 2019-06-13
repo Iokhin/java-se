@@ -21,4 +21,8 @@ public interface ISessionService extends IService<SessionDTO> {
     Session getSessionFromDTO(SessionDTO sessionDTO, EntityManager em);
 
     User getUser(SessionDTO sessionDTO, EntityManager em);
+
+    SessionDTO findById(@NotNull String id);
+
+    void removeById(@NotNull String id);
 }

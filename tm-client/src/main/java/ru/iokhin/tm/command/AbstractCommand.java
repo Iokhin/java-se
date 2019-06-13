@@ -1,15 +1,14 @@
 package ru.iokhin.tm.command;
 
 import lombok.*;
-import ru.iokhin.tm.api.IEndpointServiceLocator;
+
+import javax.enterprise.context.ApplicationScoped;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Setter
 @Getter
+//@ApplicationScoped
 abstract public class AbstractCommand {
-
-    protected IEndpointServiceLocator endpointServiceLocator;
 
     abstract public boolean security();
 

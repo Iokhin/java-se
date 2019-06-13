@@ -6,9 +6,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.iokhin.tm.entityDTO.SessionDTO;
 import ru.iokhin.tm.api.endpoint.SessionEndpoint;
-import ru.iokhin.tm.api.service.IServiceLocator;
 import ru.iokhin.tm.api.service.ISessionService;
 
+import javax.inject.Inject;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 
@@ -16,10 +16,12 @@ import javax.jws.WebService;
 @NoArgsConstructor
 public class SessionEndpointBean implements SessionEndpoint {
 
+    @NotNull
     private ISessionService sessionService;
 
-    public SessionEndpointBean(IServiceLocator serviceLocator) {
-        sessionService = serviceLocator.getSessionService();
+    @Inject
+    public SessionEndpointBean(@NotNull final ISessionService sessionService) {
+        this.sessionService = sessionService;
     }
 
     @Override
@@ -32,5 +34,15 @@ public class SessionEndpointBean implements SessionEndpoint {
     @SneakyThrows
     public void validate(@WebParam(name = "session") @Nullable SessionDTO session) {
         sessionService.validate(session);
+    }
+
+    @Override
+    public SessionDTO findById(@WebParam(name = "session") @NotNull String id) {
+        return sessionService.findById(id);
+    }
+
+    @Override
+    public void remove(@WebParam(name = "id") @NotNull String id) {
+        sessionService.removeById(id);
     }
 }

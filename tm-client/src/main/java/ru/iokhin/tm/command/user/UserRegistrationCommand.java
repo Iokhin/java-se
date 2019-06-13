@@ -3,9 +3,21 @@ package ru.iokhin.tm.command.user;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.command.AbstractCommand;
+import ru.iokhin.tm.endpoint.UserEndpointBean;
+import ru.iokhin.tm.service.TerminalService;
+
+import javax.inject.Inject;
 
 @NoArgsConstructor
 public class UserRegistrationCommand extends AbstractCommand {
+
+    @Inject
+    @NotNull
+    private UserEndpointBean userEndpointBean;
+
+    @Inject
+    @NotNull
+    private TerminalService terminalService;
 
     @Override
     public boolean security() {
@@ -30,14 +42,14 @@ public class UserRegistrationCommand extends AbstractCommand {
     @Override
     public void execute() {
         System.out.println("ENTER NEW USER'S LOGIN");
-        @NotNull final String login = endpointServiceLocator.getTerminalService().nextLine();
-        if (endpointServiceLocator.getUserEndpointBean().findByLogin(login) != null) {
+        @NotNull final String login = terminalService.nextLine();
+        if (userEndpointBean.findByLogin(login) != null) {
             System.out.println("SUCH LOGIN ALREADY EXIST");
             return;
         }
         System.out.println("ENTER NEW USER'S PASSWORD");
-        @NotNull final String password = endpointServiceLocator.getTerminalService().nextLine();
-        endpointServiceLocator.getUserEndpointBean().addUser(login, password);
+        @NotNull final String password = terminalService.nextLine();
+        userEndpointBean.addUser(login, password);
         System.out.println("SUCCESS");
     }
 }

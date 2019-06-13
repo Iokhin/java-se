@@ -3,12 +3,33 @@ package ru.iokhin.tm.command.task;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.command.AbstractCommand;
+import ru.iokhin.tm.endpoint.ProjectEndpointBean;
 import ru.iokhin.tm.endpoint.TaskDTO;
+import ru.iokhin.tm.endpoint.TaskEndpointBean;
+import ru.iokhin.tm.service.SessionService;
+import ru.iokhin.tm.service.TerminalService;
 
+import javax.inject.Inject;
 import java.util.List;
 
 @NoArgsConstructor
 public final class TaskListCommand extends AbstractCommand {
+
+    @Inject
+    @NotNull
+    private ProjectEndpointBean projectEndpointBean;
+
+    @Inject
+    @NotNull
+    private TaskEndpointBean taskEndpointBean;
+
+    @Inject
+    @NotNull
+    private SessionService sessionService;
+
+    @Inject
+    @NotNull
+    private TerminalService terminalService;
 
     @Override
     public boolean security() {
@@ -33,8 +54,8 @@ public final class TaskListCommand extends AbstractCommand {
     @Override
     public void execute() {
         System.out.println("ENTER ID OF PROJECT TO LIST TASKS");
-        @NotNull final String projectId = endpointServiceLocator.getTerminalService().nextLine();
-        if (endpointServiceLocator.getProjectEndpointBean().findProject(endpointServiceLocator.getSession(), projectId) == null) {
+        @NotNull final String projectId = terminalService.nextLine();
+        if (projectEndpointBean.findProject(sessionService.getSession(), projectId) == null) {
             System.out.println("NO SUCH PROJECT ID");
             return;
         }
@@ -46,6 +67,6 @@ public final class TaskListCommand extends AbstractCommand {
     }
 
     private List<TaskDTO> getTaskList(String projectId) {
-        return endpointServiceLocator.getTaskEndpointBean().findAllTaskByProjectId(endpointServiceLocator.getSession(), projectId);
+        return taskEndpointBean.findAllTaskByProjectId(sessionService.getSession(), projectId);
     }
 }

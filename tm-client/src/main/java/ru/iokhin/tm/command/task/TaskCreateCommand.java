@@ -3,9 +3,31 @@ package ru.iokhin.tm.command.task;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.command.AbstractCommand;
+import ru.iokhin.tm.endpoint.ProjectEndpointBean;
+import ru.iokhin.tm.endpoint.TaskEndpointBean;
+import ru.iokhin.tm.service.SessionService;
+import ru.iokhin.tm.service.TerminalService;
+
+import javax.inject.Inject;
 
 @NoArgsConstructor
 public final class TaskCreateCommand extends AbstractCommand {
+
+    @Inject
+    @NotNull
+    private ProjectEndpointBean projectEndpointBean;
+
+    @Inject
+    @NotNull
+    private TaskEndpointBean taskEndpointBean;
+
+    @Inject
+    @NotNull
+    private SessionService sessionService;
+
+    @Inject
+    @NotNull
+    private TerminalService terminalService;
 
     @Override
     public boolean security() {
@@ -30,14 +52,14 @@ public final class TaskCreateCommand extends AbstractCommand {
     @Override
     public void execute() {
         System.out.println("ENTER ID OF PROJECT TO CREATE TASK");
-        @NotNull final String projectId = endpointServiceLocator.getTerminalService().nextLine();
-        if (endpointServiceLocator.getProjectEndpointBean().findProject(endpointServiceLocator.getSession(), projectId) == null) {
+        @NotNull final String projectId = terminalService.nextLine();
+        if (projectEndpointBean.findProject(sessionService.getSession(), projectId) == null) {
             System.out.println("NO SUCH PROJECT ID");
             return;
         }
         System.out.println("ENTER NAME OF TASK TO CREATE");
-        @NotNull final String taskName = endpointServiceLocator.getTerminalService().nextLine();
-        endpointServiceLocator.getTaskEndpointBean().addTask(endpointServiceLocator.getSession(), projectId, taskName);
+        @NotNull final String taskName = terminalService.nextLine();
+        taskEndpointBean.addTask(sessionService.getSession(), projectId, taskName);
         System.out.println("OK");
     }
 }

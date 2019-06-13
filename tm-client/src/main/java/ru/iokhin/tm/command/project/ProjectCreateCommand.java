@@ -4,10 +4,27 @@ import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.command.AbstractCommand;
+import ru.iokhin.tm.endpoint.ProjectEndpointBean;
 import ru.iokhin.tm.exception.ClientAuthException;
+import ru.iokhin.tm.service.SessionService;
+import ru.iokhin.tm.service.TerminalService;
+
+import javax.inject.Inject;
 
 @NoArgsConstructor
 public final class ProjectCreateCommand extends AbstractCommand {
+
+    @Inject
+    @NotNull
+    private ProjectEndpointBean projectEndpointBean;
+
+    @Inject
+    @NotNull
+    private SessionService sessionService;
+
+    @Inject
+    @NotNull
+    private TerminalService terminalService;
 
     @Override
     public boolean security() {
@@ -32,14 +49,14 @@ public final class ProjectCreateCommand extends AbstractCommand {
     @Override
     @SneakyThrows
     public void execute() {
-        if (endpointServiceLocator.getSession() == null) throw new ClientAuthException();
+        if (sessionService.getSession() == null) throw new ClientAuthException();
         System.out.println("ENTER NAME OF PROJECT TO CREATE");
-        @NotNull final String name = endpointServiceLocator.getTerminalService().nextLine();
+        @NotNull final String name = terminalService.nextLine();
         projectCreateCommand(name);
         System.out.println("OK");
     }
 
     private void projectCreateCommand(@NotNull String name) {
-        endpointServiceLocator.getProjectEndpointBean().addProject(endpointServiceLocator.getSession(), name);
+        projectEndpointBean.addProject(sessionService.getSession(), name);
     }
 }

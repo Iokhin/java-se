@@ -1,10 +1,11 @@
 package ru.iokhin.tm;
 
-import org.jetbrains.annotations.NotNull;
+import ru.iokhin.tm.config.Bootstrap;
+
+import javax.enterprise.inject.se.SeContainerInitializer;
 
 public final class Application {
-    public static void main(@NotNull String[] args) {
-        @NotNull final Bootstrap bootstrap = new Bootstrap();
-        bootstrap.init();
+    public static void main(String[] args) {
+        SeContainerInitializer.newInstance().initialize().select(Bootstrap.class).get().init();
     }
 }

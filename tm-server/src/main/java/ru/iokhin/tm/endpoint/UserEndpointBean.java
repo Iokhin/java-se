@@ -6,11 +6,11 @@ import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.entityDTO.SessionDTO;
 import ru.iokhin.tm.entityDTO.UserDTO;
 import ru.iokhin.tm.api.endpoint.UserEndpoint;
-import ru.iokhin.tm.api.service.IServiceLocator;
 import ru.iokhin.tm.api.service.ISessionService;
 import ru.iokhin.tm.api.service.IUserService;
 import ru.iokhin.tm.enumerated.RoleType;
 
+import javax.inject.Inject;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
@@ -25,9 +25,10 @@ public class UserEndpointBean implements UserEndpoint {
     @NotNull
     private ISessionService sessionService;
 
-    public UserEndpointBean(IServiceLocator serviceLocator) {
-        userService = serviceLocator.getUserService();
-        sessionService = serviceLocator.getSessionService();
+    @Inject
+    public UserEndpointBean(@NotNull final IUserService userService, @NotNull final ISessionService sessionService) {
+        this.userService = userService;
+        this.sessionService = sessionService;
     }
 
     @Override

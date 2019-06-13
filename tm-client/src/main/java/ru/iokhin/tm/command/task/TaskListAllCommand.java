@@ -1,12 +1,24 @@
 package ru.iokhin.tm.command.task;
 
+import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.command.AbstractCommand;
 import ru.iokhin.tm.endpoint.TaskDTO;
 import ru.iokhin.tm.endpoint.TaskEndpointBean;
+import ru.iokhin.tm.service.SessionService;
 
+import javax.inject.Inject;
 import java.util.List;
 
 public class TaskListAllCommand extends AbstractCommand {
+
+    @Inject
+    @NotNull
+    private TaskEndpointBean taskEndpointBean;
+
+    @Inject
+    @NotNull
+    private SessionService sessionService;
+
     @Override
     public boolean security() {
         return true;
@@ -30,8 +42,7 @@ public class TaskListAllCommand extends AbstractCommand {
     @Override
     public void execute() {
         System.out.println("TASK LIST:");
-        TaskEndpointBean taskEndpointBean = endpointServiceLocator.getTaskEndpointBean();
-        List<TaskDTO> taskCollection = taskEndpointBean.findAllTaskByUserId(endpointServiceLocator.getSession());
+        List<TaskDTO> taskCollection = taskEndpointBean.findAllTaskByUserId(sessionService.getSession());
         if (taskCollection == null) {
             System.out.println("NO SUCH PROJECT ID");
             return;

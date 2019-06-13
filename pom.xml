@@ -36,6 +36,22 @@
     </properties>
 
     <dependencies>
+
+        <!-- https://mvnrepository.com/artifact/de.sven-jacobs/loremipsum -->
+        <dependency>
+            <groupId>de.sven-jacobs</groupId>
+            <artifactId>loremipsum</artifactId>
+            <version>1.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jboss.weld.se</groupId>
+            <artifactId>weld-se-core</artifactId>
+            <version>3.1.0.Final</version>
+            <scope>compile</scope>
+        </dependency>
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>

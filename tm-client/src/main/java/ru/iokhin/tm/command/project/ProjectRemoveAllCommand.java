@@ -1,10 +1,23 @@
 package ru.iokhin.tm.command.project;
 
 import lombok.NoArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.command.AbstractCommand;
+import ru.iokhin.tm.endpoint.ProjectEndpointBean;
+import ru.iokhin.tm.service.SessionService;
+
+import javax.inject.Inject;
 
 @NoArgsConstructor
 public final class ProjectRemoveAllCommand extends AbstractCommand {
+
+    @Inject
+    @NotNull
+    private ProjectEndpointBean projectEndpointBean;
+
+    @Inject
+    @NotNull
+    private SessionService sessionService;
 
     @Override
     public boolean security() {
@@ -28,7 +41,7 @@ public final class ProjectRemoveAllCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        endpointServiceLocator.getProjectEndpointBean().removeAllProjectByUserId(endpointServiceLocator.getSession());
+        projectEndpointBean.removeAllProjectByUserId(sessionService.getSession());
         System.out.println("OK");
     }
 }

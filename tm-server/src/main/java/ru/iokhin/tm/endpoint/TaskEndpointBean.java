@@ -6,10 +6,10 @@ import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.entityDTO.SessionDTO;
 import ru.iokhin.tm.entityDTO.TaskDTO;
 import ru.iokhin.tm.api.endpoint.TaskEndpoint;
-import ru.iokhin.tm.api.service.IServiceLocator;
 import ru.iokhin.tm.api.service.ISessionService;
 import ru.iokhin.tm.api.service.ITaskService;
 
+import javax.inject.Inject;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 import java.util.Collection;
@@ -23,9 +23,10 @@ public class TaskEndpointBean implements TaskEndpoint {
     @NotNull
     private ISessionService sessionService;
 
-    public TaskEndpointBean(@NotNull final IServiceLocator serviceLocator) {
-        taskService = serviceLocator.getTaskService();
-        sessionService = serviceLocator.getSessionService();
+    @Inject
+    public TaskEndpointBean(@NotNull final ITaskService taskService, @NotNull final ISessionService sessionService) {
+        this.taskService = taskService;
+        this.sessionService = sessionService;
     }
 
     @Override
@@ -79,7 +80,7 @@ public class TaskEndpointBean implements TaskEndpoint {
     @Override
     @SneakyThrows
     public void removeAllByProjectId(@WebParam(name = "session") @NotNull final SessionDTO session,
-                                        @WebParam(name = "projectId") @NotNull final String projectId) {
+                                     @WebParam(name = "projectId") @NotNull final String projectId) {
         sessionService.validate(session);
         taskService.removeAllByProjectId(session.getParentId(), projectId);
     }

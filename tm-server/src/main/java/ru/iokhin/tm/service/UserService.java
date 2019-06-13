@@ -27,6 +27,8 @@ import ru.iokhin.tm.util.DataScope;
 import ru.iokhin.tm.util.MD5Util;
 import ru.iokhin.tm.util.StringValidator;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.xml.bind.JAXBContext;
@@ -38,14 +40,25 @@ import java.util.stream.Collectors;
 
 @Getter
 @Setter
+@ApplicationScoped
 public class UserService extends AbstractService<UserDTO> implements IUserService {
 
-    public UserService(@NotNull EntityManagerFactory factory) {
+    @Inject
+    public UserService(@NotNull final EntityManagerFactory factory, @NotNull final IProjectService projectService,
+                       @NotNull final ITaskService taskService) {
         super(factory);
+        this.projectService = projectService;
+        this.taskService = taskService;
     }
 
     @Nullable
     private UserDTO currentUser;
+
+    @NotNull
+    private IProjectService projectService;
+
+    @NotNull
+    private ITaskService taskService;
 
     @Override
     public UserDTO add(@NotNull final RoleType roleType, @NotNull final String login, @NotNull final String password) {
@@ -297,10 +310,8 @@ public class UserService extends AbstractService<UserDTO> implements IUserServic
     }
 
     private void mergeLoadedData(DataScope dataScope) {
-        @NotNull final ProjectService projectService = new ProjectService(factory);
-        @NotNull final TaskService taskService = new TaskService(factory);
         dataScope.getUsers().forEach(this::merge);
-        dataScope.getProjects().forEach((projectService)::merge);
+        dataScope.getProjects().forEach(projectService::merge);
         dataScope.getTasks().forEach(taskService::merge);
     }
 }

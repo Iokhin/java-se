@@ -30,15 +30,15 @@ public class User extends AbstractEntity implements Serializable {
     private RoleType role = RoleType.USER;
 
     @Nullable
-    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Project> projects;
 
     @Nullable
-    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Task> tasks;
 
     @Nullable
-    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Session> sessions;
 
     public UserDTO getUserDTO() {

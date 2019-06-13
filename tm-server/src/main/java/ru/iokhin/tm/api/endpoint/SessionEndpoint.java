@@ -16,4 +16,7 @@ public interface SessionEndpoint {
 
     void validate(@WebParam(name = "session") @Nullable SessionDTO session) throws AuthException;
 
+    SessionDTO findById(@WebParam(name = "id") @NotNull String id);
+
+    void remove(@WebParam(name = "id") @NotNull String id);
 }

@@ -34,4 +34,6 @@ public interface IProjectService extends IService<ProjectDTO> {
     Project getProjectFromDTO(ProjectDTO projectDTO, EntityManager em);
 
     User getUser(@NotNull String userId, @NotNull EntityManager em);
+
+    void merge(@NotNull ProjectDTO projectDTO);
 }

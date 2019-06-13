@@ -4,9 +4,20 @@ import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.command.AbstractCommand;
 import ru.iokhin.tm.endpoint.UserEndpointBean;
+import ru.iokhin.tm.service.TerminalService;
+
+import javax.inject.Inject;
 
 @NoArgsConstructor
 public class UserPasswordChangeCommand extends AbstractCommand {
+
+    @Inject
+    @NotNull
+    private UserEndpointBean userEndpointBean;
+
+    @Inject
+    @NotNull
+    private TerminalService terminalService;
 
     @Override
     public boolean security() {
@@ -30,12 +41,11 @@ public class UserPasswordChangeCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        UserEndpointBean userEndpoint = endpointServiceLocator.getUserEndpointBean();
         System.out.println("ENTER THE CURRENT PASSWORD");
-        @NotNull final String oldPassword = endpointServiceLocator.getTerminalService().nextLine();
+        @NotNull final String oldPassword = terminalService.nextLine();
         System.out.println("ENTER NEW PASSWORD");
-        @NotNull final String newPassword = endpointServiceLocator.getTerminalService().nextLine();
-        if (!userEndpoint.passChange(oldPassword, newPassword)) {
+        @NotNull final String newPassword = terminalService.nextLine();
+        if (!userEndpointBean.passChange(oldPassword, newPassword)) {
             System.out.println("WRONG PASSWORD, TRY AGAIN");
             return;
         }

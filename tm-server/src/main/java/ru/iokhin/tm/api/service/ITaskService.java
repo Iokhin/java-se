@@ -40,4 +40,6 @@ public interface ITaskService extends IService<TaskDTO> {
 
     Project getProject(@NotNull String projectId, @NotNull EntityManager em);
 
+    public void merge(@NotNull TaskDTO taskDTO);
+
 }
