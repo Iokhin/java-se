@@ -31,6 +31,8 @@ public interface UserEndpoint {
 
     UserDTO findUserById(@WebParam(name = "id") @NotNull final String id);
 
+    UserDTO removeUserById(@WebParam(name = "id") @NotNull final String id);
+
     boolean passChange(@WebParam(name = "oldPassword") @NotNull final String oldPassword,
                        @WebParam(name = "newPassword") @NotNull final String newPassword);
 

@@ -24,6 +24,9 @@
     <profiles>
         <profile>
             <id>Integration</id>
+            <properties>
+                <exclude.tests>no-test-skip</exclude.tests>
+            </properties>
         </profile>
         <profile>
             <id>Default</id>

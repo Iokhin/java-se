@@ -75,6 +75,11 @@ public class UserEndpointBean implements UserEndpoint {
     }
 
     @Override
+    public UserDTO removeUserById(@WebParam(name = "id") @NotNull final String id) {
+        return userService.removeById(id);
+    }
+
+    @Override
     @SneakyThrows
     public boolean passChange(@WebParam(name = "oldPassword") @NotNull final String oldPassword,
                               @WebParam(name = "newPassword") @NotNull final String newPassword) {

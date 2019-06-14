@@ -89,9 +89,12 @@ public class TaskService extends AbstractService<TaskDTO> implements ITaskServic
     public List<TaskDTO> findAllByProjectId(@NotNull final String userId, @NotNull final String projectId) {
         @NotNull final EntityManager em = factory.createEntityManager();
         @NotNull final ITaskRepository taskRepository = new TaskRepository(em);
-        @Nullable final List<TaskDTO> tasks = taskRepository.findAllByProjectId(getUser(userId, em),
-                getProject(projectId, em)).stream().map(Task::getTaskDTO).collect(Collectors.toList());
-        return tasks;
+        @NotNull final User user = getUser(userId, em);
+        @NotNull final Project project = getProject(projectId, em);
+        if (user == null || project == null) return null;
+        @Nullable final List<Task> tasks = taskRepository.findAllByProjectId(user, project);
+        if (tasks == null) return null;
+        return tasks.stream().map(Task::getTaskDTO).collect(Collectors.toList());
     }
 
     @Override

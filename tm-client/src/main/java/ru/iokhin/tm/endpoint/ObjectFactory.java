@@ -58,6 +58,8 @@ public class ObjectFactory {
     private final static QName _GetCurrentUserResponse_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "getCurrentUserResponse");
     private final static QName _PassChange_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "passChange");
     private final static QName _PassChangeResponse_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "passChangeResponse");
+    private final static QName _RemoveUserById_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "removeUserById");
+    private final static QName _RemoveUserByIdResponse_QNAME = new QName("http://endpoint.tm.iokhin.ru/", "removeUserByIdResponse");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: ru.iokhin.tm.endpoint
@@ -336,6 +338,22 @@ public class ObjectFactory {
      */
     public PassChangeResponse createPassChangeResponse() {
         return new PassChangeResponse();
+    }
+
+    /**
+     * Create an instance of {@link RemoveUserById }
+     * 
+     */
+    public RemoveUserById createRemoveUserById() {
+        return new RemoveUserById();
+    }
+
+    /**
+     * Create an instance of {@link RemoveUserByIdResponse }
+     * 
+     */
+    public RemoveUserByIdResponse createRemoveUserByIdResponse() {
+        return new RemoveUserByIdResponse();
     }
 
     /**
@@ -666,6 +684,24 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://endpoint.tm.iokhin.ru/", name = "passChangeResponse")
     public JAXBElement<PassChangeResponse> createPassChangeResponse(PassChangeResponse value) {
         return new JAXBElement<PassChangeResponse>(_PassChangeResponse_QNAME, PassChangeResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link RemoveUserById }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.tm.iokhin.ru/", name = "removeUserById")
+    public JAXBElement<RemoveUserById> createRemoveUserById(RemoveUserById value) {
+        return new JAXBElement<RemoveUserById>(_RemoveUserById_QNAME, RemoveUserById.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link RemoveUserByIdResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://endpoint.tm.iokhin.ru/", name = "removeUserByIdResponse")
+    public JAXBElement<RemoveUserByIdResponse> createRemoveUserByIdResponse(RemoveUserByIdResponse value) {
+        return new JAXBElement<RemoveUserByIdResponse>(_RemoveUserByIdResponse_QNAME, RemoveUserByIdResponse.class, null, value);
     }
 
 }

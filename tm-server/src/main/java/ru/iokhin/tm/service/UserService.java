@@ -133,6 +133,14 @@ public class UserService extends AbstractService<UserDTO> implements IUserServic
     }
 
     @Override
+    public UserDTO removeById(@NotNull String id) {
+        @NotNull final UserDTO userDTO = findOne(id);
+        if (userDTO == null) return null;
+        remove(userDTO);
+        return userDTO;
+    }
+
+    @Override
     public void remove(@NotNull UserDTO userDTO) {
         @NotNull final EntityManager em = factory.createEntityManager();
         @NotNull final IUserRepository userRepository = new UserRepository(em);

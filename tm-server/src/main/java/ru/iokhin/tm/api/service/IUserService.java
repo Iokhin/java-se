@@ -23,6 +23,8 @@ public interface IUserService extends IService<UserDTO> {
 
     UserDTO findOne(@NotNull String id);
 
+    UserDTO removeById(@NotNull String id);
+
     UserDTO getCurrentUser();
 
     void setCurrentUser(@Nullable final UserDTO user);

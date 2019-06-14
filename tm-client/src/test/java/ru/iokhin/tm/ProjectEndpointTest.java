@@ -33,10 +33,20 @@ public class ProjectEndpointTest {
 
     @Test
     public void testCRUD() {
-        ProjectDTO project = projectEndpointBean.addProject(session, loremIpsum.getWords(1));
-        System.out.println(projectEndpointBean.findProject(session, project.getId()));
-        projectEndpointBean.editProject(session, project.getId(), loremIpsum.getWords(2));
+        System.out.println("ADD START");
+        ProjectDTO project = projectEndpointBean.addProject(session, "Project " + loremIpsum.getWords(1));
+        System.out.println("ADD END");
+        System.out.println("READ START");
+        System.out.println(projectEndpointBean.findProject(session, project.getId()).getName());
+        System.out.println("READ END");
+        System.out.println("UPDATE START");
+        projectEndpointBean.editProject(session, project.getId(), "Project " + loremIpsum.getWords(2));
+        System.out.println(projectEndpointBean.findProject(session, project.getId()).getName());
+        System.out.println("UPDATE START");
+        System.out.println("REMOVE START");
         projectEndpointBean.removeProject(session, project.getId());
+        System.out.println(projectEndpointBean.findProject(session, project.getId()));
+        System.out.println("REMOVE END");
     }
 
     @After
