@@ -1,17 +1,14 @@
 package ru.iokhin.tm.api.repository;
 
+import org.apache.deltaspike.data.api.EntityRepository;
+import org.apache.deltaspike.data.api.Repository;
 import org.jetbrains.annotations.NotNull;
-import ru.iokhin.tm.api.IRepository;
 import ru.iokhin.tm.entity.User;
 
-import java.util.List;
 
-public interface IUserRepository extends IRepository<User> {
+@Repository(forEntity = User.class)
+public interface IUserRepository extends EntityRepository<User, String> {
 
-    User findByLogin(@NotNull final String login);
-
-    List<User> findAll();
-
-    void removeAll();
+    User findAnyByLogin(@NotNull final String login);
 
 }

@@ -31,7 +31,7 @@ public class UserEndpointTest {
 
     @Test
     public void testCRUD() {
-        @NotNull final String login = loremIpsum.getWords(1);
+        @NotNull final String login = loremIpsum.getWords(1, 33);
         @NotNull final String password = loremIpsum.getWords(1);
         user = userEndpointBean.addUser(login, password);
         System.out.println(userEndpointBean.findUserById(user.getId()).getLogin());

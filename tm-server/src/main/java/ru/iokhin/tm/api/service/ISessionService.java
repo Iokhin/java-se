@@ -8,8 +8,6 @@ import ru.iokhin.tm.entity.Session;
 import ru.iokhin.tm.entity.User;
 import ru.iokhin.tm.exeption.AuthException;
 
-import javax.persistence.EntityManager;
-
 public interface ISessionService extends IService<SessionDTO> {
 
     SessionDTO create(@NotNull final String userId);
@@ -18,9 +16,9 @@ public interface ISessionService extends IService<SessionDTO> {
 
     String sign(@NotNull SessionDTO session);
 
-    Session getSessionFromDTO(SessionDTO sessionDTO, EntityManager em);
+    Session getSessionFromDTO(@NotNull SessionDTO sessionDTO);
 
-    User getUser(SessionDTO sessionDTO, EntityManager em);
+    User getUser(@NotNull SessionDTO sessionDTO);
 
     SessionDTO findById(@NotNull String id);
 

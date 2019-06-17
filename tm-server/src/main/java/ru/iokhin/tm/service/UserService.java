@@ -5,6 +5,7 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
+import org.apache.deltaspike.jpa.api.transaction.Transactional;
 import org.eclipse.persistence.jaxb.MarshallerProperties;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -12,6 +13,7 @@ import ru.iokhin.tm.api.service.IProjectService;
 import ru.iokhin.tm.api.service.ITaskService;
 import ru.iokhin.tm.entity.Project;
 import ru.iokhin.tm.entity.Task;
+import ru.iokhin.tm.entityDTO.ProjectDTO;
 import ru.iokhin.tm.entityDTO.UserDTO;
 import ru.iokhin.tm.api.repository.IProjectRepository;
 import ru.iokhin.tm.api.repository.ITaskRepository;
@@ -20,17 +22,12 @@ import ru.iokhin.tm.api.service.IUserService;
 import ru.iokhin.tm.entity.User;
 import ru.iokhin.tm.enumerated.RoleType;
 import ru.iokhin.tm.exeption.AuthException;
-import ru.iokhin.tm.repository.ProjectRepository;
-import ru.iokhin.tm.repository.TaskRepository;
-import ru.iokhin.tm.repository.UserRepository;
 import ru.iokhin.tm.util.DataScope;
 import ru.iokhin.tm.util.MD5Util;
 import ru.iokhin.tm.util.StringValidator;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
@@ -43,24 +40,37 @@ import java.util.stream.Collectors;
 @ApplicationScoped
 public class UserService extends AbstractService<UserDTO> implements IUserService {
 
-    @Inject
-    public UserService(@NotNull final EntityManagerFactory factory, @NotNull final IProjectService projectService,
-                       @NotNull final ITaskService taskService) {
-        super(factory);
-        this.projectService = projectService;
-        this.taskService = taskService;
-    }
+    @NotNull
+    private final IUserRepository userRepository;
+
+    @NotNull
+    private final IProjectRepository projectRepository;
+
+    @NotNull
+    private final ITaskRepository taskRepository;
 
     @Nullable
     private UserDTO currentUser;
 
     @NotNull
-    private IProjectService projectService;
+    private final IProjectService projectService;
 
     @NotNull
-    private ITaskService taskService;
+    private final ITaskService taskService;
+
+    @Inject
+    public UserService(@NotNull IUserRepository userRepository, @NotNull IProjectRepository projectRepository,
+                       @NotNull ITaskRepository taskRepository, @NotNull IProjectService projectService,
+                       @NotNull ITaskService taskService) {
+        this.userRepository = userRepository;
+        this.projectRepository = projectRepository;
+        this.taskRepository = taskRepository;
+        this.projectService = projectService;
+        this.taskService = taskService;
+    }
 
     @Override
+    @Transactional
     public UserDTO add(@NotNull final RoleType roleType, @NotNull final String login, @NotNull final String password) {
         StringValidator.validate(login, password);
         UserDTO user = new UserDTO(roleType, login, password);
@@ -70,6 +80,7 @@ public class UserService extends AbstractService<UserDTO> implements IUserServic
 
     //Method for testing data
     @Override
+    @Transactional
     public UserDTO add(@NotNull RoleType roleType, @NotNull String id, @NotNull String login, @NotNull String password) {
         StringValidator.validate(login, password);
         UserDTO user = new UserDTO(roleType, id, login, password);
@@ -80,6 +91,7 @@ public class UserService extends AbstractService<UserDTO> implements IUserServic
     //-----------------------
     @Override
     @SneakyThrows
+    @Transactional
     public UserDTO edit(@NotNull final String id, @NotNull final String newLogin, @NotNull final String newPassword) {
         @Nullable final UserDTO userDTO = findOne(id);
         if (userDTO == null) return null;
@@ -90,49 +102,29 @@ public class UserService extends AbstractService<UserDTO> implements IUserServic
     }
 
     @Override
+    @Transactional
     public void persist(@NotNull UserDTO userDTO) {
-        @NotNull final EntityManager em = factory.createEntityManager();
-        @NotNull final IUserRepository userRepository = new UserRepository(em);
         @NotNull final User user = getUserFromDTO(userDTO);
-        try {
-            em.getTransaction().begin();
-            userRepository.persist(user);
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-            throw e;
-        } finally {
-            em.close();
-        }
+        userRepository.save(user);
     }
 
     @Override
+    @Transactional
     public void merge(@NotNull UserDTO userDTO) {
-        @NotNull final EntityManager em = factory.createEntityManager();
-        @NotNull final IUserRepository userRepository = new UserRepository(em);
         @NotNull final User user = getUserFromDTO(userDTO);
-        try {
-            em.getTransaction().begin();
-            userRepository.merge(user);
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-            throw e;
-        } finally {
-            em.close();
-        }
+        userRepository.save(user);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public UserDTO findOne(@NotNull String id) {
-        @NotNull final EntityManager em = factory.createEntityManager();
-        @NotNull final IUserRepository userRepository = new UserRepository(em);
-        User user = userRepository.findOne(id);
+        User user = userRepository.findBy(id);
         if (user == null) return null;
         return user.getUserDTO();
     }
 
     @Override
+    @Transactional
     public UserDTO removeById(@NotNull String id) {
         @NotNull final UserDTO userDTO = findOne(id);
         if (userDTO == null) return null;
@@ -141,32 +133,23 @@ public class UserService extends AbstractService<UserDTO> implements IUserServic
     }
 
     @Override
+    @Transactional
     public void remove(@NotNull UserDTO userDTO) {
-        @NotNull final EntityManager em = factory.createEntityManager();
-        @NotNull final IUserRepository userRepository = new UserRepository(em);
-        @NotNull final User user = getUserFromDTO(userDTO);
-        try {
-            em.getTransaction().begin();
-            userRepository.remove(user);
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-            throw e;
-        } finally {
-            em.close();
-        }
+        @Nullable final User user = userRepository.findBy(userDTO.getId());
+        if (user == null) return;
+        userRepository.remove(user);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public UserDTO findByLogin(@NotNull final String login) {
-        @NotNull final EntityManager em = factory.createEntityManager();
-        @NotNull final IUserRepository userRepository = new UserRepository(em);
-        @NotNull final User user = userRepository.findByLogin(login);
+        User user = userRepository.findAnyByLogin(login);
         if (user == null) return null;
         return user.getUserDTO();
     }
 
     @Override
+    @Transactional
     public UserDTO authUser(@NotNull String login, @NotNull String password) throws AuthException {
         StringValidator.validate(login, password);
         @NotNull final UserDTO user = findByLogin(login);
@@ -178,6 +161,7 @@ public class UserService extends AbstractService<UserDTO> implements IUserServic
     }
 
     @Override
+    @Transactional
     public boolean changePassword(@NotNull String oldPassword, @NotNull String newPassword) {
         StringValidator.validate(oldPassword, newPassword);
         if (!MD5Util.passwordToHash(oldPassword).equals(getCurrentUser().getPasswordHash()))
@@ -298,6 +282,7 @@ public class UserService extends AbstractService<UserDTO> implements IUserServic
     }
 
     @Override
+    @Transactional
     public User getUserFromDTO(UserDTO userDTO) {
         User user = new User();
         user.setId(userDTO.getId());
@@ -307,19 +292,19 @@ public class UserService extends AbstractService<UserDTO> implements IUserServic
         return user;
     }
 
+    @Transactional
     private DataScope getDataScope() {
-        @NotNull final EntityManager em = factory.createEntityManager();
-        @NotNull final IProjectRepository projectRepository = new ProjectRepository(em);
-        @NotNull final ITaskRepository taskRepository = new TaskRepository(em);
-        @NotNull final IUserRepository userRepository = new UserRepository(em);
         return new DataScope(new ArrayList<>(projectRepository.findAll().stream().map(Project::getProjectDTO).collect(Collectors.toList())),
                 new ArrayList<>(taskRepository.findAll().stream().map(Task::getTaskDTO).collect(Collectors.toList())),
                 new ArrayList<>(userRepository.findAll().stream().map(User::getUserDTO).collect(Collectors.toList())));
     }
 
-    private void mergeLoadedData(DataScope dataScope) {
+    @Transactional
+    private void mergeLoadedData(DataScope dataScope) throws AuthException {
         dataScope.getUsers().forEach(this::merge);
-        dataScope.getProjects().forEach(projectService::merge);
+        for (ProjectDTO projectDTO : dataScope.getProjects()) {
+            projectService.merge(projectDTO);
+        }
         dataScope.getTasks().forEach(taskService::merge);
     }
 }

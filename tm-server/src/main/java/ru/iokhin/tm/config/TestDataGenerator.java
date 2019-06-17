@@ -6,6 +6,7 @@ import ru.iokhin.tm.api.service.ITaskService;
 import ru.iokhin.tm.api.service.IUserService;
 import ru.iokhin.tm.entityDTO.ProjectDTO;
 import ru.iokhin.tm.enumerated.RoleType;
+import ru.iokhin.tm.exeption.AuthException;
 
 import javax.inject.Inject;
 import java.sql.SQLException;
@@ -30,7 +31,7 @@ public class TestDataGenerator {
         this.taskService = taskService;
     }
 
-    void generateTestData() throws SQLException {
+    void generateTestData() throws SQLException, AuthException {
         userService.add(RoleType.ADMIN, "3afe899e-ee58-4543-8076-48af7f1abd71", "admin", "admin");
         userService.add(RoleType.USER, "7cfe899e-ee58-3290-8076-48af7f1abd66", "user", "user");
 

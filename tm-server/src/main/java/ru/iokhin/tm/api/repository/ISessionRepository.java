@@ -1,8 +1,10 @@
 package ru.iokhin.tm.api.repository;
 
-import ru.iokhin.tm.api.IRepository;
+import org.apache.deltaspike.data.api.EntityRepository;
+import org.apache.deltaspike.data.api.Repository;
 import ru.iokhin.tm.entity.Session;
 
-public interface ISessionRepository extends  IRepository<Session> {
+@Repository
+public interface ISessionRepository extends EntityRepository<Session, String> {
 
 }

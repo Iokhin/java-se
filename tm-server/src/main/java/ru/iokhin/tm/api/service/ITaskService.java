@@ -34,11 +34,11 @@ public interface ITaskService extends IService<TaskDTO> {
 
     List<TaskDTO> findByPartOfNameOrDescription(@NotNull final String userId, @NotNull final String keyWord);
 
-    Task getTaskFromDTO(@NotNull TaskDTO taskDTO, @NotNull EntityManager em);
+    Task getTaskFromDTO(@NotNull TaskDTO taskDTO);
 
-    User getUser(@NotNull String userId, @NotNull EntityManager em);
+    User getUser(@NotNull String userId);
 
-    Project getProject(@NotNull String projectId, @NotNull EntityManager em);
+    Project getProject(@NotNull String projectId);
 
     public void merge(@NotNull TaskDTO taskDTO);
 

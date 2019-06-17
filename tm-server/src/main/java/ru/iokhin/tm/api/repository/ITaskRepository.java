@@ -1,31 +1,35 @@
 package ru.iokhin.tm.api.repository;
 
+import org.apache.deltaspike.data.api.EntityRepository;
+import org.apache.deltaspike.data.api.Query;
+import org.apache.deltaspike.data.api.Repository;
 import org.jetbrains.annotations.NotNull;
-import ru.iokhin.tm.api.IRepository;
 import ru.iokhin.tm.entity.Project;
 import ru.iokhin.tm.entity.Task;
 import ru.iokhin.tm.entity.User;
 
 import java.util.List;
 
-public interface ITaskRepository extends IRepository<Task> {
+@Repository
+public interface ITaskRepository extends EntityRepository<Task, String> {
 
-    Task findOneByUserId(@NotNull User user, @NotNull String id);
+    Task findAnyByUserAndId(@NotNull User user, @NotNull String id);
 
-    List<Task> findAll();
+    List<Task> findByUser(@NotNull User user);
 
-    List<Task> findAllByUserId(@NotNull User user);
+    List<Task> findByUserAndProject(@NotNull User user, @NotNull Project project);
 
-    List<Task> findAllByProjectId(@NotNull User user, @NotNull Project project);
+    @Query("SELECT e FROM Task e WHERE e.user = ?1 ORDER BY e.status")
+    List<Task> sortByStatus(@NotNull User user);
 
-    void removeByUserId(@NotNull User user, @NotNull String id);
+    @Query("SELECT e FROM Task e WHERE e.user = ?1 ORDER BY e.dateStart")
+    List<Task> sortByDateStart(@NotNull User user);
 
-    void removeAllByUserId(@NotNull User user);
+    @Query("SELECT e FROM Task e WHERE e.user = ?1 ORDER BY e.dateEnd")
+    List<Task> sortByDateEnd(@NotNull User user);
 
-    void removeAllByProjectId(@NotNull User user, @NotNull Project project);
-
-    List<Task> sortByUserId(@NotNull User user, @NotNull String parameter);
-
+    @Query("SELECT e FROM Task e WHERE e.user = ?1 AND (e.name LIKE CONCAT('%', ?2, '%') " +
+            "OR e.description LIKE CONCAT('%', ?2, '%'))")
     List<Task> findByPartOfNameOrDescription(@NotNull User user, @NotNull String keyWord);
 
 }

@@ -1,6 +1,7 @@
 package ru.iokhin.tm.service;
 
 import lombok.SneakyThrows;
+import org.apache.deltaspike.jpa.api.transaction.Transactional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import ru.iokhin.tm.entityDTO.SessionDTO;
@@ -10,15 +11,11 @@ import ru.iokhin.tm.api.service.ISessionService;
 import ru.iokhin.tm.entity.Session;
 import ru.iokhin.tm.entity.User;
 import ru.iokhin.tm.exeption.AuthException;
-import ru.iokhin.tm.repository.SessionRepository;
-import ru.iokhin.tm.repository.UserRepository;
 import ru.iokhin.tm.util.PropertiesUtil;
 import ru.iokhin.tm.util.SignatureUtil;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import java.util.Date;
 
 @ApplicationScoped
@@ -30,14 +27,20 @@ public class SessionService extends AbstractService<SessionDTO> implements ISess
     private static final int CYCLE = Integer.parseInt(PROPERTIES_UTIL.getCycle());
     @NotNull
     private static final String SALT = PROPERTIES_UTIL.getSalt();
+    @NotNull
+    private final ISessionRepository sessionRepository;
+    @NotNull
+    private final IUserRepository userRepository;
 
     @Inject
-    public SessionService(@NotNull EntityManagerFactory factory) {
-        super(factory);
+    public SessionService(@NotNull ISessionRepository sessionRepository, @NotNull IUserRepository userRepository) {
+        this.sessionRepository = sessionRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
     @SneakyThrows
+    @Transactional
     public SessionDTO create(@NotNull String userId) {
         @NotNull final SessionDTO session = new SessionDTO();
         session.setTimeStamp(new Date());
@@ -48,6 +51,7 @@ public class SessionService extends AbstractService<SessionDTO> implements ISess
     }
 
     @Override
+    @Transactional
     public void validate(@Nullable SessionDTO session) throws AuthException {
         if (session == null) throw new AuthException();
         if (session.getSignature() == null) throw new AuthException();
@@ -60,6 +64,7 @@ public class SessionService extends AbstractService<SessionDTO> implements ISess
     }
 
     @Override
+    @Transactional
     public String sign(@NotNull SessionDTO session) {
         session.setSignature(null);
         session.setSignature(SignatureUtil.sign(session, SALT, CYCLE));
@@ -67,29 +72,32 @@ public class SessionService extends AbstractService<SessionDTO> implements ISess
     }
 
     @Override
-    public Session getSessionFromDTO(SessionDTO sessionDTO, EntityManager em) {
+    @Transactional
+    public Session getSessionFromDTO(SessionDTO sessionDTO) {
         Session session = new Session();
         session.setId(sessionDTO.getId());
-        session.setUser(getUser(sessionDTO, em));
+        session.setUser(getUser(sessionDTO));
         session.setSignature(sessionDTO.getSignature());
         session.setTimeStamp(sessionDTO.getTimeStamp());
         return session;
     }
 
     @Override
-    public User getUser(SessionDTO sessionDTO, EntityManager em) {
-        @NotNull final IUserRepository userRepository = new UserRepository(em);
+    @Transactional(readOnly = true)
+    public User getUser(SessionDTO sessionDTO) {
         @NotNull final String id = sessionDTO.getParentId();
-        @NotNull final User user = userRepository.findOne(id);
+        @NotNull final User user = userRepository.findBy(id);
         return user;
     }
 
     @Override
+    @Transactional
     public SessionDTO findById(@NotNull String id) {
         return findOne(id);
     }
 
     @Override
+    @Transactional
     public void removeById(@NotNull String id) {
         SessionDTO sessionDTO = findOne(id);
         if (sessionDTO == null) return;
@@ -97,62 +105,32 @@ public class SessionService extends AbstractService<SessionDTO> implements ISess
     }
 
     @Override
+    @Transactional
     public void persist(@NotNull SessionDTO entity) {
-        @NotNull final EntityManager em = factory.createEntityManager();
-        @NotNull final ISessionRepository sessionRepository = new SessionRepository(em);
-        @NotNull final Session session = getSessionFromDTO(entity, em);
-        try {
-            em.getTransaction().begin();
-            sessionRepository.persist(session);
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-            throw e;
-        } finally {
-            em.close();
-        }
+        @NotNull final Session session = getSessionFromDTO(entity);
+        sessionRepository.save(session);
     }
 
     @Override
+    @Transactional
     public void merge(@NotNull SessionDTO entity) {
-        @NotNull final EntityManager em = factory.createEntityManager();
-        @NotNull final ISessionRepository sessionRepository = new SessionRepository(em);
-        @NotNull final Session session = getSessionFromDTO(entity, em);
-        try {
-            em.getTransaction().begin();
-            sessionRepository.merge(session);
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-            throw e;
-        } finally {
-            em.close();
-        }
+        @NotNull final Session session = getSessionFromDTO(entity);
+        sessionRepository.save(session);
     }
 
     @Override
+    @Transactional
     public SessionDTO findOne(@NotNull String id) {
-        @NotNull final EntityManager em = factory.createEntityManager();
-        @NotNull final ISessionRepository sessionRepository = new SessionRepository(em);
-        @NotNull final Session session = sessionRepository.findOne(id);
+        @Nullable final Session session = sessionRepository.findBy(id);
         if (session == null) return null;
         return session.getSessionDTO();
     }
 
     @Override
+    @Transactional
     public void remove(@NotNull SessionDTO entity) {
-        @NotNull final EntityManager em = factory.createEntityManager();
-        @NotNull final ISessionRepository sessionRepository = new SessionRepository(em);
-        @NotNull final Session session = getSessionFromDTO(entity, em);
-        try {
-            em.getTransaction().begin();
-            sessionRepository.remove(session);
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-            throw e;
-        } finally {
-            em.close();
-        }
+        @Nullable final Session session = sessionRepository.findBy(entity.getId());
+        if (session == null) return;
+        sessionRepository.remove(session);
     }
 }
