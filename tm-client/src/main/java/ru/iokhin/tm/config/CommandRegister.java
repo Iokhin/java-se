@@ -7,6 +7,7 @@ import ru.iokhin.tm.command.project.*;
 import ru.iokhin.tm.command.system.AboutCommand;
 import ru.iokhin.tm.command.system.ExitCommand;
 import ru.iokhin.tm.command.system.HelpCommand;
+import ru.iokhin.tm.command.system.ServerInfoCommand;
 import ru.iokhin.tm.command.task.*;
 import ru.iokhin.tm.command.user.*;
 
@@ -121,6 +122,9 @@ public class CommandRegister {
     @Inject
     @NotNull
     private DataLoadFasterJSONCommand dataLoadFasterJSONCommand;
+    @Inject
+    @NotNull
+    private ServerInfoCommand serverInfoCommand;
 
     @Produces
     Map<String, AbstractCommand> register() {
@@ -133,7 +137,7 @@ public class CommandRegister {
                 taskListAllCommand, projectSortListCommand, taskSortListCommand, projectFindByPartCommand, taskFindByPartCommand,
                 dataSaveSerializedCommand, dataLoadSerializedCommand, dataSaveJAXBToXMLCommand, dataLoadJAXBXMLCommand,
                 dataSaveJAXBJSONCommand, dataLoadJAXBFromJSONCommand, dataSaveFasterXMLCommand, dataLoadFasterXMLCommand,
-                dataSaveFasterJSONCommand, dataLoadFasterJSONCommand
+                dataSaveFasterJSONCommand, dataLoadFasterJSONCommand, serverInfoCommand
         };
         for (AbstractCommand command : commands) {
             commandMap.put(command.name(), command);

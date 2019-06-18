@@ -15,7 +15,7 @@ public class PropertiesUtil {
 
     public PropertiesUtil() {
         @NotNull final Properties properties = new Properties();
-        try (InputStream resourceStream = Application.class.getClassLoader().getResourceAsStream("app.properties")) {
+        try (InputStream resourceStream = Application.class.getClassLoader().getResourceAsStream("application.properties")) {
             properties.load(resourceStream);
         } catch (IOException e) {
             e.printStackTrace();
@@ -45,5 +45,9 @@ public class PropertiesUtil {
 
     public String getCycle() {
         return properties.getProperty("cycle");
+    }
+
+    public String getPort() {
+        return properties.getProperty("server.port");
     }
 }

@@ -36,4 +36,10 @@ public class EndpointProducer {
         return new SessionEndpointBeanService().getSessionEndpointBeanPort();
     }
 
+    @NotNull
+    @Produces
+    @ApplicationScoped
+    public ServerInfoEndpointBean getServerInfoEndpointBean() {
+        return new ServerInfoEndpointBeanService().getServerInfoEndpointBeanPort();
+    }
 }

@@ -4,10 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
 import org.jetbrains.annotations.NotNull;
-import ru.iokhin.tm.api.endpoint.ProjectEndpoint;
-import ru.iokhin.tm.api.endpoint.SessionEndpoint;
-import ru.iokhin.tm.api.endpoint.TaskEndpoint;
-import ru.iokhin.tm.api.endpoint.UserEndpoint;
+import ru.iokhin.tm.api.endpoint.*;
+import ru.iokhin.tm.endpoint.ServerInfoEndpointBean;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -36,16 +34,28 @@ public class Bootstrap {
 
     @Inject
     @NotNull
+    private ServerInfoEndpoint serverInfoEndpoint;
+
+    @Inject
+    @NotNull
     private TestDataGenerator testDataGenerator;
 
     @SneakyThrows
     public void init() {
-        Endpoint.publish("http://localhost:8080/SessionEndpointBean" , sessionEndpoint);  //+ (int)(Math.random()*10) +
-        Endpoint.publish("http://localhost:8080/UserEndpointBean", userEndpoint);
-        Endpoint.publish("http://localhost:8080/ProjectEndpointBean", projectEndpoint);
-        Endpoint.publish("http://localhost:8080/TaskEndpointBean", taskEndpoint);
+        if (System.getProperty("server.port") == null) System.setProperty("server.port", "8080");
+        @NotNull final String PORT = System.getProperty("server.port");
+        Endpoint.publish("http://localhost:" + PORT + "/UserEndpointBean", userEndpoint);
+        Endpoint.publish("http://localhost:" + PORT + "/SessionEndpointBean", sessionEndpoint);  //+ (int)(Math.random()*10) +
+        Endpoint.publish("http://localhost:" + PORT + "/ProjectEndpointBean", projectEndpoint);
+        Endpoint.publish("http://localhost:" + PORT + "/TaskEndpointBean", taskEndpoint);
+        Endpoint.publish("http://localhost:" + PORT + "/ServerInfoEndpointBean", serverInfoEndpoint);
         testDataGenerator.generateTestData();
         System.out.println("***WELCOME TO TM-SERVER***");
+        System.out.println("http://localhost:" + PORT + "/UserEndpointBean?wsdl");
+        System.out.println("http://localhost:" + PORT + "/SessionEndpointBean?wsdl");
+        System.out.println("http://localhost:" + PORT + "/ProjectEndpointBean?wsdl");
+        System.out.println("http://localhost:" + PORT + "/TaskEndpointBean?wsdl");
+        System.out.println("http://localhost:" + PORT + "/ServerInfoEndpointBean?wsdl");
     }
 
 
