@@ -3,13 +3,12 @@ package ru.iokhin.tm.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Cache;
 import org.jetbrains.annotations.Nullable;
 import ru.iokhin.tm.entityDTO.SessionDTO;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -18,6 +17,8 @@ import java.util.Date;
 @NoArgsConstructor
 @Entity
 @Table(name = "session")
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Session extends AbstractEntity implements Serializable {
 
     @Nullable

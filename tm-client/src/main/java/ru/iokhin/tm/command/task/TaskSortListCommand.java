@@ -58,6 +58,9 @@ public class TaskSortListCommand extends AbstractCommand {
             System.out.println("WRONG OPTION");
             return;
         }
-        sorted.forEach(System.out::println);
+        int i = 0;
+        for (TaskDTO taskDTO : sorted) {
+            System.out.println(++i + ". " + taskDTO.getName() + ", " + taskDTO.getId());
+        }
     }
 }

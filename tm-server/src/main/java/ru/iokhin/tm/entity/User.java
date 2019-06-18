@@ -3,6 +3,8 @@ package ru.iokhin.tm.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Cache;
 import org.jetbrains.annotations.Nullable;
 import ru.iokhin.tm.entityDTO.UserDTO;
 import ru.iokhin.tm.enumerated.RoleType;
@@ -16,6 +18,8 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "user")
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class User extends AbstractEntity implements Serializable {
 
     @Nullable

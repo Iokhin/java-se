@@ -53,6 +53,9 @@ public class ProjectFindByPartCommand extends AbstractCommand {
             System.out.println("NO RESULTS FOUND FOR " + keyWord);
             return;
         }
-        found.forEach(System.out::println);
+        int i = 0;
+        for (ProjectDTO projectDTO : found) {
+            System.out.println(++i + ". " + projectDTO.getName() + ", " + projectDTO.getId());
+        }
     }
 }

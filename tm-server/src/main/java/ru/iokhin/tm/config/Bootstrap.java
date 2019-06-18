@@ -40,10 +40,10 @@ public class Bootstrap {
 
     @SneakyThrows
     public void init() {
-        Endpoint.publish("http://localhost:8080/SessionEndpointBean", sessionEndpoint);
-        Endpoint.publish("http://localhost:8080/UserEndpointBean", userEndpoint);
-        Endpoint.publish("http://localhost:8080/ProjectEndpointBean?wsdl", projectEndpoint);
-        Endpoint.publish("http://localhost:8080/TaskEndpointBean", taskEndpoint);
+        Endpoint.publish("http://localhost:8080/SessionEndpointBean" , sessionEndpoint);  //+ (int)(Math.random()*10) +
+        Endpoint.publish("http://localhost:8080/UserEndpointBean" + Math.random(), userEndpoint);
+        Endpoint.publish("http://localhost:8080/ProjectEndpointBean?wsdl" + Math.random(), projectEndpoint);
+        Endpoint.publish("http://localhost:8080/TaskEndpointBean" + Math.random(), taskEndpoint);
         testDataGenerator.generateTestData();
         System.out.println("***WELCOME TO TM-SERVER***");
     }

@@ -53,6 +53,9 @@ public class ProjectSortListCommand extends AbstractCommand {
             System.out.println("WRONG OPTION");
             return;
         }
-        sorted.forEach(System.out::println);
+        int i = 0;
+        for (ProjectDTO projectDTO : sorted) {
+            System.out.println(++i + ". " + projectDTO.getName() + ", " + projectDTO.getId());
+        }
     }
 }

@@ -3,9 +3,15 @@ package ru.iokhin.tm.command.system;
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import ru.iokhin.tm.command.AbstractCommand;
+import ru.iokhin.tm.config.Bootstrap;
+
+import javax.inject.Inject;
 
 @NoArgsConstructor
 public final class HelpCommand extends AbstractCommand {
+
+    @Inject
+    private Bootstrap bootstrap;
 
     @Override
     public boolean security() {
@@ -33,8 +39,8 @@ public final class HelpCommand extends AbstractCommand {
     }
 
     private void helpCommand() {
-//        for (@NotNull AbstractCommand abstractCommand : endpointServiceLocator.getCommandMap().values()) {
-//            System.out.println(abstractCommand.name() + ": " + abstractCommand.description());
-//        }
+        for (@NotNull AbstractCommand abstractCommand : bootstrap.getCommandMap().values()) {
+            System.out.println(abstractCommand.name() + ": " + abstractCommand.description());
+        }
     }
 }

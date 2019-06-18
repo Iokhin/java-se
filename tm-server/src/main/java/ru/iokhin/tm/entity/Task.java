@@ -3,6 +3,8 @@ package ru.iokhin.tm.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Cache;
 import org.jetbrains.annotations.Nullable;
 import ru.iokhin.tm.entityDTO.TaskDTO;
 
@@ -14,6 +16,8 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Entity
 @Table(name = "task")
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Task extends BaseEntity implements Serializable {
 
     @Nullable
