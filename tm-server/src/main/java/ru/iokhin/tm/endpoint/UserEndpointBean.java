@@ -3,6 +3,8 @@ package ru.iokhin.tm.endpoint;
 import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import ru.iokhin.tm.entityDTO.SessionDTO;
 import ru.iokhin.tm.entityDTO.UserDTO;
 import ru.iokhin.tm.api.endpoint.UserEndpoint;
@@ -10,11 +12,11 @@ import ru.iokhin.tm.api.service.ISessionService;
 import ru.iokhin.tm.api.service.IUserService;
 import ru.iokhin.tm.enumerated.RoleType;
 
-import javax.inject.Inject;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 
+@Controller
 @WebService
 @NoArgsConstructor
 public class UserEndpointBean implements UserEndpoint {
@@ -25,7 +27,7 @@ public class UserEndpointBean implements UserEndpoint {
     @NotNull
     private ISessionService sessionService;
 
-    @Inject
+    @Autowired
     public UserEndpointBean(@NotNull final IUserService userService, @NotNull final ISessionService sessionService) {
         this.userService = userService;
         this.sessionService = sessionService;

@@ -4,39 +4,40 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 import ru.iokhin.tm.api.endpoint.*;
-import ru.iokhin.tm.endpoint.ServerInfoEndpointBean;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import javax.xml.ws.Endpoint;
 
 @Getter
 @Setter
-@ApplicationScoped
+@Component("bootstrap")
+//@Scope("singleton")
 public class Bootstrap {
 
-    @Inject
+    @Autowired
     @NotNull
     private SessionEndpoint sessionEndpoint;
 
-    @Inject
+    @Autowired
     @NotNull
     private UserEndpoint userEndpoint;
 
-    @Inject
+    @Autowired
     @NotNull
     private ProjectEndpoint projectEndpoint;
 
-    @Inject
+    @Autowired
     @NotNull
     private TaskEndpoint taskEndpoint;
 
-    @Inject
+    @Autowired
     @NotNull
     private ServerInfoEndpoint serverInfoEndpoint;
 
-    @Inject
+    @Autowired
     @NotNull
     private TestDataGenerator testDataGenerator;
 

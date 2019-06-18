@@ -1,9 +1,12 @@
 package ru.iokhin.tm.service;
 
 import lombok.SneakyThrows;
-import org.apache.deltaspike.jpa.api.transaction.Transactional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.iokhin.tm.entityDTO.TaskDTO;
 import ru.iokhin.tm.api.repository.IProjectRepository;
 import ru.iokhin.tm.api.repository.ITaskRepository;
@@ -14,12 +17,11 @@ import ru.iokhin.tm.entity.Task;
 import ru.iokhin.tm.entity.User;
 import ru.iokhin.tm.util.StringValidator;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@ApplicationScoped
+@Service("taskService")
+@Scope("singleton")
 public class TaskService extends AbstractService<TaskDTO> implements ITaskService {
 
     @NotNull
@@ -31,7 +33,7 @@ public class TaskService extends AbstractService<TaskDTO> implements ITaskServic
     @NotNull
     private final ITaskRepository taskRepository;
 
-    @Inject
+    @Autowired
     public TaskService(@NotNull IUserRepository userRepository, @NotNull IProjectRepository projectRepository, @NotNull ITaskRepository taskRepository) {
         this.userRepository = userRepository;
         this.projectRepository = projectRepository;
@@ -78,7 +80,7 @@ public class TaskService extends AbstractService<TaskDTO> implements ITaskServic
         if (user == null) return;
         @Nullable final List<Task> tasks = taskRepository.findByUser(user);
         if (tasks == null) return;
-        tasks.forEach(taskRepository::remove);
+        tasks.forEach(taskRepository::delete);
     }
 
     @Override
@@ -172,14 +174,14 @@ public class TaskService extends AbstractService<TaskDTO> implements ITaskServic
     @Override
     @Transactional(readOnly = true)
     public User getUser(@NotNull String userId) {
-        @NotNull final User user = userRepository.findBy(userId);
+        @Nullable final User user = userRepository.findById(userId).orElse(null);
         return user;
     }
 
     @Override
     @Transactional(readOnly = true)
     public Project getProject(@NotNull String projectId) {
-        @NotNull final Project project = projectRepository.findBy(projectId);
+        @Nullable final Project project = projectRepository.findById(projectId).orElse(null);
         return project;
     }
 
@@ -201,7 +203,7 @@ public class TaskService extends AbstractService<TaskDTO> implements ITaskServic
     @Override
     @Transactional(readOnly = true)
     public TaskDTO findOne(@NotNull String id) {
-        @Nullable final Task task = taskRepository.findBy(id);
+        @Nullable final Task task = taskRepository.findById(id).orElse(null);
         if (task == null) return null;
         return task.getTaskDTO();
     }
@@ -209,8 +211,8 @@ public class TaskService extends AbstractService<TaskDTO> implements ITaskServic
     @Override
     @Transactional
     public void remove(@NotNull TaskDTO taskDTO) {
-        @NotNull final Task task = taskRepository.findBy(taskDTO.getId());
+        @Nullable final Task task = taskRepository.findById(taskDTO.getId()).orElse(null);
         if (task == null) return;
-        taskRepository.remove(task);
+        taskRepository.delete(task);
     }
 }

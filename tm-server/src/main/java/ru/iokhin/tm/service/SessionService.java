@@ -1,9 +1,12 @@
 package ru.iokhin.tm.service;
 
 import lombok.SneakyThrows;
-import org.apache.deltaspike.jpa.api.transaction.Transactional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.iokhin.tm.entityDTO.SessionDTO;
 import ru.iokhin.tm.api.repository.ISessionRepository;
 import ru.iokhin.tm.api.repository.IUserRepository;
@@ -14,11 +17,10 @@ import ru.iokhin.tm.exeption.AuthException;
 import ru.iokhin.tm.util.PropertiesUtil;
 import ru.iokhin.tm.util.SignatureUtil;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import java.util.Date;
 
-@ApplicationScoped
+@Service("sessionService")
+@Scope("singleton")
 public class SessionService extends AbstractService<SessionDTO> implements ISessionService {
 
     @NotNull
@@ -32,7 +34,7 @@ public class SessionService extends AbstractService<SessionDTO> implements ISess
     @NotNull
     private final IUserRepository userRepository;
 
-    @Inject
+    @Autowired
     public SessionService(@NotNull ISessionRepository sessionRepository, @NotNull IUserRepository userRepository) {
         this.sessionRepository = sessionRepository;
         this.userRepository = userRepository;
@@ -86,7 +88,7 @@ public class SessionService extends AbstractService<SessionDTO> implements ISess
     @Transactional(readOnly = true)
     public User getUser(SessionDTO sessionDTO) {
         @NotNull final String id = sessionDTO.getParentId();
-        @NotNull final User user = userRepository.findBy(id);
+        @Nullable final User user = userRepository.findById(id).orElse(null);
         return user;
     }
 
@@ -121,7 +123,7 @@ public class SessionService extends AbstractService<SessionDTO> implements ISess
     @Override
     @Transactional
     public SessionDTO findOne(@NotNull String id) {
-        @Nullable final Session session = sessionRepository.findBy(id);
+        @Nullable final Session session = sessionRepository.findById(id).orElse(null);
         if (session == null) return null;
         return session.getSessionDTO();
     }
@@ -129,8 +131,8 @@ public class SessionService extends AbstractService<SessionDTO> implements ISess
     @Override
     @Transactional
     public void remove(@NotNull SessionDTO entity) {
-        @Nullable final Session session = sessionRepository.findBy(entity.getId());
+        @Nullable final Session session = sessionRepository.findById(entity.getId()).orElse(null);
         if (session == null) return;
-        sessionRepository.remove(session);
+        sessionRepository.delete(session);
     }
 }

@@ -1,9 +1,11 @@
 package ru.iokhin.tm;
 
-import org.apache.deltaspike.testcontrol.api.junit.CdiTestRunner;
 import org.junit.Test;
 import org.junit.Assert;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import ru.iokhin.tm.config.SpringConfig;
 import ru.iokhin.tm.entity.Project;
 import ru.iokhin.tm.entity.Session;
 import ru.iokhin.tm.entity.Task;
@@ -14,22 +16,23 @@ import ru.iokhin.tm.service.SessionService;
 import ru.iokhin.tm.service.TaskService;
 import ru.iokhin.tm.service.UserService;
 import ru.iokhin.tm.util.EntityFactory;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import javax.inject.Inject;
 
-@RunWith(CdiTestRunner.class)
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = SpringConfig.class)
 public class ServiceTest {
 
-    @Inject
+    @Autowired
     private UserService userService;
 
-    @Inject
+    @Autowired
     private ProjectService projectService;
 
-    @Inject
+    @Autowired
     private TaskService taskService;
 
-    @Inject
+    @Autowired
     private SessionService sessionService;
 
     @Test

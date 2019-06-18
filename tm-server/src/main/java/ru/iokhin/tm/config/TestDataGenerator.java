@@ -1,6 +1,7 @@
 package ru.iokhin.tm.config;
 
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
 import ru.iokhin.tm.api.service.IProjectService;
 import ru.iokhin.tm.api.service.ITaskService;
 import ru.iokhin.tm.api.service.IUserService;
@@ -8,7 +9,6 @@ import ru.iokhin.tm.entityDTO.ProjectDTO;
 import ru.iokhin.tm.enumerated.RoleType;
 import ru.iokhin.tm.exeption.AuthException;
 
-import javax.inject.Inject;
 import java.sql.SQLException;
 
 public class TestDataGenerator {
@@ -22,7 +22,7 @@ public class TestDataGenerator {
     @NotNull
     private ITaskService taskService;
 
-    @Inject
+    @Autowired
     public TestDataGenerator(@NotNull IUserService userService,
                              @NotNull IProjectService projectService,
                              @NotNull ITaskService taskService) {

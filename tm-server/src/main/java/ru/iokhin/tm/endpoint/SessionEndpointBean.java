@@ -4,14 +4,16 @@ import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import ru.iokhin.tm.entityDTO.SessionDTO;
 import ru.iokhin.tm.api.endpoint.SessionEndpoint;
 import ru.iokhin.tm.api.service.ISessionService;
 
-import javax.inject.Inject;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 
+@Controller
 @WebService
 @NoArgsConstructor
 public class SessionEndpointBean implements SessionEndpoint {
@@ -19,7 +21,7 @@ public class SessionEndpointBean implements SessionEndpoint {
     @NotNull
     private ISessionService sessionService;
 
-    @Inject
+    @Autowired
     public SessionEndpointBean(@NotNull final ISessionService sessionService) {
         this.sessionService = sessionService;
     }

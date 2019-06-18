@@ -1,17 +1,19 @@
 package ru.iokhin.tm.api.repository;
 
-import org.apache.deltaspike.data.api.EntityRepository;
-import org.apache.deltaspike.data.api.Query;
-import org.apache.deltaspike.data.api.Repository;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.context.annotation.Scope;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 import ru.iokhin.tm.entity.Project;
 import ru.iokhin.tm.entity.Task;
 import ru.iokhin.tm.entity.User;
 
 import java.util.List;
 
-@Repository
-public interface ITaskRepository extends EntityRepository<Task, String> {
+@Repository("taskRepository")
+@Scope("singleton")
+public interface ITaskRepository extends JpaRepository<Task, String> {
 
     Task findAnyByUserAndId(@NotNull User user, @NotNull String id);
 

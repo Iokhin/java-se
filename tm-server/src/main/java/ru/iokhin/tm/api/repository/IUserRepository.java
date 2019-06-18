@@ -1,13 +1,14 @@
 package ru.iokhin.tm.api.repository;
 
-import org.apache.deltaspike.data.api.EntityRepository;
-import org.apache.deltaspike.data.api.Repository;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.context.annotation.Scope;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 import ru.iokhin.tm.entity.User;
 
-
-@Repository(forEntity = User.class)
-public interface IUserRepository extends EntityRepository<User, String> {
+@Repository("userRepository")
+@Scope("singleton")
+public interface IUserRepository extends JpaRepository<User, String> {
 
     User findAnyByLogin(@NotNull final String login);
 

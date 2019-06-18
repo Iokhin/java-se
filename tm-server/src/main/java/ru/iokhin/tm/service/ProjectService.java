@@ -1,9 +1,13 @@
 package ru.iokhin.tm.service;
 
+import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
-import org.apache.deltaspike.jpa.api.transaction.Transactional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.iokhin.tm.entityDTO.ProjectDTO;
 import ru.iokhin.tm.api.repository.IProjectRepository;
 import ru.iokhin.tm.api.repository.IUserRepository;
@@ -14,13 +18,11 @@ import ru.iokhin.tm.enumerated.Status;
 import ru.iokhin.tm.exeption.AuthException;
 import ru.iokhin.tm.util.StringValidator;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@ApplicationScoped
+@Service("projectService")
+@Scope("singleton")
 public class ProjectService extends AbstractService<ProjectDTO> implements IProjectService {
 
     @NotNull
@@ -29,8 +31,8 @@ public class ProjectService extends AbstractService<ProjectDTO> implements IProj
     @NotNull
     private final IUserRepository userRepository;
 
-    @Inject
-    public ProjectService(IProjectRepository projectRepository, IUserRepository userRepository) {
+    @Autowired
+    public ProjectService(@NotNull IProjectRepository projectRepository, @NotNull IUserRepository userRepository) {
         this.projectRepository = projectRepository;
         this.userRepository = userRepository;
     }
@@ -89,7 +91,7 @@ public class ProjectService extends AbstractService<ProjectDTO> implements IProj
         @NotNull final List<Project> projects = projectRepository.findByUser(user);
         if (projects == null) throw new AuthException("PROJECTS NOT FOUND");
         for (Project project : projects) {
-            projectRepository.remove(project);
+            projectRepository.delete(project);
         }
     }
 
@@ -97,7 +99,7 @@ public class ProjectService extends AbstractService<ProjectDTO> implements IProj
     @Transactional(readOnly = true)
     public List<ProjectDTO> findAllByUserId(@NotNull final String userId) throws AuthException {
         StringValidator.validate(userId);
-        @Nullable final User user = userRepository.findBy(userId);
+        @Nullable final User user = userRepository.findById(userId).orElse(null);
         if (user == null) throw new AuthException("USER NOT FOUND");
         @Nullable final List<Project> projects = projectRepository.findByUser(user);
         if (projects == null) throw new AuthException("PROJECTS NOT FOUND");
@@ -109,7 +111,7 @@ public class ProjectService extends AbstractService<ProjectDTO> implements IProj
     @Transactional(readOnly = true)
     public ProjectDTO findOneByUserId(@NotNull final String userId, @NotNull final String id) throws AuthException {
         StringValidator.validate(userId, id);
-        @Nullable final User user = userRepository.findBy(userId);
+        @Nullable final User user = userRepository.findById(userId).orElse(null);
         if (user == null) throw new AuthException("USER NOT FOUND");
         @Nullable final Project project = projectRepository.findAnyByUserAndId(getUser(userId), id);
         if (project == null) return null;
@@ -163,7 +165,7 @@ public class ProjectService extends AbstractService<ProjectDTO> implements IProj
     @Override
     @Transactional(readOnly = true)
     public User getUser(@NotNull final String userId) throws AuthException {
-        @Nullable final User user = userRepository.findBy(userId);
+        @Nullable final User user = userRepository.findById(userId).orElse(null);
         if (user == null) throw new AuthException("USER IS NULL");
         return user;
     }
@@ -185,7 +187,7 @@ public class ProjectService extends AbstractService<ProjectDTO> implements IProj
     @Override
     @Transactional(readOnly = true)
     public ProjectDTO findOne(@NotNull final String id) {
-        @Nullable final Project project = projectRepository.findBy(id);
+        @Nullable final Project project = projectRepository.findById(id).orElse(null);
         if (project == null) return null;
         return project.getProjectDTO();
     }
@@ -193,8 +195,8 @@ public class ProjectService extends AbstractService<ProjectDTO> implements IProj
     @Override
     @Transactional
     public void remove(@NotNull final ProjectDTO projectDTO) throws AuthException {
-        @Nullable final Project project = projectRepository.findBy(projectDTO.getId());
+        @Nullable final Project project = projectRepository.findById(projectDTO.getId()).orElse(null);
         if (project == null) throw new AuthException("PROJECT IS NULL");
-        projectRepository.remove(project);
+        projectRepository.delete(project);
     }
 }

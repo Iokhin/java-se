@@ -3,17 +3,19 @@ package ru.iokhin.tm.endpoint;
 import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import ru.iokhin.tm.entityDTO.SessionDTO;
 import ru.iokhin.tm.entityDTO.TaskDTO;
 import ru.iokhin.tm.api.endpoint.TaskEndpoint;
 import ru.iokhin.tm.api.service.ISessionService;
 import ru.iokhin.tm.api.service.ITaskService;
 
-import javax.inject.Inject;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 import java.util.Collection;
 
+@Controller
 @WebService
 @NoArgsConstructor
 public class TaskEndpointBean implements TaskEndpoint {
@@ -23,7 +25,7 @@ public class TaskEndpointBean implements TaskEndpoint {
     @NotNull
     private ISessionService sessionService;
 
-    @Inject
+    @Autowired
     public TaskEndpointBean(@NotNull final ITaskService taskService, @NotNull final ISessionService sessionService) {
         this.taskService = taskService;
         this.sessionService = sessionService;

@@ -5,10 +5,13 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
-import org.apache.deltaspike.jpa.api.transaction.Transactional;
 import org.eclipse.persistence.jaxb.MarshallerProperties;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.iokhin.tm.api.service.IProjectService;
 import ru.iokhin.tm.api.service.ITaskService;
 import ru.iokhin.tm.entity.Project;
@@ -26,8 +29,6 @@ import ru.iokhin.tm.util.DataScope;
 import ru.iokhin.tm.util.MD5Util;
 import ru.iokhin.tm.util.StringValidator;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
@@ -37,7 +38,8 @@ import java.util.stream.Collectors;
 
 @Getter
 @Setter
-@ApplicationScoped
+@Service("userService")
+@Scope("singleton")
 public class UserService extends AbstractService<UserDTO> implements IUserService {
 
     @NotNull
@@ -58,7 +60,7 @@ public class UserService extends AbstractService<UserDTO> implements IUserServic
     @NotNull
     private final ITaskService taskService;
 
-    @Inject
+    @Autowired
     public UserService(@NotNull IUserRepository userRepository, @NotNull IProjectRepository projectRepository,
                        @NotNull ITaskRepository taskRepository, @NotNull IProjectService projectService,
                        @NotNull ITaskService taskService) {
@@ -118,7 +120,7 @@ public class UserService extends AbstractService<UserDTO> implements IUserServic
     @Override
     @Transactional(readOnly = true)
     public UserDTO findOne(@NotNull String id) {
-        User user = userRepository.findBy(id);
+        User user = userRepository.findById(id).orElse(null);
         if (user == null) return null;
         return user.getUserDTO();
     }
@@ -135,9 +137,9 @@ public class UserService extends AbstractService<UserDTO> implements IUserServic
     @Override
     @Transactional
     public void remove(@NotNull UserDTO userDTO) {
-        @Nullable final User user = userRepository.findBy(userDTO.getId());
+        @Nullable final User user = userRepository.findById(userDTO.getId()).orElse(null);
         if (user == null) return;
-        userRepository.remove(user);
+        userRepository.delete(user);
     }
 
     @Override
