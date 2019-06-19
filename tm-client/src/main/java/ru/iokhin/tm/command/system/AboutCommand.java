@@ -1,6 +1,7 @@
 package ru.iokhin.tm.command.system;
 
 import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 import ru.iokhin.tm.command.AbstractCommand;
 
 import java.io.IOException;
@@ -11,6 +12,7 @@ import java.util.jar.Attributes;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
 
+@Component
 @NoArgsConstructor
 public final class AboutCommand extends AbstractCommand {
 

@@ -2,6 +2,7 @@ package ru.iokhin.tm.config;
 
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ru.iokhin.tm.api.service.IProjectService;
 import ru.iokhin.tm.api.service.ITaskService;
 import ru.iokhin.tm.api.service.IUserService;
@@ -11,6 +12,7 @@ import ru.iokhin.tm.exeption.AuthException;
 
 import java.sql.SQLException;
 
+@Component
 public class TestDataGenerator {
 
     @NotNull

@@ -1,6 +1,5 @@
 package ru.iokhin.tm.service;
 
-import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -9,8 +8,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.iokhin.tm.entityDTO.ProjectDTO;
-import ru.iokhin.tm.api.repository.IProjectRepository;
-import ru.iokhin.tm.api.repository.IUserRepository;
+import ru.iokhin.tm.repository.IProjectRepository;
+import ru.iokhin.tm.repository.IUserRepository;
 import ru.iokhin.tm.api.service.IProjectService;
 import ru.iokhin.tm.entity.Project;
 import ru.iokhin.tm.entity.User;

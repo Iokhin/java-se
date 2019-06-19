@@ -2,20 +2,21 @@ package ru.iokhin.tm.command.project;
 
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ru.iokhin.tm.command.AbstractCommand;
 import ru.iokhin.tm.endpoint.ProjectEndpointBean;
 import ru.iokhin.tm.service.SessionService;
 
-import javax.inject.Inject;
-
+@Component
 @NoArgsConstructor
 public final class ProjectRemoveAllCommand extends AbstractCommand {
 
-    @Inject
+    @Autowired
     @NotNull
     private ProjectEndpointBean projectEndpointBean;
 
-    @Inject
+    @Autowired
     @NotNull
     private SessionService sessionService;
 

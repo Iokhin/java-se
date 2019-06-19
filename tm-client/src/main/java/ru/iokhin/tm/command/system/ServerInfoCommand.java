@@ -1,14 +1,15 @@
 package ru.iokhin.tm.command.system;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ru.iokhin.tm.command.AbstractCommand;
 import ru.iokhin.tm.endpoint.ServerInfo;
 import ru.iokhin.tm.endpoint.ServerInfoEndpointBean;
 
-import javax.inject.Inject;
-
+@Component
 public class ServerInfoCommand extends AbstractCommand {
 
-    @Inject
+    @Autowired
     private ServerInfoEndpointBean serverInfoEndpointBean;
 
     @Override

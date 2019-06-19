@@ -22,5 +22,9 @@ public interface ISessionService extends IService<SessionDTO> {
 
     SessionDTO findById(@NotNull String id);
 
+    SessionDTO findOne(@NotNull String id);
+
     void removeById(@NotNull String id);
+
+    void merge(@NotNull SessionDTO entity);
 }

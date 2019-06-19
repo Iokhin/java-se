@@ -1,4 +1,4 @@
-package ru.iokhin.tm.api.repository;
+package ru.iokhin.tm.repository;
 
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Scope;

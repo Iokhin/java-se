@@ -28,6 +28,8 @@ public interface IProjectService extends IService<ProjectDTO> {
 
     ProjectDTO findOneByUserId(@NotNull final String userId, @NotNull final String id) throws AuthException;
 
+    ProjectDTO findOne(@NotNull String id);
+
     Collection<ProjectDTO> sortByUserId(String userId, String comparator);
 
     Collection<ProjectDTO> findByPartOfNameOrDescription(@NotNull final String userId, @NotNull final String part);

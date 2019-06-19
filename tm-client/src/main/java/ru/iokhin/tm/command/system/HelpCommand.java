@@ -2,15 +2,16 @@ package ru.iokhin.tm.command.system;
 
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ru.iokhin.tm.command.AbstractCommand;
 import ru.iokhin.tm.config.Bootstrap;
 
-import javax.inject.Inject;
-
+@Component
 @NoArgsConstructor
 public final class HelpCommand extends AbstractCommand {
 
-    @Inject
+    @Autowired
     private Bootstrap bootstrap;
 
     @Override

@@ -17,7 +17,7 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 @ComponentScan("ru.iokhin.tm")
-@EnableJpaRepositories("ru.iokhin.tm.api.repository")
+@EnableJpaRepositories("ru.iokhin.tm.repository")
 public class SpringConfig {
 
     @Bean
@@ -36,7 +36,7 @@ public class SpringConfig {
         factoryBean = new LocalContainerEntityManagerFactoryBean();
         factoryBean.setDataSource(dataSource);
         factoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-        factoryBean.setPackagesToScan("ru.iokhin.entity");
+        factoryBean.setPackagesToScan("ru.iokhin.tm.entity");
         final Properties properties = new Properties();
         properties.put("hibernate.show_sql", "true");
         properties.put("hibernate.hbm2ddl.auto", "update");

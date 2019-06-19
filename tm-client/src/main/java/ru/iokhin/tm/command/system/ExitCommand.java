@@ -1,8 +1,10 @@
 package ru.iokhin.tm.command.system;
 
 import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 import ru.iokhin.tm.command.AbstractCommand;
 
+@Component
 @NoArgsConstructor
 public final class ExitCommand extends AbstractCommand {
 

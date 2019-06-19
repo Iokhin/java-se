@@ -4,6 +4,9 @@ import lombok.Getter;
 import lombok.SneakyThrows;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 import ru.iokhin.tm.command.AbstractCommand;
 import ru.iokhin.tm.endpoint.RoleType;
 import ru.iokhin.tm.endpoint.UserEndpointBean;
@@ -12,32 +15,37 @@ import ru.iokhin.tm.exception.ClientNonexistentCommandException;
 import ru.iokhin.tm.service.SessionService;
 import ru.iokhin.tm.service.TerminalService;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.HashMap;
 import java.util.Map;
 
 @Getter
-@ApplicationScoped
+@Component
+@Scope("singleton")
 public class Bootstrap {
 
-    @Inject
+    @Autowired
+    private ApplicationContext context;
+
+    @Autowired
     @NotNull
     private SessionService sessionService;
 
-    @Inject
+    @Autowired
     @NotNull
     private UserEndpointBean userEndpointBean;
 
-    @Inject
+    @Autowired
     @NotNull
     private TerminalService terminalService;
 
-    @Inject
     @NotNull
-    private Map<String, AbstractCommand> commandMap;
+    private Map<String, AbstractCommand> commandMap = new HashMap<>();
 
 
     public void init() {
+        commandRegister();
         System.out.println("***WELCOME TO TM-CLIENT***");
         @NotNull String input = "";
         while (!input.equals("exit")) {
@@ -59,6 +67,15 @@ public class Bootstrap {
                 userEndpointBean.findUserById(sessionService.getSession().getParentId()).getRoleType() != RoleType.ADMIN)
             throw new ClientAuthException("THIS COMMAND ALLOWS ONLY FOR ADMIN");
         command.execute();
+    }
+
+    private void commandRegister() {
+        Map<String, AbstractCommand> commandMap1 = commandMap;
+        for (Map.Entry<String, AbstractCommand> entry : context.getBeansOfType(AbstractCommand.class).entrySet()) {
+            String key = entry.getValue().name();
+            AbstractCommand value = entry.getValue();
+            commandMap1.put(key, value);
+        }
     }
 }
 

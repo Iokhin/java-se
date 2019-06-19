@@ -1,39 +1,40 @@
 package ru.iokhin.tm;
 
-import org.junit.Test;
 import org.junit.Assert;
+import org.junit.Test;
+//import org.junit.Assert;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.test.context.ContextConfiguration;
+import ru.iokhin.tm.api.service.IProjectService;
+import ru.iokhin.tm.api.service.ISessionService;
+import ru.iokhin.tm.api.service.ITaskService;
+import ru.iokhin.tm.api.service.IUserService;
 import ru.iokhin.tm.config.SpringConfig;
 import ru.iokhin.tm.entity.Project;
 import ru.iokhin.tm.entity.Session;
 import ru.iokhin.tm.entity.Task;
 import ru.iokhin.tm.entity.User;
 import ru.iokhin.tm.exeption.AuthException;
-import ru.iokhin.tm.service.ProjectService;
-import ru.iokhin.tm.service.SessionService;
-import ru.iokhin.tm.service.TaskService;
-import ru.iokhin.tm.service.UserService;
 import ru.iokhin.tm.util.EntityFactory;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SpringConfig.class)
 public class ServiceTest {
 
     @Autowired
-    private UserService userService;
+    private IUserService userService;
 
     @Autowired
-    private ProjectService projectService;
+    private IProjectService projectService;
 
     @Autowired
-    private TaskService taskService;
+    private ITaskService taskService;
 
     @Autowired
-    private SessionService sessionService;
+    private ISessionService sessionService;
 
     @Test
     public void test() throws AuthException {

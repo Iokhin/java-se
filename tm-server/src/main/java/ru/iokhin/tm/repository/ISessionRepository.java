@@ -1,4 +1,4 @@
-package ru.iokhin.tm.api.repository;
+package ru.iokhin.tm.repository;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.data.jpa.repository.JpaRepository;

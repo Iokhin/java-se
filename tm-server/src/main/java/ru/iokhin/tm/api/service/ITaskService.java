@@ -24,6 +24,8 @@ public interface ITaskService extends IService<TaskDTO> {
 
     TaskDTO findOneByUserId(@NotNull final String userId, @NotNull final String id);
 
+    TaskDTO findOne(@NotNull String id);
+
     Collection<TaskDTO> findAllByUserId(@NotNull final String userId);
 
     Collection<TaskDTO> findAllByProjectId(@NotNull final String userId, @NotNull final String projectId);

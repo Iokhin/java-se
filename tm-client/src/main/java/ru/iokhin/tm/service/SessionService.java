@@ -4,14 +4,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 import ru.iokhin.tm.endpoint.SessionDTO;
-
-import javax.enterprise.context.ApplicationScoped;
 
 @Getter
 @Setter
 @NoArgsConstructor
-@ApplicationScoped
+@Component
+@Scope("singleton")
 public class SessionService {
 
     @Nullable

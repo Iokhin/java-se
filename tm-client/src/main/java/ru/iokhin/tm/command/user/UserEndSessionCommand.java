@@ -2,21 +2,22 @@ package ru.iokhin.tm.command.user;
 
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ru.iokhin.tm.command.AbstractCommand;
 import ru.iokhin.tm.endpoint.SessionDTO;
 import ru.iokhin.tm.endpoint.UserEndpointBean;
 import ru.iokhin.tm.service.SessionService;
 
-import javax.inject.Inject;
-
+@Component
 @NoArgsConstructor
 public class UserEndSessionCommand extends AbstractCommand {
 
-    @Inject
+    @Autowired
     @NotNull
     private SessionService sessionService;
 
-    @Inject
+    @Autowired
     @NotNull
     private UserEndpointBean userEndpointBean;
 

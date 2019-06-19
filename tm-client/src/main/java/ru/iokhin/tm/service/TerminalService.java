@@ -2,12 +2,14 @@ package ru.iokhin.tm.service;
 
 import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 import ru.iokhin.tm.api.ITerminalService;
 
-import javax.enterprise.context.ApplicationScoped;
 import java.util.Scanner;
 
-@ApplicationScoped
+@Component
+@Scope("singleton")
 @NoArgsConstructor
 public class TerminalService implements ITerminalService {
     @NotNull

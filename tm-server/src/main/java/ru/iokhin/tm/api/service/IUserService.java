@@ -25,6 +25,10 @@ public interface IUserService extends IService<UserDTO> {
 
     UserDTO removeById(@NotNull String id);
 
+    void merge(@NotNull UserDTO userDTO);
+
+    void remove(@NotNull UserDTO userDTO);
+
     UserDTO getCurrentUser();
 
     void setCurrentUser(@Nullable final UserDTO user);

@@ -1,14 +1,15 @@
 package ru.iokhin.tm.command.data;
 
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ru.iokhin.tm.command.AbstractCommand;
 import ru.iokhin.tm.endpoint.UserEndpointBean;
 
-import javax.inject.Inject;
-
+@Component
 public class DataLoadFasterJSONCommand extends AbstractCommand {
 
-    @Inject
+    @Autowired
     @NotNull
     private UserEndpointBean userEndpointBean;
 

@@ -1,13 +1,14 @@
 package ru.iokhin.tm.command.data;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ru.iokhin.tm.command.AbstractCommand;
 import ru.iokhin.tm.endpoint.UserEndpointBean;
 
-import javax.inject.Inject;
-
+@Component
 public class DataSaveJAXBToXMLCommand extends AbstractCommand {
 
-    @Inject
+    @Autowired
     private UserEndpointBean userEndpointBean;
 
     @Override

@@ -2,12 +2,9 @@ package ru.iokhin.tm.command;
 
 import lombok.*;
 
-import javax.enterprise.context.ApplicationScoped;
-
 @NoArgsConstructor
 @Setter
 @Getter
-//@ApplicationScoped
 abstract public class AbstractCommand {
 
     abstract public boolean security();
